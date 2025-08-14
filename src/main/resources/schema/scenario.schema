@@ -1,0 +1,25 @@
+{
+      "$schema": "https://json-schema.org/draft-07/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "clouds": {
+          "type": "array",
+          "items": {
+            "$ref": "cloud.schema#/$defs/cloud"
+          },
+          "uniqueItems": true
+        },
+        "incidents": {
+          "type": "array",
+          "items": {
+            "$ref": "incident.schema#/$defs/incident"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "clouds",
+        "incidents",
+      ],
+}

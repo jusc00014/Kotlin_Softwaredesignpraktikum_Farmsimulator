@@ -1,0 +1,15 @@
+{
+    "$schema": "https://json-schema.org/draft-07/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "farms": {
+            "type": "array",
+            "items": {
+                "$ref": "farm.schema#/$defs/farm"
+            },
+            "minItems": 1
+        }
+    },
+    "required": [ "farms" ],
+}

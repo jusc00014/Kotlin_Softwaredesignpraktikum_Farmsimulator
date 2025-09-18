@@ -8,26 +8,26 @@ class CloudHandler (val cloudData: CloudData, val board: BoardData) {
     //
     fun moveClouds() {
         mutableIterate(cloudData.clouds, ::cloudAct)
-        postMovement(cloudData.clouds)
+        postMovement()
     }
     //
     private fun cloudAct(cloud: Cloud) {
         TODO()
     }
     //
-    private fun rainIfPossible(cloud: Cloud, tile: Tile) {
+    private fun rainIfPossible(cloud: Cloud) {
         TODO()
     }
     //
-    private fun moveOneIfPossible(cloud: Cloud, board: BoardData) {
+    private fun moveOneIfPossible(cloud: Cloud) {
         TODO()
     }
     //
-    private fun getNeighbor(tileId: Int, board: BoardData) : Tile? {
+    private fun getNeighbor(tileId: Int) : Tile? {
         TODO()
     }
     //
-    private fun postMovement(list: MutableList<Cloud>) {
+    private fun postMovement() {
         TODO()
     }
     //

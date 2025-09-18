@@ -13,7 +13,8 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 class MapParser (
-    private var tiles: MutableMap<Int, Tile>
+    private var tiles: MutableMap<Int, Tile>,
+    private var plantData: PlantData
 ) {
     fun parse(jsonFile: String): BoardData {
         val json = JSONObject(jsonFile)
@@ -34,13 +35,10 @@ class MapParser (
         val validCoord = validateTileIdAndCoordinate(tileId, xCoord to yCoord)
         val category = json.getString("category")
         val validCategory = validateCategory(category, validCoord)
-        val farmId = if (validCategory == TileType.PLANTATION || validCategory == TileType.FIELD || validCategory == TileType.FARMSTEAD) json.getInt("farm") else -1
-        if (validateFarmId(farmId, validCategory) == -1) throw IllegalArgumentException("farmId $farmId invalid")
-        val airflow = if (validCategory != TileType.VILLAGE) json.getBoolean("airflow") else false
-        val direction = if (airflow) json.getInt("direction") else -1
-        val validDirection = validateDirection(direction, validCoord)
-        val capacity = if (validCategory == TileType.PLANTATION || validCategory == TileType.FIELD) json.getInt("capacity") else -1
-        validateMoistureCapacity(capacity, validCategory)
+        val farmId = validateFarmId(json, validCategory)
+        val airflow = validateAirflow(json, validCategory)
+        val direction = if (airflow) validateDirection(json, validCoord) else -1
+        val capacity = validateMoistureCapacity(json, validCategory)
         TODO()
     }
 
@@ -72,27 +70,28 @@ class MapParser (
         return tileType
     }
 
-    private fun validateFarmId(farmId: Int, category: TileType): Int {
-        assert(farmId >= 0)
-        var returnValue = farmId
-        when (category) {
-            TileType.FARMSTEAD -> ""
-            TileType.FIELD -> ""
-            TileType.PLANTATION -> ""
-            else -> returnValue = -1
+    private fun validateFarmId(json: JSONObject, category: TileType): Int {
+        var returnValue = when (category) {
+            TileType.FARMSTEAD -> 1
+            TileType.FIELD -> 1
+            TileType.PLANTATION -> 1
+            else -> -1
         }
+        if (returnValue != -1) returnValue = json.getInt("farm")
+        assert(returnValue >= 0)
         return returnValue
     }
 
-    private fun validateAirflow(hasAirflow: Boolean, category: TileType): Boolean {
-        if (category == TileType.VILLAGE && hasAirflow)
-            throw IllegalArgumentException("Villages have no airflow")
-        else return hasAirflow
+    private fun validateAirflow(json: JSONObject, category: TileType): Boolean {
+        return if (category == TileType.VILLAGE)
+            false
+        else json.getBoolean("airflow")
     }
 
-    private fun validateDirection(direction: Int, coord: Coordinate): Direction {
+    private fun validateDirection(json: JSONObject, coord: Coordinate): Direction {
         var returnDirection: Direction = Direction.NORTH // dummy value
         var errorCatch: Boolean = false
+        val direction = json.getInt("direction")
         when (direction) {
             0 -> if (coord.x % 2 == 0) returnDirection = Direction.NORTH else errorCatch = true
             45 -> returnDirection = Direction.NORTHEAST
@@ -107,10 +106,14 @@ class MapParser (
         return returnDirection
     }
 
-    private fun validateMoistureCapacity(capacity: Int, category: TileType): Int {
-        if ((category == TileType.FIELD || category == TileType.PLANTATION) && capacity > 0)
+    private fun validateMoistureCapacity(json: JSONObject, category: TileType): Int {
+        if ((category == TileType.FIELD || category == TileType.PLANTATION)) {
+            val capacity = json.getInt("capacity")
+            assert(capacity > 0)
             return capacity
-        else throw IllegalArgumentException("Moisture Capacity only exists for fields and plantations, given field was $category")
+        }
+        else return -1
+
     }
 
     private fun validatePlant(plant: String, category: TileType, plantData: PlantData): Plant {

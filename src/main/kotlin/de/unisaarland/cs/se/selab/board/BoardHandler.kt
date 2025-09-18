@@ -5,11 +5,11 @@ class BoardHandler (
         7 to 168, 8 to 154, 9 to 126, 10 to 112, 11 to 98, 12 to 84)
 ) {
     fun reduceSoil (yearTick: Int, board: BoardData): Unit {
-
+        TODO()
     }
 
     fun computeEstimate(yearTick: Int, board: BoardData): Unit {
-
+        TODO()
     }
 
     private fun getSunlightYearTick(yearTick: Int): Int? {

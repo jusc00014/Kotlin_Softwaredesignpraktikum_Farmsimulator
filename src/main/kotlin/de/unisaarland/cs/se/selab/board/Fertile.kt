@@ -1,7 +1,7 @@
-package board
-import plants.Plant
-import plants.PlantData
-import plants.PlantType
+package de.unisaarland.cs.se.selab.board
+import de.unisaarland.cs.se.selab.plants.Plant
+import de.unisaarland.cs.se.selab.plants.PlantData
+import de.unisaarland.cs.se.selab.plants.PlantType
 
 abstract class Fertile(
     val tile: Tile,

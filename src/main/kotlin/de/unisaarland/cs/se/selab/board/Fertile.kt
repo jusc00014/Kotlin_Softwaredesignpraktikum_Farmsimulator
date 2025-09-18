@@ -1,5 +1,5 @@
 package board
-import plants.Plant
+import de.unisaarland.cs.se.selab.plants.Plant
 import plants.PlantData
 import plants.PlantType
 

@@ -1,5 +1,6 @@
-package farms
-// import plants.PlantType
+package de.unisaarland.cs.se.selab.farms
+//import plants.PlantType
+
 
 class Farm(
     val id: Int,

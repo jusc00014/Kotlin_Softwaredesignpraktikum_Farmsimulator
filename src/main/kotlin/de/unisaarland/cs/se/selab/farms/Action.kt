@@ -1,4 +1,4 @@
-package farms
+package de.unisaarland.cs.se.selab.farms
 
 enum class Action {
     CUTTING,

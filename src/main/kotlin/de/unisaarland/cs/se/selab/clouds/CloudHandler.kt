@@ -7,22 +7,27 @@ import de.unisaarland.cs.se.selab.board.Tile
 class CloudHandler {
     //
     fun moveClouds(cloudData: CloudData, board: BoardData) {
+        mutableIterate(cloudData.clouds, ::cloudAct)
+        postMovement(cloudData.clouds)
+    }
+    //
+    private fun cloudAct(cloud: Cloud) {
         TODO()
     }
     //
-    private fun cloudAct() {
+    private fun rainIfPossible(cloud: Cloud, tile: Tile) {
         TODO()
     }
     //
-    private fun rain(cloud: Cloud, tile: Tile) {
+    private fun moveOneIfPossible(cloud: Cloud, board: BoardData) {
         TODO()
     }
     //
-    private fun moveOne(cloud: Cloud, board: BoardData) {
+    private fun getNeighbor(tileId: Int, board: BoardData) : Tile? {
         TODO()
     }
     //
-    private fun neighbor(tileId: Int, board: BoardData) : Tile? {
+    private fun postMovement(list: MutableList<Cloud>) {
         TODO()
     }
     //

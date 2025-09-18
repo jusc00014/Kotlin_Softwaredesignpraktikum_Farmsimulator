@@ -1,7 +1,8 @@
 package de.unisaarland.cs.se.selab.clouds
 
-import board.BoardData
-import board.Tile
+import de.unisaarland.cs.se.selab.board.BoardData
+import de.unisaarland.cs.se.selab.board.Tile
+
 
 class CloudHandler {
     //

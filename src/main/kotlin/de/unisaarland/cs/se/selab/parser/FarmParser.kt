@@ -1,3 +1,4 @@
+
 import com.github.erosb.jsonsKema.SchemaLoader
 import de.unisaarland.cs.se.selab.farms.Machine
 import de.unisaarland.cs.se.selab.farms.SowingPlan

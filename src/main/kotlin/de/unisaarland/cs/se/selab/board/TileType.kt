@@ -6,6 +6,6 @@ enum class TileType {
     MEADOW,
     FARMSTEAD,
     ROAD,
-    PLANTAGE,
+    PLANTATION,
     FIELD
 }

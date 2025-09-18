@@ -24,7 +24,7 @@ class PathFinder {
                 }
                 if (((neigbor.type in listOf(TileType.ROAD, TileType.MEADOW)) || (!harvest && neigbor.type == TileType.VILLAGE)) && neigbor !in explored) {
                     stack.add(neigbor)
-                } else if (neigbor.type in listOf(TileType.FIELD, TileType.PLANTAGE, TileType.FARMSTEAD) && neigbor.farmID == farmId) {
+                } else if (neigbor.type in listOf(TileType.FIELD, TileType.PLANTATION, TileType.FARMSTEAD) && neigbor.farmID == farmId) {
                     stack.add(neigbor)
                 }
             }
@@ -67,7 +67,7 @@ class PathFinder {
             }
             if ((neigbor.type in listOf(TileType.ROAD, TileType.MEADOW)) || (!harvest && neigbor.type == TileType.VILLAGE)) {
                 stack.add(neigbor)
-            } else if (neigbor.type in listOf(TileType.FIELD, TileType.PLANTAGE, TileType.FARMSTEAD) && neigbor.farmID == farmId) {
+            } else if (neigbor.type in listOf(TileType.FIELD, TileType.PLANTATION, TileType.FARMSTEAD) && neigbor.farmID == farmId) {
                 stack.add(neigbor)
             }
         }

@@ -6,15 +6,9 @@ import de.unisaarland.cs.se.selab.farms.Farm
 import de.unisaarland.cs.se.selab.board.BoardData
 import de.unisaarland.cs.se.selab.board.TileType
 import de.unisaarland.cs.se.selab.farms.Action
-package de.unisaarland.cs.se.selab.parser
 
 import org.json.JSONArray
 import org.json.JSONObject
-import de.unisaarland.cs.se.selab.board.BoardData
-import de.unisaarland.cs.se.selab.farms.Farm
-import de.unisaarland.cs.se.selab.farms.Action
-import de.unisaarland.cs.se.selab.farms.Machine
-import de.unisaarland.cs.se.selab.plants.PlantType
 
 class FarmParser {
     private val machineNames = mutableListOf<String>()
@@ -197,9 +191,10 @@ class FarmParser {
         return plantTypes
     }
 
-    private fun validate_machine_plants(plants: Array<String>): Array<PlantType> {
-
+    private fun validateMachineDuration(dur: Int): Int {
+        return dur
     }
+
 
     private fun validateMachineTile(tileId: Int, farmId: Int, board: BoardData): Int {
         var returnStuff = -1

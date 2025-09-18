@@ -8,7 +8,7 @@ open class Tile(
     val farmID: Int? = null,
     val type: TileType
 ) {
-    fun isFertile() {
-        TODO()
+    open fun isFertile(): Boolean {
+        return false
     }
 }

@@ -5,18 +5,48 @@ import de.unisaarland.cs.se.selab.board.BoardData
 import de.unisaarland.cs.se.selab.board.Coordinate
 import de.unisaarland.cs.se.selab.board.TileType
 import de.unisaarland.cs.se.selab.board.Direction
+import de.unisaarland.cs.se.selab.board.Plantation
 import de.unisaarland.cs.se.selab.plants.Plant
 import de.unisaarland.cs.se.selab.plants.PlantData
+
+import org.json.JSONArray
+import org.json.JSONObject
 
 class MapParser (
     private var tiles: MutableMap<Int, Tile>
 ) {
-    fun parse (jsonFile: String): BoardData {
+    fun parse(jsonFile: String): BoardData {
+        val json = JSONObject(jsonFile)
+        val tilesJson = json.getJSONArray("tiles")
+        for (i in 0 until json.length()) {
+            val tile = json.getJSONObject(i)
+            val (id, validTile) = validateTile(tile)
+            addTileToMap(id to validTile)
+        }
+        return BoardData(tiles)
+    }
+
+    private fun validateTile(json: JSONObject): Pair<Int, Tile> {
+        val tileId = json.getInt("id")
+        val coord = json.getJSONObject("coordinates")
+        val xCoord = coord.getInt("x")
+        val yCoord = coord.getInt("y")
+        val validCoord = validateTileIdAndCoordinate(tileId, xCoord to yCoord)
+        val category = json.getString("category")
+        val validCategory = validateCategory(category, validCoord)
+        val farmId = if (validCategory == TileType.PLANTATION || validCategory == TileType.FIELD || validCategory == TileType.FARMSTEAD) json.getInt("farm") else -1
+        if (validateFarmId(farmId, validCategory) == -1) throw IllegalArgumentException("farmId $farmId invalid")
+        val airflow = if (validCategory != TileType.VILLAGE) json.getBoolean("airflow") else false
+        val direction = if (airflow) json.getInt("direction") else -1
+        val validDirection = validateDirection(direction, validCoord)
+        val capacity = if (validCategory == TileType.PLANTATION || validCategory == TileType.FIELD) json.getInt("capacity") else -1
+        validateMoistureCapacity(capacity, validCategory)
         TODO()
     }
 
     private fun validateTileIdAndCoordinate(id: Int, coord: Pair<Int, Int>): Coordinate {
         assert(tiles[id] == null)
+        assert(id >= 0)
         val (xCoord: Int, yCoord: Int) = coord
         if (xCoord % 2 == 0 && yCoord % 2 == 0)
             return Coordinate(xCoord, yCoord)
@@ -44,13 +74,14 @@ class MapParser (
 
     private fun validateFarmId(farmId: Int, category: TileType): Int {
         assert(farmId >= 0)
+        var returnValue = farmId
         when (category) {
             TileType.FARMSTEAD -> ""
             TileType.FIELD -> ""
             TileType.PLANTATION -> ""
-            else -> throw IllegalArgumentException("$category can't have a farmId")
+            else -> returnValue = -1
         }
-        return farmId
+        return returnValue
     }
 
     private fun validateAirflow(hasAirflow: Boolean, category: TileType): Boolean {
@@ -82,11 +113,11 @@ class MapParser (
         else throw IllegalArgumentException("Moisture Capacity only exists for fields and plantations, given field was $category")
     }
 
-    private fun validatePlant(category: TileType, plantData: PlantData): Plant {
+    private fun validatePlant(plant: String, category: TileType, plantData: PlantData): Plant {
         TODO()
     }
 
-    private fun validatePossiblePlant(category: TileType, plantData: PlantData): Plant {
+    private fun validatePossiblePlant(plants: Array<String>, category: TileType, plantData: PlantData): Plant {
         TODO()
     }
 

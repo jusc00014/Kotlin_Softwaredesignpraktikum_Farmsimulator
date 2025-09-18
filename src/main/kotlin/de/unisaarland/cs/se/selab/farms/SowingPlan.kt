@@ -8,6 +8,14 @@ class SowingPlan(
     val fields: List<Int>
 ) {
     fun isActive(currentTick: Int): Boolean {
-        return tick == currentTick
+        return currentTick >= this.tick
+    }
+
+    fun getFields(): List<Int> {
+        return fields
+    }
+
+    fun getPlant(): PlantType {
+        return plant
     }
 }

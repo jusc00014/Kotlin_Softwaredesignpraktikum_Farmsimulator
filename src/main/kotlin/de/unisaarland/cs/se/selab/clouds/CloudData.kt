@@ -29,8 +29,8 @@ class CloudData(private var maxId: Int, val clouds: MutableList<Cloud>) {
     }
     //
     fun createCloud(duration: Int, amount: Int, location: Int, stepsRemaining: Int) : Cloud {
-        val cloud = Cloud(maxId, duration, location, amount, stepsRemaining)
         maxId += 1
+        val cloud = Cloud(maxId, duration, location, amount, stepsRemaining)
         clouds.add(cloud)
         return cloud
     }

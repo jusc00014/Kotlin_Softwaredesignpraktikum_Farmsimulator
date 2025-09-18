@@ -4,9 +4,9 @@ import de.unisaarland.cs.se.selab.board.BoardData
 import de.unisaarland.cs.se.selab.board.Tile
 
 
-class CloudHandler {
+class CloudHandler (val cloudData: CloudData, val board: BoardData) {
     //
-    fun moveClouds(cloudData: CloudData, board: BoardData) {
+    fun moveClouds() {
         mutableIterate(cloudData.clouds, ::cloudAct)
         postMovement(cloudData.clouds)
     }

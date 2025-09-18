@@ -13,7 +13,7 @@ class CloudHandler {
         TODO()
     }
     //
-    private fun moveOne() {
+    private fun moveOne(cloud: Cloud, board: BoardData) {
         TODO()
     }
     //

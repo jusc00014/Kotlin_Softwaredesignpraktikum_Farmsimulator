@@ -1,7 +1,7 @@
 package de.unisaarland.cs.se.selab.farms
 import de.unisaarland.cs.se.selab.board.BoardData
-import board.Fertile
-import board.Tile
+import de.unisaarland.cs.se.selab.board.Fertile
+import de.unisaarland.cs.se.selab.board.Tile
 import de.unisaarland.cs.se.selab.plants.PlantData
 import de.unisaarland.cs.se.selab.plants.PlantType
 

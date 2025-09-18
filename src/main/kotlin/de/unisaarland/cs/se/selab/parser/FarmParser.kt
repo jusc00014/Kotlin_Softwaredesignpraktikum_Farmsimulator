@@ -1,5 +1,12 @@
+package de.unisaarland.cs.se.selab.parser
+
 import org.json.JSONArray
 import org.json.JSONObject
+import de.unisaarland.cs.se.selab.board.BoardData
+import de.unisaarland.cs.se.selab.farms.Farm
+import de.unisaarland.cs.se.selab.farms.Action
+import de.unisaarland.cs.se.selab.farms.Machine
+import de.unisaarland.cs.se.selab.plants.PlantType
 
 class FarmParser {
     private val machine_names = mutableListOf<String>()

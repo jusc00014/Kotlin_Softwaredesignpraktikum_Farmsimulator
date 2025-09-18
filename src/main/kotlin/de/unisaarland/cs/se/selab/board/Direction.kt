@@ -2,5 +2,11 @@ package de.unisaarland.cs.se.selab.board
 
 enum class Direction {
     NORTH,
-    SOUTH
+    NORTHEAST,
+    EAST,
+    SOUTHEAST,
+    SOUTH,
+    SOUTHWEST,
+    WEST,
+    NORTHWEST
 }

@@ -17,6 +17,7 @@ class MapParser (
 
     private fun validateTileIdAndCoordinate(id: Int, coord: Pair<Int, Int>): Coordinate {
         TODO()
+
     }
 
     private fun validateCategory(category: String, coord: Coordinate): TileType {

@@ -5,7 +5,7 @@ import board.Tile
 
 class CloudHandler {
     //
-    public fun moveClouds(clouds: CloudData, board: BoardData) {
+    fun moveClouds(clouds: CloudData, board: BoardData) {
         TODO()
     }
     //

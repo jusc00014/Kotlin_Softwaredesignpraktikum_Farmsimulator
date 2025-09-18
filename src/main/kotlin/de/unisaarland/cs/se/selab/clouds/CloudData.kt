@@ -2,7 +2,7 @@ package de.unisaarland.cs.se.selab.clouds
 
 class CloudData(private var maxId: Int, public val idToCloud: MutableMap<Int, Cloud>) {
     //
-    public fun mergeIfNecessary(cloudId: Int) {
+    fun mergeIfNecessary(cloudId: Int) {
         TODO()
     }
     //
@@ -14,7 +14,7 @@ class CloudData(private var maxId: Int, public val idToCloud: MutableMap<Int, Cl
         TODO()
     }
     //
-    public fun createCloud(duration: Int, amount: Int, location: Int) {
+    fun createCloud(duration: Int, amount: Int, location: Int) {
         TODO()
     }
     //

@@ -19,7 +19,7 @@ class MapParser (
         val json = JSONObject(jsonFile)
         val tilesJson = json.getJSONArray("tiles")
         for (i in 0 until json.length()) {
-            val tile = json.getJSONObject(i)
+            val tile = tilesJson.getJSONObject(i)
             val (id, validTile) = validateTile(tile)
             addTileToMap(id to validTile)
         }

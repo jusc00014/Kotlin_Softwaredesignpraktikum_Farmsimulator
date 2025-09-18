@@ -1,14 +1,30 @@
 package de.unisaarland.cs.se.selab.logger
 
-import de.unisaarland.cs.se.selab.plants.PlantType
 import de.unisaarland.cs.se.selab.farms.Action
 import de.unisaarland.cs.se.selab.incidents.Incident
+import de.unisaarland.cs.se.selab.plants.PlantType
+import java.io.FileWriter
+import java.io.OutputStreamWriter
+import java.io.Writer
 
-class Logger (
-    private val logLevel: LogLevel,
-    private var farmHarvest: MutableMap<Int, Int>,
-    private var totalHarvestPlant: MutableMap<PlantType, Int>
-) {
+/**
+ * Global Logger object handling every logger call with internal statistics Tracking
+ */
+object Logger {
+    private var logLevel: LogLevel? = null
+    private var writer: Writer? = null
+    private var farmHarvest: MutableMap<Int, Int> = mutableMapOf()
+    private var totalHarvestPlant: MutableMap<PlantType, Int> = mutableMapOf()
+
+    /**
+     * Initially sets up the Logger
+     * ONLY CALLED BY MAIN
+     */
+    fun initLogger(logLevel: LogLevel, output: String?) {
+        this.logLevel = logLevel
+        this.writer = if (output != null) FileWriter(output) else OutputStreamWriter(System.out)
+    }
+
     private fun logPrint(level: LogLevel, title: String, message: String) {
         TODO()
     }
@@ -49,7 +65,14 @@ class Logger (
         TODO()
     }
 
-    fun cloudMerged(cloudIdFromTile: Int, cloudIdMovingToTile: Int, cloudIdNew: Int, amountFluid: Int, duration: Int, tileId: Int) {
+    fun cloudMerged(
+        cloudIdFromTile: Int,
+        cloudIdMovingToTile: Int,
+        cloudIdNew: Int,
+        amountFluid: Int,
+        duration: Int,
+        tileId: Int
+    ) {
         TODO()
     }
 

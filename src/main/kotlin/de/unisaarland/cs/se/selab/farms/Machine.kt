@@ -1,5 +1,5 @@
 package de.unisaarland.cs.se.selab.farms
-import plants.PlantType
+import de.unisaarland.cs.se.selab.plants.PlantType
 
 class Machine(
     val id: Int,

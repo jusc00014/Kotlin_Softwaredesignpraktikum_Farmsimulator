@@ -1,7 +1,5 @@
 package de.unisaarland.cs.se.selab.plants
 
-import plants.PlantData
-import plants.PlantType
 
 class Plant(type: PlantType, data: PlantData) {
     private var pollinationEffect = 0.0

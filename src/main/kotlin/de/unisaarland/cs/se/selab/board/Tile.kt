@@ -1,4 +1,4 @@
-package board
+package de.unisaarland.cs.se.selab.board
 
 open class Tile(
     val id: Int,

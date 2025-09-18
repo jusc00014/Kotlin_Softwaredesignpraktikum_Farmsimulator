@@ -21,17 +21,18 @@ class CloudData(private var maxId: Int, val clouds: MutableList<Cloud>) {
     }
     //
     private fun createMergedCloud(cloud1: Cloud, cloud2: Cloud) {
-         createCloud(min(cloud1.duration, cloud2.duration), cloud1.waterAmount + cloud2.waterAmount, cloud1.location,
+        createCloud(min(cloud1.duration, cloud2.duration), cloud1.waterAmount + cloud2.waterAmount, cloud1.location,
             max(cloud1.stepsRemaining, cloud2.stepsRemaining)
         )
         clouds.remove(cloud1)
         clouds.remove(cloud2)
     }
     //
-    fun createCloud(duration: Int, amount: Int, location: Int, stepsRemaining: Int) {
+    fun createCloud(duration: Int, amount: Int, location: Int, stepsRemaining: Int) : Cloud {
         val cloud = Cloud(maxId, duration, location, amount, stepsRemaining)
         maxId += 1
         clouds.add(cloud)
+        return cloud
     }
     //
 }

@@ -53,41 +53,80 @@ object Logger {
         TODO()
     }
 
-    fun cloudRained(cloudId: Int, tileId: Int, amountFluid: Int) {
+    // Clouds
+    /**
+     * Logs when a cloud rains on a tile.
+     * [IMPORTANT] Cloud Rain: Cloud $cloudID on tile $tileID rained down $amount L water.
+     */
+    fun logCloudRain(cloudId: Int, tileId: Int, amount: Double) {
+        // Implement logging logic here
         TODO()
     }
 
-    fun cloudMovedTo(cloudId: Int, amountFluid: Int, startTile: Int, endTile: Int) {
+    /**
+     * Logs when a cloud moves from one tile to another.
+     * [INFO] Cloud Movement: Cloud $cloudID with $amountFluid L water moved from tile $startTileID to tile $endTileID.
+     */
+    fun logCloudMovement(cloudId: Int, amountFluid: Double, startTileId: Int, endTileId: Int) {
+        // Implement logging logic here
         TODO()
     }
 
-    fun sunAfterCloudMove(startTile: Int, amountSunlight: Int) {
+    /**
+     * Logs the amount of sunlight on a tile a cloud just moved from.
+     * Only applies to FIELD and PLANTATION tiles.
+     * [DEBUG] Cloud Movement: On tile $startTileID, the amount of sunlight is $amountSunlight.
+     */
+    fun logSunlightOnTile(startTileId: Int, amountSunlight: Double) {
+        // Implement logging logic here
         TODO()
     }
 
-    fun cloudMerged(
-        cloudIdFromTile: Int,
-        cloudIdMovingToTile: Int,
-        cloudIdNew: Int,
-        amountFluid: Int,
+    /**
+     * Logs when two clouds unite into a new one on a tile.
+     * [IMPORTANT] Cloud Union: Clouds $cloudIDFromTile and $cloudIDMovingToTile united to cloud $cloudIDNew
+     * with $amount L water and duration $duration on tile $tileID.
+     */
+    fun logCloudUnion(
+        cloudIdFrom: Int,
+        cloudIdTo: Int,
+        newCloudId: Int,
+        amount: Double,
         duration: Int,
         tileId: Int
     ) {
+        // Implement logging logic here
         TODO()
     }
 
-    fun cloudStucked(cloudId: Int, tileId: Int) {
+    /**
+     * Logs when a cloud gets stuck on a village tile.
+     * [INFO] Cloud Dissipation: Cloud $cloudID got stuck on tile $tileID.
+     */
+    fun logCloudStuck(cloudId: Int, tileId: Int) {
+        // Implement logging logic here
         TODO()
     }
 
-    fun cloudDissipated(cloudId: Int, tileId: Int) {
+    /**
+     * Logs when a cloud dissipates on a tile.
+     * This may happen due to raining all water or reaching maximum duration.
+     * [INFO] Cloud Dissipation: Cloud $cloudID dissipates on tile $tileID.
+     */
+    fun logCloudDissipation(cloudId: Int, tileId: Int) {
+        // Implement logging logic here
         TODO()
     }
 
-    fun cloudPosition(cloudId: Int, tileId: Int, amountSunlight: Int) {
+    /**
+     * Logs the position and sunlight of a cloud on a FIELD or PLANTATION tile after all cloud movements.
+     * [DEBUG] Cloud Position: Cloud $cloudID is on tile $tileID, where the amount of sunlight is $amountSunlight.
+     */
+    fun logCloudPosition(cloudId: Int, tileId: Int, amountSunlight: Double) {
+        // Implement logging logic here
         TODO()
     }
-
+    //
     fun farmStartAction(farmId: Int) {
         TODO()
     }

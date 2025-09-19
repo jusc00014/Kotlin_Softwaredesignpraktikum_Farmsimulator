@@ -1,4 +1,8 @@
+package de.unisaarland.cs.se.selab.parser
 
+import com.github.erosb.jsonsKema.JsonParser
+import com.github.erosb.jsonsKema.SchemaLoader
+import com.github.erosb.jsonsKema.Validator
 import de.unisaarland.cs.se.selab.farms.Machine
 import de.unisaarland.cs.se.selab.farms.SowingPlan
 import de.unisaarland.cs.se.selab.plants.PlantType
@@ -23,6 +27,13 @@ class FarmParser {
     /**
      * parse called by main with farmFile and result of mapParser. Returns farms and machines or null if invalid file*/
     fun parse(jsonFile: String, board: BoardData): Pair<List<Farm>, Map<Int, Machine>>? {
+        val schema = SchemaLoader.forURL("classpath:///resources/schema/farms.schema").load()
+        val validator = Validator.forSchema(schema)
+        val instance = JsonParser(jsonFile).parse()
+
+        val failure = validator.validate(instance)
+
+        require(failure == null) {failure.toString()}
 
         val json = JSONObject(jsonFile)
 
@@ -214,10 +225,10 @@ class FarmParser {
     }
 
     private fun addMachineToLists(currentFarmMachines: MutableList<Machine>) {
-
+        TODO()
     }
 
     private fun addToList(currentFarm: Farm, farms: MutableList<Farm>) {
-
+        TODO()
     }
 }

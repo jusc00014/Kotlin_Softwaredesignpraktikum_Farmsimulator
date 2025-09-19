@@ -15,7 +15,6 @@ class CityExpansion(id: Int,
     override fun execute() {
         if (affectedTile.type == TileType.FIELD || affectedTile.type == TileType.ROAD) {
             affectedTile.type = TileType.VILLAGE
-            affectedTile.airflow = null
 
             Logger.incidentExecuted(id, this, listOf(affectedTile.id))
         }

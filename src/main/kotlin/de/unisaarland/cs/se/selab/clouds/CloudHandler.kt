@@ -11,10 +11,17 @@ class CloudHandler (private val cloudData: CloudData, private val board: BoardDa
     }
     //
     private fun cloudAct(cloud: Cloud) {
-        while (cloud.stepsRemaining > 0) {
-            cloud.stepsRemaining -= 1
-            if (rainIfPossible(cloud) || moveOneIfPossible(cloud)) {break}
+        if (cloud.duration == 0) {
+            cloudData.dissipate(cloud)
         }
+        else {
+            cloud.duration -= 1
+            while (cloud.stepsRemaining > 0) {
+                cloud.stepsRemaining -= 1
+                if (rainIfPossible(cloud) || moveOneIfPossible(cloud)) {break}
+            }
+        }
+
     }
     //
     private fun rainIfPossible(cloud: Cloud) : Boolean {

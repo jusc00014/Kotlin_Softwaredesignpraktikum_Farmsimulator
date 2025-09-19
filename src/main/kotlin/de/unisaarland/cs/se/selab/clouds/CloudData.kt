@@ -40,6 +40,7 @@ class CloudData(private var maxId: Int, val clouds: MutableList<Cloud>) {
     }
     //
     fun dissipate(cloud: Cloud) {
+        Logger.logCloudDissipation(cloud.id, cloud.location)
         clouds.remove(cloud)
     }
     //

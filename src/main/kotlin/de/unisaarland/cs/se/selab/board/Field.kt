@@ -12,7 +12,8 @@ class Field(
     farmID: Int,
     type: TileType,
     moistureCapacity: Int,
-    plant: Plant
+    plant: Plant,
+    private val possiblePlants: Set<PlantType>
 ) : Fertile(id, coord, airflow, farmID, type, moistureCapacity, plant) {
     override fun performableActions(yearTick: Int): List<Action> {
         TODO("Not yet implemented")

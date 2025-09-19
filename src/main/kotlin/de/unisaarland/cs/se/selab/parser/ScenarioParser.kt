@@ -4,6 +4,8 @@ import com.github.erosb.jsonsKema.SchemaLoader
 import com.github.erosb.jsonsKema.Validator
 import com.github.erosb.jsonsKema.ValidatorConfig
 import de.unisaarland.cs.se.selab.board.BoardData
+import de.unisaarland.cs.se.selab.board.Tile
+import de.unisaarland.cs.se.selab.board.TileType
 import de.unisaarland.cs.se.selab.clouds.Cloud
 import de.unisaarland.cs.se.selab.clouds.CloudData
 import de.unisaarland.cs.se.selab.farms.Farm
@@ -25,7 +27,6 @@ class ScenarioParser {
 
     fun parse(jsonFile: String, board: BoardData, maxTick: Int, machines: Map<Int, Machine>, farms: List<Farm>): Pair<List<Incident>, CloudData>? {
         val schema = SchemaLoader.forURL("").load()
-        val validator = Validator.create(schema, ValidatorConfig())
 
         val json = JSONObject(jsonFile)
         val clouds = json.getJSONArray("clouds")
@@ -116,8 +117,14 @@ class ScenarioParser {
         val radius = obj.getInt("radius")
         val tile = board.getTileById(location)
         if (tile != null) {
-            val tiles = board.neighbors(radius, tile).toSet()
-            incident = AnimalAttack(id, tick, tiles)
+            val tiles = board.neighbors(radius, tile)
+            val forestTiles = tiles.filter { it.type == TileType.FOREST }
+            val affectedTiles = mutableSetOf<Tile>()
+            for (forest in forestTiles) {
+                affectedTiles.addAll(board.neighbors(radius, forest).filter { it.type == TileType.FIELD || it.type == TileType.PLANTATION })
+            }
+            val animalAttackTiles = affectedTiles.sortedBy { it.id }.toSet()
+            incident = AnimalAttack(id, tick, animalAttackTiles)
             incidents.add(incident)
         }
     }
@@ -129,8 +136,14 @@ class ScenarioParser {
         val effect = obj.getInt("effect")
         val tile = board.getTileById(location)
         if (tile != null) {
-            val tiles = board.neighbors(radius, tile).toSet()
-            incident = BeeHappy(id, tick, tiles, effect)
+            val tiles = board.neighbors(radius, tile)
+            val meadowTiles = tiles.filter { it.type == TileType.MEADOW }
+            val affectedTiles = mutableSetOf<Tile>()
+            for (meadow in meadowTiles) {
+                affectedTiles.addAll(board.neighbors(radius, meadow).filter { it.type == TileType.FIELD || it.type == TileType.PLANTATION })
+            }
+            val beeHappyTiles = affectedTiles.sortedBy { it.id }.toSet()
+            incident = BeeHappy(id, tick, beeHappyTiles, effect)
             incidents.add(incident)
         }
     }
@@ -155,6 +168,7 @@ class ScenarioParser {
         if (machine != null) {
             incident = BrokenMachine(id, tick, duration, machine)
             incidents.add(incident)
+            this.machineIds.add(machineId)
         }
     }
 

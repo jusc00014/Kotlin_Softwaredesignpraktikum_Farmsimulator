@@ -1,4 +1,26 @@
 package de.unisaarland.cs.se.selab.incidents
 
-class BeeHappy {
+import de.unisaarland.cs.se.selab.board.Fertile
+import de.unisaarland.cs.se.selab.board.Tile
+import de.unisaarland.cs.se.selab.logger.Logger
+
+/**
+ * BeeHappy incident inherits from Incident
+ * overrides execute for itself*/
+class BeeHappy(id: Int,
+               tick: Int,
+               private val affectedTiles: Set<Tile>,
+               private val effect: Int,
+               private val yearTick: Int) : Incident(id, tick) {
+
+    override fun execute() {
+        val beeHappyTiles: MutableSet<Fertile> = mutableSetOf()
+        for (tile in affectedTiles) {
+            val maybeTile = tile.asFertile() ?: continue
+            beeHappyTiles.add(maybeTile)
+        }
+        val pollinatableTiles = beeHappyTiles.filter { it.plant.pollinateable(yearTick) }
+        pollinatableTiles.forEach { it.plant.addPollination(effect) }
+        Logger.incidentExecuted(id, this, pollinatableTiles.map { it.id }.sortedBy { it })
+    }
 }

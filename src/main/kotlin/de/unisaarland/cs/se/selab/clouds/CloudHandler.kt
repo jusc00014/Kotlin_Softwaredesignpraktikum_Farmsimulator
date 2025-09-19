@@ -47,15 +47,18 @@ class CloudHandler (private val cloudData: CloudData, private val board: BoardDa
     }
     //
     /**
-     * Raining logic / Executes rain for single cloud
+     * Raining logic / Executes rain for single cloud for single tile
      */
     private fun rainIfPossible(cloud: Cloud) : Boolean {
         // Returns true if Dissipate
         var amount = cloud.waterAmount
         if (amount >= RAIN_LIMIT) {
             val tile = board.getTileById(cloud.location) ?: error("Cant happen1") // redundant case
+            val pre = amount
             amount = tile.rain(amount)
-            if (amount <= 0) {
+            val diff = pre - amount
+            Logger.logCloudRain(cloud.id, tile.id, diff)
+            if (amount == 0) {
                 cloudData.dissipate(cloud)
                 return true
             }

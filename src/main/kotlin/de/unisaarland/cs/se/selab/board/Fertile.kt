@@ -87,7 +87,9 @@ abstract class Fertile(
 
     /**
      * called by animalAttack on all Fertiles*/
-    abstract fun stampede(): Boolean
+    fun stampede(): Boolean {
+        return plant.addStampede()
+    }
 
     override fun asFertile(): Fertile? {
         if (type != TileType.PLANTATION && type != TileType.FIELD) {

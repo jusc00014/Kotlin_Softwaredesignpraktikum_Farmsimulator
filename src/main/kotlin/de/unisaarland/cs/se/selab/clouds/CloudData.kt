@@ -44,4 +44,16 @@ class CloudData(private var maxId: Int, val clouds: MutableList<Cloud>) {
         clouds.remove(cloud)
     }
     //
+    fun stuckOnVillage(cloud: Cloud) {
+        Logger.logCloudStuck(cloud.id, cloud.location)
+        clouds.remove(cloud)
+    }
+    //
+    fun checkIfCloudOnNewVillage(tileId: Int) {
+        val cloud = clouds.firstOrNull { it.location == tileId }
+        if (cloud != null) {
+            stuckOnVillage(cloud)
+        }
+    }
+    //
 }

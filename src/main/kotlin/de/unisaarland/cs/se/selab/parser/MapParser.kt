@@ -261,13 +261,10 @@ class MapParser(
                 Field(tileId, validCoord, direction, farmId ?: 0, validCategory, capacity, plant, possiblePlants)
             }
             TileType.VILLAGE -> {
-                Tile(tileId, validCoord, null, false, null, validCategory)
-            }
-            TileType.FARMSTEAD -> {
-                Tile(tileId, validCoord, direction, shed, farmId, validCategory)
+                Tile(tileId, validCoord, null, shed, null, validCategory)
             }
             else -> {
-                Tile(tileId, validCoord, direction, false, farmId, validCategory)
+                Tile(tileId, validCoord, direction, shed, farmId, validCategory)
             }
         }
         return tileId to tile

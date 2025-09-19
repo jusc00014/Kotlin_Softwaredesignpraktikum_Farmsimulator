@@ -6,7 +6,7 @@ import de.unisaarland.cs.se.selab.logger.Logger
 
 /**
  * Drought inherits from drought incidents and sets moisture 0*/
-class Drought(id: Int, tick: Int, private val affectedTiles: Set<Tile>): Incident(id, tick) {
+class Drought(id: Int, tick: Int, val affectedTiles: Set<Tile>) : Incident(id, tick) {
 
     override fun execute() {
         val tiles = mutableListOf<Fertile>()

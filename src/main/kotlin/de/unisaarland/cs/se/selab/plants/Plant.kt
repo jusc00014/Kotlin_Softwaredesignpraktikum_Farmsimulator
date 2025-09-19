@@ -1,6 +1,9 @@
 package de.unisaarland.cs.se.selab.plants
 
 import de.unisaarland.cs.se.selab.farms.Action
+import de.unisaarland.cs.se.selab.incidents.AnimalAttack
+import de.unisaarland.cs.se.selab.incidents.BeeHappy
+import de.unisaarland.cs.se.selab.incidents.Incident
 import de.unisaarland.cs.se.selab.logger.Logger
 import kotlin.math.min
 
@@ -8,12 +11,11 @@ import kotlin.math.min
  * The plant with all its parameter needed for the Simulation.
  */
 class Plant(var type: PlantType, var data: PlantData) {
-    private var pollinationEffect: Double = 1.0
     private var harvestEstimate: Int = if (data.tileType == PlantTile.PLANTATION) data.initialHarvestEstimate else 0
     private var sowTime: Int = 0
     private var harvestTime: Int = 0
     private var actionPerformed: Action? = null
-    private var stampedeCount: Int = 0
+    private val incidents: MutableList<Incident> = mutableListOf()
     private var mowedFor: Int = 0
 
     /**
@@ -93,17 +95,16 @@ class Plant(var type: PlantType, var data: PlantData) {
     /**
      * Add the pollination effect to the plant
      */
-    fun addPollination(power: Double) {
-        pollinationEffect = power
+    fun addPollination(beeHappy: BeeHappy) {
+        incidents.add(beeHappy)
     }
 
     /**
      * Add the stampede effect to the plant
      */
-    fun addStampede(): Boolean {
+    fun addStampede(animalAttack: AnimalAttack): Boolean {
         if (harvestEstimate <= 0) return false
-        // FIXME check Behaviour in Spec
-        stampedeCount += 1
+        incidents.add(animalAttack)
         when (type) {
             PlantType.APPLE, PlantType.ALMOND, PlantType.CHERRY -> {
                 mowedFor = 2
@@ -162,16 +163,7 @@ class Plant(var type: PlantType, var data: PlantData) {
             Logger.actionNotPerformed(tileID, actionsNotPerformed)
         }
 
-        harvestEstimate = (harvestEstimate * pollinationEffect).toInt()
-        harvestEstimate = when {
-            type == PlantType.GRAPE || data.tileType == PlantTile.FIELD -> {
-                (harvestEstimate * ANIMAL_ATTACK_FIELD_GRAPE_PENALTY_FACTOR).toInt()
-            }
-
-            else -> {
-                (harvestEstimate * ANIMAL_ATTACK_PLANTATION_PENALTY_FACTOR).toInt()
-            }
-        }
+        applyIncidents()
 
         if (oldHarvestEstimate != harvestEstimate) {
             Logger.changedHarvestEstimate(tileID, harvestEstimate, type)
@@ -194,6 +186,19 @@ class Plant(var type: PlantType, var data: PlantData) {
             harvestEstimate = (harvestEstimate * harvestPenalty(yearTick)).toInt()
         }
         return actionsMissed
+    }
+
+    private fun applyIncidents() {
+        incidents.forEach {
+            when (it) {
+                is BeeHappy -> harvestEstimate += it.effect
+                is AnimalAttack -> harvestEstimate = if (type == PlantType.GRAPE || data.tileType == PlantTile.FIELD) {
+                    (harvestEstimate * ANIMAL_ATTACK_FIELD_GRAPE_PENALTY_FACTOR).toInt()
+                } else {
+                    (harvestEstimate * ANIMAL_ATTACK_PLANTATION_PENALTY_FACTOR).toInt()
+                }
+            }
+        }
     }
 
     /**
@@ -282,9 +287,8 @@ class Plant(var type: PlantType, var data: PlantData) {
     }
 
     private fun resetForNextTick() {
-        pollinationEffect = 0.0
+        incidents.clear()
         actionPerformed = null
-        stampedeCount = 0
         if (mowedFor > 0) mowedFor--
     }
 }

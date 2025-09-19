@@ -6,7 +6,7 @@ import kotlin.math.max
 
 /**
  * BrokenMachine inherits from incident and overrides Incident*/
-class BrokenMachine(id: Int, tick: Int, private val duration: Int, private val machine: Machine): Incident(id, tick) {
+class BrokenMachine(id: Int, tick: Int, private val duration: Int, private val machine: Machine) : Incident(id, tick) {
 
     override fun execute() {
         if (duration > 0) {

@@ -1,5 +1,6 @@
 package de.unisaarland.cs.se.selab.board
 import de.unisaarland.cs.se.selab.farms.Action
+import de.unisaarland.cs.se.selab.incidents.AnimalAttack
 import de.unisaarland.cs.se.selab.plants.Plant
 import kotlin.math.min
 
@@ -76,7 +77,7 @@ abstract class Fertile(
             irrigate()
             return null
         } else {
-           return plant.performAction(action, yearTick)
+            return plant.performAction(action, yearTick)
         }
     }
 
@@ -87,8 +88,8 @@ abstract class Fertile(
 
     /**
      * called by animalAttack on all Fertiles*/
-    fun stampede(): Boolean {
-        return plant.addStampede()
+    fun stampede(animalAttack: AnimalAttack): Boolean {
+        return plant.addStampede(animalAttack)
     }
 
     override fun asFertile(): Fertile? {

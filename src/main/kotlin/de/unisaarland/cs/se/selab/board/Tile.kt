@@ -1,9 +1,12 @@
 package de.unisaarland.cs.se.selab.board
 
+/**
+ * Base class for every tile on the board
+ */
 open class Tile(
     val id: Int,
     val coord: Coordinate,
-    var airflow: Direction?,
+    val airflow: Direction?,
     val shed: Boolean = false,
     val farmID: Int? = null,
     var type: TileType

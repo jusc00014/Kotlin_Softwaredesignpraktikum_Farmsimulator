@@ -2,6 +2,7 @@ package de.unisaarland.cs.se.selab.incidents
 
 import de.unisaarland.cs.se.selab.farms.Machine
 import de.unisaarland.cs.se.selab.logger.Logger
+import kotlin.math.max
 
 /**
  * BrokenMachine inherits from incident and overrides Incident*/
@@ -9,7 +10,7 @@ class BrokenMachine(id: Int, tick: Int, private val duration: Int, private val m
 
     override fun execute() {
         if (duration > 0) {
-            machine.brokenFor += duration
+            machine.brokenFor = max(machine.brokenFor, duration)
         } else {
             machine.brokenFor = -1
         }

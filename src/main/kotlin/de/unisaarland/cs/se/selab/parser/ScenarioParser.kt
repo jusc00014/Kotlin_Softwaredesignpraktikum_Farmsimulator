@@ -1,8 +1,8 @@
 package de.unisaarland.cs.se.selab.parser
 
+import com.github.erosb.jsonsKema.JsonParser
 import com.github.erosb.jsonsKema.SchemaLoader
 import com.github.erosb.jsonsKema.Validator
-import com.github.erosb.jsonsKema.ValidatorConfig
 import de.unisaarland.cs.se.selab.board.BoardData
 import de.unisaarland.cs.se.selab.board.Tile
 import de.unisaarland.cs.se.selab.board.TileType
@@ -20,22 +20,43 @@ import de.unisaarland.cs.se.selab.incidents.Incident
 import org.json.JSONArray
 import org.json.JSONObject
 
+const val LOCATION = "location"
+const val DURATION = "duration"
+const val RADIUS = "radius"
+
+/**
+ * Parser responsible to parse and validate scenario and cross-check all possible problems created by city expansion*/
 class ScenarioParser {
     var cloudData: CloudData = CloudData(0, mutableListOf())
     val incidents = mutableListOf<Incident>()
     val machineIds = mutableListOf<Int>()
 
-    fun parse(jsonFile: String, board: BoardData, maxTick: Int, machines: Map<Int, Machine>, farms: List<Farm>): Pair<List<Incident>, CloudData>? {
-        val schema = SchemaLoader.forURL("").load()
+    /**
+     * called by main with necessary arguments to parse and validate scenarioFile*/
+    fun parse(jsonFile: String,
+              board: BoardData,
+              maxTick: Int,
+              machines: Map<Int, Machine>,
+              farms: List<Farm>,
+              yearTick: Int): Pair<List<Incident>, CloudData>? {
+        val schema = SchemaLoader.forURL("classpath:///resources/schema/scenario.schema").load()
+
+        val validator = Validator.forSchema(schema)
+        val instance = JsonParser(jsonFile).parse()
+
+        val failure = validator.validate(instance)
+
+        require(failure == null) {failure.toString()}
 
         val json = JSONObject(jsonFile)
         val clouds = json.getJSONArray("clouds")
         this.cloudData = parseClouds(clouds) ?: return null
 
         val incidentsJson = json.getJSONArray("incidents")
-        val correct = parseIncidents(incidentsJson, board, maxTick, machines, cloudData)
+        val correct = parseIncidents(incidentsJson, board, maxTick, machines, yearTick)
 
         checkCityExpansions(board, farms)
+        return Pair(incidents, cloudData)
     }
 
     private fun parseClouds(cloudsJson: JSONArray): CloudData? {
@@ -47,10 +68,10 @@ class ScenarioParser {
             val amount: Int
             if (cloud is JSONObject) {
                 id = cloud.getInt("id")
-                location = cloud.getInt("location")
-                duration = cloud.getInt("duration")
+                location = cloud.getInt(LOCATION)
+                duration = cloud.getInt(DURATION)
                 amount = cloud.getInt("amount")
-                clouds.add(Cloud(id, location, duration, amount, 10))
+                clouds.add(Cloud(id, location, duration, amount))
             } else {
                 return null
             }
@@ -59,14 +80,18 @@ class ScenarioParser {
         return CloudData(clouds.last().id, clouds)
     }
 
-    private fun parseIncidents(incidentsJson: JSONArray, board: BoardData, maxTick: Int, machines: Map<Int, Machine>, cloudData: CloudData): Boolean {
+    private fun parseIncidents(incidentsJson: JSONArray,
+                               board: BoardData,
+                               maxTick: Int,
+                               machines: Map<Int, Machine>,
+                               yearTick: Int): Boolean {
         var returnType = true
         for (incident in incidentsJson) {
             if (incident is JSONObject) {
                 val id = incident.getInt("id")
                 val tick = incident.getInt("tick")
                 val type = incident.getString("type")
-                returnType = typeCheckerAndValidator(incident, board, tick, machines, tick, id, type)
+                returnType = typeCheckerAndValidator(incident, board, maxTick, machines, tick, id, type, yearTick)
             } else {
                 returnType = false
             }
@@ -80,7 +105,8 @@ class ScenarioParser {
                                         machines: Map<Int, Machine>,
                                         tick: Int,
                                         id: Int,
-                                        type: String): Boolean {
+                                        type: String,
+                                        yearTick: Int): Boolean {
         var returnType = true
         if (maxTick > tick || this.incidents.any { it.id == id }) {
             returnType = false
@@ -88,7 +114,7 @@ class ScenarioParser {
         when (type) {
             "CLOUD_CREATION" -> validateCloudCreation(id, tick, obj, board)
             "ANIMAL_ATTACK" -> validateAnimalAttack(id, tick, obj, board)
-            "BEE_HAPPY" -> validateBeeHappy(id, tick, obj, board)
+            "BEE_HAPPY" -> validateBeeHappy(id, tick, obj, board, yearTick)
             "DROUGHT" -> validateDrought(id, tick, obj, board)
             "BROKEN_MACHINE" -> validateBrokenMachine(id, tick, obj, machines)
             "CITY_EXPANSION" -> validateCityExpansion(id, tick, obj, board)
@@ -99,9 +125,9 @@ class ScenarioParser {
 
     private fun validateCloudCreation(id: Int, tick: Int, obj: JSONObject, board: BoardData) {
         val incident: CloudCreation
-        val location = obj.getInt("location")
-        val radius = obj.getInt("radius")
-        val duration = obj.getInt("duration")
+        val location = obj.getInt(LOCATION)
+        val radius = obj.getInt(RADIUS)
+        val duration = obj.getInt(DURATION)
         val amount = obj.getInt("amount")
         val tile = board.getTileById(location)
         if (tile != null) {
@@ -113,15 +139,16 @@ class ScenarioParser {
 
     private fun validateAnimalAttack(id: Int, tick: Int, obj: JSONObject, board: BoardData) {
         val incident: AnimalAttack
-        val location = obj.getInt("location")
-        val radius = obj.getInt("radius")
+        val location = obj.getInt(LOCATION)
+        val radius = obj.getInt(RADIUS)
         val tile = board.getTileById(location)
         if (tile != null) {
             val tiles = board.neighbors(radius, tile)
             val forestTiles = tiles.filter { it.type == TileType.FOREST }
             val affectedTiles = mutableSetOf<Tile>()
             for (forest in forestTiles) {
-                affectedTiles.addAll(board.neighbors(radius, forest).filter { it.type == TileType.FIELD || it.type == TileType.PLANTATION })
+                affectedTiles.addAll(board.neighbors(radius, forest).
+                filter { it.type == TileType.FIELD || it.type == TileType.PLANTATION })
             }
             val animalAttackTiles = affectedTiles.sortedBy { it.id }.toSet()
             incident = AnimalAttack(id, tick, animalAttackTiles)
@@ -129,10 +156,10 @@ class ScenarioParser {
         }
     }
 
-    private fun validateBeeHappy(id: Int, tick: Int, obj: JSONObject, board: BoardData) {
+    private fun validateBeeHappy(id: Int, tick: Int, obj: JSONObject, board: BoardData, yearTick: Int) {
         val incident: BeeHappy
-        val location = obj.getInt("location")
-        val radius = obj.getInt("radius")
+        val location = obj.getInt(LOCATION)
+        val radius = obj.getInt(RADIUS)
         val effect = obj.getInt("effect")
         val tile = board.getTileById(location)
         if (tile != null) {
@@ -140,18 +167,20 @@ class ScenarioParser {
             val meadowTiles = tiles.filter { it.type == TileType.MEADOW }
             val affectedTiles = mutableSetOf<Tile>()
             for (meadow in meadowTiles) {
-                affectedTiles.addAll(board.neighbors(radius, meadow).filter { it.type == TileType.FIELD || it.type == TileType.PLANTATION })
+                affectedTiles.addAll(
+                    board.neighbors(radius, meadow).
+                    filter { it.type == TileType.FIELD || it.type == TileType.PLANTATION })
             }
             val beeHappyTiles = affectedTiles.sortedBy { it.id }.toSet()
-            incident = BeeHappy(id, tick, beeHappyTiles, effect)
+            incident = BeeHappy(id, tick, beeHappyTiles, effect, yearTick)
             incidents.add(incident)
         }
     }
 
     private fun validateDrought(id: Int, tick: Int, obj: JSONObject, board: BoardData) {
         val incident: Drought
-        val location = obj.getInt("location")
-        val radius = obj.getInt("radius")
+        val location = obj.getInt(LOCATION)
+        val radius = obj.getInt(RADIUS)
         val tile = board.getTileById(location)
         if (tile != null) {
             val tiles = board.neighbors(radius, tile).toSet()
@@ -162,7 +191,7 @@ class ScenarioParser {
 
     private fun validateBrokenMachine(id: Int, tick: Int, obj: JSONObject, machines: Map<Int, Machine>) {
         val incident: BrokenMachine
-        val duration = obj.getInt("duration")
+        val duration = obj.getInt(DURATION)
         val machineId = obj.getInt("machineId")
         val machine = machines[machineId]
         if (machine != null) {
@@ -174,7 +203,7 @@ class ScenarioParser {
 
     private fun validateCityExpansion(id: Int, tick: Int, obj: JSONObject, board: BoardData) {
         val incident: CityExpansion
-        val location = obj.getInt("location")
+        val location = obj.getInt(LOCATION)
         val tile = board.getTileById(location)
         if (tile != null) {
             incident = CityExpansion(id, tick, tile, cloudData)

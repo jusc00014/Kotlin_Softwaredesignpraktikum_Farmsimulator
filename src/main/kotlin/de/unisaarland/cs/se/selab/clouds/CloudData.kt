@@ -35,4 +35,8 @@ class CloudData(private var maxId: Int, val clouds: MutableList<Cloud>) {
         return cloud
     }
     //
+    fun dissipate(cloud: Cloud) {
+        clouds.remove(cloud)
+    }
+    //
 }

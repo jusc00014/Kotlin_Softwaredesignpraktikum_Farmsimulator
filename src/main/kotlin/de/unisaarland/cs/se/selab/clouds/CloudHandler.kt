@@ -3,7 +3,7 @@ package de.unisaarland.cs.se.selab.clouds
 import de.unisaarland.cs.se.selab.board.BoardData
 import de.unisaarland.cs.se.selab.board.Tile
 
-class CloudHandler (val cloudData: CloudData, val board: BoardData) {
+class CloudHandler (private val cloudData: CloudData, private val board: BoardData) {
     //
     fun moveClouds() {
         mutableIterate(cloudData.clouds, ::cloudAct)

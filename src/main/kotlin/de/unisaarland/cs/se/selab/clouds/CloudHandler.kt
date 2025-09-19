@@ -27,10 +27,18 @@ class CloudHandler (private val cloudData: CloudData, private val board: BoardDa
     private fun rainIfPossible(cloud: Cloud) : Boolean {
         // Returns true if Dissipate
         var amount = cloud.waterAmount
-        if (amount < 5000) {return false}
-        else {
-            TODO()
+        if (amount >= 5000) {
+            val tile = board.getTileById(cloud.location) ?: error("Cant happen") // redundant case
+            amount = tile.rain(amount)
+            if (amount <= 0) {
+                cloudData.dissipate(cloud)
+                return true
+            }
+            else {
+                cloud.waterAmount = amount
+            }
         }
+        return false
     }
     //
     private fun moveOneIfPossible(cloud: Cloud) : Boolean {

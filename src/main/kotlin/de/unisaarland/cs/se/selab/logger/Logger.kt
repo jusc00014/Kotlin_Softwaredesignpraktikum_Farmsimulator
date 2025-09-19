@@ -58,7 +58,7 @@ object Logger {
      * Logs when a cloud rains on a tile.
      * [IMPORTANT] Cloud Rain: Cloud $cloudID on tile $tileID rained down $amount L water.
      */
-    fun logCloudRain(cloudId: Int, tileId: Int, amount: Double) {
+    fun logCloudRain(cloudId: Int, tileId: Int, amount: Int) {
         // Implement logging logic here
         TODO()
     }
@@ -67,7 +67,7 @@ object Logger {
      * Logs when a cloud moves from one tile to another.
      * [INFO] Cloud Movement: Cloud $cloudID with $amountFluid L water moved from tile $startTileID to tile $endTileID.
      */
-    fun logCloudMovement(cloudId: Int, amountFluid: Double, startTileId: Int, endTileId: Int) {
+    fun logCloudMovement(cloudId: Int, amount: Int, startTileId: Int, endTileId: Int) {
         // Implement logging logic here
         TODO()
     }
@@ -77,7 +77,7 @@ object Logger {
      * Only applies to FIELD and PLANTATION tiles.
      * [DEBUG] Cloud Movement: On tile $startTileID, the amount of sunlight is $amountSunlight.
      */
-    fun logSunlightOnTile(startTileId: Int, amountSunlight: Double) {
+    fun logSunlightOnTile(startTileId: Int, amountSunlight: Int) {
         // Implement logging logic here
         TODO()
     }
@@ -122,7 +122,7 @@ object Logger {
      * Logs the position and sunlight of a cloud on a FIELD or PLANTATION tile after all cloud movements.
      * [DEBUG] Cloud Position: Cloud $cloudID is on tile $tileID, where the amount of sunlight is $amountSunlight.
      */
-    fun logCloudPosition(cloudId: Int, tileId: Int, amountSunlight: Double) {
+    fun logCloudPosition(cloudId: Int, tileId: Int, amountSunlight: Int) {
         // Implement logging logic here
         TODO()
     }

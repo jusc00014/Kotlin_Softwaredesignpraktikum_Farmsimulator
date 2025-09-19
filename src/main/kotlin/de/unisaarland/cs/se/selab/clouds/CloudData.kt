@@ -1,7 +1,6 @@
 package de.unisaarland.cs.se.selab.clouds
 
 import de.unisaarland.cs.se.selab.logger.Logger
-import kotlinx.serialization.builtins.LongArraySerializer
 import kotlin.math.max
 import kotlin.math.min
 
@@ -23,10 +22,12 @@ class CloudData(private var maxId: Int, val clouds: MutableList<Cloud>) {
     }
     //
     private fun createMergedCloud(cloud1: Cloud, cloud2: Cloud) {
-        val newCloud = createCloud(min(cloud1.duration, cloud2.duration), cloud1.waterAmount + cloud2.waterAmount, cloud1.location,
+        val newCloud = createCloud(min(cloud1.duration, cloud2.duration),
+            cloud1.waterAmount + cloud2.waterAmount, cloud1.location,
             max(cloud1.stepsRemaining, cloud2.stepsRemaining)
         )
-        Logger.logCloudUnion(cloud1.id, cloud2.id, newCloud.id, )
+        Logger.logCloudUnion(cloud1.id, cloud2.id,
+            newCloud.id, newCloud.waterAmount, newCloud.duration, newCloud.location)
         clouds.remove(cloud1)
         clouds.remove(cloud2)
     }

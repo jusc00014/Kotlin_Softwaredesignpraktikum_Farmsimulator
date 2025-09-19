@@ -1,5 +1,4 @@
 
-import com.github.erosb.jsonsKema.SchemaLoader
 import de.unisaarland.cs.se.selab.farms.Machine
 import de.unisaarland.cs.se.selab.farms.SowingPlan
 import de.unisaarland.cs.se.selab.plants.PlantType
@@ -11,10 +10,18 @@ import de.unisaarland.cs.se.selab.farms.Action
 import org.json.JSONArray
 import org.json.JSONObject
 
+const val ID = "id"
+const val NAME = "name"
+
+
+/**
+* Parser class with responsibility to parse and validate farmFile*/
 class FarmParser {
     private val machineNames = mutableListOf<String>()
     private val finishedMachines = mutableMapOf<Int, Machine>()
 
+    /**
+     * parse called by main with farmFile and result of mapParser. Returns farms and machines or null if invalid file*/
     fun parse(jsonFile: String, board: BoardData): Pair<List<Farm>, Map<Int, Machine>>? {
 
         val json = JSONObject(jsonFile)
@@ -37,8 +44,8 @@ class FarmParser {
     }
 
     private fun parseFarm(json: JSONObject, board: BoardData): Farm? {
-        val farmId = json.getInt("id")
-        val farmName = json.getString("name")
+        val farmId = json.getInt(ID)
+        val farmName = json.getString(NAME)
         val (id, name) = validateFarmIdAndName(farmId, farmName)
         val farmsteadsJson = json.getJSONArray("farmsteads")
         val farmsteadsInt = farmsteadsJson.map { it as Int }.toMutableList()
@@ -89,7 +96,7 @@ class FarmParser {
         val sowingPlans = mutableListOf<SowingPlan>()
         for (sowingPlanJson in sowingPlansJson) {
             if (sowingPlanJson is JSONObject) {
-                val sowingPlanId = sowingPlanJson.getInt("id")
+                val sowingPlanId = sowingPlanJson.getInt(ID)
                 val sowingPlanTick = sowingPlanJson.getInt("tick")
                 val (id, tick) = validateSowingPlanIdAndTick(sowingPlanId, sowingPlanTick)
                 val sowingPlanPlant = sowingPlanJson.getString("plant")
@@ -136,8 +143,8 @@ class FarmParser {
         val machinesInstances = mutableListOf<Machine>()
         for (machineJson in machines) {
             if (machineJson is JSONObject) {
-                val machineID = machineJson.getInt("id")
-                val machineName = machineJson.getString("name")
+                val machineID = machineJson.getInt(ID)
+                val machineName = machineJson.getString(NAME)
                 val (id, name) = validateMachineIdAndName(machineID, machineName)
                 machineNames.add(name)
                 val actionsJson = machineJson.getJSONArray("actions").map { it as String }

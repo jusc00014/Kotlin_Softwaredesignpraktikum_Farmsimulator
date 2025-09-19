@@ -1,8 +1,6 @@
 package de.unisaarland.cs.se.selab.board
 import de.unisaarland.cs.se.selab.farms.Action
 import de.unisaarland.cs.se.selab.plants.Plant
-import de.unisaarland.cs.se.selab.plants.PlantData
-import de.unisaarland.cs.se.selab.plants.PlantType
 
 abstract class Fertile(
     id: Int,
@@ -12,10 +10,9 @@ abstract class Fertile(
     type: TileType,
     private val moistureCapacity: Int,
     var plant: Plant,
-): Tile(id, coord, airflow, false, farmID, type)
-{
+) : Tile(id, coord, airflow, false, farmID, type) {
     var sunhours: Int = -1
-    private val moisture: Int = moistureCapacity
+    private var moisture: Int = moistureCapacity
     var drought: Boolean = false
 
     fun resetForNextTick() {
@@ -30,8 +27,15 @@ abstract class Fertile(
         TODO()
     }
 
-    fun increaseMoisture(amount: Int): Int {
+    override fun rain(amount: Int): Int {
         TODO()
+    }
+
+    /**
+     * Set the moisture to moistureCapacity for Machine Action
+     */
+    fun irrigate() {
+        moisture = moistureCapacity
     }
 
     fun updateHarvestEstimate(yearTick: Int): Int {

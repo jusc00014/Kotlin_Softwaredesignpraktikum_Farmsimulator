@@ -50,7 +50,11 @@ abstract class Fertile(
 
     abstract fun stampede(): Boolean
 
-    override fun isFertile(): Boolean {
-        return type == TileType.PLANTATION || type == TileType.FIELD
+    override fun asFertile(): Fertile? {
+        if (type != TileType.PLANTATION && type != TileType.FIELD) {
+            return null
+        }
+
+        return this
     }
 }

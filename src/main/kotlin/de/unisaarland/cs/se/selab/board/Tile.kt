@@ -10,9 +10,10 @@ open class Tile(
 ) {
     /**
      * Checks if the Tile is Fertile
+     * @return itself as Fertile if it is Fertile else null
      */
-    open fun isFertile(): Boolean {
-        return false
+    open fun asFertile(): Fertile? {
+        return null
     }
 
     /**

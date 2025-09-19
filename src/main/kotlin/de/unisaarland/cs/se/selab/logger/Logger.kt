@@ -4,17 +4,17 @@ import de.unisaarland.cs.se.selab.farms.Action
 import de.unisaarland.cs.se.selab.incidents.Incident
 import de.unisaarland.cs.se.selab.plants.PlantType
 import java.io.FileWriter
-import java.io.OutputStreamWriter
+import java.io.PrintWriter
 import java.io.Writer
 
 /**
  * Global Logger object handling every logger call with internal statistics Tracking
  */
 object Logger {
-    private var logLevel: LogLevel? = null
-    private var writer: Writer? = null
-    private var farmHarvest: MutableMap<Int, Int> = mutableMapOf()
-    private var totalHarvestPlant: MutableMap<PlantType, Int> = mutableMapOf()
+    private var logLevel: LogLevel = LogLevel.DEBUG
+    private var writer: Writer = PrintWriter(System.out, true)
+    private var farmToHarvest = mutableMapOf<Int, Int>()
+    private var plantToHarvest = mutableMapOf<PlantType, Int>()
 
     /**
      * Initially sets up the Logger
@@ -22,11 +22,18 @@ object Logger {
      */
     fun initLogger(logLevel: LogLevel, output: String?) {
         this.logLevel = logLevel
-        this.writer = if (output != null) FileWriter(output) else OutputStreamWriter(System.out)
+        if (output != null) {
+            this.writer = PrintWriter(FileWriter(output, true), true)
+        }
     }
 
-    private fun logPrint(level: LogLevel, title: String, message: String) {
-        TODO()
+    /**
+     * Responsible for printing depending on logLevel
+     */
+    private fun logPrint(level: LogLevel, message: String) {
+        if (level.ordinal >= logLevel.ordinal) {
+            writer.write("[${level.name}] $message")
+        }
     }
 
     fun fileParsed(filename: String) {

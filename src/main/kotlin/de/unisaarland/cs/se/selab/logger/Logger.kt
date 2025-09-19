@@ -91,7 +91,7 @@ object Logger {
         cloudIdFrom: Int,
         cloudIdTo: Int,
         newCloudId: Int,
-        amount: Double,
+        amount: Int,
         duration: Int,
         tileId: Int
     ) {

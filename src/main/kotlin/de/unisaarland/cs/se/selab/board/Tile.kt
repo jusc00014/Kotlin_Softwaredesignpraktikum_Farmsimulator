@@ -3,10 +3,10 @@ package de.unisaarland.cs.se.selab.board
 open class Tile(
     val id: Int,
     val coord: Coordinate,
-    val airflow: Direction?,
+    var airflow: Direction?,
     val shed: Boolean = false,
     val farmID: Int? = null,
-    val type: TileType
+    var type: TileType
 ) {
     /**
      * Checks if the Tile is Fertile

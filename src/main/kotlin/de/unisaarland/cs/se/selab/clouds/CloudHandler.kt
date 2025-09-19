@@ -8,13 +8,18 @@ import de.unisaarland.cs.se.selab.board.Tile
 import de.unisaarland.cs.se.selab.board.TileType
 import de.unisaarland.cs.se.selab.logger.Logger
 
-const val RAIN_LIMIT = 5000
-const val STEPS_DEFAULT = 10
-
 /**
  * Logic class for cloud actions
  */
 class CloudHandler (private val cloudData: CloudData, private val board: BoardData) {
+    //
+    /**
+     * Constants
+     */
+    companion object {
+        const val RAIN_LIMIT = 5000
+        const val STEPS_DEFAULT = 10
+    }
     //
     /**
      * public function called by Simulator. Executes main cloud actions

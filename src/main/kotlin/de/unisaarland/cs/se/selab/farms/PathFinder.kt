@@ -52,7 +52,7 @@ class PathFinder {
         return maybeReachable(src, dest, farmId, board, true)
     }
 
-    private fun maybeCanContinue(
+    private fun canContinue(
         src: Tile,
         dest: Tile,
         farmId: Int,
@@ -78,5 +78,18 @@ class PathFinder {
             }
         }
         return false
+    }
+
+    fun findNearestShed(src: Tile, farm: Farm, board: BoardData): Tile? {
+        val shedIds = farm.farmsteads
+        for (shedId in shedIds) {
+            val farmstead = board.getTileById(shedId) ?: continue
+            if (farmstead.shed) {
+                if (reachableWithHarvest(src, farmstead, farm.id, board)) {
+                    return (farmstead)
+                }
+            }
+        }
+        return null
     }
 }

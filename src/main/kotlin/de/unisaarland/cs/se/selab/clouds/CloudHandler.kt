@@ -19,6 +19,7 @@ class CloudHandler (private val cloudData: CloudData, private val board: BoardDa
     companion object {
         const val RAIN_LIMIT = 5000
         const val STEPS_DEFAULT = 10
+        const val SUNLIGHT_PENALTY = 50
     }
     //
     /**
@@ -132,8 +133,18 @@ class CloudHandler (private val cloudData: CloudData, private val board: BoardDa
      * Resets stepsRemaining & applies final sunhour penalties
      */
     private fun postMovement() {
-        cloudData.clouds.forEach { it.stepsRemaining = STEPS_DEFAULT }
-        TODO()
+        val loggingList = mutableSetOf<Triple<Int,Int,Int>>()
+        for (cloud in cloudData.clouds) {
+            cloud.stepsRemaining = STEPS_DEFAULT
+            val tile = board.getTileById(cloud.location) ?: error("Cant happen4") // Redundant case
+            if (tile is Fertile) {
+                tile.sunhours -= SUNLIGHT_PENALTY
+                if (tile.sunhours < 0) {tile.sunhours = 0}
+                loggingList.add(Triple(cloud.id, cloud.location, tile.sunhours ))
+            }
+        }
+        val finalLoggingList = loggingList.sortedBy { it.second }
+        finalLoggingList.forEach { Logger.logCloudPosition(it.first, it.second, it.third) }
     }
     //
     /**

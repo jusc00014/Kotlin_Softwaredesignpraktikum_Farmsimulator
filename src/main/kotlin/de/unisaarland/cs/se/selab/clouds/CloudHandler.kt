@@ -8,13 +8,25 @@ import de.unisaarland.cs.se.selab.board.Tile
 import de.unisaarland.cs.se.selab.board.TileType
 import de.unisaarland.cs.se.selab.logger.Logger
 
+const val RAIN_LIMIT = 5000
+const val STEPS_DEFAULT = 10
+
+/**
+ * Logic class for cloud actions
+ */
 class CloudHandler (private val cloudData: CloudData, private val board: BoardData) {
     //
+    /**
+     * public function called by Simulator. Executes main cloud actions
+     */
     fun moveClouds() {
         mutableIterate(cloudData.clouds, ::cloudAct)
         postMovement()
     }
     //
+    /**
+     * Executes the actions for one cloud
+     */
     private fun cloudAct(cloud: Cloud) {
         if (cloud.duration == 0) {
             cloudData.dissipate(cloud)
@@ -29,11 +41,14 @@ class CloudHandler (private val cloudData: CloudData, private val board: BoardDa
 
     }
     //
+    /**
+     * Raining logic / Executes rain for single cloud
+     */
     private fun rainIfPossible(cloud: Cloud) : Boolean {
         // Returns true if Dissipate
         var amount = cloud.waterAmount
-        if (amount >= 5000) {
-            val tile = board.getTileById(cloud.location) ?: error("Cant happen") // redundant case
+        if (amount >= RAIN_LIMIT) {
+            val tile = board.getTileById(cloud.location) ?: error("Cant happen1") // redundant case
             amount = tile.rain(amount)
             if (amount <= 0) {
                 cloudData.dissipate(cloud)
@@ -46,6 +61,9 @@ class CloudHandler (private val cloudData: CloudData, private val board: BoardDa
         return false
     }
     //
+    /**
+     * Movement logic / Executes single Move for single Cloud
+     */
     private fun moveOneIfPossible(cloud: Cloud) : Boolean {
         // Returns true if hitsVillage or Merged or CantMove
         var out = false
@@ -65,8 +83,11 @@ class CloudHandler (private val cloudData: CloudData, private val board: BoardDa
         return out
     }
     //
+    /**
+     * gets neighbor along airflow of a Tile or null if no airflow or no neighbor
+     */
     private fun getNeighbor(tileId: Int) : Tile? {
-        val tile = board.getTileById(tileId) ?: error("Cant happen") // redundant case
+        val tile = board.getTileById(tileId) ?: error("Cant happen2") // redundant case
         val coordinate : Coordinate
         val x = tile.coord.x
         val y = tile.coord.y
@@ -85,8 +106,11 @@ class CloudHandler (private val cloudData: CloudData, private val board: BoardDa
         return neighbor
     }
     //
+    /**
+     * Responsible for sunlight reduction after within movement
+     */
     private fun decreaseSunlight(cloud: Cloud) {
-        val tile = board.getTileById(cloud.location) ?: error("Cant happen") // Redundant case
+        val tile = board.getTileById(cloud.location) ?: error("Cant happen3") // Redundant case
         if (tile is Fertile && tile.type != TileType.VILLAGE) {
             tile.sunhours -= 3
             if (tile.sunhours < 0) {tile.sunhours = 0}
@@ -94,12 +118,18 @@ class CloudHandler (private val cloudData: CloudData, private val board: BoardDa
         }
     }
     //
+    /**
+     * Resets stepsRemaining & applies final sunhour penalties
+     */
     private fun postMovement() {
+        cloudData.clouds.forEach { it.stepsRemaining = STEPS_DEFAULT }
         TODO()
     }
     //
+    /**
+     * My amazing mutable Iterator. Allows for altering of a List within its Iteration
+     */
     private fun <T: Any> mutableIterate(list: MutableList<T>, action: (T) -> Unit) {
-        // Necessary for List altering within their very own Iteration
         val processed = mutableSetOf<T>()
         while (true) {
             val next = list.firstOrNull { it !in processed } ?: break

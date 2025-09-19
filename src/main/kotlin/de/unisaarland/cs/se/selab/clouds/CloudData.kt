@@ -5,12 +5,12 @@ import kotlin.math.max
 import kotlin.math.min
 
 /**
- * Detekt
+ * Stores clouds / Handles cloud interaction
  */
 class CloudData(private var maxId: Int, val clouds: MutableList<Cloud>) {
     //
     /**
-     * Detekt
+     * Responsible for overall merging logic
      */
     fun mergeIfNecessary(cloud: Cloud) : Boolean {
         val possibleDupe = checkOccupied(cloud)
@@ -24,14 +24,14 @@ class CloudData(private var maxId: Int, val clouds: MutableList<Cloud>) {
     }
     //
     /**
-     * Detekt
+     * Checks rather a tile is occupied by another cloud
      */
     private fun checkOccupied(cloud: Cloud) : Cloud? {
         return clouds.firstOrNull { it.id != cloud.id && it.location == cloud.location }
     }
     //
     /**
-     * Detekt
+     * Responsible for the merge event of two clouds
      */
     private fun createMergedCloud(cloud1: Cloud, cloud2: Cloud) {
         val newCloud = createCloud(min(cloud1.duration, cloud2.duration),
@@ -45,7 +45,7 @@ class CloudData(private var maxId: Int, val clouds: MutableList<Cloud>) {
     }
     //
     /**
-     * Detekt
+     * Simply creates a new cloud
      */
     fun createCloud(duration: Int, amount: Int, location: Int, stepsRemaining: Int) : Cloud {
         maxId += 1
@@ -55,7 +55,7 @@ class CloudData(private var maxId: Int, val clouds: MutableList<Cloud>) {
     }
     //
     /**
-     * Detekt
+     * Deletes a cloud when necessary due to raining or no more duration
      */
     fun dissipate(cloud: Cloud) {
         Logger.logCloudDissipation(cloud.id, cloud.location)
@@ -63,7 +63,7 @@ class CloudData(private var maxId: Int, val clouds: MutableList<Cloud>) {
     }
     //
     /**
-     * Detekt
+     * Deletes a cloud when move onto Village tile
      */
     fun stuckOnVillage(cloud: Cloud) {
         Logger.logCloudStuck(cloud.id, cloud.location)
@@ -71,7 +71,7 @@ class CloudData(private var maxId: Int, val clouds: MutableList<Cloud>) {
     }
     //
     /**
-     * Detekt
+     * checks rather a cloud is on a newly created village tile and deletes the cloud if found
      */
     fun checkIfCloudOnNewVillage(tileId: Int) {
         val cloud = clouds.firstOrNull { it.location == tileId }

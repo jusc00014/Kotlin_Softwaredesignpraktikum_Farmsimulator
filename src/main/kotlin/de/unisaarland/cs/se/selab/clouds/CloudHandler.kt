@@ -57,7 +57,9 @@ class CloudHandler (private val cloudData: CloudData, private val board: BoardDa
             val pre = amount
             amount = tile.rain(amount)
             val diff = pre - amount
-            Logger.logCloudRain(cloud.id, tile.id, diff)
+            if (diff > 0) {
+                Logger.logCloudRain(cloud.id, tile.id, diff)
+            }
             if (amount == 0) {
                 cloudData.dissipate(cloud)
                 return true

@@ -14,7 +14,9 @@ object Logger {
     private var logLevel: LogLevel = LogLevel.DEBUG
     private var writer: Writer = PrintWriter(System.out, true)
     private var farmToHarvest = mutableMapOf<Int, Int>()
-    private var plantToHarvest = mutableMapOf<PlantType, Int>()
+    private var plantToHarvest =
+        mapOf<PlantType, Int> (PlantType.POTATO to 0, PlantType.WHEAT to 0, PlantType.OAT to 0, PlantType.PUMPKIN to 0,
+            PlantType.APPLE to 0, PlantType.GRAPE to 0, PlantType.ALMOND to 0, PlantType.CHERRY to 0)
 
     /**
      * Initially sets up the Logger
@@ -286,9 +288,17 @@ object Logger {
     }
 
     /**
+     * Responsible for calling Statistic logs
+     */
+    fun logCollected() {
+        farmToHarvest.toSortedMap().forEach { farmCollected(it.key, it.value) }
+        plantToHarvest.forEach { totalPlantHarvest(it.key, it.value) }
+    }
+
+    /**
      * \[IMPORTANT] Simulation Statistics: Farm $farmID collected $amount g of harvest.
      */
-    fun farmCollected(farmId: Int, amount: Int) {
+    private fun farmCollected(farmId: Int, amount: Int) {
         logPrint(LogLevel.IMPORTANT,
             "Simulation Statistics: Farm $farmId collected $amount g of harvest.")
     }
@@ -296,7 +306,7 @@ object Logger {
     /**
      * \[IMPORTANT] Simulation Statistics: Total amount of $plant harvested: $amount g.
      */
-    fun totalPlantHarvest(plant: PlantType, amount: Int) {
+    private fun totalPlantHarvest(plant: PlantType, amount: Int) {
         logPrint(LogLevel.IMPORTANT,
             "Simulation Statistics: Total amount of $plant harvested: $amount g.")
     }

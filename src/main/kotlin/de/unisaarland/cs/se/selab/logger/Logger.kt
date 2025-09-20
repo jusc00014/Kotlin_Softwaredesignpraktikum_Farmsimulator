@@ -32,7 +32,7 @@ object Logger {
      */
     private fun logPrint(level: LogLevel, message: String) {
         if (level.ordinal >= logLevel.ordinal) {
-            writer.write("[${level.name}] $message")
+            writer.write(message)
         }
     }
 
@@ -248,29 +248,31 @@ object Logger {
     // ----Incidents----
 
     /**
-     * \[IMPORTANT] Incident: Incident $incidentID of type $incidentType
-     * happened and affected tiles $tileIDs.
+     * \[IMPORTANT] Incident: Incident $incidentID of type $incidentType happened and affected tiles $tileIDs.
      */
     fun incidentExecuted(incidentId: Int, incident: Incident, tileIds: List<Int>) {
-        TODO()
+        val sortedTileIds = tileIds.sortedBy { it }
+        logPrint(LogLevel.IMPORTANT,
+            "Incident: Incident $incidentId of type $incident happened and affected tiles $sortedTileIds.")
     }
 
     // ----Estimate----
 
     /**
-     * \[DEBUG] Harvest Estimate: Required actions on tile $tileID were not
-     * performed: $actions.
+     * \[DEBUG] Harvest Estimate: Required actions on tile $tileID were not performed: $actions.
      */
     fun actionNotPerformed(tileId: Int, actions: List<Action>) {
-        TODO()
+        val sortedActions=  actions.sortedBy { it.ordinal }
+        logPrint(LogLevel.DEBUG,
+            "Harvest Estimate: Required actions on tile $tileId were not performed: $sortedActions.")
     }
 
     /**
-     * \[INFO] Harvest Estimate: Harvest estimate on tile $tileID changed to
-     * $amount g of $plant.
+     * \[INFO] Harvest Estimate: Harvest estimate on tile $tileID changed to $amount g of $plant.
      */
     fun changedHarvestEstimate(tileId: Int, amount: Int, plant: PlantType) {
-        TODO()
+        logPrint(LogLevel.INFO,
+            "Harvest Estimate: Harvest estimate on tile $tileId changed to $amount g of $plant.")
     }
 
     // ----Statistics----
@@ -284,8 +286,7 @@ object Logger {
     }
 
     /**
-     * \[IMPORTANT] Simulation Statistics: Farm $farmID collected $amount g of
-     * harvest.
+     * \[IMPORTANT] Simulation Statistics: Farm $farmID collected $amount g of harvest.
      */
     fun farmCollected(farmId: Int, amount: Int) {
         logPrint(LogLevel.IMPORTANT,
@@ -293,8 +294,7 @@ object Logger {
     }
 
     /**
-     * \[IMPORTANT] Simulation Statistics: Total amount of $plant harvested:
-     * $amount g.
+     * \[IMPORTANT] Simulation Statistics: Total amount of $plant harvested: $amount g.
      */
     fun totalPlantHarvest(plant: PlantType, amount: Int) {
         logPrint(LogLevel.IMPORTANT,
@@ -302,8 +302,7 @@ object Logger {
     }
 
     /**
-     * \[IMPORTANT] Simulation Statistics: Total harvest estimate still in
-     * fields and plantations: $amount g.
+     * \[IMPORTANT] Simulation Statistics: Total harvest estimate still in fields and plantations: $amount g.
      */
     fun totalEstimateFertile(amount: Int) {
         logPrint(LogLevel.IMPORTANT,

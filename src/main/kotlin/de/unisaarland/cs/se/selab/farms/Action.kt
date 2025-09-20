@@ -1,10 +1,13 @@
 package de.unisaarland.cs.se.selab.farms
 
+/**
+ * Action Tokens
+ */
 enum class Action {
-    CUTTING,
     SOWING,
-    MOWING,
     WEEDING,
+    CUTTING,
+    MOWING,
     IRRIGATING,
     HARVESTING
 }

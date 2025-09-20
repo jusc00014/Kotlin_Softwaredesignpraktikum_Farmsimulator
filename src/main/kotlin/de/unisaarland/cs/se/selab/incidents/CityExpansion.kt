@@ -17,4 +17,7 @@ class CityExpansion(
         clouds.checkIfCloudOnNewVillage(affectedTile.id)
         Logger.incidentExecuted(id, this, listOf(affectedTile.id))
     }
+    override fun toString(): String {
+        return "CITY_EXPANSION"
+    }
 }

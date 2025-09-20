@@ -24,4 +24,7 @@ class AnimalAttack(id: Int, tick: Int, val affectedTiles: Set<Tile>) : Incident(
         tileIds.sort()
         Logger.incidentExecuted(id, this, tileIds)
     }
+    override fun toString(): String {
+        return "ANIMAL_ATTACK"
+    }
 }

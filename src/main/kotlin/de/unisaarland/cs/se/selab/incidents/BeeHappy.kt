@@ -25,4 +25,7 @@ class BeeHappy(
         pollinatableTiles.forEach { it.plant.addPollination(this) }
         Logger.incidentExecuted(id, this, pollinatableTiles.map { it.id }.sortedBy { it })
     }
+    override fun toString(): String {
+        return "BEE_HAPPY"
+    }
 }

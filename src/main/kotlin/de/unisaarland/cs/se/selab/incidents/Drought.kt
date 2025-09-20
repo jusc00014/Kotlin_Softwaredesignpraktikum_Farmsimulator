@@ -17,4 +17,7 @@ class Drought(id: Int, tick: Int, val affectedTiles: Set<Tile>) : Incident(id, t
         tiles.forEach { tile -> tile.drought = true }
         Logger.incidentExecuted(id, this, tiles.map { it.id }.sorted())
     }
+    override fun toString(): String {
+        return "DROUGHT"
+    }
 }

@@ -8,7 +8,8 @@ import de.unisaarland.cs.se.selab.logger.Logger
 const val STEP_DEFAULT = 10
 
 /**
- * CLoudCreation inherits from Incident and overrides execute to implement its own logic*/
+ * CLoudCreation inherits from Incident and overrides execute to implement its own logic
+ */
 class CloudCreation(
     id: Int,
     tick: Int,
@@ -28,6 +29,10 @@ class CloudCreation(
             }
         }
         Logger.incidentExecuted(id, this, tileIds)
+    }
+    //
+    override fun toString(): String {
+        return "CLOUD_CREATION"
     }
     //
 }

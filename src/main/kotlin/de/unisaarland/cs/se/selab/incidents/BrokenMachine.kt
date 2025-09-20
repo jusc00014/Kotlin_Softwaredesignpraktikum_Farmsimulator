@@ -16,4 +16,7 @@ class BrokenMachine(id: Int, tick: Int, private val duration: Int, private val m
         }
         Logger.incidentExecuted(id, this, listOf(machine.location))
     }
+    override fun toString(): String {
+        return "BROKEN_MACHINE"
+    }
 }

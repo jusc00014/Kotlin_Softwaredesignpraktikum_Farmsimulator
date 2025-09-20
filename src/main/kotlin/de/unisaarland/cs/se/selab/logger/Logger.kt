@@ -6,6 +6,7 @@ import de.unisaarland.cs.se.selab.plants.PlantType
 import java.io.FileWriter
 import java.io.PrintWriter
 import java.io.Writer
+import kotlin.math.log
 
 /**
  * Global Logger object handling every logger call with internal statistics Tracking
@@ -67,7 +68,8 @@ object Logger {
      */
     fun logCloudRain(cloudId: Int, tileId: Int, amount: Int) {
         // Implement logging logic here
-        TODO()
+        logPrint(LogLevel.IMPORTANT,
+            "Cloud Rain: Cloud $cloudId on tile $tileId rained down $amount L water.")
     }
 
     /**
@@ -76,7 +78,8 @@ object Logger {
      */
     fun logCloudMovement(cloudId: Int, amount: Int, startTileId: Int, endTileId: Int) {
         // Implement logging logic here
-        TODO()
+        logPrint(LogLevel.INFO,
+            "Cloud Movement: Cloud $cloudId with $amount L water moved from tile $startTileId to tile $endTileId.")
     }
 
     /**
@@ -86,7 +89,8 @@ object Logger {
      */
     fun logSunlightOnTile(startTileId: Int, amountSunlight: Int) {
         // Implement logging logic here
-        TODO()
+        logPrint(LogLevel.DEBUG,
+            "Cloud Movement: On tile $startTileId, the amount of sunlight is $amountSunlight.")
     }
 
     /**
@@ -103,7 +107,9 @@ object Logger {
         tileId: Int
     ) {
         // Implement logging logic here
-        TODO()
+        logPrint(LogLevel.IMPORTANT,
+            "Cloud Union: Clouds $cloudIdFrom and $cloudIdTo united to cloud $newCloudId" +
+                    " with $amount L water and duration $duration on tile $tileId.")
     }
 
     /**
@@ -112,7 +118,8 @@ object Logger {
      */
     fun logCloudStuck(cloudId: Int, tileId: Int) {
         // Implement logging logic here
-        TODO()
+        logPrint(LogLevel.INFO,
+            "Cloud Dissipation: Cloud $cloudId got stuck on tile $tileId.")
     }
 
     /**
@@ -122,7 +129,8 @@ object Logger {
      */
     fun logCloudDissipation(cloudId: Int, tileId: Int) {
         // Implement logging logic here
-        TODO()
+        logPrint(LogLevel.INFO,
+            "Cloud Dissipation: Cloud $cloudId dissipates on tile $tileId.")
     }
 
     /**
@@ -131,7 +139,8 @@ object Logger {
      */
     fun logCloudPosition(cloudId: Int, tileId: Int, amountSunlight: Int) {
         // Implement logging logic here
-        TODO()
+        logPrint(LogLevel.DEBUG,
+            "Cloud Position: Cloud $cloudId is on tile $tileId, where the amount of sunlight is $amountSunlight.")
     }
     //
     fun farmStartAction(farmId: Int) {

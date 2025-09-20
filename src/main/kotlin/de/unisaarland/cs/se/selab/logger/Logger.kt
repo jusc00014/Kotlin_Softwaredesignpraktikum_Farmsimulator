@@ -286,7 +286,7 @@ object Logger {
      * [IMPORTANT] Simulation Statistics: Farm $farmID collected $amount g of
      * harvest.
      */
-    private fun farmCollected(farmId: Int, amount: Int) {
+    fun farmCollected(farmId: Int, amount: Int) {
         TODO()
     }
 
@@ -294,7 +294,7 @@ object Logger {
      * [IMPORTANT] Simulation Statistics: Total amount of $plant harvested:
      * $amount g.
      */
-    private fun totalPlantHarvest(plant: PlantType, amount: Int) {
+    fun totalPlantHarvest(plant: PlantType, amount: Int) {
         TODO()
     }
 

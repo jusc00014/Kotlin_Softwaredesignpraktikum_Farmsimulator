@@ -37,37 +37,74 @@ object Logger {
         }
     }
 
+    //----Parsing----
+
+    /**
+     * Logs when a configuration file has been successfully parsed and validated.
+     * [INFO] Initialization Info: $filename successfully parsed and validated.
+     */
     fun fileParsed(filename: String) {
-        TODO()
+        logPrint(LogLevel.INFO,
+            "Initialization Info: $filename successfully parsed and validated.")
     }
 
+    /**
+     * Logs when a configuration file is invalid and cannot be used.
+     * [IMPORTANT] Initialization Info: $filename is invalid.
+     */
     fun invalidFile(filename: String) {
-        TODO()
+        logPrint(LogLevel.IMPORTANT,
+            "Initialization Info: $filename is invalid.")
     }
 
+    //----Simulation----
+
+    /**
+     * Logs when the simulation successfully starts, indicating the year tick.
+     * [INFO] Simulation Info: Simulation started at tick $yearTick within the year.
+     */
     fun simulationStarted(yearTick: Int) {
-        TODO()
+        logPrint(LogLevel.INFO,
+            "Simulation Info: Simulation started at tick $yearTick within the year.")
     }
 
+    /**
+     * Logs when the simulation ends, showing the final tick.
+     * [IMPORTANT] Simulation Info: Simulation ended at tick $tick.
+     */
     fun simulationEnded(tick: Int) {
-        TODO()
+        logPrint(LogLevel.IMPORTANT,
+            "Simulation Info: Simulation ended at tick $tick.")
     }
 
+    /**
+     * Logs the start of a simulation tick, including its global and yearly tick values.
+     * [INFO] Simulation Info: Tick $tick started at tick $yearTick within the year.
+     */
     fun tickStarted(tick: Int, yearTick: Int) {
-        TODO()
+        logPrint(LogLevel.INFO,
+            "Simulation Info: Tick $tick started at tick $yearTick within the year.")
     }
 
+    /**
+     * Logs when soil moisture is below the required threshold in FIELD and PLANTATION tiles.
+     * This is only relevant when tiles are planted and moisture is too low.
+     * [INFO] Soil Moisture: The soil moisture is below threshold in §amountField FIELD
+     * and $amountPlantation PLANTATION tiles.
+     */
     fun soilMoistureBelowThreshold(amountField: Int, amountPlantation: Int) {
-        TODO()
+        logPrint(LogLevel.INFO,
+            "Soil Moisture: The soil moisture is below threshold in " +
+                    "$amountField FIELD and $amountPlantation PLANTATION tiles.")
     }
 
-    // Clouds
+    // ----Clouds----
+
     /**
      * Logs when a cloud rains on a tile.
      * [IMPORTANT] Cloud Rain: Cloud $cloudID on tile $tileID rained down $amount L water.
      */
     fun logCloudRain(cloudId: Int, tileId: Int, amount: Int) {
-        // Implement logging logic here
         logPrint(LogLevel.IMPORTANT,
             "Cloud Rain: Cloud $cloudId on tile $tileId rained down $amount L water.")
     }
@@ -77,7 +114,6 @@ object Logger {
      * [INFO] Cloud Movement: Cloud $cloudID with $amountFluid L water moved from tile $startTileID to tile $endTileID.
      */
     fun logCloudMovement(cloudId: Int, amount: Int, startTileId: Int, endTileId: Int) {
-        // Implement logging logic here
         logPrint(LogLevel.INFO,
             "Cloud Movement: Cloud $cloudId with $amount L water moved from tile $startTileId to tile $endTileId.")
     }
@@ -88,7 +124,6 @@ object Logger {
      * [DEBUG] Cloud Movement: On tile $startTileID, the amount of sunlight is $amountSunlight.
      */
     fun logSunlightOnTile(startTileId: Int, amountSunlight: Int) {
-        // Implement logging logic here
         logPrint(LogLevel.DEBUG,
             "Cloud Movement: On tile $startTileId, the amount of sunlight is $amountSunlight.")
     }
@@ -106,7 +141,6 @@ object Logger {
         duration: Int,
         tileId: Int
     ) {
-        // Implement logging logic here
         logPrint(LogLevel.IMPORTANT,
             "Cloud Union: Clouds $cloudIdFrom and $cloudIdTo united to cloud $newCloudId" +
                     " with $amount L water and duration $duration on tile $tileId.")
@@ -117,7 +151,6 @@ object Logger {
      * [INFO] Cloud Dissipation: Cloud $cloudID got stuck on tile $tileID.
      */
     fun logCloudStuck(cloudId: Int, tileId: Int) {
-        // Implement logging logic here
         logPrint(LogLevel.INFO,
             "Cloud Dissipation: Cloud $cloudId got stuck on tile $tileId.")
     }
@@ -128,7 +161,6 @@ object Logger {
      * [INFO] Cloud Dissipation: Cloud $cloudID dissipates on tile $tileID.
      */
     fun logCloudDissipation(cloudId: Int, tileId: Int) {
-        // Implement logging logic here
         logPrint(LogLevel.INFO,
             "Cloud Dissipation: Cloud $cloudId dissipates on tile $tileId.")
     }
@@ -138,11 +170,15 @@ object Logger {
      * [DEBUG] Cloud Position: Cloud $cloudID is on tile $tileID, where the amount of sunlight is $amountSunlight.
      */
     fun logCloudPosition(cloudId: Int, tileId: Int, amountSunlight: Int) {
-        // Implement logging logic here
         logPrint(LogLevel.DEBUG,
             "Cloud Position: Cloud $cloudId is on tile $tileId, where the amount of sunlight is $amountSunlight.")
     }
-    //
+
+    // ----Farms----
+
+    /**
+     * D
+     */
     fun farmStartAction(farmId: Int) {
         TODO()
     }

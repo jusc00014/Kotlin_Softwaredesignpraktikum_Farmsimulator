@@ -176,68 +176,132 @@ object Logger {
     // ----Farms----
 
     /**
-     * D
+     * [IMPORTANT] Farm: Farm $farmID starts its actions.
      */
     fun farmStartAction(farmId: Int) {
         TODO()
     }
 
+    /**
+     * [DEBUG] Farm: Farm $farmID has the following active sowing plans it
+     * intends to pursue in this tick: $sowingPlanIDs.
+     */
     fun farmSowingPlan(farmId: Int, sowingPlanIds: List<Int>) {
         TODO()
     }
 
-    fun machinePerform(machineId: Int, action: Action, tileId: Int, duration: Int) {
+    /**
+     * [IMPORTANT] Farm Action: Machine $machineID performs $actionType on
+     * tile $tileID for $duration days.
+     */
+    fun machinePerformedAction(machineId: Int, action: Action, tileId: Int, duration: Int) {
         TODO()
     }
 
+    /**
+     * [IMPORTANT] Farm Sowing: Machine $machineID has sowed $plant according
+     * to sowing plan $sowingPlanID.
+     */
     fun machineSowed(machineId: Int, plant: PlantType, sowingPlanId: Int) {
         TODO()
     }
 
+    /**
+     * [IMPORTANT] Farm Harvest: Machine $machineID has collected $amount g of
+     * $plant harvest.
+     */
     fun machineCollected(farmId: Int, machineId: Int, amount: Int, plant: PlantType) {
         TODO()
     }
 
+    /**
+     * [IMPORTANT] Farm Machine: Machine $machineID is finished and returns to
+     * the shed at $tileID.
+     */
     fun machineFinished(machineId: Int, tileId: Int) {
         TODO()
     }
 
-    fun farmFinishedAction(farmId: Int) {
+    /**
+     * [IMPORTANT] Farm Machine: Machine $machineID is finished but failed to
+     * return.
+     */
+    fun machineFinishedNoReturn(machineId: Int) {
         TODO()
     }
 
-    fun machineFinishedActionNoReturn(machineId: Int) {
-        TODO()
-    }
-
+    /**
+     * [IMPORTANT] Farm Machine: Machine $machineID unloads $amount g of
+     * $plant harvest in the shed.
+     */
     fun machineUnloads(machineId: Int, amount: Int, plant: PlantType) {
         TODO()
     }
 
+    /**
+     * [IMPORTANT] Farm: Farm $farmID finished its actions.
+     */
+    fun farmFinishedAction(farmId: Int) {
+        TODO()
+    }
+
+    // ----Incidents----
+
+    /**
+     * [IMPORTANT] Incident: Incident $incidentID of type $incidentType
+     * happened and affected tiles $tileIDs.
+     */
     fun incidentExecuted(incidentId: Int, incident: Incident, tileIds: List<Int>) {
         TODO()
     }
 
+    // ----Estimate----
+
+    /**
+     * [DEBUG] Harvest Estimate: Required actions on tile $tileID were not
+     * performed: $actions.
+     */
     fun actionNotPerformed(tileId: Int, actions: List<Action>) {
         TODO()
     }
 
+    /**
+     * [INFO] Harvest Estimate: Harvest estimate on tile $tileID changed to
+     * $amount g of $plant.
+     */
     fun changedHarvestEstimate(tileId: Int, amount: Int, plant: PlantType) {
         TODO()
     }
 
+    // ----Statistics----
+
+    /**
+     * [IMPORTANT] Simulation Info: Simulation statistics are calculated.
+     */
     fun statisticCalculated() {
         TODO()
     }
 
+    /**
+     * [IMPORTANT] Simulation Statistics: Farm $farmID collected $amount g of
+     * harvest.
+     */
     private fun farmCollected(farmId: Int, amount: Int) {
         TODO()
     }
 
-    private fun totalHarvestedOf(plant: PlantType, amount: Int) {
+    /**
+     * [IMPORTANT] Simulation Statistics: Total amount of $plant harvested:
+     * $amount g.
+     */
+    private fun totalPlantHarvest(plant: PlantType, amount: Int) {
         TODO()
     }
 
+    /**
+     * [IMPORTANT] Simulation Statistics: Total harvest estimate still in
+     * fields and plantations: $amount g.
+     */
     fun totalEstimateFertile(amount: Int) {
         TODO()
     }

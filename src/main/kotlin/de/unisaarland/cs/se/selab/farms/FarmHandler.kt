@@ -136,15 +136,13 @@ class FarmHandler(
             var remainingTime = TICKTIME - 2 * machine.duration
             var currentField: Fertile? = field
             while (remainingTime >= 0 && commonFields.isNotEmpty() && currentField != null) {
-                finishedFields[currentField.id] = currentField
-                commonFields.remove(currentField)
                 currentField = nextField(
                     Action.SOWING,
                     toSow,
                     commonFields,
                     finishedFields,
                     machine,
-                    currentField!!,
+                    currentField,
                     farm,
                     board,
                     yearTick)
@@ -200,8 +198,8 @@ class FarmHandler(
             remainingMachines.remove(machine)
             var remainingTime = TICKTIME - machine.duration
             var currentField: Fertile? = field
+            plantsToActOn.remove(field)
             while (remainingTime -  machine.duration >= 0 && currentField != null) {
-                finishedFields[currentField.id] = currentField
                 if (action == Action.HARVESTING) {
                     currentField = nextField(
                         action,
@@ -223,8 +221,7 @@ class FarmHandler(
                         currentField,
                         farm,
                         board,
-                        yearTick
-                    )
+                        yearTick)
                 }
                 remainingTime -= machine.duration
             }
@@ -263,27 +260,74 @@ class FarmHandler(
         action: Action,
         currentPlantType: PlantType?,
         plantsToActOn: MutableSet<Fertile>,
-        finishedFertiles: Map<Int, Fertile>,
-        bestMachine: Machine,
+        finishedFertiles: MutableMap<Int, Fertile>,
+        machine: Machine,
         currentLocation: Tile,
         farm: Farm,
         board: BoardData,
         yearTick: Int
     ): Fertile? {
-        TODO()
+        for (fertile in plantsToActOn) {
+            if (fertile.id in finishedFertiles) {
+                continue
+            }
+            if (fertile.plant.type !in machine.plants ||
+                (action in setOf(Action.HARVESTING, Action.SOWING) && fertile.plant.type != currentPlantType)) {
+                continue
+            }
+            val harvest = action == Action.HARVESTING
+            if (pathFinder.canContinue(currentLocation, fertile, farm.id, board, harvest)) {
+                val plant = fertile.plant
+                plant.performAction(action, yearTick)
+                finishedFertiles[fertile.id] = fertile
+                plantsToActOn.remove(fertile)
+                return fertile
+            }
+        }
+        return null
     }
 
     /**
      * Perform actions that are sorted after machine id*/
     private fun performNonPrioritizedAction(
         action: Action,
-        fertile: Fertile,
         remainingMachines: MutableList<Machine>,
-        actionMap: Map<Action, List<Fertile>>,
+        plantsToActOn: MutableSet<Fertile>,
+        alternativePlants: MutableList<Fertile>,
         finishedFields: MutableMap<Int, Fertile>,
         board: BoardData,
-        farm: Farm
+        farm: Farm,
+        yearTick: Int
     ) {
-        TODO()
+        for (machine in remainingMachines) {
+            if (action !in machine.actions) {
+                continue
+            }
+            for (fertile in plantsToActOn) {
+                if (fertile.id in finishedFields || fertile.plant.type !in machine.plants ||
+                    !pathFinder.reachable(machine.location, fertile, farm.id, board)) {
+                    continue
+                }
+                fertile.plant.performAction(action, yearTick)
+                finishedFields[fertile.id] = fertile
+                remainingMachines.remove(machine)
+                var remainingTime = TICKTIME - machine.duration
+                var currentField: Fertile? = fertile
+                val allPlants = plantsToActOn.addAll(alternativePlants)
+                while (remainingTime - machine.duration >= 0 && currentField != null) {
+                    currentField = nextField(action,
+                        null,
+                        plantsToActOn,
+                        finishedFields,
+                        machine,
+                        currentField,
+                        farm,
+                        board,
+                        yearTick)
+                    remainingTime -= machine.duration
+                }
+                break
+            }
+        }
     }
 }

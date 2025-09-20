@@ -6,7 +6,6 @@ import de.unisaarland.cs.se.selab.plants.PlantType
 import java.io.FileWriter
 import java.io.PrintWriter
 import java.io.Writer
-import kotlin.math.log
 
 /**
  * Global Logger object handling every logger call with internal statistics Tracking
@@ -37,7 +36,7 @@ object Logger {
         }
     }
 
-    //----Parsing----
+    // ----Parsing----
 
     /**
      * Logs when a configuration file has been successfully parsed and validated.
@@ -57,7 +56,7 @@ object Logger {
             "Initialization Info: $filename is invalid.")
     }
 
-    //----Simulation----
+    // ----Simulation----
 
     /**
      * Logs when the simulation successfully starts, indicating the year tick.

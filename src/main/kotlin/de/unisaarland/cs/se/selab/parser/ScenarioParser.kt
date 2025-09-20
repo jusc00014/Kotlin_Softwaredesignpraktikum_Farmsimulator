@@ -211,7 +211,76 @@ class ScenarioParser {
         }
     }
 
+    private fun checkCityExpansionRequirementsCV(
+        incident: CityExpansion,
+        board: BoardData,
+        tilesModified: MutableMap<Int, TileType>
+    ) {
+        val validTypes = setOf(TileType.ROAD, TileType.FIELD)
+        require(incident.affectedTile.type in validTypes) {
+            "[CityExpansion ${incident.id}] TileType is invalid: ${incident.affectedTile.type}"
+        }
+        val affectedTileModified = tilesModified[incident.affectedTile.id]
+        require(affectedTileModified == null || affectedTileModified in validTypes) {
+            "[CityExpansion ${incident.id}] TileType changed to invalid: ${incident.affectedTile.type}"
+        }
+        val neighbours = board.neighbors(1, incident.affectedTile)
+        require(neighbours.any { (tilesModified[it.id] ?: it.type) in validTypes }) {
+            "[CityExpansion ${incident.id}] No adjoining Village tile found."
+        }
+        tilesModified[incident.affectedTile.id] = TileType.VILLAGE
+    }
+
+    private fun checkDroughtRequirementsCV(incident: Drought, tilesModified: Map<Int, TileType>) {
+        val validTypes = setOf(TileType.FIELD, TileType.PLANTATION)
+        require(incident.affectedTiles.any { it.type in validTypes }) {
+            "[Drought $incident.id] No Fertile in affectedTiles"
+        }
+        val affectedTileModified = incident.affectedTiles.map { tilesModified[it.id] ?: it.type }
+        require(affectedTileModified.any { it in validTypes }) {
+            "[Drought $incident.id] No Fertile in affectedTiles at tick"
+        }
+    }
+
+    private fun checkCloudCreationRequirementsCV(
+        incident: CloudCreation,
+        tilesModified: Map<Int, TileType>,
+        cloudTilesForTick: Map<Int, Set<Int>>
+    ) {
+        cloudTilesForTick[incident.tick]?.let { tiles ->
+            {
+                require(incident.tiles.find { it.id in tiles } == null) {
+                    "[CloudCreation $incident.id] Tiles overlap!"
+                }
+            }
+        }
+        require(incident.tiles.any { it.type != TileType.VILLAGE }) {
+            "[CloudCreation $incident.id] No non village tile in tiles"
+        }
+        require(incident.tiles.any { (tilesModified[it.id] ?: it.type) != TileType.VILLAGE }) {
+            "[CloudCreation $incident.id] No non village tile in tiles at tick"
+        }
+    }
+
     private fun checkCityExpansions(board: BoardData, farms: List<Farm>) {
-        TODO()
+        val tilesModified = mutableMapOf<Int, TileType>()
+        val cloudTilesForTick = mutableMapOf<Int, Set<Int>>()
+        // Sort is Stable!
+        for (incident in incidents.sortedBy { it.id }.sortedBy { it.tick }) {
+            when (incident) {
+                is CityExpansion -> checkCityExpansionRequirementsCV(incident, board, tilesModified)
+                is Drought -> checkDroughtRequirementsCV(incident, tilesModified)
+                is CloudCreation -> checkCloudCreationRequirementsCV(incident, tilesModified, cloudTilesForTick)
+                else -> continue
+            }
+        }
+
+        for (farm in farms) {
+            for (sowingPlan in farm.plans) {
+                require(sowingPlan.fields.any { (tilesModified[it] ?: board.getTileById(it)) == TileType.FIELD }) {
+                    "[SowingPlan ${sowingPlan.id}] No field in tiles at end of Simulation"
+                }
+            }
+        }
     }
 }

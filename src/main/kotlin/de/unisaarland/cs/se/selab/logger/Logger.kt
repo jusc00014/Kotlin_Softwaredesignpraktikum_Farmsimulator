@@ -40,7 +40,7 @@ object Logger {
 
     /**
      * Logs when a configuration file has been successfully parsed and validated.
-     * [INFO] Initialization Info: $filename successfully parsed and validated.
+     * \[INFO] Initialization Info: $filename successfully parsed and validated.
      */
     fun fileParsed(filename: String) {
         logPrint(LogLevel.INFO,
@@ -49,7 +49,7 @@ object Logger {
 
     /**
      * Logs when a configuration file is invalid and cannot be used.
-     * [IMPORTANT] Initialization Info: $filename is invalid.
+     * \[IMPORTANT] Initialization Info: $filename is invalid.
      */
     fun invalidFile(filename: String) {
         logPrint(LogLevel.IMPORTANT,
@@ -60,7 +60,7 @@ object Logger {
 
     /**
      * Logs when the simulation successfully starts, indicating the year tick.
-     * [INFO] Simulation Info: Simulation started at tick $yearTick within the year.
+     * \[INFO] Simulation Info: Simulation started at tick $yearTick within the year.
      */
     fun simulationStarted(yearTick: Int) {
         logPrint(LogLevel.INFO,
@@ -69,7 +69,7 @@ object Logger {
 
     /**
      * Logs when the simulation ends, showing the final tick.
-     * [IMPORTANT] Simulation Info: Simulation ended at tick $tick.
+     * \[IMPORTANT] Simulation Info: Simulation ended at tick $tick.
      */
     fun simulationEnded(tick: Int) {
         logPrint(LogLevel.IMPORTANT,
@@ -78,7 +78,7 @@ object Logger {
 
     /**
      * Logs the start of a simulation tick, including its global and yearly tick values.
-     * [INFO] Simulation Info: Tick $tick started at tick $yearTick within the year.
+     * \[INFO] Simulation Info: Tick $tick started at tick $yearTick within the year.
      */
     fun tickStarted(tick: Int, yearTick: Int) {
         logPrint(LogLevel.INFO,
@@ -88,7 +88,7 @@ object Logger {
     /**
      * Logs when soil moisture is below the required threshold in FIELD and PLANTATION tiles.
      * This is only relevant when tiles are planted and moisture is too low.
-     * [INFO] Soil Moisture: The soil moisture is below threshold in §amountField FIELD
+     * \[INFO] Soil Moisture: The soil moisture is below threshold in §amountField FIELD
      * and $amountPlantation PLANTATION tiles.
      */
     fun soilMoistureBelowThreshold(amountField: Int, amountPlantation: Int) {
@@ -101,7 +101,7 @@ object Logger {
 
     /**
      * Logs when a cloud rains on a tile.
-     * [IMPORTANT] Cloud Rain: Cloud $cloudID on tile $tileID rained down $amount L water.
+     * \[IMPORTANT] Cloud Rain: Cloud $cloudID on tile $tileID rained down $amount L water.
      */
     fun logCloudRain(cloudId: Int, tileId: Int, amount: Int) {
         logPrint(LogLevel.IMPORTANT,
@@ -110,7 +110,7 @@ object Logger {
 
     /**
      * Logs when a cloud moves from one tile to another.
-     * [INFO] Cloud Movement: Cloud $cloudID with $amountFluid L water moved from tile $startTileID to tile $endTileID.
+     * \[INFO] Cloud Movement: Cloud $cloudID with $amountFluid L water moved from tile $startTileID to tile $endTileID.
      */
     fun logCloudMovement(cloudId: Int, amount: Int, startTileId: Int, endTileId: Int) {
         logPrint(LogLevel.INFO,
@@ -120,7 +120,7 @@ object Logger {
     /**
      * Logs the amount of sunlight on a tile a cloud just moved from.
      * Only applies to FIELD and PLANTATION tiles.
-     * [DEBUG] Cloud Movement: On tile $startTileID, the amount of sunlight is $amountSunlight.
+     * \[DEBUG] Cloud Movement: On tile $startTileID, the amount of sunlight is $amountSunlight.
      */
     fun logSunlightOnTile(startTileId: Int, amountSunlight: Int) {
         logPrint(LogLevel.DEBUG,
@@ -129,7 +129,7 @@ object Logger {
 
     /**
      * Logs when two clouds unite into a new one on a tile.
-     * [IMPORTANT] Cloud Union: Clouds $cloudIDFromTile and $cloudIDMovingToTile united to cloud $cloudIDNew
+     * \[IMPORTANT] Cloud Union: Clouds $cloudIDFromTile and $cloudIDMovingToTile united to cloud $cloudIDNew
      * with $amount L water and duration $duration on tile $tileID.
      */
     fun logCloudUnion(
@@ -147,7 +147,7 @@ object Logger {
 
     /**
      * Logs when a cloud gets stuck on a village tile.
-     * [INFO] Cloud Dissipation: Cloud $cloudID got stuck on tile $tileID.
+     * \[INFO] Cloud Dissipation: Cloud $cloudID got stuck on tile $tileID.
      */
     fun logCloudStuck(cloudId: Int, tileId: Int) {
         logPrint(LogLevel.INFO,
@@ -157,7 +157,7 @@ object Logger {
     /**
      * Logs when a cloud dissipates on a tile.
      * This may happen due to raining all water or reaching maximum duration.
-     * [INFO] Cloud Dissipation: Cloud $cloudID dissipates on tile $tileID.
+     * \[INFO] Cloud Dissipation: Cloud $cloudID dissipates on tile $tileID.
      */
     fun logCloudDissipation(cloudId: Int, tileId: Int) {
         logPrint(LogLevel.INFO,
@@ -166,7 +166,7 @@ object Logger {
 
     /**
      * Logs the position and sunlight of a cloud on a FIELD or PLANTATION tile after all cloud movements.
-     * [DEBUG] Cloud Position: Cloud $cloudID is on tile $tileID, where the amount of sunlight is $amountSunlight.
+     * \[DEBUG] Cloud Position: Cloud $cloudID is on tile $tileID, where the amount of sunlight is $amountSunlight.
      */
     fun logCloudPosition(cloudId: Int, tileId: Int, amountSunlight: Int) {
         logPrint(LogLevel.DEBUG,
@@ -176,14 +176,14 @@ object Logger {
     // ----Farms----
 
     /**
-     * [IMPORTANT] Farm: Farm $farmID starts its actions.
+     * \[IMPORTANT] Farm: Farm $farmID starts its actions.
      */
     fun farmStartAction(farmId: Int) {
         TODO()
     }
 
     /**
-     * [DEBUG] Farm: Farm $farmID has the following active sowing plans it
+     * \[DEBUG] Farm: Farm $farmID has the following active sowing plans it
      * intends to pursue in this tick: $sowingPlanIDs.
      */
     fun farmSowingPlan(farmId: Int, sowingPlanIds: List<Int>) {
@@ -191,7 +191,7 @@ object Logger {
     }
 
     /**
-     * [IMPORTANT] Farm Action: Machine $machineID performs $actionType on
+     * \[IMPORTANT] Farm Action: Machine $machineID performs $actionType on
      * tile $tileID for $duration days.
      */
     fun machinePerformedAction(machineId: Int, action: Action, tileId: Int, duration: Int) {
@@ -199,7 +199,7 @@ object Logger {
     }
 
     /**
-     * [IMPORTANT] Farm Sowing: Machine $machineID has sowed $plant according
+     * \[IMPORTANT] Farm Sowing: Machine $machineID has sowed $plant according
      * to sowing plan $sowingPlanID.
      */
     fun machineSowed(machineId: Int, plant: PlantType, sowingPlanId: Int) {
@@ -207,7 +207,7 @@ object Logger {
     }
 
     /**
-     * [IMPORTANT] Farm Harvest: Machine $machineID has collected $amount g of
+     * \[IMPORTANT] Farm Harvest: Machine $machineID has collected $amount g of
      * $plant harvest.
      */
     fun machineCollected(farmId: Int, machineId: Int, amount: Int, plant: PlantType) {
@@ -215,7 +215,7 @@ object Logger {
     }
 
     /**
-     * [IMPORTANT] Farm Machine: Machine $machineID is finished and returns to
+     * \[IMPORTANT] Farm Machine: Machine $machineID is finished and returns to
      * the shed at $tileID.
      */
     fun machineFinished(machineId: Int, tileId: Int) {
@@ -223,7 +223,7 @@ object Logger {
     }
 
     /**
-     * [IMPORTANT] Farm Machine: Machine $machineID is finished but failed to
+     * \[IMPORTANT] Farm Machine: Machine $machineID is finished but failed to
      * return.
      */
     fun machineFinishedNoReturn(machineId: Int) {
@@ -231,7 +231,7 @@ object Logger {
     }
 
     /**
-     * [IMPORTANT] Farm Machine: Machine $machineID unloads $amount g of
+     * \[IMPORTANT] Farm Machine: Machine $machineID unloads $amount g of
      * $plant harvest in the shed.
      */
     fun machineUnloads(machineId: Int, amount: Int, plant: PlantType) {
@@ -239,7 +239,7 @@ object Logger {
     }
 
     /**
-     * [IMPORTANT] Farm: Farm $farmID finished its actions.
+     * \[IMPORTANT] Farm: Farm $farmID finished its actions.
      */
     fun farmFinishedAction(farmId: Int) {
         TODO()
@@ -248,7 +248,7 @@ object Logger {
     // ----Incidents----
 
     /**
-     * [IMPORTANT] Incident: Incident $incidentID of type $incidentType
+     * \[IMPORTANT] Incident: Incident $incidentID of type $incidentType
      * happened and affected tiles $tileIDs.
      */
     fun incidentExecuted(incidentId: Int, incident: Incident, tileIds: List<Int>) {
@@ -258,7 +258,7 @@ object Logger {
     // ----Estimate----
 
     /**
-     * [DEBUG] Harvest Estimate: Required actions on tile $tileID were not
+     * \[DEBUG] Harvest Estimate: Required actions on tile $tileID were not
      * performed: $actions.
      */
     fun actionNotPerformed(tileId: Int, actions: List<Action>) {
@@ -266,7 +266,7 @@ object Logger {
     }
 
     /**
-     * [INFO] Harvest Estimate: Harvest estimate on tile $tileID changed to
+     * \[INFO] Harvest Estimate: Harvest estimate on tile $tileID changed to
      * $amount g of $plant.
      */
     fun changedHarvestEstimate(tileId: Int, amount: Int, plant: PlantType) {
@@ -276,33 +276,37 @@ object Logger {
     // ----Statistics----
 
     /**
-     * [IMPORTANT] Simulation Info: Simulation statistics are calculated.
+     * \[IMPORTANT] Simulation Info: Simulation statistics are calculated.
      */
     fun statisticCalculated() {
-        TODO()
+        logPrint(LogLevel.IMPORTANT,
+            "Simulation Info: Simulation statistics are calculated.")
     }
 
     /**
-     * [IMPORTANT] Simulation Statistics: Farm $farmID collected $amount g of
+     * \[IMPORTANT] Simulation Statistics: Farm $farmID collected $amount g of
      * harvest.
      */
     fun farmCollected(farmId: Int, amount: Int) {
-        TODO()
+        logPrint(LogLevel.IMPORTANT,
+            "Simulation Statistics: Farm $farmId collected $amount g of harvest.")
     }
 
     /**
-     * [IMPORTANT] Simulation Statistics: Total amount of $plant harvested:
+     * \[IMPORTANT] Simulation Statistics: Total amount of $plant harvested:
      * $amount g.
      */
     fun totalPlantHarvest(plant: PlantType, amount: Int) {
-        TODO()
+        logPrint(LogLevel.IMPORTANT,
+            "Simulation Statistics: Total amount of $plant harvested: $amount g.")
     }
 
     /**
-     * [IMPORTANT] Simulation Statistics: Total harvest estimate still in
+     * \[IMPORTANT] Simulation Statistics: Total harvest estimate still in
      * fields and plantations: $amount g.
      */
     fun totalEstimateFertile(amount: Int) {
-        TODO()
+        logPrint(LogLevel.IMPORTANT,
+            "Simulation Statistics: Total harvest estimate still in fields and plantations: $amount g.")
     }
 }

@@ -15,7 +15,7 @@ object Logger {
     private var writer: Writer = PrintWriter(System.out, true)
     private var farmToHarvest = mutableMapOf<Int, Int>()
     private var plantToHarvest =
-        mapOf<PlantType, Int> (PlantType.POTATO to 0, PlantType.WHEAT to 0, PlantType.OAT to 0, PlantType.PUMPKIN to 0,
+        mapOf(PlantType.POTATO to 0, PlantType.WHEAT to 0, PlantType.OAT to 0, PlantType.PUMPKIN to 0,
             PlantType.APPLE to 0, PlantType.GRAPE to 0, PlantType.ALMOND to 0, PlantType.CHERRY to 0)
 
     /**

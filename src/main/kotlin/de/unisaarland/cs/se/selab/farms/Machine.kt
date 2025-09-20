@@ -1,4 +1,5 @@
 package de.unisaarland.cs.se.selab.farms
+import de.unisaarland.cs.se.selab.board.Tile
 import de.unisaarland.cs.se.selab.plants.PlantType
 const val NUM = 15
 
@@ -9,7 +10,7 @@ class Machine(
     val actions: List<Action>,
     val plants: List<PlantType>,
     val duration: Int,
-    var location: Int,
+    var location: Tile,
     var brokenFor: Int = 0,
     var stuck: Boolean = false
 ) {

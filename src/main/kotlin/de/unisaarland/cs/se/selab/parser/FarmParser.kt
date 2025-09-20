@@ -41,12 +41,14 @@ class FarmParser {
         val json = JSONObject(jsonFile)
         // farmFile as JSONObject
         val farmsJson = json.getJSONArray("farms")
-
+        // gets the array of farms
         val farms = parseFarms(farmsJson, board, maxTick)
-
+        // the farms (at least one)
         return Pair(farms, finishedMachines)
     }
 
+    /**
+     * parses the farms*/
     private fun parseFarms(json: JSONArray, board: BoardData, maxTick: Int): List<Farm> {
         val farms = mutableListOf<Farm>()
         val farmNames = mutableListOf<String>()

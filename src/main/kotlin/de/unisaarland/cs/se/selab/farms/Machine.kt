@@ -10,7 +10,7 @@ class Machine(
     val actions: List<Action>,
     val plants: List<PlantType>,
     val duration: Int,
-    var location: Tile,
+    var location: Tile?,
     var brokenFor: Int = 0,
     var stuck: Boolean = false
 ) {

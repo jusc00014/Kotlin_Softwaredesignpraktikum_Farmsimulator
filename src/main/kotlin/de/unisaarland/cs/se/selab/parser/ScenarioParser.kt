@@ -33,12 +33,14 @@ class ScenarioParser {
 
     /**
      * called by main with necessary arguments to parse and validate scenarioFile*/
-    fun parse(jsonFile: String,
-              board: BoardData,
-              maxTick: Int,
-              machines: Map<Int, Machine>,
-              farms: List<Farm>,
-              yearTick: Int): Pair<List<Incident>, CloudData>? {
+    fun parse(
+        jsonFile: String,
+        board: BoardData,
+        maxTick: Int,
+        machines: Map<Int, Machine>,
+        farms: List<Farm>,
+        yearTick: Int
+    ): Pair<List<Incident>, CloudData> {
         val schema = SchemaLoader.forURL("classpath:///resources/schema/scenario.schema").load()
 
         val validator = Validator.forSchema(schema)
@@ -46,71 +48,61 @@ class ScenarioParser {
 
         val failure = validator.validate(instance)
 
-        require(failure == null) {failure.toString()}
+        require(failure == null) { failure.toString() }
 
         val json = JSONObject(jsonFile)
         val clouds = json.getJSONArray("clouds")
-        this.cloudData = parseClouds(clouds) ?: return null
+        this.cloudData = parseClouds(clouds)
 
         val incidentsJson = json.getJSONArray("incidents")
-        val correct = parseIncidents(incidentsJson, board, maxTick, machines, yearTick)
+        parseIncidents(incidentsJson, board, maxTick, machines, yearTick)
 
         checkCityExpansions(board, farms)
         return Pair(incidents, cloudData)
     }
 
-    private fun parseClouds(cloudsJson: JSONArray): CloudData? {
+    private fun parseClouds(cloudsJson: JSONArray): CloudData {
         val clouds: MutableList<Cloud> = mutableListOf()
         for (cloud in cloudsJson) {
-            val id: Int
-            val location: Int
-            val duration: Int
-            val amount: Int
-            if (cloud is JSONObject) {
-                id = cloud.getInt("id")
-                location = cloud.getInt(LOCATION)
-                duration = cloud.getInt(DURATION)
-                amount = cloud.getInt("amount")
-                clouds.add(Cloud(id, location, duration, amount))
-            } else {
-                return null
-            }
+            require(cloud is JSONObject)
+            val id: Int = cloud.getInt("id")
+            val location: Int = cloud.getInt(LOCATION)
+            val duration: Int = cloud.getInt(DURATION)
+            val amount: Int = cloud.getInt("amount")
+            clouds.add(Cloud(id, location, duration, amount))
         }
         clouds.sortBy { it.id }
         return CloudData(clouds.last().id, clouds)
     }
 
-    private fun parseIncidents(incidentsJson: JSONArray,
-                               board: BoardData,
-                               maxTick: Int,
-                               machines: Map<Int, Machine>,
-                               yearTick: Int): Boolean {
-        var returnType = true
+    private fun parseIncidents(
+        incidentsJson: JSONArray,
+        board: BoardData,
+        maxTick: Int,
+        machines: Map<Int, Machine>,
+        yearTick: Int
+    ) {
         for (incident in incidentsJson) {
-            if (incident is JSONObject) {
-                val id = incident.getInt("id")
-                val tick = incident.getInt("tick")
-                val type = incident.getString("type")
-                returnType = typeCheckerAndValidator(incident, board, maxTick, machines, tick, id, type, yearTick)
-            } else {
-                returnType = false
-            }
+            require(incident is JSONObject)
+            val id = incident.getInt("id")
+            val tick = incident.getInt("tick")
+            val type = incident.getString("type")
+            typeCheckerAndValidator(incident, board, maxTick, machines, tick, id, type, yearTick)
         }
-        return returnType
     }
 
-    private fun typeCheckerAndValidator(obj: JSONObject,
-                                        board: BoardData,
-                                        maxTick: Int,
-                                        machines: Map<Int, Machine>,
-                                        tick: Int,
-                                        id: Int,
-                                        type: String,
-                                        yearTick: Int): Boolean {
-        var returnType = true
-        if (maxTick > tick || this.incidents.any { it.id == id }) {
-            returnType = false
-        }
+    private fun typeCheckerAndValidator(
+        obj: JSONObject,
+        board: BoardData,
+        maxTick: Int,
+        machines: Map<Int, Machine>,
+        tick: Int,
+        id: Int,
+        type: String,
+        yearTick: Int
+    ) {
+        require(tick < maxTick) { "[Incident $id] Tick $tick after maxTick $maxTick" }
+        require(!this.incidents.any { it.id == id }) { "[Incident $id] ID already in use" }
         when (type) {
             "CLOUD_CREATION" -> validateCloudCreation(id, tick, obj, board)
             "ANIMAL_ATTACK" -> validateAnimalAttack(id, tick, obj, board)
@@ -118,9 +110,8 @@ class ScenarioParser {
             "DROUGHT" -> validateDrought(id, tick, obj, board)
             "BROKEN_MACHINE" -> validateBrokenMachine(id, tick, obj, machines)
             "CITY_EXPANSION" -> validateCityExpansion(id, tick, obj, board)
-            else -> returnType = false
+            else -> throw IllegalArgumentException("[Incident $id] Invalid Incident type: $type")
         }
-        return returnType
     }
 
     private fun validateCloudCreation(id: Int, tick: Int, obj: JSONObject, board: BoardData) {
@@ -130,11 +121,10 @@ class ScenarioParser {
         val duration = obj.getInt(DURATION)
         val amount = obj.getInt("amount")
         val tile = board.getTileById(location)
-        if (tile != null) {
-            val tiles = board.neighbors(radius, tile).toSet()
-            incident = CloudCreation(id, tick, duration, amount, tiles, cloudData)
-            incidents.add(incident)
-        }
+        requireNotNull(tile) { "[CloudCreation $id] Invalid location: $location" }
+        val tiles = board.neighbors(radius, tile).toSet()
+        incident = CloudCreation(id, tick, duration, amount, tiles, cloudData)
+        incidents.add(incident)
     }
 
     private fun validateAnimalAttack(id: Int, tick: Int, obj: JSONObject, board: BoardData) {
@@ -142,18 +132,19 @@ class ScenarioParser {
         val location = obj.getInt(LOCATION)
         val radius = obj.getInt(RADIUS)
         val tile = board.getTileById(location)
-        if (tile != null) {
-            val tiles = board.neighbors(radius, tile)
-            val forestTiles = tiles.filter { it.type == TileType.FOREST }
-            val affectedTiles = mutableSetOf<Tile>()
-            for (forest in forestTiles) {
-                affectedTiles.addAll(board.neighbors(radius, forest).
-                filter { it.type == TileType.FIELD || it.type == TileType.PLANTATION })
-            }
-            val animalAttackTiles = affectedTiles.sortedBy { it.id }.toSet()
-            incident = AnimalAttack(id, tick, animalAttackTiles)
-            incidents.add(incident)
+        requireNotNull(tile) { "[AnimalAttack $id] Invalid location: $location" }
+        val tiles = board.neighbors(radius, tile)
+        val forestTiles = tiles.filter { it.type == TileType.FOREST }
+        val affectedTiles = mutableSetOf<Tile>()
+        for (forest in forestTiles) {
+            affectedTiles.addAll(
+                board.neighbors(radius, forest)
+                    .filter { it.type == TileType.FIELD || it.type == TileType.PLANTATION }
+            )
         }
+        val animalAttackTiles = affectedTiles.sortedBy { it.id }.toSet()
+        incident = AnimalAttack(id, tick, animalAttackTiles)
+        incidents.add(incident)
     }
 
     private fun validateBeeHappy(id: Int, tick: Int, obj: JSONObject, board: BoardData, yearTick: Int) {
@@ -162,19 +153,19 @@ class ScenarioParser {
         val radius = obj.getInt(RADIUS)
         val effect = obj.getInt("effect")
         val tile = board.getTileById(location)
-        if (tile != null) {
-            val tiles = board.neighbors(radius, tile)
-            val meadowTiles = tiles.filter { it.type == TileType.MEADOW }
-            val affectedTiles = mutableSetOf<Tile>()
-            for (meadow in meadowTiles) {
-                affectedTiles.addAll(
-                    board.neighbors(radius, meadow).
-                    filter { it.type == TileType.FIELD || it.type == TileType.PLANTATION })
-            }
-            val beeHappyTiles = affectedTiles.sortedBy { it.id }.toSet()
-            incident = BeeHappy(id, tick, beeHappyTiles, effect, yearTick)
-            incidents.add(incident)
+        requireNotNull(tile) { "[Bee Happy $id] Invalid location: $location" }
+        val tiles = board.neighbors(radius, tile)
+        val meadowTiles = tiles.filter { it.type == TileType.MEADOW }
+        val affectedTiles = mutableSetOf<Tile>()
+        for (meadow in meadowTiles) {
+            affectedTiles.addAll(
+                board.neighbors(radius, meadow)
+                    .filter { it.type == TileType.FIELD || it.type == TileType.PLANTATION }
+            )
         }
+        val beeHappyTiles = affectedTiles.sortedBy { it.id }.toSet()
+        incident = BeeHappy(id, tick, beeHappyTiles, effect, yearTick)
+        incidents.add(incident)
     }
 
     private fun validateDrought(id: Int, tick: Int, obj: JSONObject, board: BoardData) {
@@ -182,11 +173,10 @@ class ScenarioParser {
         val location = obj.getInt(LOCATION)
         val radius = obj.getInt(RADIUS)
         val tile = board.getTileById(location)
-        if (tile != null) {
-            val tiles = board.neighbors(radius, tile).toSet()
-            incident = Drought(id, tick, tiles)
-            incidents.add(incident)
-        }
+        requireNotNull(tile) { "[Drought $id] Invalid location: $location" }
+        val tiles = board.neighbors(radius, tile).toSet()
+        incident = Drought(id, tick, tiles)
+        incidents.add(incident)
     }
 
     private fun validateBrokenMachine(id: Int, tick: Int, obj: JSONObject, machines: Map<Int, Machine>) {
@@ -194,21 +184,19 @@ class ScenarioParser {
         val duration = obj.getInt(DURATION)
         val machineId = obj.getInt("machineId")
         val machine = machines[machineId]
-        if (machine != null) {
-            incident = BrokenMachine(id, tick, duration, machine)
-            incidents.add(incident)
-            this.machineIds.add(machineId)
-        }
+        requireNotNull(machine) { "[Broken Machine $id] Invalid machine: $machineId" }
+        incident = BrokenMachine(id, tick, duration, machine)
+        incidents.add(incident)
+        this.machineIds.add(machineId)
     }
 
     private fun validateCityExpansion(id: Int, tick: Int, obj: JSONObject, board: BoardData) {
         val incident: CityExpansion
         val location = obj.getInt(LOCATION)
         val tile = board.getTileById(location)
-        if (tile != null) {
-            incident = CityExpansion(id, tick, tile, cloudData)
-            incidents.add(incident)
-        }
+        requireNotNull(tile) { "[City Expansion $id] Invalid location: $location" }
+        incident = CityExpansion(id, tick, tile, cloudData)
+        incidents.add(incident)
     }
 
     private fun checkCityExpansionRequirementsCV(
@@ -218,15 +206,15 @@ class ScenarioParser {
     ) {
         val validTypes = setOf(TileType.ROAD, TileType.FIELD)
         require(incident.affectedTile.type in validTypes) {
-            "[CityExpansion ${incident.id}] TileType is invalid: ${incident.affectedTile.type}"
+            "[City Expansion ${incident.id}] TileType is invalid: ${incident.affectedTile.type}"
         }
         val affectedTileModified = tilesModified[incident.affectedTile.id]
         require(affectedTileModified == null || affectedTileModified in validTypes) {
-            "[CityExpansion ${incident.id}] TileType changed to invalid: ${incident.affectedTile.type}"
+            "[City Expansion ${incident.id}] TileType changed to invalid: ${incident.affectedTile.type}"
         }
         val neighbours = board.neighbors(1, incident.affectedTile)
         require(neighbours.any { (tilesModified[it.id] ?: it.type) in validTypes }) {
-            "[CityExpansion ${incident.id}] No adjoining Village tile found."
+            "[City Expansion ${incident.id}] No adjoining Village tile found."
         }
         tilesModified[incident.affectedTile.id] = TileType.VILLAGE
     }

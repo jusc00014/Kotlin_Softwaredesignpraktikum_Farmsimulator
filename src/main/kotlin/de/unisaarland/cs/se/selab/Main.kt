@@ -1,17 +1,24 @@
 package de.unisaarland.cs.se.selab
 
-import FarmParser
+import de.unisaarland.cs.se.selab.board.BoardData
 import de.unisaarland.cs.se.selab.board.BoardHandler
+import de.unisaarland.cs.se.selab.clouds.CloudData
 import de.unisaarland.cs.se.selab.clouds.CloudHandler
+import de.unisaarland.cs.se.selab.farms.Farm
 import de.unisaarland.cs.se.selab.farms.FarmHandler
+import de.unisaarland.cs.se.selab.farms.Machine
+import de.unisaarland.cs.se.selab.farms.PathFinder
+import de.unisaarland.cs.se.selab.incidents.Incident
 import de.unisaarland.cs.se.selab.incidents.IncidentHandler
 import de.unisaarland.cs.se.selab.logger.LogLevel
 import de.unisaarland.cs.se.selab.logger.Logger
+import de.unisaarland.cs.se.selab.parser.FarmParser
 import de.unisaarland.cs.se.selab.parser.MapParser
 import de.unisaarland.cs.se.selab.parser.ScenarioParser
+import de.unisaarland.cs.se.selab.plants.PlantData
+import de.unisaarland.cs.se.selab.plants.PlantType
 
 const val YEAR_TICK_MIN = 1
-// Thank detekt for this^^
 const val YEAR_TICK_MAX = 24
 const val TICK_MIN = 0
 const val TICK_MAX = 1_000
@@ -24,42 +31,91 @@ fun main(args: Array<String>) {
     Logger.initLogger(data.logLevel, data.out)
 
     val mapParser = MapParser(mutableMapOf())
-    val mapData = mapParser.parse(data.maps)
-    if (mapData == null) { Logger.invalidFile(data.maps); return }
-    val boardData = mapData
+    val boardData: BoardData
+    val plantDataMap: Map<PlantType, PlantData>
+    try {
+        val mapData = mapParser.parse(data.maps)
+        boardData = mapData.first
+        plantDataMap = mapData.second
+    } catch (_: IllegalArgumentException) {
+        Logger.invalidFile(data.maps)
+        return
+    }
 
     val farmParser = FarmParser()
-    val farmData = farmParser.parse(data.farms, boardData)
-    if (farmData == null) { Logger.invalidFile(data.farms); return }
-    val (farms, machines) = farmData
+    val farms: List<Farm>
+    val machines: Map<Int, Machine>
+    try {
+        val farmData = farmParser.parse(data.farms, boardData, data.maxTick)
+        farms = farmData.first
+        machines = farmData.second
+    } catch (_: IllegalArgumentException) {
+        Logger.invalidFile(data.farms)
+        return
+    }
 
     val scenarioParser = ScenarioParser()
-    val scenarioData = scenarioParser.parse(
-        jsonFile = data.scenario,
-        board = boardData,
-        max_tick = data.maxTick,
+    val incidents: List<Incident>
+    val cloudData: CloudData
+    try {
+        val scenarioData = scenarioParser.parse(
+            jsonFile = data.scenario,
+            board = boardData,
+            maxTick = data.maxTick,
+            machines = machines,
+            farms = farms,
+            yearTick = data.startYearTick
+        )
+        incidents = scenarioData.first
+        cloudData = scenarioData.second
+    } catch (_: IllegalArgumentException) {
+        Logger.invalidFile(data.scenario)
+        return
+    }
+    val simulator = buildSimulator(
+        farms = farms,
+        plantDataMap = plantDataMap,
         machines = machines,
-        farms = farms
+        cloudData = cloudData,
+        boardData = boardData,
+        incidents = incidents,
+        startYearTick = data.startYearTick,
+        maxTick = data.maxTick
     )
-    if (scenarioData == null) { Logger.invalidFile(data.scenario); return }
-    val (incidents, cloudData) = scenarioData
+    simulator.start()
+}
 
+private fun buildSimulator(
+    farms: List<Farm>,
+    plantDataMap: Map<PlantType, PlantData>,
+    machines: Map<Int, Machine>,
+    cloudData: CloudData,
+    boardData: BoardData,
+    incidents: List<Incident>,
+    startYearTick: Int,
+    maxTick: Int,
+): Simulator {
     val boardHandler = BoardHandler()
-    val farmHandler = FarmHandler()
-    val cloudHandler = CloudHandler()
-    val incidentHandler = IncidentHandler()
+    val farmHandler = FarmHandler(
+        idToFarm = farms.associateBy { it.id },
+        plantData = plantDataMap,
+        machines = machines,
+        pathFinder = PathFinder()
+    )
+    val cloudHandler = CloudHandler(cloudData, boardData)
+    val incidentHandler = IncidentHandler(
+        incidents.sortedBy { it.id }.groupBy { it.tick }.toMutableMap()
+    )
 
-    val simulator = Simulator(
+    return Simulator(
         boardHandler = boardHandler,
         farmHandler = farmHandler,
         cloudHandler = cloudHandler,
         incidentHandler = incidentHandler,
         boardData = boardData,
-        cloudData = cloudData,
-        startYearTick = data.startYearTick,
-        maxTick = data.maxTick
+        startYearTick = startYearTick,
+        maxTick = maxTick
     )
-    simulator.start()
 }
 
 /**
@@ -73,7 +129,7 @@ data class ArgumentData(
     val maxTick: Int,
     val logLevel: LogLevel,
     val out: String?
-);
+)
 
 /**
  * Parses and partially validates the argument array given to the program
@@ -90,7 +146,7 @@ fun parseArguments(args: Array<String>): ArgumentData? {
     var logLevel: LogLevel? = null
     var outPath: String? = null
     for (pair in args.toList().chunked(2)) {
-        if (pair[0] == "--help") { printHelp(); return null }
+        if (pair[0] == "--help") { return printHelp() }
         require(pair.size == 2) { "Argument is missing a value: $pair[0]" }
         when (pair[0]) {
             "--maps" -> {
@@ -107,17 +163,17 @@ fun parseArguments(args: Array<String>): ArgumentData? {
             }
             "--start_year_tick" -> {
                 require(startYearTick == null) { "--start_year_tick already set!" }
-                val startYearTickTemp = pair[1].toInt()
-                require(startYearTickTemp in YEAR_TICK_MIN..YEAR_TICK_MAX)
-                { "--startYearTick must be between $YEAR_TICK_MIN and $YEAR_TICK_MAX!" }
-                startYearTick = startYearTickTemp
+                startYearTick = pair[1].toInt()
+                require(startYearTick in YEAR_TICK_MIN..YEAR_TICK_MAX) {
+                    "--startYearTick must be between $YEAR_TICK_MIN and $YEAR_TICK_MAX!"
+                }
             }
             "--max_ticks" -> {
                 require(maxTick == null) { "--max_ticks already set!" }
-                val maxTickTemp = pair[1].toInt()
-                require(maxTickTemp in TICK_MIN..TICK_MAX)
-                { "--max_ticks must be between $TICK_MIN and $TICK_MAX!" }
-                maxTick = maxTickTemp
+                maxTick = pair[1].toInt()
+                require(maxTick in TICK_MIN..TICK_MAX) {
+                    "--max_ticks must be between $TICK_MIN and $TICK_MAX!"
+                }
             }
             "--log_level" -> {
                 require(logLevel == null) { "--log_level already set!" }
@@ -144,9 +200,11 @@ fun parseArguments(args: Array<String>): ArgumentData? {
 
 /**
  * Prints help for the program
+ * @return null
  */
-fun printHelp() {
-    print("""
+fun printHelp(): ArgumentData? {
+    print(
+        """
         The simulator is started with these command line parameters:
         --map (String): Path to the map. (always required)
         --farms (String): Path to the file with information about the farms. (always required)
@@ -156,5 +214,7 @@ fun printHelp() {
         --log_level (String): The level of log detail that shall be output (always required, either DEBUG, INFO or IMPORTANT)
         --out (String): Path to output file. Uses ’stdout’ by default.
         --help: This usage info
-    """.trimIndent())
+        """.trimIndent()
+    )
+    return null
 }

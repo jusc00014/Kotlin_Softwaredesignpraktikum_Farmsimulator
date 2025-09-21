@@ -3,10 +3,10 @@ import de.unisaarland.cs.se.selab.board.BoardData
 import de.unisaarland.cs.se.selab.board.Fertile
 import de.unisaarland.cs.se.selab.board.Field
 import de.unisaarland.cs.se.selab.board.Tile
-import de.unisaarland.cs.se.selab.farms.Machine
+//import de.unisaarland.cs.se.selab.farms.Machine
 import de.unisaarland.cs.se.selab.plants.PlantData
 import de.unisaarland.cs.se.selab.plants.PlantType
-import java.util.concurrent.TimeUnit
+//import java.util.concurrent.TimeUnit
 import kotlin.collections.orEmpty
 
 const val TICKTIME = 14
@@ -28,15 +28,27 @@ class FarmHandler(
             val remainingMachines = assembleMachines(farm)
             val sowFields = assembleSowableFields(farm.fields, fertiles, yearTick)
             val finishedFields = mutableMapOf<Int, Fertile>()
-            sow(sowFields, farm, remainingMachines, finishedFields, fertiles, board, yearTick)
+            sow(sowFields, farm, remainingMachines, finishedFields, board, yearTick)
             val fieldMap = createActionMap(farm.fields, fertiles, yearTick)
             val plantationMap = createActionMap(farm.plantages, fertiles, yearTick)
             for ((action, fertileType) in listOf(
                 Action.HARVESTING to plantationMap[Action.HARVESTING],
                 Action.HARVESTING to fieldMap[Action.HARVESTING],
-                Action.CUTTING to plantationMap[Action.CUTTING],
+                Action.CUTTING to plantationMap[Action.CUTTING]
             )) {
                 performPrioritizedAction(action, remainingMachines, fertileType!!, finishedFields,board, farm, yearTick)
+            }
+            for (machine in remainingMachines) {
+                performNonPrioritizedAction(
+                    machine,
+                    remainingMachines,
+                    fieldMap,
+                    plantationMap,
+                    finishedFields,
+                    board,
+                    farm,
+                    yearTick
+                )
             }
         }
     }
@@ -88,14 +100,14 @@ class FarmHandler(
         farm: Farm,
         remainingMachines: MutableList<Machine>,
         finishedFields: MutableMap<Int, Fertile>,
-        fertiles: Map<Int, Fertile>,
+        //fertiles: Map<Int, Fertile>,
         board: BoardData,
         yearTick: Int
     ) {
         val plans  = farm.plans
         //logger
         for (plan in plans) {
-            executeSowingPlan(farm, plan, sowableFields, remainingMachines, finishedFields, fertiles, board, yearTick)
+            executeSowingPlan(farm, plan, sowableFields, remainingMachines, finishedFields, board, yearTick)
         }
     }
 
@@ -107,7 +119,7 @@ class FarmHandler(
         sowableFields: Map<PlantType, MutableList<Fertile>>,
         remainingMachines: MutableList<Machine>,
         finishedFields: MutableMap<Int, Fertile>,
-        fertiles: Map<Int, Fertile>,
+        //fertiles: Map<Int, Fertile>,
         board: BoardData,
         yearTick: Int
     ) {
@@ -120,7 +132,7 @@ class FarmHandler(
                 sowFields.add(fert)
             }
         }
-        val commonFields = sowFields.intersect(sowableFields[toSow].orEmpty()).toMutableSet()
+        val commonFields = sowFields.intersect(sowableFields[toSow].orEmpty().toSet()).toMutableSet()
         for (field in commonFields) {
             if (field.id in finishedFields) {
                 continue
@@ -229,7 +241,7 @@ class FarmHandler(
     }
 
     /**
-     * Find machine with best duration for this field and action*/
+     * Find machine with the best duration for this field and action*/
     private fun findBestMachine(
         fertile: Fertile,
         remainingMachines: MutableList<Machine>,
@@ -290,32 +302,41 @@ class FarmHandler(
     /**
      * Perform actions that are sorted after machine id*/
     private fun performNonPrioritizedAction(
-        action: Action,
+        machine: Machine,
         remainingMachines: MutableList<Machine>,
-        plantsToActOn: MutableSet<Fertile>,
-        alternativePlants: MutableList<Fertile>,
+        fieldMap: Map<Action, MutableSet<Fertile>>,
+        plantationMap: Map<Action, MutableSet<Fertile>>,
         finishedFields: MutableMap<Int, Fertile>,
         board: BoardData,
         farm: Farm,
         yearTick: Int
     ) {
-        for (machine in remainingMachines) {
-            if (action !in machine.actions) {
+        for ((action, fertileType) in listOf(
+            Action.IRRIGATING to fieldMap[Action.IRRIGATING],
+            Action.WEEDING to fieldMap[Action.WEEDING],
+            Action.IRRIGATING to plantationMap[Action.IRRIGATING],
+            Action.MOWING to plantationMap[Action.MOWING]
+        )) {
+            if (action !in machine.actions || fertileType!!.isEmpty()) {
                 continue
             }
-            for (fertile in plantsToActOn) {
+            for (fertile in fertileType) {
                 if (fertile.id in finishedFields || fertile.plant.type !in machine.plants ||
-                    !pathFinder.reachable(machine.location, fertile, farm.id, board)) {
+                    pathFinder.reachable(machine.location, fertile, farm.id, board)) {
                     continue
                 }
-                fertile.plant.performAction(action, yearTick)
+                val plant = fertile.plant
+                plant.performAction(action, yearTick)
                 finishedFields[fertile.id] = fertile
                 remainingMachines.remove(machine)
                 var remainingTime = TICKTIME - machine.duration
                 var currentField: Fertile? = fertile
-                val allPlants = plantsToActOn.addAll(alternativePlants)
-                while (remainingTime - machine.duration >= 0 && currentField != null) {
-                    currentField = nextField(action,
+                val plantsToActOn =
+                        (fieldMap[action].orEmpty() + plantationMap[action].orEmpty())
+                            .toSortedSet(compareBy { it.id })
+                while (remainingTime -  machine.duration >= 0 && currentField != null) {
+                    currentField = nextField(
+                        action,
                         null,
                         plantsToActOn,
                         finishedFields,

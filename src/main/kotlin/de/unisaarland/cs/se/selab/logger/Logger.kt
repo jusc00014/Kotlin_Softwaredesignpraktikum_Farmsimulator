@@ -181,7 +181,8 @@ object Logger {
      * \[IMPORTANT] Farm: Farm $farmID starts its actions.
      */
     fun farmStartAction(farmId: Int) {
-        TODO()
+        logPrint(LogLevel.IMPORTANT,
+            "Farm: Farm $farmId starts its actions.")
     }
 
     /**
@@ -189,7 +190,9 @@ object Logger {
      * intends to pursue in this tick: $sowingPlanIDs.
      */
     fun farmSowingPlan(farmId: Int, sowingPlanIds: List<Int>) {
-        TODO()
+        val sortedPlans = sowingPlanIds.sortedBy { it }
+        logPrint(LogLevel.DEBUG,
+            "Farm: Farm $farmId has the following active sowing plans it intends to pursue in this tick: $sortedPlans.")
     }
 
     /**
@@ -197,7 +200,8 @@ object Logger {
      * tile $tileID for $duration days.
      */
     fun machinePerformedAction(machineId: Int, action: Action, tileId: Int, duration: Int) {
-        TODO()
+        logPrint(LogLevel.IMPORTANT,
+            "Farm Action: Machine $machineId performs $action on tile $tileId for $duration days.")
     }
 
     /**
@@ -205,7 +209,8 @@ object Logger {
      * to sowing plan $sowingPlanID.
      */
     fun machineSowed(machineId: Int, plant: PlantType, sowingPlanId: Int) {
-        TODO()
+        logPrint(LogLevel.IMPORTANT,
+            "Farm Sowing: Machine $machineId has sowed $plant according to sowing plan $sowingPlanId.")
     }
 
     /**
@@ -213,38 +218,40 @@ object Logger {
      * $plant harvest.
      */
     fun machineCollected(farmId: Int, machineId: Int, amount: Int, plant: PlantType) {
-        TODO()
+        logPrint(LogLevel.IMPORTANT,
+            "Farm Harvest: Machine $machineId has collected $amount g of $plant harvest.")
     }
 
     /**
-     * \[IMPORTANT] Farm Machine: Machine $machineID is finished and returns to
-     * the shed at $tileID.
+     * \[IMPORTANT] Farm Machine: Machine $machineID is finished and returns to the shed at $tileID.
      */
     fun machineFinished(machineId: Int, tileId: Int) {
-        TODO()
+        logPrint(LogLevel.IMPORTANT,
+            "Farm Machine: Machine $machineId is finished and returns to the shed at $tileId.")
     }
 
     /**
-     * \[IMPORTANT] Farm Machine: Machine $machineID is finished but failed to
-     * return.
+     * \[IMPORTANT] Farm Machine: Machine $machineID is finished but failed to return.
      */
     fun machineFinishedNoReturn(machineId: Int) {
-        TODO()
+        logPrint(LogLevel.IMPORTANT,
+            "Farm Machine: Machine $machineId is finished but failed to return.")
     }
 
     /**
-     * \[IMPORTANT] Farm Machine: Machine $machineID unloads $amount g of
-     * $plant harvest in the shed.
+     * \[IMPORTANT] Farm Machine: Machine $machineID unloads $amount g of $plant harvest in the shed.
      */
     fun machineUnloads(machineId: Int, amount: Int, plant: PlantType) {
-        TODO()
+        logPrint(LogLevel.IMPORTANT,
+            "Farm Machine: Machine $machineId unloads $amount g of $plant harvest in the shed.")
     }
 
     /**
      * \[IMPORTANT] Farm: Farm $farmID finished its actions.
      */
     fun farmFinishedAction(farmId: Int) {
-        TODO()
+        logPrint(LogLevel.IMPORTANT,
+            "Farm: Farm $farmId finished its actions.")
     }
 
     // ----Incidents----

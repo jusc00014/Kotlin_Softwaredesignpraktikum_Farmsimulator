@@ -11,7 +11,7 @@ class BoardData(idToTile: Map<Int, Tile>) {
 
     private fun coordNeighbours(radius: Int, coordinate: Coordinate): Set<Coordinate> {
         // Direction NW, NE, SE, SW
-        val coords = mutableSetOf<Coordinate>(
+        val coords = mutableSetOf(
             Coordinate(coordinate.x - 1, coordinate.y - 1),
             Coordinate(coordinate.x + 1, coordinate.y - 1),
             Coordinate(coordinate.x + 1, coordinate.y + 1),

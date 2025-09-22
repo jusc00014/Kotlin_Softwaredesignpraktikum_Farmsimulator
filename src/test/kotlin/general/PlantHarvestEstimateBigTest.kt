@@ -1,5 +1,6 @@
 package general
 
+import de.unisaarland.cs.se.selab.Constants
 import de.unisaarland.cs.se.selab.board.Coordinate
 import de.unisaarland.cs.se.selab.board.Direction
 import de.unisaarland.cs.se.selab.board.Field
@@ -9,8 +10,6 @@ import de.unisaarland.cs.se.selab.farms.Action
 import de.unisaarland.cs.se.selab.incidents.AnimalAttack
 import de.unisaarland.cs.se.selab.incidents.BeeHappy
 import de.unisaarland.cs.se.selab.plants.Plant
-import de.unisaarland.cs.se.selab.plants.PlantData
-import de.unisaarland.cs.se.selab.plants.PlantTile
 import de.unisaarland.cs.se.selab.plants.PlantType
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -72,34 +71,22 @@ class PlantHarvestEstimateBigTest {
     fun makeStuffUp(): List<Plant> {
         val wheatPlant = Plant(
             PlantType.WHEAT,
-            PlantData(
-                450, 90, 1500000, IntRange(0, 0), false, IntRange(11, 13), 2,
-                IntRange(19, 20), listOf(3, 9), listOf(), listOf(), PlantTile.FIELD
-            ),
+            Constants.wheat,
             1
         )
         val pumpkinPlant = Plant(
             PlantType.PUMPKIN,
-            PlantData(
-                600, 120, 500000, IntRange(2, 3), true, IntRange(17, 20), 0,
-                IntRange(9, 12), (2..24 step 2).toList(), listOf(), listOf(), PlantTile.FIELD
-            ),
+            Constants.pumpkin,
             1
         )
         val almondPlant = Plant(
             PlantType.ALMOND,
-            PlantData(
-                400, 130, 800000, IntRange(4, 5), true, IntRange(16, 19), 1,
-                IntRange(0, 0), listOf(), listOf(21, 22, 3, 4), listOf(11, 17), PlantTile.FIELD
-            ),
+            Constants.almond,
             1
         )
         val grapePlant = Plant(
             PlantType.GRAPE,
-            PlantData(
-                250, 150, 1200000, IntRange(12, 16), false, IntRange(18, 18), 3,
-                IntRange(0, 0), listOf(), listOf(14, 15, 16), listOf(7, 13), PlantTile.PLANTATION
-            ),
+            Constants.grape,
             1
         )
         return listOf(wheatPlant, pumpkinPlant, almondPlant, grapePlant)
@@ -112,11 +99,12 @@ class PlantHarvestEstimateBigTest {
         assertEquals(1_500_000, wheatField?.plant?.getHarvestEstimate())
         wheatField?.loseMoisture()
         wheatField?.sunhours = 140
-        wheatField?.stampede(AnimalAttack(1, 14, setOf()))
+        wheatField?.stampede(AnimalAttack(1, 14, emptySet()))
         wheatField?.updateHarvestEstimate(14)
         assertEquals(485980, wheatField?.plant?.getHarvestEstimate())
         wheatField?.sunhours = 80
         wheatField?.performAction(Action.IRRIGATING, 15)
+        wheatField?.updateHarvestEstimate(15)
         assertEquals(388_784, wheatField?.plant?.getHarvestEstimate())
         wheatField?.performAction(Action.HARVESTING, 13)
         wheatField?.plant?.sow(PlantType.WHEAT, wheatField?.plant!!.data, 21)
@@ -124,35 +112,44 @@ class PlantHarvestEstimateBigTest {
         repeat(3) {
             wheatField?.loseMoisture()
         }
-        wheatField?.stampede(AnimalAttack(2, 21, setOf()))
+        wheatField?.stampede(AnimalAttack(2, 21, emptySet()))
         wheatField?.updateHarvestEstimate(21)
-        assertEquals(539_950, wheatField?.plant?.getHarvestEstimate())
+        assertEquals(539_925, wheatField?.plant?.getHarvestEstimate())
         wheatField?.drought = true
         wheatField?.updateHarvestEstimate(22)
         assertEquals(0, wheatField?.plant?.getHarvestEstimate())
 
         pumpkinField?.plant?.sow(PlantType.PUMPKIN, pumpkinField?.plant!!.data, 11)
         pumpkinField?.updateHarvestEstimate(11)
-        pumpkinField?.stampede(AnimalAttack(3, 13, setOf()))
-        pumpkinField?.plant?.addPollination(BeeHappy(5, 13, setOf(), 2.0, 13))
+        pumpkinField?.stampede(AnimalAttack(3, 13, emptySet()))
+        pumpkinField?.plant?.addPollination(BeeHappy(5, 13, emptySet(), 2.0, 13))
         pumpkinField?.updateHarvestEstimate(13)
-        assertEquals(227_250, pumpkinField?.plant?.getHarvestEstimate())
+        // 500'000 * 0.9 = 450'000
+        // 450'000 * 0.5 = 225'000
+        // 225'000 + 225'000 * 2.0 = 675'000
+        // assertEquals(227_250, pumpkinField?.plant?.getHarvestEstimate())
+        assertEquals(675_000, pumpkinField?.plant?.getHarvestEstimate())
         repeat(10) {
             pumpkinField?.loseMoisture()
         }
         pumpkinField?.updateHarvestEstimate(11)
         assertEquals(0, pumpkinField?.plant?.getHarvestEstimate())
 
-        almondPlantation?.updateHarvestEstimate(21)
-        pumpkinField?.plant?.addPollination(BeeHappy(6, 5, setOf(), 2.0, 5))
-        pumpkinField?.updateHarvestEstimate(5)
-        assertEquals(408_000, pumpkinField?.plant?.getHarvestEstimate())
+        almondPlantation?.plant?.prepareCurrentTick(21)
+        almondPlantation?.plant?.addPollination(BeeHappy(6, 5, emptySet(), 2.0, 5))
+        almondPlantation?.updateHarvestEstimate(5)
+        // Cutting is skipped!
+        // 800'000 + 800'000 * 2.0 = 2'400'000
+        // assertEquals(408_000, almondPlantation?.plant?.getHarvestEstimate())
+        assertEquals(2_400_000, almondPlantation?.plant?.getHarvestEstimate())
 
-        grapePlantation?.updateHarvestEstimate(21)
-        grapePlantation?.sunhours = 180
+        grapePlantation?.prepareCurrentTick(180, 20)
         grapePlantation?.updateHarvestEstimate(18)
-        assertEquals(461_700, grapePlantation?.plant?.getHarvestEstimate())
-        grapePlantation?.updateHarvestEstimate(21)
-        assertEquals(0, grapePlantation?.plant?.getHarvestEstimate())
+        // Cutting is skipped!
+        // We never enter the cuttable ticks!
+        // assertEquals(461_700, grapePlantation?.plant?.getHarvestEstimate())
+        assertEquals(1_026_000, grapePlantation?.plant?.getHarvestEstimate())
+        grapePlantation?.updateHarvestEstimate(20)
+        assertEquals(877_230, grapePlantation?.plant?.getHarvestEstimate())
     }
 }

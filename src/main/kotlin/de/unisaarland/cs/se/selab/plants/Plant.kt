@@ -5,6 +5,7 @@ import de.unisaarland.cs.se.selab.incidents.AnimalAttack
 import de.unisaarland.cs.se.selab.incidents.BeeHappy
 import de.unisaarland.cs.se.selab.incidents.Incident
 import de.unisaarland.cs.se.selab.logger.Logger
+import kotlin.math.max
 import kotlin.math.min
 
 /**
@@ -158,7 +159,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
             if (moisture > 0) {
                 repeat(
                     (data.moistureMin - moisture) / MOISTURE_LOW_DIVISOR
-                ) { harvestEstimate -= MOISTURE_LOW_PENALTY }
+                ) { harvestEstimate = max(harvestEstimate - MOISTURE_LOW_PENALTY, 0) }
             } else {
                 harvestEstimate = 0
             }
@@ -186,9 +187,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
         }
         if (mowable(yearTick)) harvestEstimate = (harvestEstimate * MOWING_MISSED_PENALTY_FACTOR).toInt()
         if (irrigationNeeded) actionsMissed.add(Action.IRRIGATING)
-        if (harvestTime == yearTick) {
-            harvestEstimate = (harvestEstimate * harvestPenalty(yearTick)).toInt()
-        }
+        harvestEstimate = (harvestEstimate * harvestPenalty(yearTick)).toInt()
         return actionsMissed
     }
 

@@ -8,6 +8,12 @@ import kotlin.math.min
  * Stores clouds / Handles cloud interaction
  */
 class CloudData(private var maxId: Int, val clouds: MutableList<Cloud>) {
+    /**
+     * returns MaxId of CloudData
+     */
+    fun getMaxId(): Int {
+        return maxId
+    }
     //
     /**
      * Responsible for overall merging logic
@@ -84,18 +90,6 @@ class CloudData(private var maxId: Int, val clouds: MutableList<Cloud>) {
         val cloud = clouds.firstOrNull { it.location == tileId }
         if (cloud != null) {
             stuckOnVillage(cloud)
-        }
-    }
-
-    override fun hashCode(): Int {
-        return super.hashCode()
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (other is CloudData) {
-            return this.maxId == other.maxId && this.clouds.equals(other.clouds)
-        } else {
-            return false
         }
     }
 }

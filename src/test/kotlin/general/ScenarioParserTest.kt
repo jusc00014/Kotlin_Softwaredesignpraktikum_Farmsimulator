@@ -6,7 +6,7 @@ import de.unisaarland.cs.se.selab.board.Field
 import de.unisaarland.cs.se.selab.board.Plantation
 import de.unisaarland.cs.se.selab.board.Tile
 import de.unisaarland.cs.se.selab.board.TileType
-import de.unisaarland.cs.se.selab.clouds.CloudData
+import de.unisaarland.cs.se.selab.clouds.Cloud
 import de.unisaarland.cs.se.selab.farms.Action
 import de.unisaarland.cs.se.selab.farms.Farm
 import de.unisaarland.cs.se.selab.farms.Machine
@@ -65,8 +65,8 @@ class ScenarioParserTest {
         0,
         APR_1..MAY_2,
         (JAN_2..DEC_2 step 2).toList(),
-        listOf(),
-        listOf(),
+        emptyList(),
+        emptyList(),
         PlantTile.FIELD
     )
     val apple = PlantData(
@@ -78,7 +78,7 @@ class ScenarioParserTest {
         SEP_1..OCT_2,
         1,
         0..0,
-        listOf(),
+        emptyList(),
         listOf(NOV_1, NOV_2, FEB_1, FEB_2),
         listOf(JUN_1, SEP_1),
         PlantTile.PLANTATION
@@ -118,10 +118,13 @@ class ScenarioParserTest {
         val scenarioParser = ScenarioParser()
         val expectedAction = listOf(Action.SOWING, Action.IRRIGATING)
         val expectedPlants = listOf(PlantType.PUMPKIN, PlantType.WHEAT)
-        val expectedMachine = Machine(0, expectedAction, expectedPlants, 4, expectedBoardData.getTileById(0))
+        val baseTile = Tile(0, Coordinate(0, 0), null, false, null, TileType.FARMSTEAD)
+        val expectedMachineTile = expectedBoardData.getTileById(0) ?: baseTile
+        val expectedMachine = Machine(0, expectedAction, expectedPlants, 4, expectedMachineTile)
         val farm = Farm(0, listOf(0), listOf(2), listOf(1), listOf(0), mutableListOf())
         val x = scenarioParser.parse(scenarioJson, expectedBoardData, 100, mapOf(0 to expectedMachine), listOf(farm), 1)
         val (incidentList, cloudData) = x
-        assertTrue(incidentList == emptyList<Incident>() && cloudData == CloudData(0, mutableListOf()))
+        val cloudBool = cloudData.getMaxId() == 0 && cloudData.clouds == emptyList<Cloud>()
+        assertTrue(incidentList == emptyList<Incident>() && cloudBool)
     }
 }

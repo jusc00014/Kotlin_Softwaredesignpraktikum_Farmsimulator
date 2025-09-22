@@ -84,8 +84,8 @@ class FarmParserTest {
         0,
         APR_1..MAY_2,
         (JAN_2..DEC_2 step 2).toList(),
-        listOf(),
-        listOf(),
+        emptyList(),
+        emptyList(),
         PlantTile.FIELD
     )
     val apple = PlantData(
@@ -97,7 +97,7 @@ class FarmParserTest {
         SEP_1..OCT_2,
         1,
         0..0,
-        listOf(),
+        emptyList(),
         listOf(NOV_1, NOV_2, FEB_1, FEB_2),
         listOf(JUN_1, SEP_1),
         PlantTile.PLANTATION
@@ -140,7 +140,9 @@ class FarmParserTest {
         assertTrue(farmList[0] == expectedFarm)
         val expectedAction = listOf(Action.SOWING, Action.IRRIGATING)
         val expectedPlants = listOf(PlantType.PUMPKIN, PlantType.WHEAT)
-        val expectedMachine = Machine(0, expectedAction, expectedPlants, 4, expectedBoardData.getTileById(0))
+        val baseTile = Tile(0, Coordinate(0, 0), null, false, null, TileType.FARMSTEAD)
+        val expectedMachineTile = expectedBoardData.getTileById(0) ?: baseTile
+        val expectedMachine = Machine(0, expectedAction, expectedPlants, 4, expectedMachineTile)
         assertTrue(idToMachine[0] == expectedMachine)
     }
 }

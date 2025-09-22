@@ -20,11 +20,32 @@ class MapParserTest {
     companion object Constants {
 
         const val POTATO_MOISTURE = 500
+        const val WHEAT_MOISTURE = 450
+        const val OAT_MOISTURE = 300
+        const val PUMPKIN_MOISTURE = 600
         const val APPLE_MOISTURE = 100
+        const val ALMOND_MOISTURE = 400
+        const val CHERRY_MOISTURE = 150
+        const val GRAPE_MOISTURE = 250
+
         const val POTATO_SUNLIGHT = 130
+        const val WHEAT_SUNLIGHT = 90
+        const val OAT_SUNLIGHT = 90
+        const val PUMPKIN_SUNLIGHT = 120
         const val APPLE_SUNLIGHT = 50
+        const val ALMOND_SUNLIGHT = 130
+        const val CHERRY_SUNLIGHT = 120
+        const val GRAPE_SUNLIGHT = 150
+
         const val POTATO_HE = 1_000_000
+        const val WHEAT_HE = 1_500_000
+        const val OAT_HE = 1_200_000
+        const val PUMPKIN_HE = 500_000
         const val APPLE_HE = 1_700_000
+        const val ALMOND_HE = 800_000
+        const val CHERRY_HE = 1_200_000
+        const val GRAPE_HE = 1_200_000
+
         const val JAN_1 = 1
         const val JAN_2 = 2
         const val FEB_1 = 3
@@ -60,8 +81,8 @@ class MapParserTest {
         0,
         APR_1..MAY_2,
         (JAN_2..DEC_2 step 2).toList(),
-        listOf(),
-        listOf(),
+        emptyList(),
+        emptyList(),
         PlantTile.FIELD
     )
     val apple = PlantData(
@@ -73,7 +94,7 @@ class MapParserTest {
         SEP_1..OCT_2,
         1,
         0..0,
-        listOf(),
+        emptyList(),
         listOf(NOV_1, NOV_2, FEB_1, FEB_2),
         listOf(JUN_1, SEP_1),
         PlantTile.PLANTATION
@@ -109,7 +130,7 @@ class MapParserTest {
     }
 
     @Test
-    fun parse() {
+    fun parseTest() {
         val mapParser = MapParser(mutableMapOf<Int, Tile>())
         val (boardData, plantMap) = mapParser.parse(mapJson)
         assertTrue(expectedBoardData.getTileById(0) == boardData.getTileById(0), "first")

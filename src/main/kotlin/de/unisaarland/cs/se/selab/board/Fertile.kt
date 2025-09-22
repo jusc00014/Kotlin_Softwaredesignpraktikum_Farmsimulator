@@ -2,6 +2,7 @@ package de.unisaarland.cs.se.selab.board
 import de.unisaarland.cs.se.selab.farms.Action
 import de.unisaarland.cs.se.selab.incidents.AnimalAttack
 import de.unisaarland.cs.se.selab.plants.Plant
+import kotlin.math.max
 import kotlin.math.min
 
 const val MOISTURE_TO_LOSE_PLANT_IS_NOT_GROWING = 70
@@ -40,7 +41,8 @@ abstract class Fertile(
         } else {
             MOISTURE_TO_LOSE_PLANT_IS_NOT_GROWING
         }
-        if (type == TileType.FIELD) {
+        moisture = max(0, moisture)
+        if (type == TileType.FIELD && plant.getHarvestEstimate() == 0) {
             return false
         }
         return minAllowedMoisture > moisture
@@ -108,7 +110,7 @@ abstract class Fertile(
 
     override fun equals(other: Any?): Boolean {
         if (other is Fertile) {
-            val bool = this.moistureCapacity == other.moistureCapacity && this.plant.equals(other.plant)
+            val bool = this.moistureCapacity == other.moistureCapacity && this.plant == other.plant
             return bool && super.equals(other)
         } else {
             return false

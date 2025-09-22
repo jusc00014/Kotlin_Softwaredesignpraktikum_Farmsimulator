@@ -54,7 +54,7 @@ class ScenarioParser {
 
         val json = JSONObject(jsonFile)
         val clouds = json.getJSONArray("clouds")
-        this.cloudData = parseClouds(clouds)
+        this.cloudData = parseClouds(clouds, board)
 
         val incidentsJson = json.getJSONArray("incidents")
         parseIncidents(incidentsJson, board, maxTick, machines, yearTick)
@@ -63,18 +63,29 @@ class ScenarioParser {
         return Pair(incidents, cloudData)
     }
 
-    private fun parseClouds(cloudsJson: JSONArray): CloudData {
+    private fun parseClouds(cloudsJson: JSONArray, board: BoardData): CloudData {
         val clouds: MutableList<Cloud> = mutableListOf()
+        val ids = mutableSetOf<Int>()
+        val locations = mutableSetOf<Int>()
         for (cloud in cloudsJson) {
             require(cloud is JSONObject)
             val id: Int = cloud.getInt("id")
+            require(id !in ids && id > 0)
+            ids.add(id)
             val location: Int = cloud.getInt(LOCATION)
+            require(location !in locations)
+            val tile = board.getTileById(location)
+            require(tile != null && tile.type != TileType.VILLAGE)
+            locations.add(location)
             val duration: Int = cloud.getInt(DURATION)
+            require(duration > 0 || duration == -1)
             val amount: Int = cloud.getInt("amount")
+            require(amount > 0)
             clouds.add(Cloud(id, location, duration, amount))
         }
         clouds.sortBy { it.id }
-        return CloudData(clouds.last().id, clouds)
+        val maxId = clouds.lastOrNull()?.id ?: 0
+        return CloudData(maxId, clouds)
     }
 
     private fun parseIncidents(

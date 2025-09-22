@@ -10,8 +10,8 @@ import kotlin.math.min
 /**
  * The plant with all its parameter needed for the Simulation.
  */
-class Plant(var type: PlantType, var data: PlantData) {
-    private var harvestEstimate: Int = if (data.tileType == PlantTile.PLANTATION) data.initialHarvestEstimate else 0
+class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
+    private var harvestEstimate: Int = initHarvestEstimate(yearTick)
     private var sowTime: Int = 0
     private var harvestTime: Int = 0
     private var actionPerformed: Action? = null
@@ -41,10 +41,16 @@ class Plant(var type: PlantType, var data: PlantData) {
         const val ANIMAL_ATTACK_FIELD_GRAPE_PENALTY_FACTOR = 0.5
         const val ANIMAL_ATTACK_PLANTATION_PENALTY_FACTOR = 0.9
     }
+    private fun initHarvestEstimate(yearTick: Int): Int {
+        return when (data.tileType) {
+            PlantTile.PLANTATION -> (data.initialHarvestEstimate * harvestPenalty(yearTick)).toInt()
+            PlantTile.FIELD -> 0
+        }
+    }
 
     private fun harvestPenalty(yearTick: Int): Double {
         val lateFor = min(0, yearTick - data.harvestingRange.last)
-        if (lateFor == 0) return 1.0
+        if (lateFor <= 0) return 1.0
 
         return when {
             (type == PlantType.WHEAT || type == PlantType.OAT) && lateFor <= 2
@@ -171,8 +177,7 @@ class Plant(var type: PlantType, var data: PlantData) {
     }
 
     private fun applyAndGetMissed(yearTick: Int, drought: Boolean, irrigationNeeded: Boolean): List<Action> {
-        // FIXME check Behaviour in Spec
-        if (drought) return listOf(Action.IRRIGATING)
+        if (drought) return emptyList()
         val actionsMissed = mutableListOf<Action>()
 
         if (weedable(yearTick)) harvestEstimate = (harvestEstimate * WEEDING_MISSED_PENALTY_FACTOR).toInt()

@@ -17,7 +17,7 @@ abstract class Fertile(
     farmID: Int,
     type: TileType,
     private val moistureCapacity: Int,
-    var plant: Plant,
+    val plant: Plant,
 ) : Tile(id, coord, airflow, false, farmID, type) {
     var sunhours: Int = -1
     private var moisture: Int = moistureCapacity

@@ -200,7 +200,7 @@ class MapParser(
      * Parse function which is called by main
      * Parses a given input into BoardData
      */
-    fun parse(jsonFile: String): Pair<BoardData, Map<PlantType, PlantData>> {
+    fun parse(jsonFile: String, yearTick: Int): Pair<BoardData, Map<PlantType, PlantData>> {
         val schema = SchemaLoader.forURL("classpath://schema/map.schema").load()
         val validator = Validator.create(schema, ValidatorConfig(FormatValidationPolicy.ALWAYS))
         val instance = JsonParser(File(jsonFile).readText()).parse()
@@ -224,7 +224,7 @@ class MapParser(
         val tilesJson = json.getJSONArray("tiles")
         for (i in 0 until tilesJson.length()) {
             val tile = tilesJson.getJSONObject(i)
-            val (id, validTile) = validateTile(tile, plantMap)
+            val (id, validTile) = validateTile(tile, plantMap, yearTick)
             addTileToMap(id to validTile)
         }
         return BoardData(tiles) to plantMap
@@ -242,7 +242,7 @@ class MapParser(
         }
     }
 
-    private fun validateTile(json: JSONObject, plantMap: Map<PlantType, PlantData>): Pair<Int, Tile> {
+    private fun validateTile(json: JSONObject, plantMap: Map<PlantType, PlantData>, yearTick: Int): Pair<Int, Tile> {
         val tileId = json.getInt("id")
         val coord = json.getJSONObject("coordinates")
         val xCoord = coord.getInt("x")
@@ -257,11 +257,11 @@ class MapParser(
         val shed = if (validateShed(validCategory)) json.getBoolean("shed") else false
         val tile = when (validCategory) {
             TileType.PLANTATION -> {
-                val plant = validatePlant(json.getString("plant"), plantMap)
+                val plant = validatePlant(json.getString("plant"), plantMap, yearTick)
                 Plantation(tileId, validCoord, direction, farmId ?: 0, validCategory, capacity, plant)
             }
             TileType.FIELD -> {
-                val plant = Plant(PlantType.POTATO, potato)
+                val plant = Plant(PlantType.POTATO, potato, yearTick)
                 val possiblePlants = validatePossiblePlant(json.getJSONArray("possiblePlants"))
                 Field(tileId, validCoord, direction, farmId ?: 0, validCategory, capacity, plant, possiblePlants)
             }
@@ -350,7 +350,7 @@ class MapParser(
         }
     }
 
-    private fun validatePlant(plant: String, plantData: Map<PlantType, PlantData>): Plant {
+    private fun validatePlant(plant: String, plantData: Map<PlantType, PlantData>, yearTick: Int): Plant {
         var returnPlantType: PlantType = PlantType.POTATO
         var returnPlantData: PlantData? = plantData[PlantType.POTATO]
         when (plant) {
@@ -374,7 +374,7 @@ class MapParser(
                 require(false) { "Invalid Plant for plantation" }
             }
         }
-        return Plant(returnPlantType, returnPlantData ?: potato)
+        return Plant(returnPlantType, returnPlantData ?: potato, yearTick)
     }
 
     private fun validatePossiblePlant(json: JSONArray): Set<PlantType> {

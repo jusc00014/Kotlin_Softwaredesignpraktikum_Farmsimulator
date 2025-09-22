@@ -97,7 +97,7 @@ class ScenarioParserTest {
                 farmID = 0,
                 type = TileType.PLANTATION,
                 moistureCapacity = 8000,
-                plant = Plant(PlantType.APPLE, apple)
+                plant = Plant(PlantType.APPLE, apple, Constants.OCT_1)
             )
         val field1 =
             Field(
@@ -107,7 +107,7 @@ class ScenarioParserTest {
                 farmID = 0,
                 type = TileType.FIELD,
                 moistureCapacity = 10000,
-                plant = Plant(PlantType.POTATO, potato),
+                plant = Plant(PlantType.POTATO, potato, Constants.OCT_1),
                 possiblePlants = mutableSetOf(PlantType.PUMPKIN, PlantType.WHEAT)
             )
         expectedBoardData = BoardData(mutableMapOf(0 to tile1, 1 to plantation1, 2 to field1))

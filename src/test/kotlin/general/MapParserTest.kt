@@ -113,7 +113,7 @@ class MapParserTest {
                 farmID = 0,
                 type = TileType.PLANTATION,
                 moistureCapacity = 8000,
-                plant = Plant(PlantType.APPLE, apple)
+                plant = Plant(PlantType.APPLE, apple, Constants.OCT_1)
             )
         val field1 =
             Field(
@@ -123,7 +123,7 @@ class MapParserTest {
                 farmID = 0,
                 type = TileType.FIELD,
                 moistureCapacity = 10000,
-                plant = Plant(PlantType.POTATO, potato),
+                plant = Plant(PlantType.POTATO, potato, Constants.OCT_1),
                 possiblePlants = mutableSetOf(PlantType.PUMPKIN, PlantType.WHEAT)
             )
         expectedBoardData = BoardData(mutableMapOf(0 to tile1, 1 to plantation1, 2 to field1))
@@ -132,7 +132,7 @@ class MapParserTest {
     @Test
     fun parseTest() {
         val mapParser = MapParser(mutableMapOf<Int, Tile>())
-        val (boardData, plantMap) = mapParser.parse(mapJson)
+        val (boardData, plantMap) = mapParser.parse(mapJson, Constants.OCT_1)
         assertTrue(expectedBoardData.getTileById(0) == boardData.getTileById(0), "first")
         assertTrue(expectedBoardData.getTileById(1) == boardData.getTileById(1), "second")
         assertTrue(expectedBoardData.getTileById(2) == boardData.getTileById(2), "third")

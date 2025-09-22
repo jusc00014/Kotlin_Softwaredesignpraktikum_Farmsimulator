@@ -35,7 +35,7 @@ fun main(args: Array<String>) {
     val boardData: BoardData
     val plantDataMap: Map<PlantType, PlantData>
     try {
-        val mapData = mapParser.parse(data.maps)
+        val mapData = mapParser.parse(data.maps, data.startYearTick)
         boardData = mapData.first
         plantDataMap = mapData.second
     } catch (_: IllegalArgumentException) {

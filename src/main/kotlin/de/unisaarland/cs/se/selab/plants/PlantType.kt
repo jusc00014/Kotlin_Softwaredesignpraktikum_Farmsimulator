@@ -1,5 +1,8 @@
 package de.unisaarland.cs.se.selab.plants
 
+/**
+ * Type of Plants
+ */
 enum class PlantType {
     POTATO,
     WHEAT,

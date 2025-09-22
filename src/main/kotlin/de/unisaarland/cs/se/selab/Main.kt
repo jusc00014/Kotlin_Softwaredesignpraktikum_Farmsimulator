@@ -41,7 +41,7 @@ fun main(args: Array<String>) {
         Logger.invalidFile(data.maps)
         return
     }
-
+    Logger.fileParsed(data.maps)
     val farmParser = FarmParser()
     val farms: List<Farm>
     val machines: Map<Int, Machine>
@@ -53,7 +53,7 @@ fun main(args: Array<String>) {
         Logger.invalidFile(data.farms)
         return
     }
-
+    Logger.fileParsed(data.farms)
     val scenarioParser = ScenarioParser()
     val incidents: List<Incident>
     val cloudData: CloudData
@@ -72,6 +72,7 @@ fun main(args: Array<String>) {
         Logger.invalidFile(data.scenario)
         return
     }
+    Logger.fileParsed(data.scenario)
     val simulator = buildSimulator(
         farms = farms,
         plantDataMap = plantDataMap,

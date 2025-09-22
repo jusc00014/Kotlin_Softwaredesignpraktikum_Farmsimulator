@@ -14,7 +14,7 @@ import de.unisaarland.cs.se.selab.plants.Plant
 import de.unisaarland.cs.se.selab.plants.PlantData
 import de.unisaarland.cs.se.selab.plants.PlantTile
 import de.unisaarland.cs.se.selab.plants.PlantType
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -131,6 +131,7 @@ class FarmParserTest {
             )
         expectedBoardData = BoardData(mutableMapOf(0 to tile1, 1 to plantation1, 2 to field1))
     }
+
     @Test
     fun parse() {
         val farmParser = FarmParser()
@@ -142,5 +143,4 @@ class FarmParserTest {
         val expectedMachine = Machine(0, expectedAction, expectedPlants, 4, expectedBoardData.getTileById(0))
         assertTrue(idToMachine[0] == expectedMachine)
     }
-
 }

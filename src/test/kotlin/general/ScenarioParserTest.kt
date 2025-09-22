@@ -16,7 +16,7 @@ import de.unisaarland.cs.se.selab.plants.Plant
 import de.unisaarland.cs.se.selab.plants.PlantData
 import de.unisaarland.cs.se.selab.plants.PlantTile
 import de.unisaarland.cs.se.selab.plants.PlantType
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -112,6 +112,7 @@ class ScenarioParserTest {
             )
         expectedBoardData = BoardData(mutableMapOf(0 to tile1, 1 to plantation1, 2 to field1))
     }
+
     @Test
     fun parse() {
         val scenarioParser = ScenarioParser()
@@ -121,7 +122,6 @@ class ScenarioParserTest {
         val farm = Farm(0, listOf(0), listOf(2), listOf(1), listOf(0), mutableListOf())
         val x = scenarioParser.parse(scenarioJson, expectedBoardData, 100, mapOf(0 to expectedMachine), listOf(farm), 1)
         val (incidentList, cloudData) = x
-        assertTrue (incidentList == emptyList<Incident>() && cloudData == CloudData(0, mutableListOf()))
+        assertTrue(incidentList == emptyList<Incident>() && cloudData == CloudData(0, mutableListOf()))
     }
-
 }

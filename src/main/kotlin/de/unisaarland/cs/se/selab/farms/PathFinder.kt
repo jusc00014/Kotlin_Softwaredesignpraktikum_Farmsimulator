@@ -79,11 +79,51 @@ class PathFinder {
         board: BoardData,
         harvest: Boolean
     ): Boolean {
+        val stack = reachableWithinOne(
+            src,
+            dest,
+            farmId,
+            board,
+            harvest
+        )
+        if (dest in stack) return true
+        for (neigbor in stack) {
+            val neigbors = reachableWithinOne(
+                neigbor,
+                dest,
+                farmId,
+                board,
+                harvest
+            )
+            if (dest in neigbors) return true
+            for (srrc in neigbors) {
+                val dests = reachableWithinOne(
+                    srrc,
+                    dest,
+                    farmId,
+                    board,
+                    harvest
+                )
+                if (dest in dests) return true
+            }
+        }
+        return false
+    }
+
+    /**
+     * Travel only one*/
+    fun reachableWithinOne(
+        src: Tile,
+        dest: Tile,
+        farmId: Int,
+        board: BoardData,
+        harvest: Boolean
+    ): MutableList<Tile> {
         val stack = mutableListOf<Tile>()
-        var neigbors = board.neighbors(1, src)
+        val neigbors = board.neighbors(1, src)
         for (neigbor in neigbors) {
             if (neigbor == dest) {
-                return true
+                return mutableListOf(neigbor)
             }
             if (
                 neigbor.type in listOf(TileType.ROAD, TileType.MEADOW) ||
@@ -97,13 +137,7 @@ class PathFinder {
                 stack.add(neigbor)
             }
         }
-        for (neigbor in stack) {
-            neigbors = board.neighbors(1, neigbor)
-            if (dest in neigbors) {
-                return true
-            }
-        }
-        return false
+        return stack
     }
 
     /**

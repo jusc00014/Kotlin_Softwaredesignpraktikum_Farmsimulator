@@ -41,7 +41,7 @@ class CloudData(private var maxId: Int, val clouds: MutableList<Cloud>) {
      */
     private fun createMergedCloud(cloud1: Cloud, cloud2: Cloud) {
         val newCloud = createCloud(
-            min(cloud1.duration, cloud2.duration),
+            logicalMin(cloud1.duration, cloud2.duration),
             cloud1.waterAmount + cloud2.waterAmount,
             cloud1.location,
             max(cloud1.stepsRemaining, cloud2.stepsRemaining)
@@ -56,6 +56,13 @@ class CloudData(private var maxId: Int, val clouds: MutableList<Cloud>) {
         )
         clouds.remove(cloud1)
         clouds.remove(cloud2)
+    }
+    //
+    /**
+     * Logical Minimum
+     */
+    private fun logicalMin(a: Int, b: Int): Int {
+        return min(if (a == -1) b else a, if (b == -1) a else b)
     }
     //
     /**

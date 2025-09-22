@@ -218,6 +218,9 @@ object Logger {
      * $plant harvest.
      */
     fun machineCollected(farmId: Int, machineId: Int, amount: Int, plant: PlantType) {
+        val pre = farmToHarvest[farmId] ?: 0
+        val new = amount + pre
+        farmToHarvest[farmId] = new
         logPrint(LogLevel.IMPORTANT,
             "Farm Harvest: Machine $machineId has collected $amount g of $plant harvest.")
     }
@@ -292,12 +295,13 @@ object Logger {
     fun statisticCalculated() {
         logPrint(LogLevel.IMPORTANT,
             "Simulation Info: Simulation statistics are calculated.")
+        logCollected()
     }
 
     /**
      * Responsible for calling Statistic logs
      */
-    fun logCollected() {
+    private fun logCollected() {
         farmToHarvest.toSortedMap().forEach { farmCollected(it.key, it.value) }
         plantToHarvest.forEach { totalPlantHarvest(it.key, it.value) }
     }

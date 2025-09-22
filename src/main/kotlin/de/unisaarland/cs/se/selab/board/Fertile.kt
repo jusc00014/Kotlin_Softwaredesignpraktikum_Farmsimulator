@@ -49,7 +49,7 @@ abstract class Fertile(
     /**
      * checks if farm should irrigate on this tile*/
     fun irrigatable(): Boolean {
-        return !drought || moisture < plant.getMinMoisture() || plant.getHarvestEstimate() > 0
+        return !drought && moisture < plant.getMinMoisture() && plant.getHarvestEstimate() > 0
     }
 
     override fun rain(amount: Int): Int {

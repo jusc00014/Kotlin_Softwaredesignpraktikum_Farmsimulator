@@ -1,4 +1,4 @@
-package de.unisaarland.cs.se.selab.board
+package de.unisaarland.cs.se.selab
 
 import de.unisaarland.cs.se.selab.plants.PlantData
 import de.unisaarland.cs.se.selab.plants.PlantTile

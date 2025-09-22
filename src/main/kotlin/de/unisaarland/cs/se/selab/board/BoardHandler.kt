@@ -25,20 +25,20 @@ const val DECEMBER = 84
 /**
  * BoardHandler holds map for sunlight and is used for moisture reduction phase and updateHarvestEstimate*/
 class BoardHandler {
-        val sunLight: Map<Int, Int> = mapOf(
-            1 to JANUARY_AND_NOVEMBER,
-            2 to FEBRUARY_AND_OCTOBER,
-            3 to MARCH_AND_SEPTEMBER,
-            FOUR to APRIL,
-            FIVE to MAY_AND_JUNE_AND_JULY,
-            SIX to MAY_AND_JUNE_AND_JULY,
-            SEVEN to MAY_AND_JUNE_AND_JULY,
-            EIGHT to AUGUST,
-            NINE to MARCH_AND_SEPTEMBER,
-            TEN to FEBRUARY_AND_OCTOBER,
-            ELEVEN to JANUARY_AND_NOVEMBER,
-            TWELVE to DECEMBER
-        )
+    val sunLight: Map<Int, Int> = mapOf(
+        1 to JANUARY_AND_NOVEMBER,
+        2 to FEBRUARY_AND_OCTOBER,
+        3 to MARCH_AND_SEPTEMBER,
+        FOUR to APRIL,
+        FIVE to MAY_AND_JUNE_AND_JULY,
+        SIX to MAY_AND_JUNE_AND_JULY,
+        SEVEN to MAY_AND_JUNE_AND_JULY,
+        EIGHT to AUGUST,
+        NINE to MARCH_AND_SEPTEMBER,
+        TEN to FEBRUARY_AND_OCTOBER,
+        ELEVEN to JANUARY_AND_NOVEMBER,
+        TWELVE to DECEMBER
+    )
 
     /**
      * over all Fertiles on board, first sets all initial sunhours on tiles, then reduces moisture*/

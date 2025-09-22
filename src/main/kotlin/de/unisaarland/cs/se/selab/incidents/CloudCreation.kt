@@ -30,6 +30,7 @@ class CloudCreation(
         }
         Logger.incidentExecuted(id, this, tileIds)
     }
+
     //
     override fun toString(): String {
         return "CLOUD_CREATION"

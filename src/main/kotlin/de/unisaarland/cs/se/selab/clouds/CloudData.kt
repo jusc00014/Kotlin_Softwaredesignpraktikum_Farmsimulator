@@ -12,12 +12,11 @@ class CloudData(private var maxId: Int, val clouds: MutableList<Cloud>) {
     /**
      * Responsible for overall merging logic
      */
-    fun mergeIfNecessary(cloud: Cloud) : Boolean {
+    fun mergeIfNecessary(cloud: Cloud): Boolean {
         val possibleDupe = checkOccupied(cloud)
-        if(possibleDupe == null) {
+        if (possibleDupe == null) {
             return false
-        }
-        else {
+        } else {
             createMergedCloud(cloud, possibleDupe)
             return true
         }
@@ -26,7 +25,7 @@ class CloudData(private var maxId: Int, val clouds: MutableList<Cloud>) {
     /**
      * Checks rather a tile is occupied by another cloud
      */
-    private fun checkOccupied(cloud: Cloud) : Cloud? {
+    private fun checkOccupied(cloud: Cloud): Cloud? {
         return clouds.firstOrNull { it.id != cloud.id && it.location == cloud.location }
     }
     //
@@ -34,12 +33,20 @@ class CloudData(private var maxId: Int, val clouds: MutableList<Cloud>) {
      * Responsible for the merge event of two clouds
      */
     private fun createMergedCloud(cloud1: Cloud, cloud2: Cloud) {
-        val newCloud = createCloud(min(cloud1.duration, cloud2.duration),
-            cloud1.waterAmount + cloud2.waterAmount, cloud1.location,
+        val newCloud = createCloud(
+            min(cloud1.duration, cloud2.duration),
+            cloud1.waterAmount + cloud2.waterAmount,
+            cloud1.location,
             max(cloud1.stepsRemaining, cloud2.stepsRemaining)
         )
-        Logger.logCloudUnion(cloud1.id, cloud2.id,
-            newCloud.id, newCloud.waterAmount, newCloud.duration, newCloud.location)
+        Logger.logCloudUnion(
+            cloud1.id,
+            cloud2.id,
+            newCloud.id,
+            newCloud.waterAmount,
+            newCloud.duration,
+            newCloud.location
+        )
         clouds.remove(cloud1)
         clouds.remove(cloud2)
     }
@@ -47,7 +54,7 @@ class CloudData(private var maxId: Int, val clouds: MutableList<Cloud>) {
     /**
      * Simply creates a new cloud
      */
-    fun createCloud(duration: Int, amount: Int, location: Int, stepsRemaining: Int) : Cloud {
+    fun createCloud(duration: Int, amount: Int, location: Int, stepsRemaining: Int): Cloud {
         maxId += 1
         val cloud = Cloud(maxId, duration, location, amount, stepsRemaining)
         clouds.add(cloud)

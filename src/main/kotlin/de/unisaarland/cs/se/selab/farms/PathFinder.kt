@@ -1,6 +1,6 @@
 package de.unisaarland.cs.se.selab.farms
-import de.unisaarland.cs.se.selab.board.Tile
 import de.unisaarland.cs.se.selab.board.BoardData
+import de.unisaarland.cs.se.selab.board.Tile
 import de.unisaarland.cs.se.selab.board.TileType
 
 /**
@@ -19,7 +19,7 @@ class PathFinder {
         val stack = mutableListOf(src)
         var found = false
         val explored = mutableListOf<Tile>()
-        while (stack.isNotEmpty() &&  !found) {
+        while (stack.isNotEmpty() && !found) {
             val current = stack[0]
             val neigbors = board.neighbors(1, current)
             for (neigbor in neigbors) {
@@ -29,14 +29,14 @@ class PathFinder {
                 }
 
                 when {
-                    neigbor in explored -> {continue}
+                    neigbor in explored -> { continue }
                     neigbor.type in listOf(TileType.ROAD, TileType.MEADOW) ||
-                            (!harvest && neigbor.type == TileType.VILLAGE) -> {
+                        (!harvest && neigbor.type == TileType.VILLAGE) -> {
                         stack.add(neigbor)
                     }
 
                     neigbor.type in listOf(TileType.FIELD, TileType.PLANTATION, TileType.FARMSTEAD) &&
-                            neigbor.farmID == farmId -> {
+                        neigbor.farmID == farmId -> {
                         stack.add(neigbor)
                     }
                     else -> {}
@@ -87,11 +87,13 @@ class PathFinder {
             }
             if (
                 neigbor.type in listOf(TileType.ROAD, TileType.MEADOW) ||
-                (!harvest && neigbor.type == TileType.VILLAGE)) {
+                (!harvest && neigbor.type == TileType.VILLAGE)
+            ) {
                 stack.add(neigbor)
             } else if (
                 neigbor.type in listOf(TileType.FIELD, TileType.PLANTATION, TileType.FARMSTEAD) &&
-                neigbor.farmID == farmId) {
+                neigbor.farmID == farmId
+            ) {
                 stack.add(neigbor)
             }
         }

@@ -54,6 +54,7 @@ abstract class Fertile(
 
     override fun rain(amount: Int): Int {
         val moistureToAdd = min(amount, moistureCapacity - moisture)
+        moisture += moistureToAdd
         return amount - moistureToAdd
     }
 

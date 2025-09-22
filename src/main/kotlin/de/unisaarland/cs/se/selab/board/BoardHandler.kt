@@ -48,7 +48,7 @@ class BoardHandler {
         var amountFields = 0
         var amountPlantations = 0
         for (fertile in toReduceSoil) {
-            fertile.sunhours = sunHours
+            fertile.prepareCurrentTick(sunHours, yearTick)
             if (fertile.loseMoisture() && fertile.type == TileType.FIELD) {
                 amountFields++
             } else if (fertile.loseMoisture()) {

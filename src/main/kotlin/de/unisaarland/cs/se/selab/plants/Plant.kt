@@ -1,12 +1,12 @@
 package de.unisaarland.cs.se.selab.plants
 
+import de.unisaarland.cs.se.selab.YEAR_TICK_MAX
 import de.unisaarland.cs.se.selab.farms.Action
 import de.unisaarland.cs.se.selab.incidents.AnimalAttack
 import de.unisaarland.cs.se.selab.incidents.BeeHappy
 import de.unisaarland.cs.se.selab.incidents.Incident
 import de.unisaarland.cs.se.selab.logger.Logger
 import kotlin.math.max
-import kotlin.math.min
 
 /**
  * The plant with all its parameter needed for the Simulation.
@@ -49,9 +49,27 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
         }
     }
 
+    /**
+     * Calculates the time frame in which harvest penalty should be applied.
+     */
+    private fun harvestPenaltyTimeFrame(): Set<Int> {
+        val sowingTimeStart = if (data.tileType == PlantTile.PLANTATION) {
+            PLANTATION_HARVEST_RESET
+        } else {
+            data.sowRange.first
+        }
+        return if (sowingTimeStart < data.harvestingRange.last) {
+            // E.G. Potato: start = 21 (Oct2) , endInclusive = 4 (Apr1) -1 + 24 == 26 -> {21, 22, 23, 24, 1, 2, 3}
+            IntRange(data.harvestingRange.last, sowingTimeStart - 1 + YEAR_TICK_MAX)
+                .map { (it % YEAR_TICK_MAX) + 1 }.toSet()
+        } else {
+            IntRange(data.harvestingRange.last + 1, sowingTimeStart - 1).toSet()
+        }
+    }
+
     private fun harvestPenalty(yearTick: Int): Double {
-        val lateFor = min(0, yearTick - data.harvestingRange.last)
-        if (lateFor <= 0 || (data.tileType == PlantTile.PLANTATION && yearTick > PLANTATION_HARVEST_RESET)) return 1.0
+        val lateFor = harvestPenaltyTimeFrame().indexOf(yearTick) + 1 // Shift index to start with 0
+        if (lateFor == 0) return 1.0
 
         return when {
             (type == PlantType.WHEAT || type == PlantType.OAT) && lateFor <= 2
@@ -131,20 +149,13 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
         tileID: Int
     ) {
         val oldHarvestEstimate = harvestEstimate
-        harvestEstimate = when {
-            drought -> 0
-            (
-                data.tileType == PlantTile.PLANTATION && yearTick == PLANTATION_HARVEST_RESET
-                ) || (
-                data.tileType == PlantTile.FIELD && sowTime == yearTick
-                ) -> data.initialHarvestEstimate
-            harvestTime == yearTick -> 0
-            else -> harvestEstimate
+        if (drought) {
+            harvestEstimate = 0
         }
 
         // Sowed too late
         if (data.tileType == PlantTile.FIELD && sowTime == yearTick) {
-            val sowedLate = min(0, sowTime - data.sowRange.last)
+            val sowedLate = max(0, sowTime - data.sowRange.last)
             repeat(sowedLate) { harvestEstimate = (harvestEstimate * SOWING_LATE_PENALTY_FACTOR).toInt() }
         }
 
@@ -260,7 +271,9 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
     private fun harvest(yearTick: Int): Int {
         harvestTime = yearTick
         if (data.tileType == PlantTile.FIELD) sowTime = 0
-        return harvestEstimate
+        val harvestEstimateOld = harvestEstimate
+        harvestEstimate = 0
+        return harvestEstimateOld
     }
 
     /**
@@ -287,12 +300,22 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
         this.data = plantData
         this.sowTime = yearTick
         this.harvestTime = 0
+        this.harvestEstimate = data.initialHarvestEstimate
     }
 
     private fun resetForNextTick() {
         incidents.clear()
         actionPerformed = null
         if (mowedFor > 0) mowedFor--
+    }
+
+    /**
+     * Prepares the plant for the current tick
+     */
+    fun prepareCurrentTick(yearTick: Int) {
+        if (yearTick == PLANTATION_HARVEST_RESET && data.tileType == PlantTile.PLANTATION) {
+            harvestEstimate = data.initialHarvestEstimate
+        }
     }
 
     override fun hashCode(): Int {

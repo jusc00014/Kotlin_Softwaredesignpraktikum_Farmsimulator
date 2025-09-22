@@ -24,12 +24,18 @@ abstract class Fertile(
     private var moisture: Int = moistureCapacity
     var drought: Boolean = false
 
-    /**
-     * */
     private fun resetForNextTick() {
         if (type == TileType.FIELD) {
             drought = false
         }
+    }
+
+    /**
+     * Prepares the fertile and plant its holding for the current Tick
+     */
+    fun prepareCurrentTick(sunHours: Int, yearTick: Int) {
+        sunhours = sunHours
+        plant.prepareCurrentTick(yearTick)
     }
 
     /**

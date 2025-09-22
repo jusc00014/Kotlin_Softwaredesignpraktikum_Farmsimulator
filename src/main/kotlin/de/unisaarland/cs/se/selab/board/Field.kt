@@ -17,13 +17,17 @@ class Field(
     plant: Plant,
     private val possiblePlants: Set<PlantType>
 ) : Fertile(id, coord, airflow, farmID, type, moistureCapacity, plant) {
+    /**
+     * Constants used in Field
+     */
+    companion object {
+        const val SOWING_LATE_TIMEFRAME = 2
+    }
+
     override fun performableActions(yearTick: Int): List<Action> {
         val actions = mutableListOf<Action>()
         if (irrigatable()) {
             actions.add(Action.IRRIGATING)
-        }
-        if (sowable(yearTick, plant.type)) {
-            actions.add(Action.SOWING)
         }
         if (plant.weedable(yearTick)) {
             actions.add(Action.WEEDING)
@@ -37,10 +41,15 @@ class Field(
     /**
      * returns plantTypes for sowable Plants by checking plantData*/
     fun sowablePlants(yearTick: Int, plantData: Map<PlantType, PlantData>): List<PlantType> {
+        if (!sowable(yearTick)) return emptyList()
         val pt = mutableListOf<PlantType>()
         for (plantType in possiblePlants) {
             val pd = plantData[plantType] ?: continue
-            if (yearTick in pd.sowRange) {
+            val extendedSowRange = IntRange(
+                pd.sowRange.start,
+                pd.sowRange.endInclusive + SOWING_LATE_TIMEFRAME
+            )
+            if (extendedSowRange.contains(SOWING_LATE_TIMEFRAME)) {
                 pt.add(plantType)
             }
         }
@@ -49,8 +58,8 @@ class Field(
 
     /**
      * checks if the plantType is in possiblePlants and if it is not sown and not fallow*/
-    fun sowable(yearTick: Int, plantType: PlantType): Boolean {
-        return !plant.isSown() && !plant.isFallow(yearTick) && plantType in possiblePlants
+    fun sowable(yearTick: Int): Boolean {
+        return !plant.isSown() && !plant.isFallow(yearTick)
     }
 
     override fun hashCode(): Int {

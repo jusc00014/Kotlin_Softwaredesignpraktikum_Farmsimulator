@@ -24,7 +24,6 @@ class Plant(var type: PlantType, var data: PlantData) {
     companion object Constants {
         const val FALLOW_TICKS = 4
         const val PLANTATION_HARVEST_RESET = 21
-        const val SOWING_LATE_TIMEFRAME = 2
 
         const val HARVEST_LATE_PENALTY_GRAPE_FACTOR = 0.95
         const val HARVEST_LATE_PENALTY_ALMOND_FACTOR = 0.9

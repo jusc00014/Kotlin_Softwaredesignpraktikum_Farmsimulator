@@ -93,8 +93,8 @@ class MapParser(
         0,
         APR_1..MAY_2,
         (JAN_2..DEC_2 step 2).toList(),
-        listOf(),
-        listOf(),
+        emptyList(),
+        emptyList(),
         PlantTile.FIELD
     )
     val wheat = PlantData(
@@ -107,8 +107,8 @@ class MapParser(
         2,
         OCT_1..OCT_2,
         listOf(FEB_1, MAY_1),
-        listOf(),
-        listOf(),
+        emptyList(),
+        emptyList(),
         PlantTile.FIELD
     )
     val oat = PlantData(
@@ -121,8 +121,8 @@ class MapParser(
         2,
         MAR_2..MAR_2,
         listOf(1, 2, 3),
-        listOf(),
-        listOf(),
+        emptyList(),
+        emptyList(),
         PlantTile.FIELD
     )
     val pumpkin = PlantData(
@@ -135,8 +135,8 @@ class MapParser(
         0,
         MAY_1..JUN_2,
         (JAN_2..DEC_2 step 2).toList(),
-        listOf(),
-        listOf(),
+        emptyList(),
+        emptyList(),
         PlantTile.FIELD
     )
     val apple = PlantData(
@@ -148,7 +148,7 @@ class MapParser(
         SEP_1..OCT_2,
         1,
         0..0,
-        listOf(),
+        emptyList(),
         listOf(NOV_1, NOV_2, FEB_1, FEB_2),
         listOf(JUN_1, SEP_1),
         PlantTile.PLANTATION
@@ -162,7 +162,7 @@ class MapParser(
         AUG_2..OCT_1,
         1,
         0..0,
-        listOf(),
+        emptyList(),
         listOf(NOV_1, NOV_2, FEB_1, FEB_2),
         listOf(JUN_1, SEP_1),
         PlantTile.PLANTATION
@@ -176,7 +176,7 @@ class MapParser(
         JUL_1..JUL_2,
         1,
         0..0,
-        listOf(),
+        emptyList(),
         listOf(NOV_1, NOV_2, FEB_1, FEB_2),
         listOf(JUN_1),
         PlantTile.PLANTATION
@@ -190,7 +190,7 @@ class MapParser(
         SEP_2..SEP_2,
         3,
         0..0,
-        listOf(),
+        emptyList(),
         listOf(JUL_2, AUG_1, AUG_2),
         listOf(APR_1, JUL_1),
         PlantTile.PLANTATION
@@ -205,7 +205,7 @@ class MapParser(
         val validator = Validator.create(schema, ValidatorConfig(FormatValidationPolicy.ALWAYS))
         val instance = JsonParser(File(jsonFile).readText()).parse()
         val failure = validator.validate(instance)
-        require(failure == null) { failure.toString() }
+        require(failure == null) { "${failure ?: "NULL"}" }
 
         val plantTypeList = listOf(
             PlantType.POTATO,

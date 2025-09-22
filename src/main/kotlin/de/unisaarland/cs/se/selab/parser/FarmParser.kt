@@ -36,7 +36,7 @@ class FarmParser {
         // creates jsonValue from our farmFile
         val failure = validator.validate(instance)
         // ValidatorFailures after validation on our farmFile
-        require(failure == null) { failure.toString() }
+        require(failure == null) { "${failure ?: "NULL"}" }
         // fine if it is null, otherwise file invalidated by schema
         val jsonString = File(jsonFile).readText()
         val json = JSONObject(jsonString)
@@ -77,12 +77,13 @@ class FarmParser {
         farmNames.add(farmName)
 
         val farmsteadsJson = json.getJSONArray("farmsteads")
-        val farmsteads = farmsteadsJson.map { it as Int }.toMutableList()
+        val farmsteads = farmsteadsJson.map { (it ?: error("farmSteadsJSON null")) as Int }.toMutableList()
         validateFarmstead(farmsteads, farmId, board)
 
-        val fields = json.getJSONArray("fields").map { it as Int }.toMutableList()
+        val fields = json.getJSONArray("fields").map { (it ?: error("fields null")) as Int }.toMutableList()
         validateFields(fields, farmId, board)
-        val plantations = json.getJSONArray("plantations").map { it as Int }.toMutableList()
+        val plantations = json.getJSONArray("plantations")
+            .map { (it ?: error("plantations null")) as Int }.toMutableList()
         validatePlantations(plantations, farmId, board)
         validateAtLeastOneFieldOrPlantationTile(fields, plantations)
 
@@ -155,7 +156,7 @@ class FarmParser {
                 )
             } else {
                 require(!sowingPlanJson.keySet().contains(LOCATION) && !sowingPlanJson.keySet().contains(RADIUS))
-                fields = sowingPlanFields.map { it as Int }.toMutableList()
+                fields = sowingPlanFields.map { (it ?: error("sowingPlanFields null")) as Int }.toMutableList()
             }
             require(fields.isNotEmpty())
             sowingPlans.add(SowingPlan(sowingPlanId, sowingPlanTick, plantType, fields))
@@ -180,7 +181,7 @@ class FarmParser {
 
     private fun validateSowingPlanFieldsByRadius(tileId: Int, radius: Int, board: BoardData): MutableList<Int> {
         val fieldCenter = board.getTileById(tileId)
-        require(fieldCenter != null)
+        requireNotNull(fieldCenter)
         return board.neighbors(radius, fieldCenter).filter { it is Fertile }.map { it.id }.toMutableList()
     }
 
@@ -192,16 +193,18 @@ class FarmParser {
                 val machineName = machineJson.getString(NAME)
                 validateMachineIdAndName(machineID, machineName)
 
-                val actionsJson = machineJson.getJSONArray("actions").map { it as String }
+                val actionsJson = machineJson.getJSONArray("actions").map { (it ?: error("actions null")) as String }
                 val actions = validateMachineActions(actionsJson)
 
-                val plantsJson = machineJson.getJSONArray("plants").map { it as String }
+                val plantsJson = machineJson.getJSONArray("plants").map { (it ?: error("plants null")) as String }
                 val plantTypes = validateMachinePlants(plantsJson)
 
                 val duration = machineJson.getInt("duration")
                 val location = validateMachineTile(machineJson.getInt("location"), farmId, board)
+                val locationTile = board.getTileById(location)
+                requireNotNull(locationTile)
 
-                val theMachine = Machine(machineID, actions, plantTypes, duration, board.getTileById(location))
+                val theMachine = Machine(machineID, actions, plantTypes, duration, locationTile)
                 machinesInstances.add(theMachine)
                 this.finishedMachines[machineID] = theMachine
             }

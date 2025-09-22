@@ -14,7 +14,7 @@ class BrokenMachine(id: Int, tick: Int, private val duration: Int, private val m
         } else {
             machine.brokenFor = -1
         }
-        Logger.incidentExecuted(id, this, listOf(machine.location!!.id))
+        Logger.incidentExecuted(id, this, listOf(machine.location.id))
     }
     override fun toString(): String {
         return "BROKEN_MACHINE"

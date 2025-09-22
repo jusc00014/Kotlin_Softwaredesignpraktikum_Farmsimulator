@@ -17,6 +17,7 @@ import de.unisaarland.cs.se.selab.parser.MapParser
 import de.unisaarland.cs.se.selab.parser.ScenarioParser
 import de.unisaarland.cs.se.selab.plants.PlantData
 import de.unisaarland.cs.se.selab.plants.PlantType
+import java.io.OutputStreamWriter
 
 const val YEAR_TICK_MIN = 1
 const val YEAR_TICK_MAX = 24
@@ -204,18 +205,20 @@ fun parseArguments(args: Array<String>): ArgumentData? {
  * @return null
  */
 fun printHelp(): ArgumentData? {
-    print(
-        """
-        The simulator is started with these command line parameters:
-        --map (String): Path to the map. (always required)
-        --farms (String): Path to the file with information about the farms. (always required)
-        --scenario (String): Path to the scenario file. (always required)
-        --start_year_tick (Int): The tick to start with within a year (optional, default value 1, between 1 and 24 inclusive)
-        --max_ticks (Int): Maximum allowed number of simulation ticks. (always required, must not exceed 1’000)
-        --log_level (String): The level of log detail that shall be output (always required, either DEBUG, INFO or IMPORTANT)
-        --out (String): Path to output file. Uses ’stdout’ by default.
-        --help: This usage info
-        """.trimIndent()
-    )
+    OutputStreamWriter(System.err).use { out ->
+        out.write(
+            """
+            The simulator is started with these command line parameters:
+            --map (String): Path to the map. (always required)
+            --farms (String): Path to the file with information about the farms. (always required)
+            --scenario (String): Path to the scenario file. (always required)
+            --start_year_tick (Int): The tick to start with within a year (optional, default value 1, between 1 and 24 inclusive)
+            --max_ticks (Int): Maximum allowed number of simulation ticks. (always required, must not exceed 1’000)
+            --log_level (String): The level of log detail that shall be output (always required, either DEBUG, INFO or IMPORTANT)
+            --out (String): Path to output file. Uses ’stdout’ by default.
+            --help: This usage info
+            """.trimIndent()
+        )
+    }
     return null
 }

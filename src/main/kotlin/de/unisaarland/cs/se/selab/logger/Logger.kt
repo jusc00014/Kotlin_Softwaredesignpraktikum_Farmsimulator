@@ -13,8 +13,8 @@ import java.io.Writer
 object Logger {
     private var logLevel: LogLevel = LogLevel.DEBUG
     private var writer: Writer = PrintWriter(System.out, true)
-    private var farmToHarvest = mutableMapOf<Int, Int>()
-    private var plantToHarvest =
+    private val farmToHarvest = mutableMapOf<Int, Int>()
+    private val plantToHarvest =
         mutableMapOf(
             PlantType.POTATO to 0,
             PlantType.WHEAT to 0,

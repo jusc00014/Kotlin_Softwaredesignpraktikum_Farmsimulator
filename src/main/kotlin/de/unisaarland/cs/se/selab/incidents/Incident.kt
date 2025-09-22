@@ -6,5 +6,5 @@ abstract class Incident(val id: Int, val tick: Int) {
 
     /**
      * open function execute gets called by IncidentHandler on every Incident. overridden in every concrete Incident*/
-    open fun execute() {}
+    abstract fun execute()
 }

@@ -42,7 +42,7 @@ class FarmHandler(
                 performPrioritizedAction(
                     action,
                     remainingMachines,
-                    fertileType!!,
+                    fertileType ?: error("Set not Initialized for $action"),
                     finishedFields,
                     board,
                     farm,
@@ -162,7 +162,7 @@ class FarmHandler(
             remainingMachines.remove(machine)
             farm.removeSowingPlan(plan)
             var remainingTime = TICKTIME - 2 * machine.duration
-            var currentField: Fertile? = field
+            var currentField: Fertile = field
             while (remainingTime >= 0 && commonFields.isNotEmpty()) {
                 currentField = nextField(
                     Action.SOWING,
@@ -170,18 +170,18 @@ class FarmHandler(
                     commonFields,
                     finishedFields,
                     machine,
-                    currentField!!,
+                    currentField,
                     farm,
                     board,
                     yearTick
                 ) ?: break
-                currentField.plant.sow(toSow, plantData[toSow]!!, yearTick)
+                currentField.plant.sow(toSow, plantData[toSow] ?: error("FUCK DETEKT"), yearTick)
                 Logger.machinePerformedAction(machine.id, Action.SOWING, currentField.id, machine.duration)
                 Logger.machineSowed(machine.id, toSow, plan.id)
                 finishedFields[currentField.id] = currentField
                 remainingTime -= machine.duration
             }
-            Logger.machineFinished(machine.id, machine.location!!.id)
+            Logger.machineFinished(machine.id, machine.location.id)
         }
     }
 
@@ -202,7 +202,7 @@ class FarmHandler(
             val performableActions = fieldFound.performableActions(yearTick)
             for (currentAct in acts) {
                 if (currentAct in performableActions) {
-                    actionMap[currentAct]!!.add(fieldFound)
+                    actionMap[currentAct]?.add(fieldFound)
                 }
             }
         }
@@ -228,12 +228,12 @@ class FarmHandler(
             val machine = findBestMachine(field, remainingMachines, action, plant.type, board, farm) ?: continue
             performAction(action, field, machine, remainingMachines, finishedFields, farm.id, yearTick)
             var remainingTime = TICKTIME - 2 * machine.duration
-            var currentField: Fertile? = field
+            var currentField: Fertile = field
             plantsToActOn.remove(field)
             if (action == Action.HARVESTING) {
-                continueWithHarvesting(currentField!!, plantsToActOn, finishedFields, machine, board, farm, yearTick)
+                continueWithHarvesting(currentField, plantsToActOn, finishedFields, machine, board, farm, yearTick)
             } else {
-                while (remainingTime >= 0 && currentField != null) {
+                while (remainingTime >= 0) {
                     currentField = nextField(
                         action,
                         null,
@@ -244,10 +244,10 @@ class FarmHandler(
                         farm,
                         board,
                         yearTick
-                    )
+                    ) ?: break
                     remainingTime -= machine.duration
                 }
-                Logger.machineFinished(machine.id, machine.location!!.id)
+                Logger.machineFinished(machine.id, machine.location.id)
             }
         }
     }
@@ -269,7 +269,7 @@ class FarmHandler(
         var bestDuration = TICKTIME - 1
         for (machine in remainingMachines) {
             if (machine.duration < bestDuration && action in machine.actions && plantType in machine.plants) {
-                if (pathFinder.reachable(machine.location!!, fertile, farm.id, board)) {
+                if (pathFinder.reachable(machine.location, fertile, farm.id, board)) {
                     bestMachine = machine
                     bestDuration = machine.duration
                 }
@@ -330,16 +330,19 @@ class FarmHandler(
             Action.IRRIGATING to plantationMap[Action.IRRIGATING],
             Action.MOWING to plantationMap[Action.MOWING]
         )) {
-            if (action !in machine.actions || fertileType!!.isEmpty()) {
+            requireNotNull(fertileType)
+            if (action !in machine.actions || fertileType.isEmpty()) {
                 continue
             }
             for (fertile in fertileType) {
                 if (fertile.id in finishedFields || fertile.plant.type !in machine.plants ||
-                    pathFinder.reachable(machine.location!!, fertile, farm.id, board)
+                    pathFinder.reachable(machine.location, fertile, farm.id, board)
                 ) {
                     continue
                 }
                 performAction(action, fertile, machine, remainingMachines, finishedFields, farm.id, yearTick)
+                val plantations = plantationMap[Action.IRRIGATING]
+                requireNotNull(plantations)
                 continueWithSomething(
                     action,
                     finishedFields,
@@ -349,7 +352,7 @@ class FarmHandler(
                     board,
                     yearTick,
                     fertileType,
-                    plantationMap[Action.IRRIGATING]
+                    plantations
                 )
                 return
             }
@@ -370,7 +373,8 @@ class FarmHandler(
         finishedFields[fertile.id] = fertile
         remainingMachines?.remove(machine)
         if (action == Action.HARVESTING) {
-            Logger.machineCollected(farmId, machine.id, amount!!, fertile.plant.type)
+            requireNotNull(amount)
+            Logger.machineCollected(farmId, machine.id, amount, fertile.plant.type)
             harvestAmount += amount
         }
     }
@@ -402,11 +406,11 @@ class FarmHandler(
             )
             remainingTime -= machine.duration
         }
-        if (!pathFinder.reachableWithHarvest(lastField, machine.location!!, farm.id, board)) {
+        if (!pathFinder.reachableWithHarvest(lastField, machine.location, farm.id, board)) {
             val loc = pathFinder.findNearestShed(lastField, farm, board)
             if (loc != null) {
                 machine.location = loc
-                Logger.machineFinished(machine.id, machine.location!!.id)
+                Logger.machineFinished(machine.id, machine.location.id)
                 Logger.machineUnloads(machine.id, harvestAmount, field.plant.type)
                 harvestAmount = 0
             } else {
@@ -462,7 +466,7 @@ class FarmHandler(
             )
             remainingTime -= machine.duration
         }
-        Logger.machineFinished(machine.id, machine.location!!.id)
+        Logger.machineFinished(machine.id, machine.location.id)
     }
 
     private fun continueWithSomething(
@@ -474,7 +478,7 @@ class FarmHandler(
         board: BoardData,
         yearTick: Int,
         fertiles: MutableSet<Fertile>,
-        plantations: MutableSet<Fertile>?
+        plantations: MutableSet<Fertile>
     ) {
         if (action == Action.IRRIGATING && currentLocation.type == TileType.FIELD) {
             continueWithIrrigating(
@@ -485,7 +489,7 @@ class FarmHandler(
                 board,
                 yearTick,
                 fertiles,
-                plantations!!
+                plantations
             )
             return
         }
@@ -505,6 +509,6 @@ class FarmHandler(
             )
             remainingTime -= machine.duration
         }
-        Logger.machineFinished(machine.id, machine.location!!.id)
+        Logger.machineFinished(machine.id, machine.location.id)
     }
 }

@@ -50,7 +50,7 @@ class ScenarioParser {
 
         val failure = validator.validate(instance)
 
-        require(failure == null) { failure.toString() }
+        require(failure == null) { "${failure ?: "NULL"}" }
 
         val jsonString = File(jsonFile).readText()
         val json = JSONObject(jsonString)
@@ -252,7 +252,7 @@ class ScenarioParser {
     ) {
         cloudTilesForTick[incident.tick]?.let { tiles ->
             {
-                require(incident.tiles.find { it.id in tiles } == null) {
+                require(incident.tiles.none { it.id in tiles }) {
                     "[CloudCreation $incident.id] Tiles overlap!"
                 }
             }

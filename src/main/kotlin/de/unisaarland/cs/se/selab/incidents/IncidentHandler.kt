@@ -7,7 +7,7 @@ class IncidentHandler(private val upcomingIncidents: MutableMap<Int, List<Incide
     /**
      * called by Simulator every tick. Only executes the incidents, doesn't need to know anything else*/
     fun executeIncidents(tick: Int) {
-        val incidents = upcomingIncidents[tick] ?: listOf()
+        val incidents = upcomingIncidents[tick].orEmpty()
         incidents.forEach { it.execute() }
     }
 }

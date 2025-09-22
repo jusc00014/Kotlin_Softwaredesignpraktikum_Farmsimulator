@@ -10,7 +10,7 @@ class Machine(
     val actions: List<Action>,
     val plants: List<PlantType>,
     val duration: Int,
-    var location: Tile?,
+    var location: Tile,
     var brokenFor: Int = 0,
     var stuck: Boolean = false
 ) {
@@ -41,7 +41,7 @@ class Machine(
     override fun equals(other: Any?): Boolean {
         if (other is Machine) {
             val bool1 = this.id == other.id && this.actions == other.actions && this.duration == other.duration
-            val bool2 = this.location!!.equals(other.location) && this.brokenFor == other.brokenFor
+            val bool2 = this.location == other.location && this.brokenFor == other.brokenFor
             return bool1 && bool2 && this.stuck == other.stuck
         } else {
             return false

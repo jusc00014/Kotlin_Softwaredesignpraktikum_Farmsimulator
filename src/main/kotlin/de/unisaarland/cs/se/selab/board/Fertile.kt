@@ -25,7 +25,7 @@ abstract class Fertile(
 
     /**
      * */
-    fun resetForNextTick() {
+    private fun resetForNextTick() {
         if (type == TileType.FIELD) {
             drought = false
         }
@@ -61,7 +61,7 @@ abstract class Fertile(
     /**
      * Set the moisture to moistureCapacity for Machine Action
      */
-    fun irrigate() {
+    private fun irrigate() {
         moisture = moistureCapacity
     }
 

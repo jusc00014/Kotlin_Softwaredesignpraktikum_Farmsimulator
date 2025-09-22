@@ -1,8 +1,10 @@
 package de.unisaarland.cs.se.selab.farms
+//import com.sun.tools.javac.code.TypeAnnotationPosition.field
 import de.unisaarland.cs.se.selab.board.BoardData
 import de.unisaarland.cs.se.selab.board.Fertile
 import de.unisaarland.cs.se.selab.board.Field
 import de.unisaarland.cs.se.selab.board.Tile
+import de.unisaarland.cs.se.selab.board.TileType
 import de.unisaarland.cs.se.selab.plants.PlantData
 import de.unisaarland.cs.se.selab.plants.PlantType
 //import java.util.concurrent.TimeUnit
@@ -329,27 +331,18 @@ class FarmHandler(
                     continue
                 }
                 performAction(action, fertile, machine, remainingMachines, finishedFields, farm.id, yearTick)
-                var remainingTime = TICKTIME - 2 * machine.duration
-                var currentField: Fertile? = fertile
-                val plantsToActOn =
-                        (fieldMap[action].orEmpty() + plantationMap[action].orEmpty())
-                            .toSortedSet(compareBy { it.id })
-                while (remainingTime >= 0 && currentField != null) {
-                    currentField = nextField(
-                        action,
-                        null,
-                        plantsToActOn,
-                        finishedFields,
-                        machine,
-                        currentField,
-                        farm,
-                        board,
-                        yearTick
-                    )
-                    remainingTime -= machine.duration
-                }
-                Logger.machineFinished(machine.id, machine.location!!.id)
-                break
+                continueWithSomething (
+                    action,
+                    finishedFields,
+                    machine,
+                    fertile,
+                    farm,
+                    board,
+                    yearTick,
+                    fertileType,
+                    plantationMap[Action.IRRIGATING]
+                )
+                return
             }
         }
     }
@@ -363,7 +356,7 @@ class FarmHandler(
         farmId: Int,
         yearTick: Int
     ) {
-        val amount: Int? = fertile.plant.performAction(action, yearTick)
+        val amount: Int? = fertile.performAction(action, yearTick)
         Logger.machinePerformedAction(machine.id, action, fertile.id, machine.duration)
         finishedFields[fertile.id] = fertile
         remainingMachines?.remove(machine)
@@ -414,5 +407,100 @@ class FarmHandler(
             Logger.machineUnloads(machine.id, harvestAmount, field.plant.type)
             harvestAmount = 0
         }
+    }
+
+    private fun continueWithIrrigating(
+        finishedFields: MutableMap<Int, Fertile>,
+        machine: Machine,
+        currentLocation: Fertile,
+        farm: Farm,
+        board: BoardData,
+        yearTick: Int,
+        fields: MutableSet<Fertile>?,
+        plantations: MutableSet<Fertile>?
+    ) {
+        var remainingTime = TICKTIME - 2 * machine.duration
+        var currentField: Fertile? = currentLocation
+        var lastField: Fertile? = currentField
+        if (fields == null || plantations == null) {
+            currentField = null
+        }
+        while (remainingTime >= 0 && currentField != null) {
+            lastField = currentField
+            currentField = nextField(
+                Action.IRRIGATING,
+                null,
+                fields!!,
+                finishedFields,
+                machine,
+                currentLocation,
+                farm,
+                board,
+                yearTick
+            )
+            remainingTime -= machine.duration
+        }
+        currentField = lastField
+        while (remainingTime >= 0 && currentField != null) {
+            currentField = nextField(
+                Action.IRRIGATING,
+                null,
+                plantations!!,
+                finishedFields,
+                machine,
+                currentLocation,
+                farm,
+                board,
+                yearTick
+            )
+            remainingTime -= machine.duration
+        }
+        Logger.machineFinished(machine.id, machine.location!!.id)
+    }
+
+    private fun continueWithSomething(
+        action: Action,
+        finishedFields: MutableMap<Int, Fertile>,
+        machine: Machine,
+        currentLocation: Fertile,
+        farm: Farm,
+        board: BoardData,
+        yearTick: Int,
+        fertiles: MutableSet<Fertile>?,
+        plantations: MutableSet<Fertile>?
+    ) {
+        if (action == Action.IRRIGATING && currentLocation.type == TileType.FIELD) {
+            continueWithIrrigating(
+                finishedFields,
+                machine,
+                currentLocation,
+                farm,
+                board,
+                yearTick,
+                fertiles,
+                plantations
+            )
+            return
+        }
+        var remainingTime = TICKTIME - 2 * machine.duration
+        var currentField: Fertile? = currentLocation
+        if (fertiles == null) {
+            currentField = null
+        }
+        while (remainingTime >= 0 && currentField != null) {
+            currentField = nextField(
+                action,
+                null,
+                fertiles!!,
+                finishedFields,
+                machine,
+                currentField,
+                farm,
+                board,
+                yearTick
+            )
+            remainingTime -= machine.duration
+        }
+        Logger.machineFinished(machine.id, machine.location!!.id)
     }
 }

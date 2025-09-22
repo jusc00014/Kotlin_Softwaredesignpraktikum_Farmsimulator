@@ -31,9 +31,6 @@ class Machine(
     fun decreaseBrokenFor() {
         if (brokenFor > 0) {
             brokenFor--
-            if (brokenFor == 0) {
-                // logger
-            }
         }
     }
 }

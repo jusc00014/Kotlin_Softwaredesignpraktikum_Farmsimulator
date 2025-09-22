@@ -37,7 +37,7 @@ class CloudHandler(private val cloudData: CloudData, private val board: BoardDat
         if (cloud.duration == 0) {
             cloudData.dissipate(cloud)
         } else {
-            cloud.duration -= 1
+            if (cloud.duration > 0) { cloud.duration -= 1 }
             while (cloud.stepsRemaining > 0) {
                 cloud.stepsRemaining -= 1
                 if (rainIfPossible(cloud) || moveOneIfPossible(cloud)) { break }

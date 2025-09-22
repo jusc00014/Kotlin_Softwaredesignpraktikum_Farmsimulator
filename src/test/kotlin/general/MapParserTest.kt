@@ -11,7 +11,7 @@ import de.unisaarland.cs.se.selab.plants.Plant
 import de.unisaarland.cs.se.selab.plants.PlantData
 import de.unisaarland.cs.se.selab.plants.PlantTile
 import de.unisaarland.cs.se.selab.plants.PlantType
-import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -217,6 +217,8 @@ class MapParserTest {
     fun parse() {
         val mapParser = MapParser(mutableMapOf<Int, Tile>())
         val (boardData, plantMap) = mapParser.parse(mapJson)
-        assert(expectedBoardData.equals(boardData))
+        assertTrue(expectedBoardData.getTileById(0) == boardData.getTileById(0), "first")
+        assertTrue(expectedBoardData.getTileById(1) == boardData.getTileById(1), "second")
+        assertTrue(expectedBoardData.getTileById(2) == boardData.getTileById(2), "third")
     }
 }

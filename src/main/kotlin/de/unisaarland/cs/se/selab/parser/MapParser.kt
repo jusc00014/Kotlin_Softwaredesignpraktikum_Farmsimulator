@@ -201,16 +201,13 @@ class MapParser(
      * Parses a given input into BoardData
      */
     fun parse(jsonFile: String): Pair<BoardData, Map<PlantType, PlantData>> {
-        /**
-         * (WIP)
-        val schemaString = File("src/main/resources/schema/map.schema").readText()
-        val schemaJson = JsonParser(schemaString).parse()
-        val schema = SchemaLoader(schemaJson).load()
+
+        val schema = SchemaLoader.forURL("classpath://schema/map.schema").load()
         val validator = Validator.create(schema, ValidatorConfig(FormatValidationPolicy.ALWAYS))
-        val instance = JsonParser(jsonFile).parse()
+        val instance = JsonParser(File(jsonFile).readText()).parse()
         val failure = validator.validate(instance)
         require(failure == null) { failure.toString() }
-*/
+
         val plantTypeList = listOf(
             PlantType.POTATO,
             PlantType.OAT,

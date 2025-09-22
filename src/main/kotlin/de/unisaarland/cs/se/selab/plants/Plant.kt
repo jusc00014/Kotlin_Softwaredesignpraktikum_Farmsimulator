@@ -291,4 +291,19 @@ class Plant(var type: PlantType, var data: PlantData) {
         actionPerformed = null
         if (mowedFor > 0) mowedFor--
     }
+
+    override fun hashCode(): Int {
+        return super.hashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other is Plant) {
+            val bool1 = this.harvestEstimate == other.harvestEstimate && this.sowTime == other.sowTime
+            val bool2 = this.harvestTime == other.harvestTime && this.actionPerformed == other.actionPerformed
+            val bool3 = this.incidents == other.incidents && this.mowedFor == other.mowedFor
+            return bool1 && bool2 && bool3
+        } else {
+            return false
+        }
+    }
 }

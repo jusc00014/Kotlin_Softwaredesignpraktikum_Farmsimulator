@@ -52,4 +52,16 @@ class Field(
     fun sowable(yearTick: Int, plantType: PlantType): Boolean {
         return !plant.isSown() && !plant.isFallow(yearTick) && plantType in possiblePlants
     }
+
+    override fun hashCode(): Int {
+        return super.hashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other is Field) {
+            return this.possiblePlants == other.possiblePlants && super.equals(other)
+        } else {
+            return false
+        }
+    }
 }

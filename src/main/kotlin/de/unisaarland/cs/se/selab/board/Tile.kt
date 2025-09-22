@@ -26,4 +26,18 @@ open class Tile(
     open fun rain(amount: Int): Int {
         return 0
     }
+
+    override fun hashCode(): Int {
+        return super.hashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other is Tile) {
+            val bool1 = this.id == other.id && this.coord == other.coord && this.airflow == other.airflow
+            val bool2 = this.shed == other.shed && this.farmID == other.farmID && this.type == other.type
+            return bool1 && bool2
+        } else {
+            return false
+        }
+    }
 }

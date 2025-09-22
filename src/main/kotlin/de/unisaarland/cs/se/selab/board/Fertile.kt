@@ -101,4 +101,17 @@ abstract class Fertile(
 
         return this
     }
+
+    override fun hashCode(): Int {
+        return super.hashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other is Fertile) {
+            val bool = this.moistureCapacity == other.moistureCapacity && this.plant.equals(other.plant)
+            return bool && super.equals(other)
+        } else {
+            return false
+        }
+    }
 }

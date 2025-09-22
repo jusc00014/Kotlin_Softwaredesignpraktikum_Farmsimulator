@@ -426,21 +426,18 @@ class FarmHandler(
         farm: Farm,
         board: BoardData,
         yearTick: Int,
-        fields: MutableSet<Fertile>?,
-        plantations: MutableSet<Fertile>?
+        fields: MutableSet<Fertile>,
+        plantations: MutableSet<Fertile>
     ) {
         var remainingTime = TICKTIME - 2 * machine.duration
         var currentField: Fertile? = currentLocation
         var lastField: Fertile? = currentField
-        if (fields == null || plantations == null) {
-            currentField = null
-        }
         while (remainingTime >= 0 && currentField != null) {
             lastField = currentField
             currentField = nextField(
                 Action.IRRIGATING,
                 null,
-                fields!!,
+                fields,
                 finishedFields,
                 machine,
                 currentLocation,
@@ -455,7 +452,7 @@ class FarmHandler(
             currentField = nextField(
                 Action.IRRIGATING,
                 null,
-                plantations!!,
+                plantations,
                 finishedFields,
                 machine,
                 currentLocation,
@@ -476,7 +473,7 @@ class FarmHandler(
         farm: Farm,
         board: BoardData,
         yearTick: Int,
-        fertiles: MutableSet<Fertile>?,
+        fertiles: MutableSet<Fertile>,
         plantations: MutableSet<Fertile>?
     ) {
         if (action == Action.IRRIGATING && currentLocation.type == TileType.FIELD) {
@@ -488,20 +485,17 @@ class FarmHandler(
                 board,
                 yearTick,
                 fertiles,
-                plantations
+                plantations!!
             )
             return
         }
         var remainingTime = TICKTIME - 2 * machine.duration
         var currentField: Fertile? = currentLocation
-        if (fertiles == null) {
-            currentField = null
-        }
         while (remainingTime >= 0 && currentField != null) {
             currentField = nextField(
                 action,
                 null,
-                fertiles!!,
+                fertiles,
                 finishedFields,
                 machine,
                 currentField,

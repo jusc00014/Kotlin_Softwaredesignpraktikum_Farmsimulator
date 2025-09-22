@@ -152,7 +152,7 @@ class ScenarioParser {
         val affectedTiles = mutableSetOf<Tile>()
         for (forest in forestTiles) {
             affectedTiles.addAll(
-                board.neighbors(radius, forest)
+                board.neighbors(1, forest)
                     .filter { it.type == TileType.FIELD || it.type == TileType.PLANTATION }
             )
         }

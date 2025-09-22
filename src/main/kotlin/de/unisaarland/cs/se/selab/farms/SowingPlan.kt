@@ -15,16 +15,4 @@ class SowingPlan(
     fun isActive(currentTick: Int): Boolean {
         return currentTick >= this.tick
     }
-
-   /**
-    * returns the ids of tiles in sowingPlans*/
-    fun getFields(): List<Int> {
-        return fields
-    }
-
-    /**
-     * returns plantType of sowingPlan*/
-    fun getPlant(): PlantType {
-        return plant
-    }
 }

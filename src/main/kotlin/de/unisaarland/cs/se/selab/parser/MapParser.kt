@@ -1,5 +1,10 @@
 package de.unisaarland.cs.se.selab.parser
 
+import com.github.erosb.jsonsKema.FormatValidationPolicy
+import com.github.erosb.jsonsKema.JsonParser
+import com.github.erosb.jsonsKema.SchemaLoader
+import com.github.erosb.jsonsKema.Validator
+import com.github.erosb.jsonsKema.ValidatorConfig
 import de.unisaarland.cs.se.selab.board.BoardData
 import de.unisaarland.cs.se.selab.board.Coordinate
 import de.unisaarland.cs.se.selab.board.Direction
@@ -13,6 +18,7 @@ import de.unisaarland.cs.se.selab.plants.PlantTile
 import de.unisaarland.cs.se.selab.plants.PlantType
 import org.json.JSONArray
 import org.json.JSONObject
+import java.io.File
 
 /**
  * Parses the Map Data into a Map of Ids and Tiles
@@ -24,14 +30,6 @@ class MapParser(
      * Constants because we love magic numbers
      */
     companion object Constants {
-        const val DEGREE_0 = 0
-        const val DEGREE_45 = 45
-        const val DEGREE_90 = 90
-        const val DEGREE_135 = 135
-        const val DEGREE_180 = 180
-        const val DEGREE_225 = 225
-        const val DEGREE_270 = 270
-        const val DEGREE_315 = 315
 
         const val POTATO_MOISTURE = 500
         const val WHEAT_MOISTURE = 450
@@ -203,6 +201,16 @@ class MapParser(
      * Parses a given input into BoardData
      */
     fun parse(jsonFile: String): Pair<BoardData, Map<PlantType, PlantData>> {
+        /**
+         * (WIP)
+        val schemaString = File("src/main/resources/schema/map.schema").readText()
+        val schemaJson = JsonParser(schemaString).parse()
+        val schema = SchemaLoader(schemaJson).load()
+        val validator = Validator.create(schema, ValidatorConfig(FormatValidationPolicy.ALWAYS))
+        val instance = JsonParser(jsonFile).parse()
+        val failure = validator.validate(instance)
+        require(failure == null) { failure.toString() }
+*/
         val plantTypeList = listOf(
             PlantType.POTATO,
             PlantType.OAT,
@@ -215,7 +223,8 @@ class MapParser(
         )
         val plantMap: MutableMap<PlantType, PlantData> = mutableMapOf()
         plantTypeList.forEach { plantMap[it] = createPlantData(it) }
-        val json = JSONObject(jsonFile)
+        val jsonString = File(jsonFile).readText()
+        val json = JSONObject(jsonString)
         val tilesJson = json.getJSONArray("tiles")
         for (i in 0 until tilesJson.length()) {
             val tile = tilesJson.getJSONObject(i)
@@ -320,16 +329,16 @@ class MapParser(
     private fun validateDirection(json: JSONObject, coord: Coordinate): Direction {
         var returnDirection: Direction = Direction.NORTH // dummy value
         var errorCatch = true
-        val direction = json.getInt("direction")
+        val direction = json.getString("direction")
         when (direction) {
-            DEGREE_0 -> if (coord.x % 2 == 0) returnDirection = Direction.NORTH else errorCatch = false
-            DEGREE_45 -> returnDirection = Direction.NORTHEAST
-            DEGREE_90 -> if (coord.x % 2 == 0) returnDirection = Direction.EAST else errorCatch = false
-            DEGREE_135 -> returnDirection = Direction.SOUTHEAST
-            DEGREE_180 -> if (coord.x % 2 == 0) returnDirection = Direction.SOUTH else errorCatch = false
-            DEGREE_225 -> returnDirection = Direction.SOUTHWEST
-            DEGREE_270 -> if (coord.x % 2 == 0) returnDirection = Direction.WEST else errorCatch = false
-            DEGREE_315 -> returnDirection = Direction.NORTHWEST
+            "0" -> if (coord.x % 2 == 0) returnDirection = Direction.NORTH else errorCatch = false
+            "45" -> returnDirection = Direction.NORTHEAST
+            "90" -> if (coord.x % 2 == 0) returnDirection = Direction.EAST else errorCatch = false
+            "135" -> returnDirection = Direction.SOUTHEAST
+            "180" -> if (coord.x % 2 == 0) returnDirection = Direction.SOUTH else errorCatch = false
+            "225" -> returnDirection = Direction.SOUTHWEST
+            "270" -> if (coord.x % 2 == 0) returnDirection = Direction.WEST else errorCatch = false
+            "315" -> returnDirection = Direction.NORTHWEST
         }
         require(errorCatch) { "Airflow direction $direction invalid for given tile on $coord" }
         return returnDirection

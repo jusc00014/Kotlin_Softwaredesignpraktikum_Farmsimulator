@@ -3,21 +3,19 @@ package de.unisaarland.cs.se.selab.parser
 import com.github.erosb.jsonsKema.JsonParser
 import com.github.erosb.jsonsKema.SchemaLoader
 import com.github.erosb.jsonsKema.Validator
-import de.unisaarland.cs.se.selab.farms.Machine
-import de.unisaarland.cs.se.selab.farms.SowingPlan
-import de.unisaarland.cs.se.selab.plants.PlantType
-import de.unisaarland.cs.se.selab.farms.Farm
 import de.unisaarland.cs.se.selab.board.BoardData
 import de.unisaarland.cs.se.selab.board.Fertile
 import de.unisaarland.cs.se.selab.board.TileType
 import de.unisaarland.cs.se.selab.farms.Action
-
+import de.unisaarland.cs.se.selab.farms.Farm
+import de.unisaarland.cs.se.selab.farms.Machine
+import de.unisaarland.cs.se.selab.farms.SowingPlan
+import de.unisaarland.cs.se.selab.plants.PlantType
 import org.json.JSONArray
 import org.json.JSONObject
 
 const val ID = "id"
 const val NAME = "name"
-
 
 /**
 * Parser class with responsibility to parse and validate farmFile*/
@@ -36,7 +34,7 @@ class FarmParser {
         // creates jsonValue from our farmFile
         val failure = validator.validate(instance)
         // ValidatorFailures after validation on our farmFile
-        require(failure == null) {failure.toString()}
+        require(failure == null) { failure.toString() }
         // fine if it is null, otherwise file invalidated by schema
         val json = JSONObject(jsonFile)
         // farmFile as JSONObject
@@ -54,19 +52,20 @@ class FarmParser {
         val farmNames = mutableListOf<String>()
         val farmIds = mutableListOf<Int>()
         for (farmJson in json) {
-            require (farmJson is JSONObject)
+            require(farmJson is JSONObject)
             val farm = parseFarm(farmJson, board, farmIds, farmNames, maxTick)
             farms.add(farm)
         }
-        require (farms.isNotEmpty())
+        require(farms.isNotEmpty())
         return farms
     }
 
-    private fun parseFarm(json: JSONObject,
-                          board: BoardData,
-                          farmIds: MutableList<Int>,
-                          farmNames: MutableList<String>,
-                          maxTick: Int
+    private fun parseFarm(
+        json: JSONObject,
+        board: BoardData,
+        farmIds: MutableList<Int>,
+        farmNames: MutableList<String>,
+        maxTick: Int
     ): Farm {
         val farmId = json.getInt(ID)
         val farmName = json.getString(NAME)
@@ -91,34 +90,34 @@ class FarmParser {
         return Farm(farmId, farmsteads, fields, plantations, machines.map { it.id }, sowingPlans)
     }
 
-
-    private fun validateFarmIdAndName(id: Int,
-                                      name: String,
-                                      farmIds: MutableList<Int>,
-                                      farmNames: MutableList<String>
+    private fun validateFarmIdAndName(
+        id: Int,
+        name: String,
+        farmIds: MutableList<Int>,
+        farmNames: MutableList<String>
     ) {
         require(!farmIds.contains(id) && !farmNames.contains(name))
     }
 
     private fun validateFarmstead(idList: MutableList<Int>, farmId: Int, board: BoardData) {
-        require (idList.isNotEmpty())
+        require(idList.isNotEmpty())
         for (id in idList) {
             val tile = board.getTileById(id)
-            require (tile != null && tile.farmID == farmId && tile.type == TileType.FARMSTEAD)
+            require(tile != null && tile.farmID == farmId && tile.type == TileType.FARMSTEAD)
         }
     }
 
     private fun validateFields(idList: MutableList<Int>, farmId: Int, boardData: BoardData) {
         for (id in idList) {
             val tile = boardData.getTileById(id)
-            require (tile != null && tile.farmID == farmId && tile.type == TileType.FIELD)
+            require(tile != null && tile.farmID == farmId && tile.type == TileType.FIELD)
         }
     }
 
     private fun validatePlantations(idList: MutableList<Int>, farmId: Int, board: BoardData) {
         for (id in idList) {
             val tile = board.getTileById(id)
-            require (tile != null && tile.farmID == farmId && tile.type == TileType.PLANTATION)
+            require(tile != null && tile.farmID == farmId && tile.type == TileType.PLANTATION)
         }
     }
 
@@ -126,14 +125,14 @@ class FarmParser {
         fields: MutableList<Int>,
         plantations: MutableList<Int>
     ) {
-        require ((fields + plantations).isNotEmpty())
+        require((fields + plantations).isNotEmpty())
     }
 
     private fun parseSowingPlans(sowingPlansJson: JSONArray, board: BoardData, maxTick: Int): MutableList<SowingPlan> {
         val sowingPlanIds = mutableListOf<Int>()
         val sowingPlans = mutableListOf<SowingPlan>()
         for (sowingPlanJson in sowingPlansJson) {
-            require (sowingPlanJson is JSONObject)
+            require(sowingPlanJson is JSONObject)
 
             val sowingPlanId = sowingPlanJson.getInt(ID)
             val sowingPlanTick = sowingPlanJson.getInt("tick")
@@ -149,7 +148,7 @@ class FarmParser {
                 fields = validateSowingPlanFieldsByRadius(
                     sowingPlanJson.getInt(LOCATION),
                     sowingPlanJson.getInt(RADIUS),
-                     board
+                    board
                 )
             } else {
                 require(!sowingPlanJson.keySet().contains(LOCATION) && !sowingPlanJson.keySet().contains(RADIUS))
@@ -162,7 +161,7 @@ class FarmParser {
     }
 
     private fun validateSowingPlanIdAndTick(id: Int, tick: Int, sowingPlanIds: MutableList<Int>, maxTick: Int) {
-        require (!sowingPlanIds.contains(id) && tick <= maxTick)
+        require(!sowingPlanIds.contains(id) && tick <= maxTick)
     }
 
     private fun validateSowingPlanPlantTypes(plant: String): PlantType {
@@ -179,7 +178,7 @@ class FarmParser {
     private fun validateSowingPlanFieldsByRadius(tileId: Int, radius: Int, board: BoardData): MutableList<Int> {
         val fieldCenter = board.getTileById(tileId)
         require(fieldCenter != null)
-        return board.neighbors(radius, fieldCenter).filter{ it is Fertile }.map { it.id }.toMutableList()
+        return board.neighbors(radius, fieldCenter).filter { it is Fertile }.map { it.id }.toMutableList()
     }
 
     private fun validateMachines(farmId: Int, machines: JSONArray, board: BoardData): List<Machine> {
@@ -194,17 +193,17 @@ class FarmParser {
                 val actions = validateMachineActions(actionsJson)
 
                 val plantsJson = machineJson.getJSONArray("plants").map { it as String }
-                val  plantTypes = validateMachinePlants(plantsJson)
+                val plantTypes = validateMachinePlants(plantsJson)
 
                 val duration = machineJson.getInt("duration")
                 val location = validateMachineTile(machineJson.getInt("location"), farmId, board)
 
-                val theMachine = Machine(machineID, actions, plantTypes, duration, location)
+                val theMachine = Machine(machineID, actions, plantTypes, duration, board.getTileById(location))
                 machinesInstances.add(theMachine)
                 this.finishedMachines[machineID] = theMachine
             }
         }
-        require (machinesInstances.isNotEmpty())
+        require(machinesInstances.isNotEmpty())
         return machinesInstances
     }
 
@@ -225,7 +224,7 @@ class FarmParser {
                 "HARVESTING" -> actionsToReturn.add(Action.HARVESTING)
             }
         }
-        require (actions.isNotEmpty() && actions.size == actions.toSet().size)
+        require(actions.isNotEmpty() && actions.size == actions.toSet().size)
         return actionsToReturn
     }
 
@@ -243,13 +242,13 @@ class FarmParser {
                 "CHERRY" -> plantTypes.add(PlantType.CHERRY)
             }
         }
-        require (plantTypes.isNotEmpty() && plantTypes.size == plantTypes.toSet().size)
+        require(plantTypes.isNotEmpty() && plantTypes.size == plantTypes.toSet().size)
         return plantTypes
     }
 
     private fun validateMachineTile(tileId: Int, farmId: Int, board: BoardData): Int {
         val tile = board.getTileById(tileId)
-        require (tile != null && tile.type == TileType.FARMSTEAD && tile.farmID == farmId)
+        require(tile != null && tile.type == TileType.FARMSTEAD && tile.farmID == farmId)
         return tileId
     }
 }

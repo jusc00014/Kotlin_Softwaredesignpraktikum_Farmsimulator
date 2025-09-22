@@ -232,7 +232,8 @@ class FarmHandler(
                         currentField,
                         farm,
                         board,
-                        yearTick)
+                        yearTick
+                    )
                     remainingTime -= machine.duration
                 }
                 Logger.machineFinished(machine.id, machine.location!!.id)
@@ -326,7 +327,7 @@ class FarmHandler(
                     continue
                 }
                 performAction(action, fertile, machine, remainingMachines, finishedFields, farm.id, yearTick)
-                var remainingTime = TICKTIME - 2* machine.duration
+                var remainingTime = TICKTIME - 2 * machine.duration
                 var currentField: Fertile? = fertile
                 val plantsToActOn =
                         (fieldMap[action].orEmpty() + plantationMap[action].orEmpty())

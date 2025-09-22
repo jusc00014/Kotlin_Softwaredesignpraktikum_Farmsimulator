@@ -1,0 +1,267 @@
+{
+    "tiles": [
+        {
+            "id": 12,
+            "coordinates": { "x": -1, "y": -1 },
+            "category": "FARMSTEAD",
+            "farm": 34,
+            "shed": true,
+            "airflow": false
+        },
+        {
+            "id": 111,
+            "coordinates": { "x": 1, "y": -1 },
+            "category": "MEADOW",
+            "airflow": false
+        },
+        {
+            "id": 311,
+            "coordinates": { "x": 3, "y": -1 },
+            "category": "MEADOW",
+            "airflow": false
+        },
+        {
+            "id": 511,
+            "coordinates": { "x": 5, "y": -1 },
+            "category": "MEADOW",
+            "airflow": false
+        },
+        {
+            "id": 711,
+            "coordinates": { "x": 7, "y": -1 },
+            "category": "MEADOW",
+            "airflow": false
+        },
+        {
+            "id": 911,
+            "coordinates": { "x": 9, "y": -1 },
+            "category": "MEADOW",
+            "airflow": false
+        },
+        {
+            "id": 0,
+            "coordinates": { "x": 0, "y": 0 },
+            "category": "ROAD",
+            "airflow": false
+        },
+        {
+            "id": 54,
+            "coordinates": { "x": 2, "y": 0 },
+            "category": "FIELD",
+            "farm": 34,
+            "airflow": false,
+            "capacity": 2000,
+            "possiblePlants": ["PUMPKIN"]
+        },
+        {
+            "id": 400,
+            "coordinates": { "x": 4, "y": 0 },
+            "category": "ROAD",
+            "airflow": false
+        },
+        {
+            "id": 52,
+            "coordinates": { "x": 6, "y": 0 },
+            "category": "FIELD",
+            "farm": 34,
+            "airflow": false,
+            "capacity": 2000,
+            "possiblePlants": ["WHEAT"]
+        },
+        {
+            "id": 800,
+            "coordinates": { "x": 8, "y": 0 },
+            "category": "ROAD",
+            "airflow": false
+        },
+        {
+            "id": 1101,
+            "coordinates": { "x": -1, "y": 1 },
+            "category": "MEADOW",
+            "airflow": false
+        },
+        {
+            "id": 101,
+            "coordinates": { "x": 1, "y": 1 },
+            "category": "MEADOW",
+            "airflow": false
+        },
+        {
+            "id": 301,
+            "coordinates": { "x": 3, "y": 1 },
+            "category": "MEADOW",
+            "airflow": false
+        },
+        {
+            "id": 501,
+            "coordinates": { "x": 5, "y": 1 },
+            "category": "MEADOW",
+            "airflow": false
+        },
+        {
+            "id": 701,
+            "coordinates": { "x": 7, "y": 1 },
+            "category": "MEADOW",
+            "airflow": false
+        },
+        {
+            "id": 901,
+            "coordinates": { "x": 9, "y": 1 },
+            "category": "MEADOW",
+            "airflow": false
+        },
+        {
+            "id": 2,
+            "coordinates": { "x": 0, "y": 2 },
+            "category": "ROAD",
+            "airflow": false
+        },
+        {
+            "id": 202,
+            "coordinates": { "x": 2, "y": 2 },
+            "category": "ROAD",
+            "airflow": false
+        },
+        {
+            "id": 402,
+            "coordinates": { "x": 4, "y": 2 },
+            "category": "ROAD",
+            "airflow": false
+        },
+        {
+            "id": 48,
+            "coordinates": { "x": 6, "y": 2 },
+            "category": "FIELD",
+            "farm": 34,
+            "airflow": false,
+            "capacity": 2000,
+            "possiblePlants": ["WHEAT"]
+        },
+        {
+            "id": 50,
+            "coordinates": { "x": 8, "y": 2 },
+            "category": "FIELD",
+            "farm": 34,
+            "airflow": false,
+            "capacity": 2000,
+            "possiblePlants": ["PUMPKIN"]
+        },
+        {
+            "id": 1103,
+            "coordinates": { "x": -1, "y": 3 },
+            "category": "MEADOW",
+            "airflow": false
+        },
+        {
+            "id": 103,
+            "coordinates": { "x": 1, "y": 3 },
+            "category": "MEADOW",
+            "airflow": false
+        },
+        {
+            "id": 303,
+            "coordinates": { "x": 3, "y": 3 },
+            "category": "MEADOW",
+            "airflow": false
+        },
+        {
+            "id": 503,
+            "coordinates": { "x": 5, "y": 3 },
+            "category": "MEADOW",
+            "airflow": false
+        },
+        {
+            "id": 703,
+            "coordinates": { "x": 7, "y": 3 },
+            "category": "MEADOW",
+            "airflow": false
+        },
+        {
+            "id": 903,
+            "coordinates": { "x": 9, "y": 3 },
+            "category": "MEADOW",
+            "airflow": false
+        },
+        {
+            "id": 40,
+            "coordinates": { "x": 0, "y": 4 },
+            "category": "FIELD",
+            "farm": 34,
+            "airflow": false,
+            "capacity": 2000,
+            "possiblePlants": ["WHEAT"]
+        },
+        {
+            "id": 42,
+            "coordinates": { "x": 2, "y": 4 },
+            "category": "FIELD",
+            "farm": 34,
+            "airflow": false,
+            "capacity": 2000,
+            "possiblePlants": ["PUMPKIN"]
+        },
+        {
+            "id": 44,
+            "coordinates": { "x": 4, "y": 4 },
+            "category": "FIELD",
+            "farm": 34,
+            "airflow": false,
+            "capacity": 2000,
+            "possiblePlants": ["WHEAT"]
+        },
+        {
+            "id": 46,
+            "coordinates": { "x": 6, "y": 4 },
+            "category": "FIELD",
+            "farm": 34,
+            "airflow": false,
+            "capacity": 2000,
+            "possiblePlants": ["PUMPKIN"]
+        },
+        {
+            "id": 43,
+            "coordinates": { "x": 8, "y": 4 },
+            "category": "FIELD",
+            "farm": 34,
+            "airflow": false,
+            "capacity": 2000,
+            "possiblePlants": ["WHEAT"]
+        },
+        {
+            "id": 1105,
+            "coordinates": { "x": -1, "y": 5 },
+            "category": "MEADOW",
+            "airflow": false
+        },
+        {
+            "id": 105,
+            "coordinates": { "x": 1, "y": 5 },
+            "category": "MEADOW",
+            "airflow": false
+        },
+        {
+            "id": 305,
+            "coordinates": { "x": 3, "y": 5 },
+            "category": "MEADOW",
+            "airflow": false
+        },
+        {
+            "id": 505,
+            "coordinates": { "x": 5, "y": 5 },
+            "category": "MEADOW",
+            "airflow": false
+        },
+        {
+            "id": 705,
+            "coordinates": { "x": 7, "y": 5 },
+            "category": "MEADOW",
+            "airflow": false
+        },
+        {
+            "id": 905,
+            "coordinates": { "x": 9, "y": 5 },
+            "category": "MEADOW",
+            "airflow": false
+        }
+    ]
+}

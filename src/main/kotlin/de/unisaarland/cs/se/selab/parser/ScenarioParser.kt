@@ -176,7 +176,7 @@ class ScenarioParser {
                     .filter { it.type == TileType.FIELD || it.type == TileType.PLANTATION }
             )
         }
-        val doubleEffect = effect.toDouble()/PERCENT
+        val doubleEffect = effect.toDouble() / PERCENT
         val beeHappyTiles = affectedTiles.sortedBy { it.id }.toSet()
         incident = BeeHappy(id, tick, beeHappyTiles, doubleEffect, yearTick)
         incidents.add(incident)

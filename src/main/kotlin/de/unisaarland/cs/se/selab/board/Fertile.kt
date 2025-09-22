@@ -66,9 +66,10 @@ abstract class Fertile(
     }
 
     /**
-     * called by boardHandler to update harvest estimates on all Fertiles*/
+     * called by boardHandler to update harvest estimates on all Fertile*/
     fun updateHarvestEstimate(yearTick: Int) {
         plant.updateHarvestEstimate(yearTick, drought, sunhours, moisture, id)
+        resetForNextTick()
     }
 
     /**

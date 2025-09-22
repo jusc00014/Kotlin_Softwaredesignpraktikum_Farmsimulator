@@ -187,7 +187,7 @@ class MapParser(
         GRAPE_HE,
         JUN_2..AUG_2,
         false,
-        SEP_2..SEP_2,
+        SEP_1..SEP_1,
         3,
         0..0,
         emptyList(),

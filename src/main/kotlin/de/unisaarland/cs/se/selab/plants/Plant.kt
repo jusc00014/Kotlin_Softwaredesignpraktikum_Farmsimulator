@@ -191,7 +191,7 @@ class Plant(var type: PlantType, var data: PlantData) {
     private fun applyIncidents() {
         incidents.forEach {
             when (it) {
-                is BeeHappy -> harvestEstimate += it.effect
+                is BeeHappy -> harvestEstimate += (it.effect * harvestEstimate).toInt()
                 is AnimalAttack -> harvestEstimate = if (type == PlantType.GRAPE || data.tileType == PlantTile.FIELD) {
                     (harvestEstimate * ANIMAL_ATTACK_FIELD_GRAPE_PENALTY_FACTOR).toInt()
                 } else {

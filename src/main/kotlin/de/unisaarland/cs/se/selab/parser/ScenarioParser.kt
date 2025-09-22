@@ -23,6 +23,7 @@ import org.json.JSONObject
 const val LOCATION = "location"
 const val DURATION = "duration"
 const val RADIUS = "radius"
+const val PERCENT = 100
 
 /**
  * Parser responsible to parse and validate scenario and cross-check all possible problems created by city expansion*/
@@ -163,8 +164,9 @@ class ScenarioParser {
                     .filter { it.type == TileType.FIELD || it.type == TileType.PLANTATION }
             )
         }
+        val doubleEffect = effect.toDouble()/PERCENT
         val beeHappyTiles = affectedTiles.sortedBy { it.id }.toSet()
-        incident = BeeHappy(id, tick, beeHappyTiles, effect, yearTick)
+        incident = BeeHappy(id, tick, beeHappyTiles, doubleEffect, yearTick)
         incidents.add(incident)
     }
 

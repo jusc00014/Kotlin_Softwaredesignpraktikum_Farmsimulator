@@ -11,7 +11,7 @@ class BeeHappy(
     id: Int,
     tick: Int,
     val affectedTiles: Set<Tile>,
-    val effect: Int,
+    val effect: Double,
     private val yearTick: Int
 ) : Incident(id, tick) {
 

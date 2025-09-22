@@ -50,7 +50,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
 
     private fun harvestPenalty(yearTick: Int): Double {
         val lateFor = min(0, yearTick - data.harvestingRange.last)
-        if (lateFor <= 0) return 1.0
+        if (lateFor <= 0 || (data.tileType == PlantTile.PLANTATION && yearTick > PLANTATION_HARVEST_RESET)) return 1.0
 
         return when {
             (type == PlantType.WHEAT || type == PlantType.OAT) && lateFor <= 2

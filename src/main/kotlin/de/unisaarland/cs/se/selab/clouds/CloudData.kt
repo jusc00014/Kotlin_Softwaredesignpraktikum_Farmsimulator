@@ -86,5 +86,16 @@ class CloudData(private var maxId: Int, val clouds: MutableList<Cloud>) {
             stuckOnVillage(cloud)
         }
     }
-    //
+
+    override fun hashCode(): Int {
+        return super.hashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other is CloudData) {
+            return this.maxId == other.maxId && this.clouds.equals(other.clouds)
+        } else {
+            return false
+        }
+    }
 }

@@ -6,17 +6,22 @@ import de.unisaarland.cs.se.selab.board.Field
 import de.unisaarland.cs.se.selab.board.Plantation
 import de.unisaarland.cs.se.selab.board.Tile
 import de.unisaarland.cs.se.selab.board.TileType
-import de.unisaarland.cs.se.selab.parser.MapParser
+import de.unisaarland.cs.se.selab.clouds.CloudData
+import de.unisaarland.cs.se.selab.farms.Action
+import de.unisaarland.cs.se.selab.farms.Farm
+import de.unisaarland.cs.se.selab.farms.Machine
+import de.unisaarland.cs.se.selab.incidents.Incident
+import de.unisaarland.cs.se.selab.parser.ScenarioParser
 import de.unisaarland.cs.se.selab.plants.Plant
 import de.unisaarland.cs.se.selab.plants.PlantData
 import de.unisaarland.cs.se.selab.plants.PlantTile
 import de.unisaarland.cs.se.selab.plants.PlantType
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-class MapParserTest {
-    var mapJson: String = "src/systemtest/resources/example/map.json"
+class ScenarioParserTest {
+    val scenarioJson = "src/systemtest/resources/example/scenario.json"
     companion object Constants {
 
         const val POTATO_MOISTURE = 500
@@ -107,13 +112,16 @@ class MapParserTest {
             )
         expectedBoardData = BoardData(mutableMapOf(0 to tile1, 1 to plantation1, 2 to field1))
     }
-
     @Test
     fun parse() {
-        val mapParser = MapParser(mutableMapOf<Int, Tile>())
-        val (boardData, plantMap) = mapParser.parse(mapJson)
-        assertTrue(expectedBoardData.getTileById(0) == boardData.getTileById(0), "first")
-        assertTrue(expectedBoardData.getTileById(1) == boardData.getTileById(1), "second")
-        assertTrue(expectedBoardData.getTileById(2) == boardData.getTileById(2), "third")
+        val scenarioParser = ScenarioParser()
+        val expectedAction = listOf(Action.SOWING, Action.IRRIGATING)
+        val expectedPlants = listOf(PlantType.PUMPKIN, PlantType.WHEAT)
+        val expectedMachine = Machine(0, expectedAction, expectedPlants, 4, expectedBoardData.getTileById(0))
+        val farm = Farm(0, listOf(0), listOf(2), listOf(1), listOf(0), mutableListOf())
+        val x = scenarioParser.parse(scenarioJson, expectedBoardData, 100, mapOf(0 to expectedMachine), listOf(farm), 1)
+        val (incidentList, cloudData) = x
+        assertTrue (incidentList == emptyList<Incident>() && cloudData == CloudData(0, mutableListOf()))
     }
+
 }

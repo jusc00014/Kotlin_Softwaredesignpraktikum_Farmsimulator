@@ -16,4 +16,18 @@ class Farm(
     fun removeSowingPlan(plan: SowingPlan) {
         plans.remove(plan)
     }
+
+    override fun hashCode(): Int {
+        return super.hashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other is Farm) {
+            val bool1 = this.id == other.id && this.farmsteads == other.farmsteads && this.fields == other.fields
+            val bool2 = this.plantages == other.plantages && this.machines == other.machines
+            return bool1 && bool2 && this.plans == other.plans
+        } else {
+            return false
+        }
+    }
 }

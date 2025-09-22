@@ -33,4 +33,18 @@ class Machine(
             brokenFor--
         }
     }
+
+    override fun hashCode(): Int {
+        return super.hashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other is Machine) {
+            val bool1 = this.id == other.id && this.actions == other.actions && this.duration == other.duration
+            val bool2 = this.location!!.equals(other.location) && this.brokenFor == other.brokenFor
+            return bool1 && bool2 && this.stuck == other.stuck
+        } else {
+            return false
+        }
+    }
 }

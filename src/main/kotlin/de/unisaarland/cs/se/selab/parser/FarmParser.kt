@@ -86,7 +86,7 @@ class FarmParser {
         validatePlantations(plantations, farmId, board)
         validateAtLeastOneFieldOrPlantationTile(fields, plantations)
 
-        val sowingPlansToValidate = json.getJSONArray("sowing_plans")
+        val sowingPlansToValidate = json.getJSONArray("sowingPlans")
         val sowingPlans = parseSowingPlans(sowingPlansToValidate, board, maxTick)
 
         val machines = validateMachines(farmId, json.getJSONArray("machines"), board)

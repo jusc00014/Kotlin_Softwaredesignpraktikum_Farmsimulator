@@ -20,6 +20,7 @@ class FarmHandler(
     val machines: Map<Int, Machine>,
     val pathFinder: PathFinder
 ) {
+    var harvestAmount = 0
 
     /**
      * Started by simulator*/
@@ -163,7 +164,8 @@ class FarmHandler(
                     currentField!!,
                     farm,
                     board,
-                    yearTick) ?: break
+                    yearTick
+                ) ?: break
                 currentField.plant.sow(toSow, plantData[toSow]!!, yearTick)
                 Logger.machinePerformedAction(machine.id, Action.SOWING, currentField.id, machine.duration)
                 Logger.machineSowed(machine.id, toSow, plan.id)
@@ -342,7 +344,8 @@ class FarmHandler(
                         currentField,
                         farm,
                         board,
-                        yearTick)
+                        yearTick
+                    )
                     remainingTime -= machine.duration
                 }
                 Logger.machineFinished(machine.id, machine.location!!.id)
@@ -366,6 +369,7 @@ class FarmHandler(
         remainingMachines?.remove(machine)
         if (action == Action.HARVESTING) {
             Logger.machineCollected(farmId, machine.id, amount!!, fertile.plant.type)
+            harvestAmount += amount
         }
     }
 
@@ -400,11 +404,15 @@ class FarmHandler(
             if (loc != null) {
                 machine.location = loc
                 Logger.machineFinished(machine.id, machine.location!!.id)
+                Logger.machineUnloads(machine.id, harvestAmount, field.plant.type)
+                harvestAmount = 0
             } else {
                 machine.setStuck()
                 Logger.machineFinishedNoReturn(machine.id)
-                }
+            }
+        } else {
+            Logger.machineUnloads(machine.id, harvestAmount, field.plant.type)
+            harvestAmount = 0
         }
-        // logger machineUnloads
     }
 }

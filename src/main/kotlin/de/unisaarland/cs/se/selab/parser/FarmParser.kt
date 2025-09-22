@@ -38,7 +38,8 @@ class FarmParser {
         // ValidatorFailures after validation on our farmFile
         require(failure == null) { failure.toString() }
         // fine if it is null, otherwise file invalidated by schema
-        val json = JSONObject(jsonFile)
+        val jsonString = File(jsonFile).readText()
+        val json = JSONObject(jsonString)
         // farmFile as JSONObject
         val farmsJson = json.getJSONArray("farms")
         // gets the array of farms

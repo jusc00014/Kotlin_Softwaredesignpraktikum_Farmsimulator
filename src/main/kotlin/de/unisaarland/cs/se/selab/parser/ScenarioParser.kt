@@ -52,7 +52,8 @@ class ScenarioParser {
 
         require(failure == null) { failure.toString() }
 
-        val json = JSONObject(jsonFile)
+        val jsonString = File(jsonFile).readText()
+        val json = JSONObject(jsonString)
         val clouds = json.getJSONArray("clouds")
         this.cloudData = parseClouds(clouds, board)
 

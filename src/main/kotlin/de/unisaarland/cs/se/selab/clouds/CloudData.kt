@@ -8,6 +8,7 @@ import kotlin.math.min
  * Stores clouds / Handles cloud interaction
  */
 class CloudData(private var maxId: Int, val clouds: MutableList<Cloud>) {
+    //
     /**
      * returns MaxId of CloudData
      */
@@ -92,4 +93,5 @@ class CloudData(private var maxId: Int, val clouds: MutableList<Cloud>) {
             stuckOnVillage(cloud)
         }
     }
+    //
 }

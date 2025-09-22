@@ -23,6 +23,7 @@ const val NAME = "name"
 class FarmParser {
     private val machineNames = mutableListOf<String>()
     private val finishedMachines = mutableMapOf<Int, Machine>()
+    private val sowingPlanIds = mutableListOf<Int>()
 
     /**
      * parse called by main with farmFile and result of mapParser. Returns farms and machines or null if invalid file*/
@@ -137,7 +138,7 @@ class FarmParser {
 
             val sowingPlanId = sowingPlanJson.getInt(ID)
             val sowingPlanTick = sowingPlanJson.getInt("tick")
-            validateSowingPlanIdAndTick(sowingPlanId, sowingPlanTick, sowingPlanIds, maxTick)
+            validateSowingPlanIdAndTick(sowingPlanId, sowingPlanTick, maxTick)
             sowingPlanIds.add(sowingPlanId)
 
             val sowingPlanPlant = sowingPlanJson.getString("plant")
@@ -161,7 +162,7 @@ class FarmParser {
         return sowingPlans
     }
 
-    private fun validateSowingPlanIdAndTick(id: Int, tick: Int, sowingPlanIds: MutableList<Int>, maxTick: Int) {
+    private fun validateSowingPlanIdAndTick(id: Int, tick: Int, maxTick: Int) {
         require(!sowingPlanIds.contains(id) && tick <= maxTick)
     }
 

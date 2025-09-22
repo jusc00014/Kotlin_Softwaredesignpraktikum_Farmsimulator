@@ -34,13 +34,15 @@ class CloudHandler(private val cloudData: CloudData, private val board: BoardDat
      * Executes the actions for one cloud
      */
     private fun cloudAct(cloud: Cloud) {
-        if (cloud.duration == 0) {
+        while (cloud.stepsRemaining > 0) {
+            cloud.stepsRemaining -= 1
+            if (rainIfPossible(cloud) || moveOneIfPossible(cloud)) { break }
+        }
+        if (cloud.duration == 1 && cloud in cloudData.clouds) {
             cloudData.dissipate(cloud)
         } else {
-            if (cloud.duration > 0) { cloud.duration -= 1 }
-            while (cloud.stepsRemaining > 0) {
-                cloud.stepsRemaining -= 1
-                if (rainIfPossible(cloud) || moveOneIfPossible(cloud)) { break }
+            if (cloud.duration != -1) {
+                cloud.duration -= 1
             }
         }
     }

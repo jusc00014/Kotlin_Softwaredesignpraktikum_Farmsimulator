@@ -35,10 +35,10 @@ abstract class Fertile(
      * loses moisture in reduceSoil phase. Returns if our moisture is now below min moisture of the plant*/
     fun loseMoisture(): Boolean {
         val minAllowedMoisture = plant.getMinMoisture()
-        if (plant.getHarvestEstimate() > 0) {
-            moisture -= MOISTURE_TO_LOSE_PLANT_IS_GROWING
+        moisture -= if (plant.getHarvestEstimate() > 0) {
+            MOISTURE_TO_LOSE_PLANT_IS_GROWING
         } else {
-            moisture -= MOISTURE_TO_LOSE_PLANT_IS_NOT_GROWING
+            MOISTURE_TO_LOSE_PLANT_IS_NOT_GROWING
         }
         if (type == TileType.FIELD) {
             return false

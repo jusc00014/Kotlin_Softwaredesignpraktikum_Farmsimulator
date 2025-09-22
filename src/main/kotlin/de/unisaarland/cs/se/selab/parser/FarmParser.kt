@@ -13,6 +13,7 @@ import de.unisaarland.cs.se.selab.farms.SowingPlan
 import de.unisaarland.cs.se.selab.plants.PlantType
 import org.json.JSONArray
 import org.json.JSONObject
+import java.io.File
 
 const val ID = "id"
 const val NAME = "name"
@@ -26,11 +27,11 @@ class FarmParser {
     /**
      * parse called by main with farmFile and result of mapParser. Returns farms and machines or null if invalid file*/
     fun parse(jsonFile: String, board: BoardData, maxTick: Int): Pair<List<Farm>, Map<Int, Machine>> {
-        val schema = SchemaLoader.forURL("classpath:///schema/farms.schema").load()
+        val schema = SchemaLoader.forURL("classpath://schema/farms.schema").load()
         // loads our farms.schema file as a schema
         val validator = Validator.forSchema(schema)
         // creates validator for this schema
-        val instance = JsonParser(jsonFile).parse()
+        val instance = JsonParser(File(jsonFile).readText()).parse()
         // creates jsonValue from our farmFile
         val failure = validator.validate(instance)
         // ValidatorFailures after validation on our farmFile

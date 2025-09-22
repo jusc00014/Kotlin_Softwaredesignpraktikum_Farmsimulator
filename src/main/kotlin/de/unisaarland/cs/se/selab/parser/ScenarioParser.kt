@@ -19,6 +19,7 @@ import de.unisaarland.cs.se.selab.incidents.Drought
 import de.unisaarland.cs.se.selab.incidents.Incident
 import org.json.JSONArray
 import org.json.JSONObject
+import java.io.File
 
 const val LOCATION = "location"
 const val DURATION = "duration"
@@ -42,10 +43,10 @@ class ScenarioParser {
         farms: List<Farm>,
         yearTick: Int
     ): Pair<List<Incident>, CloudData> {
-        val schema = SchemaLoader.forURL("classpath:///resources/schema/scenario.schema").load()
+        val schema = SchemaLoader.forURL("classpath://schema/scenario.schema").load()
 
         val validator = Validator.forSchema(schema)
-        val instance = JsonParser(jsonFile).parse()
+        val instance = JsonParser(File(jsonFile).readText()).parse()
 
         val failure = validator.validate(instance)
 

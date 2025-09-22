@@ -15,8 +15,10 @@ object Logger {
     private var writer: Writer = PrintWriter(System.out, true)
     private var farmToHarvest = mutableMapOf<Int, Int>()
     private var plantToHarvest =
-        mapOf(PlantType.POTATO to 0, PlantType.WHEAT to 0, PlantType.OAT to 0, PlantType.PUMPKIN to 0,
-            PlantType.APPLE to 0, PlantType.GRAPE to 0, PlantType.ALMOND to 0, PlantType.CHERRY to 0)
+        mutableMapOf(PlantType.POTATO to 0, PlantType.WHEAT to 0,
+            PlantType.OAT to 0, PlantType.PUMPKIN to 0,
+            PlantType.APPLE to 0, PlantType.GRAPE to 0,
+            PlantType.ALMOND to 0, PlantType.CHERRY to 0)
 
     /**
      * Initially sets up the Logger
@@ -218,9 +220,12 @@ object Logger {
      * $plant harvest.
      */
     fun machineCollected(farmId: Int, machineId: Int, amount: Int, plant: PlantType) {
-        val pre = farmToHarvest[farmId] ?: 0
-        val new = amount + pre
+        var pre = farmToHarvest[farmId] ?: 0
+        var new = amount + pre
         farmToHarvest[farmId] = new
+        pre = plantToHarvest[plant] ?: error("Cant happen anyway")
+        new = amount + pre
+        plantToHarvest[plant] = new
         logPrint(LogLevel.IMPORTANT,
             "Farm Harvest: Machine $machineId has collected $amount g of $plant harvest.")
     }

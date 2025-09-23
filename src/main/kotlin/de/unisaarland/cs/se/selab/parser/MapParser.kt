@@ -195,6 +195,7 @@ class MapParser(
         listOf(APR_1, JUL_1),
         PlantTile.PLANTATION
     )
+    val coordList: MutableList<Coordinate> = mutableListOf()
 
     /**
      * Parse function which is called by main
@@ -294,11 +295,17 @@ class MapParser(
     }
 
     private fun validateTileIdAndCoordinate(id: Int, coord: Pair<Int, Int>): Coordinate {
-        assert(tiles[id] == null)
-        assert(id >= 0)
+        require(tiles[id] == null)
+        require(id >= 0)
         val (xCoord: Int, yCoord: Int) = coord
-        require(xCoord % 2 == 0 && yCoord % 2 == 0 || xCoord % 2 == 1 && yCoord % 2 == 1) { "invalid coordinates" }
-        return Coordinate(xCoord, yCoord)
+        require(
+            xCoord % 2 == 0 && yCoord % 2 == 0 ||
+                setOf(-1, 1).contains(xCoord % 2) && setOf(-1, 1).contains(yCoord % 2)
+        ) { "invalid coordinates" }
+        val returnCoord = Coordinate(xCoord, yCoord)
+        require(!coordList.contains(returnCoord))
+        coordList.add(returnCoord)
+        return returnCoord
     }
 
     private fun validateCategory(category: String, coord: Coordinate): TileType {

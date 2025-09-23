@@ -42,7 +42,7 @@ object Logger {
      */
     private fun logPrint(level: LogLevel, message: String) {
         if (level.ordinal >= logLevel.ordinal) {
-            writer.write(message)
+            writer.write("[$level] $message")
         }
     }
 

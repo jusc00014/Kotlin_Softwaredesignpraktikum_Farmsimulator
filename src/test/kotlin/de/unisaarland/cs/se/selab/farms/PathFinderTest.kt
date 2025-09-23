@@ -90,7 +90,7 @@ class PathFinderTest {
     )
     private val tile14 = Tile(
         14,
-        Coordinate(4, 3),
+        Coordinate(5, 3),
         null,
         true,
         1,
@@ -159,12 +159,6 @@ class PathFinderTest {
     }
 
     @Test
-    fun findNearestShed() {
-        return
-        // assertTrue { pathFinder.findNearestShed(tile4, farm, boardData) == tile14 }
-    }
-
-    @Test
     fun reachableIntegration() {
         assertTrue(pathFinder.reachable(tile7, tile4, 1, boardData))
         assertFalse(pathFinder.reachable(tile7, tile11, 1, boardData))
@@ -173,8 +167,7 @@ class PathFinderTest {
     @Test
     fun reachableWithHarvestIntegration() {
         assertFalse(pathFinder.reachableWithHarvest(tile7, tile4, 1, boardData))
-        return
-        // assertTrue(pathFinder.reachableWithHarvest(tile4, tile14, 1, boardData))
+        assertTrue(pathFinder.reachableWithHarvest(tile4, tile14, 1, boardData))
     }
 
     @Test
@@ -189,11 +182,5 @@ class PathFinderTest {
     @Test
     fun findNearestShedIntegration() {
         assertTrue(true)
-    }
-
-    @Test
-    fun neigbors() {
-        return
-        // assertTrue(boardData.neighbors(1, tile13) == listOf(tile4, tile5, tile14))
     }
 }

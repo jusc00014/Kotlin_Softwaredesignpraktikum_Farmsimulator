@@ -82,7 +82,7 @@ class FarmHandler(
 
     /**
      * For all field plants assemble the fields that can currently sow this plant*/
-    private fun assembleSowableFields(
+    fun assembleSowableFields(
         fields: List<Int>,
         fertiles: Map<Int, Fertile>,
         yearTick: Int

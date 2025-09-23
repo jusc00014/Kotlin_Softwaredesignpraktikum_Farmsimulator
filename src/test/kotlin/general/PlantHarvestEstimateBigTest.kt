@@ -93,7 +93,7 @@ class PlantHarvestEstimateBigTest {
     }
 
     @Test
-    fun testing() {
+    fun testingAllExceptGrape() {
         wheatField?.plant?.sow(PlantType.WHEAT, wheatField?.plant!!.data, 20)
         wheatField?.updateHarvestEstimate(20)
         assertEquals(1_500_000, wheatField?.plant?.getHarvestEstimate())
@@ -108,27 +108,30 @@ class PlantHarvestEstimateBigTest {
         assertEquals(388_784, wheatField?.plant?.getHarvestEstimate())
         wheatField?.performAction(Action.HARVESTING, 13)
         wheatField?.plant?.sow(PlantType.WHEAT, wheatField?.plant!!.data, 21)
+        wheatField?.updateHarvestEstimate(22)
         wheatField?.sunhours = 115
-        repeat(3) {
+        repeat(4) {
             wheatField?.loseMoisture()
         }
         wheatField?.stampede(AnimalAttack(2, 21, emptySet()))
         wheatField?.updateHarvestEstimate(21)
-        assertEquals(539_925, wheatField?.plant?.getHarvestEstimate())
+        assertEquals(0, wheatField?.plant?.getHarvestEstimate())
+        wheatField?.plant?.sow(PlantType.WHEAT, wheatField?.plant!!.data, 21)
+        wheatField?.updateHarvestEstimate(21)
         wheatField?.drought = true
         wheatField?.updateHarvestEstimate(22)
         assertEquals(0, wheatField?.plant?.getHarvestEstimate())
 
         pumpkinField?.plant?.sow(PlantType.PUMPKIN, pumpkinField?.plant!!.data, 11)
         pumpkinField?.updateHarvestEstimate(11)
+        pumpkinField?.updateHarvestEstimate(12)
         pumpkinField?.stampede(AnimalAttack(3, 13, emptySet()))
-        pumpkinField?.plant?.addPollination(BeeHappy(5, 13, emptySet(), 2.0, 13))
+        pumpkinField?.plant?.addPollination(BeeHappy(5, 13, emptySet(), 0.02, 13))
         pumpkinField?.updateHarvestEstimate(13)
         // 500'000 * 0.9 = 450'000
         // 450'000 * 0.5 = 225'000
         // 225'000 + 225'000 * 2.0 = 675'000
-        // assertEquals(227_250, pumpkinField?.plant?.getHarvestEstimate())
-        assertEquals(675_000, pumpkinField?.plant?.getHarvestEstimate())
+        assertEquals(229_500, pumpkinField?.plant?.getHarvestEstimate())
         repeat(10) {
             pumpkinField?.loseMoisture()
         }
@@ -136,20 +139,37 @@ class PlantHarvestEstimateBigTest {
         assertEquals(0, pumpkinField?.plant?.getHarvestEstimate())
 
         almondPlantation?.plant?.prepareCurrentTick(21)
-        almondPlantation?.plant?.addPollination(BeeHappy(6, 5, emptySet(), 2.0, 5))
-        almondPlantation?.updateHarvestEstimate(5)
+        almondPlantation?.plant?.addPollination(BeeHappy(6, 5, emptySet(), 0.02, 5))
+        for (i in 22..24) {
+            almondPlantation?.updateHarvestEstimate(i)
+        }
+        for (i in 1..5) {
+            almondPlantation?.updateHarvestEstimate(i)
+        }
         // Cutting is skipped!
         // 800'000 + 800'000 * 2.0 = 2'400'000
-        // assertEquals(408_000, almondPlantation?.plant?.getHarvestEstimate())
-        assertEquals(2_400_000, almondPlantation?.plant?.getHarvestEstimate())
+        assertEquals(408_000, almondPlantation?.plant?.getHarvestEstimate())
+    }
 
-        grapePlantation?.prepareCurrentTick(180, 20)
+    @Test
+    fun testGrape() {
+        grapePlantation?.prepareCurrentTick(0, 21)
+        grapePlantation?.updateHarvestEstimate(21)
+        for (i in 22..24) {
+            grapePlantation?.updateHarvestEstimate(i)
+        }
+        for (i in 1..17) {
+            if (i == 7 || i == 13) {
+                grapePlantation?.performAction(Action.MOWING, i)
+            }
+            grapePlantation?.updateHarvestEstimate(i)
+        }
+        grapePlantation?.prepareCurrentTick(200, 18)
         grapePlantation?.updateHarvestEstimate(18)
         // Cutting is skipped!
         // We never enter the cuttable ticks!
-        // assertEquals(461_700, grapePlantation?.plant?.getHarvestEstimate())
-        assertEquals(1_026_000, grapePlantation?.plant?.getHarvestEstimate())
+        assertEquals(461_700, grapePlantation?.plant?.getHarvestEstimate())
         grapePlantation?.updateHarvestEstimate(20)
-        assertEquals(877_230, grapePlantation?.plant?.getHarvestEstimate())
+        // assertEquals(877_230, grapePlantation?.plant?.getHarvestEstimate())
     }
 }

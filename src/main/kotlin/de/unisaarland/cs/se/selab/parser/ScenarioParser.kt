@@ -82,7 +82,7 @@ class ScenarioParser {
             require(duration > 0 || duration == -1)
             val amount: Int = cloud.getInt("amount")
             require(amount > 0)
-            clouds.add(Cloud(id, location, duration, amount))
+            clouds.add(Cloud(id, duration, location, amount))
         }
         clouds.sortBy { it.id }
         val maxId = clouds.lastOrNull()?.id ?: 0

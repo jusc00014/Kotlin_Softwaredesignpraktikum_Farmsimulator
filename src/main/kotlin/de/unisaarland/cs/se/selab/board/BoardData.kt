@@ -76,4 +76,11 @@ class BoardData(idToTile: Map<Int, Tile>) {
     fun getFertiles(): Map<Int, Fertile> {
         return idToTile.values.mapNotNull { it.asFertile() }.associateBy { it.id }
     }
+
+    /**
+     * Returns all Tiles
+     */
+    fun getTiles(): List<Tile> {
+        return idToTile.values.toList()
+    }
 }

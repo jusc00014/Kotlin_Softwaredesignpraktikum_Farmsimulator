@@ -53,11 +53,11 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
 
     private fun yearTickRange(start: Int, endInclusive: Int): Set<Int> {
         require(start in YEAR_TICK_MIN..YEAR_TICK_MAX)
-        require(endInclusive in YEAR_TICK_MIN..YEAR_TICK_MAX)
-        return if (endInclusive < start) {
-            IntRange(start - 1, endInclusive + YEAR_TICK_MAX - 1).map { it % YEAR_TICK_MAX + 1 }
+        val end = if (endInclusive > YEAR_TICK_MAX) endInclusive % YEAR_TICK_MAX else endInclusive
+        return if (end < start) {
+            IntRange(start - 1, end + YEAR_TICK_MAX - 1).map { it % YEAR_TICK_MAX + 1 }
         } else {
-            IntRange(start, endInclusive)
+            IntRange(start, end)
         }.toSet()
     }
 
@@ -157,6 +157,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
         val oldHarvestEstimate = harvestEstimate
         if (drought) {
             harvestEstimate = 0
+            harvestTime = yearTick
         }
 
         // Sowed too late
@@ -180,6 +181,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
             } else {
                 harvestEstimate = 0
                 sowTime = 0
+                harvestTime = yearTick
             }
         }
         val actionsNotPerformed = applyAndGetMissed(yearTick, drought, irrigationNeeded)

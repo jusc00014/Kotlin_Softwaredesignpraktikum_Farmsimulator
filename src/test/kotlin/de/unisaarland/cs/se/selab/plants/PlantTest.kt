@@ -240,4 +240,12 @@ class PlantTest {
         assertNull(grapePlant.performAction(Action.MOWING, 12))
         assertNull(potatoPlant.performAction(Action.WEEDING, 21))
     }
+
+    @Test
+    fun performActionHarvest() {
+        harvestEstimateField.set(grapePlant, 419)
+        assertTrue(419 == grapePlant.performAction(Action.HARVESTING, 17))
+        harvestEstimateField.set(potatoPlant, 421)
+        assertTrue(421 == potatoPlant.performAction(Action.HARVESTING, 18))
+    }
 }

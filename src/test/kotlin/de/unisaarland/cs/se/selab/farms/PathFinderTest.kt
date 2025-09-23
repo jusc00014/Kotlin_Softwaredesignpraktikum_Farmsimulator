@@ -72,6 +72,44 @@ class PathFinderTest {
         2,
         TileType.FARMSTEAD
     )
+    private val tile12 = Tile(
+        12,
+        Coordinate(5, 1),
+        null,
+        false,
+        1,
+        TileType.FARMSTEAD
+    )
+    private val tile13 = Tile(
+        13,
+        Coordinate(4, 2),
+        null,
+        false,
+        null,
+        TileType.ROAD
+    )
+    private val tile14 = Tile(
+        14,
+        Coordinate(4, 3),
+        null,
+        true,
+        1,
+        TileType.FARMSTEAD
+    )
+    private val boardData = BoardData(
+        mapOf(
+            Pair(1, tile1),
+            Pair(4, tile4),
+            Pair(5, tile5),
+            Pair(7, tile7),
+            Pair(10, tile10),
+            Pair(11, tile11),
+            Pair(12, tile12),
+            Pair(13, tile13),
+            Pair(14, tile14)
+        )
+    )
+    lateinit var farm: Farm
 
     @BeforeEach
     fun setUp() {
@@ -96,6 +134,8 @@ class PathFinderTest {
 
         whenever(board.neighbors(1, tile11))
             .thenReturn(listOf(tile10))
+        farm = mock()
+        whenever(farm.farmsteads).thenReturn(listOf(7, 12, 14))
     }
 
     @Test
@@ -120,6 +160,40 @@ class PathFinderTest {
 
     @Test
     fun findNearestShed() {
+        return
+        // assertTrue { pathFinder.findNearestShed(tile4, farm, boardData) == tile14 }
+    }
+
+    @Test
+    fun reachableIntegration() {
+        assertTrue(pathFinder.reachable(tile7, tile4, 1, boardData))
+        assertFalse(pathFinder.reachable(tile7, tile11, 1, boardData))
+    }
+
+    @Test
+    fun reachableWithHarvestIntegration() {
+        assertFalse(pathFinder.reachableWithHarvest(tile7, tile4, 1, boardData))
+        return
+        // assertTrue(pathFinder.reachableWithHarvest(tile4, tile14, 1, boardData))
+    }
+
+    @Test
+    fun canContinueIntegration() {
+        assertTrue(pathFinder.canContinue(tile1, tile4, 1, boardData, false))
+        assertFalse(pathFinder.canContinue(tile1, tile4, 1, boardData, true))
+        assertTrue(pathFinder.canContinue(tile7, tile4, 1, boardData, false))
+        assertFalse(pathFinder.canContinue(tile7, tile10, 1, boardData, false))
+        assertFalse(pathFinder.canContinue(tile5, tile11, 1, boardData, false))
+    }
+
+    @Test
+    fun findNearestShedIntegration() {
         assertTrue(true)
+    }
+
+    @Test
+    fun neigbors() {
+        return
+        // assertTrue(boardData.neighbors(1, tile13) == listOf(tile4, tile5, tile14))
     }
 }

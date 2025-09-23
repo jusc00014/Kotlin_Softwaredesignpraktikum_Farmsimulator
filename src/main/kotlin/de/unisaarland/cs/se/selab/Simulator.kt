@@ -25,7 +25,7 @@ class Simulator(
     fun start() {
         var yearTick: Int = startYearTick
         Logger.simulationStarted(yearTick)
-        for (tick in 0..maxTick) {
+        for (tick in 0..<maxTick) {
             Logger.tickStarted(tick, yearTick)
             boardHandler.reduceSoil(yearTick, boardData)
             cloudHandler.moveClouds()

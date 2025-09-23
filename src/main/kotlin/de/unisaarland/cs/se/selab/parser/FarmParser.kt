@@ -158,13 +158,15 @@ class FarmParser {
             val plantType = validateSowingPlanPlantTypes(sowingPlanPlant)
 
             val sowingPlanFields = sowingPlanJson.optJSONArray("fields")
-            var fields: MutableList<Tile> = mutableListOf()
+            val fields: MutableList<Tile> = mutableListOf()
             if (sowingPlanFields == null) {
-                fields = validateSowingPlanFieldsByRadius(
-                    sowingPlanJson.getInt(LOCATION),
-                    sowingPlanJson.getInt(RADIUS),
-                    board,
-                    farmId
+                fields.addAll(
+                    validateSowingPlanFieldsByRadius(
+                        sowingPlanJson.getInt(LOCATION),
+                        sowingPlanJson.getInt(RADIUS),
+                        board,
+                        farmId
+                    )
                 )
             } else {
                 require(

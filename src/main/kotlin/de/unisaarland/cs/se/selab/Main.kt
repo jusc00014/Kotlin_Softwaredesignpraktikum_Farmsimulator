@@ -17,6 +17,7 @@ import de.unisaarland.cs.se.selab.parser.MapParser
 import de.unisaarland.cs.se.selab.parser.ScenarioParser
 import de.unisaarland.cs.se.selab.plants.PlantData
 import de.unisaarland.cs.se.selab.plants.PlantType
+import java.io.File
 import java.io.OutputStreamWriter
 
 const val YEAR_TICK_MIN = 1
@@ -30,34 +31,34 @@ const val TICK_MAX = 1_000
 fun main(args: Array<String>) {
     val data = parseArguments(args) ?: return
     Logger.initLogger(data.logLevel, data.out)
-
     val mapParser = MapParser(mutableMapOf())
     val boardData: BoardData
     val plantDataMap: Map<PlantType, PlantData>
+    val mapFileName = File(data.maps).name
     try {
         val mapData = mapParser.parse(data.maps, data.startYearTick)
         boardData = mapData.first
         plantDataMap = mapData.second
     } catch (_: IllegalArgumentException) {
-        Logger.invalidFile(data.maps)
-        return
+        return Logger.invalidFile(mapFileName)
     }
-    Logger.fileParsed(data.maps)
+    Logger.fileParsed(mapFileName)
     val farmParser = FarmParser()
     val farms: List<Farm>
     val machines: Map<Int, Machine>
+    val farmFileName = File(data.farms).name
     try {
         val farmData = farmParser.parse(data.farms, boardData, data.maxTick)
         farms = farmData.first
         machines = farmData.second
     } catch (_: IllegalArgumentException) {
-        Logger.invalidFile(data.farms)
-        return
+        return Logger.invalidFile(farmFileName)
     }
-    Logger.fileParsed(data.farms)
+    Logger.fileParsed(farmFileName)
     val scenarioParser = ScenarioParser()
     val incidents: List<Incident>
     val cloudData: CloudData
+    val scenarioFileName = File(data.scenario).name
     try {
         val scenarioData = scenarioParser.parse(
             jsonFile = data.scenario,
@@ -70,10 +71,9 @@ fun main(args: Array<String>) {
         incidents = scenarioData.first
         cloudData = scenarioData.second
     } catch (_: IllegalArgumentException) {
-        Logger.invalidFile(data.scenario)
-        return
+        return Logger.invalidFile(scenarioFileName)
     }
-    Logger.fileParsed(data.scenario)
+    Logger.fileParsed(scenarioFileName)
     val simulator = buildSimulator(
         farms = farms,
         plantDataMap = plantDataMap,
@@ -151,7 +151,7 @@ fun parseArguments(args: Array<String>): ArgumentData? {
         if (pair[0] == "--help") { return printHelp() }
         require(pair.size == 2) { "Argument is missing a value: $pair[0]" }
         when (pair[0]) {
-            "--maps" -> {
+            "--map" -> {
                 require(maps == null) { "--maps already set!" }
                 maps = pair[1]
             }

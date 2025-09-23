@@ -5,14 +5,13 @@ import de.unisaarland.cs.se.selab.incidents.Incident
 import de.unisaarland.cs.se.selab.plants.PlantType
 import java.io.FileWriter
 import java.io.PrintWriter
-import java.io.Writer
 
 /**
  * Global Logger object handling every logger call with internal statistics Tracking
  */
 object Logger {
     private var logLevel: LogLevel = LogLevel.DEBUG
-    private var writer: Writer = PrintWriter(System.out, true)
+    private var writer: PrintWriter = PrintWriter(System.out, true)
     private val farmToHarvest = mutableMapOf<Int, Int>()
     private val plantToHarvest =
         mutableMapOf(
@@ -42,7 +41,7 @@ object Logger {
      */
     private fun logPrint(level: LogLevel, message: String) {
         if (level.ordinal >= logLevel.ordinal) {
-            writer.write("[$level] $message")
+            writer.println("[$level] $message")
         }
     }
 

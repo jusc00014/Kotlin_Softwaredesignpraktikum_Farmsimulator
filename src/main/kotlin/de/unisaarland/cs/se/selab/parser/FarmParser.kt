@@ -45,6 +45,8 @@ class FarmParser {
         // gets the array of farms
         val farms = parseFarms(farmsJson, board, maxTick)
         // the farms (at least one)
+        val (fieldsByFarms, plantationsByFarm, farmsteadsByFarms) = createFieldMapByFarms(farms)
+        validateFarmsOpinions(fieldsByFarms, plantationsByFarm, farmsteadsByFarms, board)
         return Pair(farms, finishedMachines)
     }
 
@@ -155,7 +157,11 @@ class FarmParser {
                     board
                 )
             } else {
-                require(!sowingPlanJson.keySet().contains(LOCATION) && !sowingPlanJson.keySet().contains(RADIUS))
+                require(
+                    !sowingPlanJson.keySet().contains(LOCATION) &&
+                        !sowingPlanJson.keySet().contains(RADIUS) &&
+                        !sowingPlanFields.isEmpty
+                )
                 fields = sowingPlanFields.map { (it ?: error("sowingPlanFields null")) as Int }.toMutableList()
             }
             require(fields.isNotEmpty())
@@ -256,5 +262,38 @@ class FarmParser {
         val tile = board.getTileById(tileId)
         require(tile != null && tile.type == TileType.FARMSTEAD && tile.farmID == farmId)
         return tileId
+    }
+
+    private fun createFieldMapByFarms(farms: List<Farm>):
+        Triple<List<Int>, List<Int>, List<Int>> {
+        val fields = mutableListOf<Int>()
+        val plantations = mutableListOf<Int>()
+        val farmsteads = mutableListOf<Int>()
+        for (farm in farms) {
+            fields.addAll(farm.fields)
+            plantations.addAll(farm.plantages)
+            farmsteads.addAll(farm.farmsteads)
+        }
+        return Triple(fields, plantations, farmsteads)
+    }
+
+    private fun validateFarmsOpinions(
+        fields: List<Int>,
+        plantations: List<Int>,
+        farmsteads: List<Int>,
+        boardData: BoardData
+    ) {
+        val fertiles = boardData.getFertiles()
+        val boardFields = fertiles.values.filter { it.type == TileType.FIELD }.map { it.id }.sorted()
+        val boardPlantations = fertiles.values.filter { it.type == TileType.PLANTATION }.map { it.id }.sorted()
+        val boardFarmsteads = boardData.getTiles().filter { it.type == TileType.FARMSTEAD }.map { it.id }.sorted()
+        val field = fields.sorted()
+        val plantation = plantations.sorted()
+        val farmstead = farmsteads.sorted()
+        require(
+            boardFields == field &&
+                boardPlantations == plantation &&
+                boardFarmsteads == farmstead
+        )
     }
 }

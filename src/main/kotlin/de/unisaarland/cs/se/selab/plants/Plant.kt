@@ -18,11 +18,12 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
     private var actionPerformed: Action? = null
     private val incidents: MutableList<Incident> = mutableListOf()
     private var mowedFor: Int = 0
+    private var cutted: Boolean = false
 
     /**
      * Constants used in Plant
      */
-    companion object Constants {
+    companion object PlantConstants {
         const val FALLOW_TICKS = 4
         const val PLANTATION_HARVEST_RESET = 21
 
@@ -242,7 +243,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
      * Checks if the plant can be cut
      */
     fun cuttable(yearTick: Int): Boolean {
-        return actionPerformed != Action.CUTTING &&
+        return !cutted &&
             harvestEstimate > 0 &&
             harvestTime <= 0 &&
             data.cuttingTimes.contains(yearTick)
@@ -282,6 +283,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
      */
     fun performAction(action: Action, yearTick: Int): Int? {
         actionPerformed = action
+        if (action == Action.CUTTING) cutted = true
         return if (action == Action.HARVESTING) harvest(yearTick) else null
     }
 
@@ -315,6 +317,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
     fun prepareCurrentTick(yearTick: Int) {
         if (yearTick == PLANTATION_HARVEST_RESET && data.tileType == PlantTile.PLANTATION) {
             harvestEstimate = data.initialHarvestEstimate
+            cutted = false
         }
     }
 

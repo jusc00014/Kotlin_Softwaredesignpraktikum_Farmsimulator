@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
+import kotlin.test.assertNull
 
 class PlantTest {
     lateinit var grapePlant: Plant
@@ -26,6 +27,7 @@ class PlantTest {
     val incidentField: java.lang.reflect.Field = Plant::class.java.getDeclaredField("incidents")
     val mowedForField: java.lang.reflect.Field = Plant::class.java.getDeclaredField("mowedFor")
     val actionPerformedField: java.lang.reflect.Field = Plant::class.java.getDeclaredField("actionPerformed")
+    val cuttedField: java.lang.reflect.Field = Plant::class.java.getDeclaredField("cutted")
 
     @BeforeEach
     fun setup() {
@@ -39,6 +41,7 @@ class PlantTest {
         harvestEstimateField.isAccessible = true
         mowedForField.isAccessible = true
         actionPerformedField.isAccessible = true
+        cuttedField.isAccessible = true
         sowTimeField.set(oatPlant, 6)
         sowTimeField.set(potatoPlant, 7)
         harvestEstimateField.set(potatoPlant, 10)
@@ -97,11 +100,21 @@ class PlantTest {
     }
 
     @Test
-    fun isFallow() {
+    fun isFallowPlantation() {
+        assertFalse(grapePlant.isFallow(22))
+    }
+
+    @Test
+    fun isFallowNotHarvested() {
+        assertFalse(potatoPlant.isFallow(1))
+    }
+
+    @Test
+    fun isFallowEasy() {
         harvestTimeField.set(potatoPlant, 20)
         harvestTimeField.set(almondPlant, 19)
         harvestTimeField.set(oatPlant, 18)
-        // assertFalse(potatoPlant.isFallow(1))
+        assertFalse(potatoPlant.isFallow(1))
         assertFalse(almondPlant.isFallow(20))
         assertTrue(oatPlant.isFallow(22))
     }
@@ -136,5 +149,95 @@ class PlantTest {
         harvestEstimateField.set(oatPlant, 69)
         assertTrue(oatPlant.harvestable(18))
         assertFalse(oatPlant.harvestable(11))
+    }
+
+    @Test
+    fun cuttableAlreadyCutted() {
+        cuttedField.set(grapePlant, true)
+        assertFalse(grapePlant.cuttable(14))
+    }
+
+    @Test
+    fun cuttableNoHarvestEstimate() {
+        harvestEstimateField.set(almondPlant, 0)
+        assertFalse(almondPlant.cuttable(21))
+    }
+
+    @Test
+    fun cuttableHarvestedPlant() {
+        harvestTimeField.set(grapePlant, 17)
+        assertFalse(grapePlant.cuttable(14))
+    }
+
+    @Test
+    fun cuttableEasy() {
+        assertTrue(grapePlant.cuttable(14))
+        assertFalse(grapePlant.cuttable(17))
+    }
+
+    @Test
+    fun mowableField() {
+        assertFalse(potatoPlant.mowable(12))
+    }
+
+    @Test
+    fun mowableCurrentTickMowedOrMowedFor() {
+        actionPerformedField.set(grapePlant, Action.MOWING)
+        assertFalse(grapePlant.mowable(7))
+        mowedForField.set(almondPlant, 1)
+        assertFalse(almondPlant.mowable(11))
+    }
+
+    @Test
+    fun mowableNoHarvestEstimate() {
+        harvestEstimateField.set(grapePlant, 0)
+        assertFalse(grapePlant.mowable(7))
+    }
+
+    @Test
+    fun mowableAfterHarvest() {
+        harvestTimeField.set(grapePlant, 14)
+        assertFalse(grapePlant.harvestable(7))
+    }
+
+    @Test
+    fun mowableEasy() {
+        assertTrue(grapePlant.mowable(7))
+        assertFalse(almondPlant.mowable(12))
+    }
+
+    @Test
+    fun weedablePlantation() {
+        assertFalse(grapePlant.weedable(12))
+    }
+
+    @Test
+    fun weedableCurrentTickWeeded() {
+        actionPerformedField.set(potatoPlant, Action.WEEDING)
+        assertFalse(potatoPlant.weedable(9))
+    }
+
+    @Test
+    fun weedableHarvestedPlant() {
+        sowTimeField.set(potatoPlant, 0)
+        assertFalse(potatoPlant.weedable(9))
+    }
+
+    @Test
+    fun weedableEasy() {
+        assertTrue(potatoPlant.weedable(9))
+        assertFalse(potatoPlant.weedable(10))
+    }
+
+    @Test
+    fun performActionCut() {
+        assertNull(grapePlant.performAction(Action.CUTTING, 14))
+        assertTrue(cuttedField.get(grapePlant) == true)
+    }
+
+    @Test
+    fun performActionWeedingMowing() {
+        assertNull(grapePlant.performAction(Action.MOWING, 12))
+        assertNull(potatoPlant.performAction(Action.WEEDING, 21))
     }
 }

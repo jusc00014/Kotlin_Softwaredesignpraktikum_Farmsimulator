@@ -263,7 +263,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
     fun mowable(yearTick: Int): Boolean {
         return actionPerformed != Action.MOWING &&
             harvestEstimate > 0 &&
-            mowedFor > 0 &&
+            mowedFor <= 0 &&
             harvestTime <= 0 &&
             data.mowingTimes.contains(yearTick)
     }
@@ -296,7 +296,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
     }
 
     /**
-     * Checks if the plant is sown if it is a field-plant else false
+     * Checks if the plant is sown or if it is a plantation plant
      */
     fun isSown(): Boolean {
         return data.tileType == PlantTile.PLANTATION || sowTime > 0

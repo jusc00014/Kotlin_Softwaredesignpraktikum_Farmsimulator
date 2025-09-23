@@ -2,8 +2,10 @@ package de.unisaarland.cs.se.selab
 
 import de.unisaarland.cs.se.selab.plants.PlantData
 import de.unisaarland.cs.se.selab.plants.PlantTile
-import kotlin.ranges.step
 
+/**
+ * Object holding generic Constants
+ */
 object Constants {
     const val POTATO_MOISTURE = 500
     const val WHEAT_MOISTURE = 450

@@ -227,7 +227,25 @@ class MapParser(
             val (id, validTile) = validateTile(tile, plantMap, yearTick)
             addTileToMap(id to validTile)
         }
-        return BoardData(tiles) to plantMap
+        val boardData = BoardData(tiles)
+        tiles.forEach {
+            when (it.value.type) {
+                TileType.FARMSTEAD -> {
+                    require(
+                        boardData.neighbors(1, it.value).none
+                            { itt -> itt.type == TileType.MEADOW || itt.type == TileType.FARMSTEAD }
+                    )
+                }
+                TileType.MEADOW -> {
+                    require(boardData.neighbors(1, it.value).none { itt -> itt.type == TileType.MEADOW })
+                }
+                TileType.VILLAGE -> {
+                    require(boardData.neighbors(1, it.value).none { itt -> itt.type == TileType.FOREST })
+                }
+                else -> {}
+            }
+        }
+        return boardData to plantMap
     }
     private fun createPlantData(plantType: PlantType): PlantData {
         return when (plantType) {

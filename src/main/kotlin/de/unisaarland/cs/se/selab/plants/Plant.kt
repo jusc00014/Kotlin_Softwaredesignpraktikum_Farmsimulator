@@ -1,6 +1,7 @@
 package de.unisaarland.cs.se.selab.plants
 
 import de.unisaarland.cs.se.selab.YEAR_TICK_MAX
+import de.unisaarland.cs.se.selab.YEAR_TICK_MIN
 import de.unisaarland.cs.se.selab.farms.Action
 import de.unisaarland.cs.se.selab.incidents.AnimalAttack
 import de.unisaarland.cs.se.selab.incidents.BeeHappy
@@ -50,6 +51,16 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
         }
     }
 
+    private fun yearTickRange(start: Int, endInclusive: Int): Set<Int> {
+        require(start in YEAR_TICK_MIN..YEAR_TICK_MAX)
+        require(endInclusive in YEAR_TICK_MIN..YEAR_TICK_MAX)
+        return if (endInclusive < start) {
+            IntRange(start - 1, endInclusive + YEAR_TICK_MAX - 1).map { it % YEAR_TICK_MAX + 1 }
+        } else {
+            IntRange(start, endInclusive)
+        }.toSet()
+    }
+
     /**
      * Calculates the time frame in which harvest penalty should be applied.
      */
@@ -59,13 +70,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
         } else {
             data.sowRange.first
         }
-        return if (sowingTimeStart < data.harvestingRange.last) {
-            // E.G. Potato: start = 21 (Oct2) , endInclusive = 4 (Apr1) -1 + 24 == 26 -> {21, 22, 23, 24, 1, 2, 3}
-            IntRange(data.harvestingRange.last, sowingTimeStart - 1 + YEAR_TICK_MAX)
-                .map { (it % YEAR_TICK_MAX) + 1 }.toSet()
-        } else {
-            IntRange(data.harvestingRange.last + 1, sowingTimeStart - 1).toSet()
-        }
+        return yearTickRange(data.harvestingRange.last + 1, sowingTimeStart - 1)
     }
 
     private fun harvestPenalty(yearTick: Int): Double {
@@ -174,6 +179,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
                 ) { harvestEstimate = max(harvestEstimate - MOISTURE_LOW_PENALTY, 0) }
             } else {
                 harvestEstimate = 0
+                sowTime = 0
             }
         }
         val actionsNotPerformed = applyAndGetMissed(yearTick, drought, irrigationNeeded)
@@ -194,7 +200,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
         val actionsMissed = mutableListOf<Action>()
 
         if (weedable(yearTick)) harvestEstimate = (harvestEstimate * WEEDING_MISSED_PENALTY_FACTOR).toInt()
-        if (cuttable(yearTick) && !cuttable(yearTick + 1)) {
+        if (cuttable(yearTick) && data.cuttingTimes.last() == yearTick) {
             harvestEstimate = (harvestEstimate * CUTTING_MISSED_PENALTY_FACTOR).toInt()
         }
         if (mowable(yearTick)) harvestEstimate = (harvestEstimate * MOWING_MISSED_PENALTY_FACTOR).toInt()
@@ -222,7 +228,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
     fun isFallow(yearTick: Int): Boolean {
         return data.tileType == PlantTile.FIELD &&
             harvestTime > 0 &&
-            yearTick <= harvestTime + FALLOW_TICKS
+            yearTick in yearTickRange(harvestTime + 1, harvestTime + FALLOW_TICKS)
     }
 
     /**
@@ -291,7 +297,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
      * Checks if the plant is sown if it is a field-plant else false
      */
     fun isSown(): Boolean {
-        return harvestEstimate > 0 && data.tileType == PlantTile.FIELD
+        return data.tileType == PlantTile.PLANTATION || sowTime > 0
     }
 
     /**

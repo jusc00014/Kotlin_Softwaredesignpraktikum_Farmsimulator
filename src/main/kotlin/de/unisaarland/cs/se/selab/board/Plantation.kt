@@ -16,7 +16,7 @@ class Plantation(
 ) : Fertile(id, coord, airflow, farmID, type, moistureCapacity, plant) {
     override fun performableActions(yearTick: Int): List<Action> {
         val actions = mutableListOf<Action>()
-        if (irrigatable()) {
+        if (irrigatable(yearTick)) {
             actions.add(Action.IRRIGATING)
         }
         if (plant.harvestable(yearTick)) {

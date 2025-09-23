@@ -42,10 +42,10 @@ abstract class Fertile(
      * loses moisture in reduceSoil phase. Returns if our moisture is now below min moisture of the plant*/
     fun loseMoisture(): Boolean {
         val minAllowedMoisture = plant.getMinMoisture()
-        moisture -= if (plant.getHarvestEstimate() > 0) {
-            MOISTURE_TO_LOSE_PLANT_IS_GROWING
-        } else {
-            MOISTURE_TO_LOSE_PLANT_IS_NOT_GROWING
+        moisture -= when {
+            (type == TileType.FIELD && plant.getHarvestEstimate() > 0) || (type == TileType.PLANTATION && !drought)
+            -> MOISTURE_TO_LOSE_PLANT_IS_GROWING
+            else -> MOISTURE_TO_LOSE_PLANT_IS_NOT_GROWING
         }
         moisture = max(0, moisture)
         if (type == TileType.FIELD && plant.getHarvestEstimate() == 0) {
@@ -56,8 +56,10 @@ abstract class Fertile(
 
     /**
      * checks if farm should irrigate on this tile*/
-    fun irrigatable(): Boolean {
-        return !drought && moisture < plant.getMinMoisture() && plant.getHarvestEstimate() > 0
+    fun irrigatable(yearTick: Int): Boolean {
+        if (drought || !plant.isSown()) return false
+
+        return moisture < plant.getMinMoisture() || plant.isFallow(yearTick) || plant.getHarvestEstimate() <= 0
     }
 
     override fun rain(amount: Int): Int {

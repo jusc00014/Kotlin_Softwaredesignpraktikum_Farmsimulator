@@ -82,9 +82,9 @@ class FertileTest {
                 yearTick
             )
         )
-        assertFalse(fertile.irrigatable())
+        assertFalse(fertile.irrigatable(yearTick))
         fertile.loseMoisture()
-        assertTrue(fertile.irrigatable())
+        assertTrue(fertile.irrigatable(yearTick))
     }
 
     @Test
@@ -163,10 +163,10 @@ class FertileTest {
             )
         )
         fertile.loseMoisture()
-        assertTrue(fertile.irrigatable())
+        assertTrue(fertile.irrigatable(yearTick))
         var r = fertile.performAction(Action.IRRIGATING, yearTick)
         assertNull(r)
-        assertFalse(fertile.irrigatable())
+        assertFalse(fertile.irrigatable(yearTick))
         fertile.updateHarvestEstimate(yearTick)
         r = fertile.performAction(Action.HARVESTING, yearTick)
         assertNotNull(r)

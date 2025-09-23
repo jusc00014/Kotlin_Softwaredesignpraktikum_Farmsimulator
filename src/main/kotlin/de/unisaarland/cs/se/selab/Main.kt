@@ -84,6 +84,7 @@ fun main(args: Array<String>) {
         startYearTick = data.startYearTick,
         maxTick = data.maxTick
     )
+    Logger.initFarms(farms.map { it.id })
     simulator.start()
 }
 

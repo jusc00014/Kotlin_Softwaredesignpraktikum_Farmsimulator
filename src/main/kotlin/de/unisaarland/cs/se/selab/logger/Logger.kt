@@ -211,10 +211,16 @@ object Logger {
     // ----Farms----
 
     /**
+     * Initializes farm to harvest map after parsing
+     */
+    fun initFarms(farms: List<Int>) {
+        farms.forEach { farmToHarvest[it] = 0 }
+    }
+
+    /**
      * \[IMPORTANT] Farm: Farm $farmID starts its actions.
      */
     fun farmStartAction(farmId: Int) {
-        farmToHarvest[farmId] = farmToHarvest[farmId] ?: 0
         logPrint(
             LogLevel.IMPORTANT,
             "Farm: Farm $farmId starts its actions."
@@ -358,13 +364,6 @@ object Logger {
             LogLevel.IMPORTANT,
             "Simulation Info: Simulation statistics are calculated."
         )
-        logCollected()
-    }
-
-    /**
-     * Responsible for calling Statistic logs
-     */
-    private fun logCollected() {
         farmToHarvest.toSortedMap().forEach { farmCollected(it.key, it.value) }
         plantToHarvest.forEach { totalPlantHarvest(it.key, it.value) }
     }

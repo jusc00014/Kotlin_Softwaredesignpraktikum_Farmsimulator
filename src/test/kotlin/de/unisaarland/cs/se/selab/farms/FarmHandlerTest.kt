@@ -1,7 +1,9 @@
 package de.unisaarland.cs.se.selab.farms
 
 import de.unisaarland.cs.se.selab.Constants
+import de.unisaarland.cs.se.selab.board.BoardData
 import de.unisaarland.cs.se.selab.board.Coordinate
+import de.unisaarland.cs.se.selab.board.Fertile
 import de.unisaarland.cs.se.selab.board.Field
 import de.unisaarland.cs.se.selab.board.Plantation
 import de.unisaarland.cs.se.selab.board.Tile
@@ -11,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
+import kotlin.test.assertTrue
 
 class FarmHandlerTest {
 
@@ -115,16 +118,18 @@ class FarmHandlerTest {
     private val tile26: Field = mock()
     private val tile02: Plantation = mock()
     private val tile24: Plantation = mock()
-    private val machines = mapOf(
-        Pair(1, Machine(1, listOf(Action.SOWING), listOf(PlantType.POTATO), duration = 13, tile9, 0))
-    )
+    private val machines =
+        mapOf(
+            Pair(1, Machine(1, listOf(Action.SOWING), listOf(PlantType.POTATO), duration = 13, tile9, 0)),
+            Pair(2, Machine(2, listOf(Action.SOWING), listOf(PlantType.PUMPKIN), duration = 13, tile9, 0))
+        )
     private val farm = Farm(
         1,
         listOf(9),
         listOf(3, 4, 5, 6, 7, 8),
         listOf(1, 2),
         listOf(1, 2),
-        mutableListOf(SowingPlan(1, 8, PlantType.PUMPKIN, listOf(5, 7)))
+        mutableListOf(SowingPlan(1, 8, PlantType.POTATO, listOf(4, 5, 6)))
     )
 
     @BeforeEach
@@ -161,7 +166,7 @@ class FarmHandlerTest {
             ),
             9
         )
-        kotlin.test.assertTrue {
+        assertTrue {
             sowFields == mapOf(
                 Pair(PlantType.POTATO, mutableListOf(tile20, tile26, tile00)),
                 Pair(PlantType.WHEAT, mutableListOf()),
@@ -173,5 +178,41 @@ class FarmHandlerTest {
                 Pair(PlantType.GRAPE, mutableListOf())
             )
         }
+    }
+
+    @Test
+    fun sow() {
+        val fertiles = mapOf(
+            Pair(1, tile02),
+            Pair(2, tile24),
+            Pair(3, tile06),
+            Pair(4, tile20),
+            Pair(5, tile04),
+            Pair(6, tile26),
+            Pair(7, tile22),
+            Pair(8, tile00)
+        )
+        val sowFields = farmHandler.assembleSowableFields(
+            listOf(3, 4, 6, 7, 8),
+            fertiles,
+            9
+        )
+        val remainingMachines = mutableListOf(
+            machines[1] ?: error("FUCK DETEKT"),
+            machines[2] ?: error("FUCK DETEKT")
+        )
+        val finishedFields = mutableMapOf<Int, Fertile>(Pair(6, tile26))
+        val board: BoardData = mock()
+        whenever(pathFinder.reachable(tile9, tile20, 1, board))
+            .thenReturn(true)
+        whenever(pathFinder.reachable(tile9, tile26, 1, board))
+            .thenReturn(true)
+        whenever(pathFinder.reachable(tile9, tile00, 1, board))
+            .thenReturn(true)
+        whenever(tile20.id).thenReturn(4)
+        whenever(tile00.id).thenReturn(8)
+        whenever(tile26.id).thenReturn(6)
+        farmHandler.sow(sowFields, farm, remainingMachines, finishedFields, board, 9, fertiles)
+        assertTrue { finishedFields.contains(6) }
     }
 }

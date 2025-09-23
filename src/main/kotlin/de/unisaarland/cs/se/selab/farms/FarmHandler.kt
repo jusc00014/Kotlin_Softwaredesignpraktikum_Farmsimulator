@@ -31,7 +31,15 @@ class FarmHandler(
             val remainingMachines = assembleMachines(farm)
             val sowFields = assembleSowableFields(farm.fields, fertiles, yearTick)
             val finishedFields = mutableMapOf<Int, Fertile>()
-            sow(sowFields, farm, remainingMachines, finishedFields, board, yearTick)
+            sow(
+                sowFields,
+                farm,
+                remainingMachines,
+                finishedFields = finishedFields,
+                board = board,
+                yearTick = yearTick,
+                fertiles = fertiles
+            )
             val fieldMap = createActionMap(farm.fields, fertiles, yearTick)
             val plantationMap = createActionMap(farm.plantages, fertiles, yearTick)
             for ((action, fertileType) in listOf(
@@ -107,13 +115,14 @@ class FarmHandler(
 
     /**
      * Start executing active sowing plans*/
-    private fun sow(
+    fun sow(
         sowableFields: Map<PlantType, MutableList<Fertile>>,
         farm: Farm,
         remainingMachines: MutableList<Machine>,
         finishedFields: MutableMap<Int, Fertile>,
         board: BoardData,
-        yearTick: Int
+        yearTick: Int,
+        fertiles: Map<Int, Fertile>
     ) {
         val planIds = mutableListOf<Int>()
         for (plan in farm.plans) {
@@ -122,9 +131,21 @@ class FarmHandler(
             }
         }
         Logger.farmSowingPlan(farm.id, planIds)
+        val delete = mutableListOf<SowingPlan>()
         for (plan in farm.plans) {
-            executeSowingPlan(farm, plan, sowableFields, remainingMachines, finishedFields, board, yearTick)
+            executeSowingPlan(
+                farm,
+                plan,
+                sowableFields,
+                remainingMachines,
+                finishedFields,
+                fertiles,
+                board,
+                yearTick,
+                delete
+            )
         }
+        farm.plans.removeAll(delete)
     }
 
     /**
@@ -135,15 +156,16 @@ class FarmHandler(
         sowableFields: Map<PlantType, MutableList<Fertile>>,
         remainingMachines: MutableList<Machine>,
         finishedFields: MutableMap<Int, Fertile>,
-        // fertiles: Map<Int, Fertile>,
+        fertiles: Map<Int, Fertile>,
         board: BoardData,
-        yearTick: Int
+        yearTick: Int,
+        delete: MutableList<SowingPlan>
     ) {
         val toSow = plan.plant
         val sowFieldIds = plan.fields
         val sowFields = mutableListOf<Field>()
         for (sid in sowFieldIds) {
-            val fert = finishedFields[sid]
+            val fert = fertiles[sid]
             if (fert is Field) {
                 sowFields.add(fert)
             }
@@ -160,7 +182,7 @@ class FarmHandler(
             Logger.machineSowed(machine.id, toSow, plan.id)
             finishedFields[field.id] = field
             remainingMachines.remove(machine)
-            farm.removeSowingPlan(plan)
+            delete.add(plan)
             var remainingTime = TICKTIME - 2 * machine.duration
             var currentField: Fertile = field
             while (remainingTime >= 0 && commonFields.isNotEmpty()) {
@@ -266,7 +288,7 @@ class FarmHandler(
         if (remainingMachines.isEmpty()) {
             return null
         }
-        var bestDuration = TICKTIME - 1
+        var bestDuration = TICKTIME + 1
         for (machine in remainingMachines) {
             if (machine.duration < bestDuration && action in machine.actions && plantType in machine.plants) {
                 if (pathFinder.reachable(machine.location, fertile, farm.id, board)) {

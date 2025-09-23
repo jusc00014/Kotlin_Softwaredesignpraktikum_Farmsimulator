@@ -1,5 +1,6 @@
 package general
 
+import de.unisaarland.cs.se.selab.Constants
 import de.unisaarland.cs.se.selab.board.BoardData
 import de.unisaarland.cs.se.selab.board.Coordinate
 import de.unisaarland.cs.se.selab.board.Field
@@ -8,8 +9,6 @@ import de.unisaarland.cs.se.selab.board.Tile
 import de.unisaarland.cs.se.selab.board.TileType
 import de.unisaarland.cs.se.selab.parser.MapParser
 import de.unisaarland.cs.se.selab.plants.Plant
-import de.unisaarland.cs.se.selab.plants.PlantData
-import de.unisaarland.cs.se.selab.plants.PlantTile
 import de.unisaarland.cs.se.selab.plants.PlantType
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
@@ -17,88 +16,6 @@ import org.junit.jupiter.api.Test
 
 class MapParserTest {
     var mapJson: String = "src/systemtest/resources/example/map.json"
-    companion object Constants {
-
-        const val POTATO_MOISTURE = 500
-        const val WHEAT_MOISTURE = 450
-        const val OAT_MOISTURE = 300
-        const val PUMPKIN_MOISTURE = 600
-        const val APPLE_MOISTURE = 100
-        const val ALMOND_MOISTURE = 400
-        const val CHERRY_MOISTURE = 150
-        const val GRAPE_MOISTURE = 250
-
-        const val POTATO_SUNLIGHT = 130
-        const val WHEAT_SUNLIGHT = 90
-        const val OAT_SUNLIGHT = 90
-        const val PUMPKIN_SUNLIGHT = 120
-        const val APPLE_SUNLIGHT = 50
-        const val ALMOND_SUNLIGHT = 130
-        const val CHERRY_SUNLIGHT = 120
-        const val GRAPE_SUNLIGHT = 150
-
-        const val POTATO_HE = 1_000_000
-        const val WHEAT_HE = 1_500_000
-        const val OAT_HE = 1_200_000
-        const val PUMPKIN_HE = 500_000
-        const val APPLE_HE = 1_700_000
-        const val ALMOND_HE = 800_000
-        const val CHERRY_HE = 1_200_000
-        const val GRAPE_HE = 1_200_000
-
-        const val JAN_1 = 1
-        const val JAN_2 = 2
-        const val FEB_1 = 3
-        const val FEB_2 = 4
-        const val MAR_1 = 5
-        const val MAR_2 = 6
-        const val APR_1 = 7
-        const val APR_2 = 8
-        const val MAY_1 = 9
-        const val MAY_2 = 10
-        const val JUN_1 = 11
-        const val JUN_2 = 12
-        const val JUL_1 = 13
-        const val JUL_2 = 14
-        const val AUG_1 = 15
-        const val AUG_2 = 16
-        const val SEP_1 = 17
-        const val SEP_2 = 18
-        const val OCT_1 = 19
-        const val OCT_2 = 20
-        const val NOV_1 = 21
-        const val NOV_2 = 22
-        const val DEC_1 = 23
-        const val DEC_2 = 24
-    }
-    val potato = PlantData(
-        POTATO_MOISTURE,
-        POTATO_SUNLIGHT,
-        POTATO_HE,
-        3..3,
-        true,
-        SEP_1..OCT_2,
-        0,
-        APR_1..MAY_2,
-        (JAN_2..DEC_2 step 2).toList(),
-        emptyList(),
-        emptyList(),
-        PlantTile.FIELD
-    )
-    val apple = PlantData(
-        APPLE_MOISTURE,
-        APPLE_SUNLIGHT,
-        APPLE_HE,
-        APR_2..MAY_1,
-        true,
-        SEP_1..OCT_2,
-        1,
-        0..0,
-        emptyList(),
-        listOf(NOV_1, NOV_2, FEB_1, FEB_2),
-        listOf(JUN_1, SEP_1),
-        PlantTile.PLANTATION
-    )
     lateinit var expectedBoardData: BoardData
 
     @BeforeEach
@@ -113,7 +30,7 @@ class MapParserTest {
                 farmID = 0,
                 type = TileType.PLANTATION,
                 moistureCapacity = 8000,
-                plant = Plant(PlantType.APPLE, apple, Constants.OCT_1)
+                plant = Plant(PlantType.APPLE, Constants.apple, Constants.OCT_1)
             )
         val field1 =
             Field(
@@ -123,7 +40,7 @@ class MapParserTest {
                 farmID = 0,
                 type = TileType.FIELD,
                 moistureCapacity = 10000,
-                plant = Plant(PlantType.POTATO, potato, Constants.OCT_1),
+                plant = Plant(PlantType.POTATO, Constants.potato, Constants.OCT_1),
                 possiblePlants = mutableSetOf(PlantType.PUMPKIN, PlantType.WHEAT)
             )
         expectedBoardData = BoardData(mutableMapOf(0 to tile1, 1 to plantation1, 2 to field1))

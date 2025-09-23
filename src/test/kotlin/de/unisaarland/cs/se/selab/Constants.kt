@@ -118,7 +118,7 @@ object Constants {
         APPLE_HE,
         APR_2..MAY_1,
         true,
-        SEP_1..OCT_2,
+        SEP_1..OCT_1,
         1,
         0..0,
         emptyList(),

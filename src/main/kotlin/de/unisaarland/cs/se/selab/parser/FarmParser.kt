@@ -5,6 +5,8 @@ import com.github.erosb.jsonsKema.SchemaLoader
 import com.github.erosb.jsonsKema.Validator
 import de.unisaarland.cs.se.selab.board.BoardData
 import de.unisaarland.cs.se.selab.board.Fertile
+import de.unisaarland.cs.se.selab.board.Field
+import de.unisaarland.cs.se.selab.board.Tile
 import de.unisaarland.cs.se.selab.board.TileType
 import de.unisaarland.cs.se.selab.farms.Action
 import de.unisaarland.cs.se.selab.farms.Farm
@@ -89,10 +91,11 @@ class FarmParser {
         validatePlantations(plantations, farmId, board)
         validateAtLeastOneFieldOrPlantationTile(fields, plantations)
 
-        val sowingPlansToValidate = json.getJSONArray("sowingPlans")
-        val sowingPlans = parseSowingPlans(sowingPlansToValidate, board, maxTick)
-
         val machines = validateMachines(farmId, json.getJSONArray("machines"), board)
+
+        val sowingPlansToValidate = json.getJSONArray("sowingPlans")
+        val sowingPlans = parseSowingPlans(sowingPlansToValidate, board, maxTick, machines, farmId)
+
         return Farm(farmId, farmsteads, fields, plantations, machines.map { it.id }, sowingPlans)
     }
 
@@ -134,7 +137,13 @@ class FarmParser {
         require((fields + plantations).isNotEmpty())
     }
 
-    private fun parseSowingPlans(sowingPlansJson: JSONArray, board: BoardData, maxTick: Int): MutableList<SowingPlan> {
+    private fun parseSowingPlans(
+        sowingPlansJson: JSONArray,
+        board: BoardData,
+        maxTick: Int,
+        machines: List<Machine>,
+        farmId: Int
+    ): MutableList<SowingPlan> {
         val sowingPlanIds = mutableListOf<Int>()
         val sowingPlans = mutableListOf<SowingPlan>()
         for (sowingPlanJson in sowingPlansJson) {
@@ -149,12 +158,13 @@ class FarmParser {
             val plantType = validateSowingPlanPlantTypes(sowingPlanPlant)
 
             val sowingPlanFields = sowingPlanJson.optJSONArray("fields")
-            val fields: MutableList<Int>
+            var fields: MutableList<Tile> = mutableListOf()
             if (sowingPlanFields == null) {
                 fields = validateSowingPlanFieldsByRadius(
                     sowingPlanJson.getInt(LOCATION),
                     sowingPlanJson.getInt(RADIUS),
-                    board
+                    board,
+                    farmId
                 )
             } else {
                 require(
@@ -162,10 +172,15 @@ class FarmParser {
                         !sowingPlanJson.keySet().contains(RADIUS) &&
                         !sowingPlanFields.isEmpty
                 )
-                fields = sowingPlanFields.map { (it ?: error("sowingPlanFields null")) as Int }.toMutableList()
+                val fieldInts = sowingPlanFields.map { (it ?: error("sowingPlanFields null")) as Int }.toMutableList()
+                for (int in fieldInts) {
+                    fields.add(board.getTileById(int) ?: return mutableListOf())
+                }
             }
             require(fields.isNotEmpty())
-            sowingPlans.add(SowingPlan(sowingPlanId, sowingPlanTick, plantType, fields))
+            val sowingPlan = SowingPlan(sowingPlanId, sowingPlanTick, plantType, fields.map { it.id })
+            validateSowingPlanPossible(board, sowingPlan, machines)
+            sowingPlans.add(sowingPlan)
         }
         return sowingPlans
     }
@@ -185,10 +200,16 @@ class FarmParser {
         return plantType
     }
 
-    private fun validateSowingPlanFieldsByRadius(tileId: Int, radius: Int, board: BoardData): MutableList<Int> {
+    private fun validateSowingPlanFieldsByRadius(
+        tileId: Int,
+        radius: Int,
+        board: BoardData,
+        farmId: Int
+    ): MutableList<Tile> {
         val fieldCenter = board.getTileById(tileId)
         requireNotNull(fieldCenter)
-        return board.neighbors(radius, fieldCenter).filter { it is Fertile }.map { it.id }.toMutableList()
+        return board.neighbors(radius, fieldCenter)
+            .filter { it is Fertile && it.farmID == farmId && it.type == TileType.FIELD }.toMutableList()
     }
 
     private fun validateMachines(farmId: Int, machines: JSONArray, board: BoardData): List<Machine> {
@@ -295,5 +316,22 @@ class FarmParser {
                 boardPlantations == plantation &&
                 boardFarmsteads == farmstead
         )
+    }
+
+    private fun validateSowingPlanPossible(
+        boardData: BoardData,
+        sowingPlan: SowingPlan,
+        machines: List<Machine>
+    ) {
+        val fieldInts = sowingPlan.fields
+        val fields: MutableList<Field> = mutableListOf()
+        for (i in fieldInts) {
+            val tile = boardData.getTileById(i) ?: return
+            fields.add(tile as Field)
+        }
+        val plantTypes = fields.filter { it.possiblePlants.contains(sowingPlan.plant) }
+        val possibleMachines = machines
+            .filter { it.actions.contains(Action.SOWING) && it.plants.contains(sowingPlan.plant) }
+        require(plantTypes.isNotEmpty() && possibleMachines.isNotEmpty())
     }
 }

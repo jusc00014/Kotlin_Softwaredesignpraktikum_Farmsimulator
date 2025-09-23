@@ -15,7 +15,7 @@ class Field(
     type: TileType,
     moistureCapacity: Int,
     plant: Plant,
-    private val possiblePlants: Set<PlantType>
+    val possiblePlants: Set<PlantType>
 ) : Fertile(id, coord, airflow, farmID, type, moistureCapacity, plant) {
     /**
      * Constants used in Field

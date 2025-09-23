@@ -214,6 +214,7 @@ object Logger {
      * \[IMPORTANT] Farm: Farm $farmID starts its actions.
      */
     fun farmStartAction(farmId: Int) {
+        farmToHarvest[farmId] = farmToHarvest[farmId] ?: 0
         logPrint(
             LogLevel.IMPORTANT,
             "Farm: Farm $farmId starts its actions."

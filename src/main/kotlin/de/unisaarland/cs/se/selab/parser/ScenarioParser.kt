@@ -231,6 +231,9 @@ class ScenarioParser {
         require(neighbours.any { (tilesModified[it.id] ?: it.type) in validTypes }) {
             "[City Expansion ${incident.id}] No adjoining Village tile found."
         }
+        require(neighbours.none { (tilesModified[it.id] ?: it.type) == TileType.FOREST }) {
+            "[City Expansion ${incident.id}] Adjoining Forest tile found"
+        }
         tilesModified[incident.affectedTile.id] = TileType.VILLAGE
     }
 

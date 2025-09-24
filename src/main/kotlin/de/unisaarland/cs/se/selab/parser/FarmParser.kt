@@ -110,10 +110,13 @@ class FarmParser {
 
     private fun validateFarmstead(idList: MutableList<Int>, farmId: Int, board: BoardData) {
         require(idList.isNotEmpty())
+        val possibleSheds: MutableList<Tile> = mutableListOf()
         for (id in idList) {
             val tile = board.getTileById(id)
             require(tile != null && tile.farmID == farmId && tile.type == TileType.FARMSTEAD)
+            possibleSheds.add(tile)
         }
+        require(possibleSheds.any { it.shed })
     }
 
     private fun validateFields(idList: MutableList<Int>, farmId: Int, boardData: BoardData) {
@@ -176,7 +179,9 @@ class FarmParser {
                 )
                 val fieldInts = sowingPlanFields.map { (it ?: error("sowingPlanFields null")) as Int }.toMutableList()
                 for (int in fieldInts) {
-                    fields.add(board.getTileById(int) ?: return mutableListOf())
+                    val tile = board.getTileById(int)
+                    require(tile is Tile)
+                    fields.add(tile)
                 }
             }
             require(fields.isNotEmpty())

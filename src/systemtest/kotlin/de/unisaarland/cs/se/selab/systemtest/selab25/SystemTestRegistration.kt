@@ -1,6 +1,7 @@
 package de.unisaarland.cs.se.selab.systemtest.selab25
 
 import de.unisaarland.cs.se.selab.systemtest.selab25.basictests.ExampleSystemTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.BigCloudTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestOverlapping
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestOverlappingDifferentTicks
@@ -22,6 +23,7 @@ object SystemTestRegistration {
         testSuite.registerTest(CloudCreationTestOverlapping())
         testSuite.registerTest(CloudCreationTestOverlappingDifferentTicks())
         testSuite.registerTest(Onefieldtest())
+        testSuite.registerTest(BigCloudTest())
     }
 
     /**

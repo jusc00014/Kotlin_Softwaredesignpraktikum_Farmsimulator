@@ -1,0 +1,25 @@
+{
+  "clouds": [
+    {
+      "id": 0,
+      "location": 4,
+      "duration": -1,
+      "amount": 600000
+    },
+    {
+      "id": 1,
+      "location": 5,
+      "duration": 1,
+      "amount": 1
+    }
+  ],
+  "incidents": [
+    {
+      "id": 0,
+      "type": "BROKEN_MACHINE",
+      "tick": 0,
+      "duration": 15,
+      "machineId": 1
+    }
+  ]
+}

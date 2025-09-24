@@ -41,7 +41,7 @@
       "category": "FIELD",
       "farm": 0,
       "capacity": 10000,
-      "possiblePlants": ["PUMPKIN", "WHEAT"],
+      "possiblePlants": ["PUMPKIN", "WHEAT", "POTATO"],
       "airflow": false
     }
   ]

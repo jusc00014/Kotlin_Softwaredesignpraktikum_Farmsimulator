@@ -42,7 +42,7 @@
       "farm": 1,
       "airflow": false,
       "capacity": 2500,
-      "possiblePlants": ["WHEAT"]
+      "possiblePlants": ["WHEAT", "POTATO"]
     },
     {
       "id": 7,

@@ -39,7 +39,6 @@ class MapParser(
         val instance = JsonParser(File(jsonFile).readText()).parse()
         val failure = validator.validate(instance)
         require(failure == null) { "${failure ?: "NULL"}" }
-
         val plantTypeList = listOf(
             PlantType.POTATO,
             PlantType.OAT,
@@ -61,6 +60,10 @@ class MapParser(
             addTileToMap(id to validTile)
         }
         val boardData = BoardData(tiles)
+        validateAdjoiningTiles(boardData)
+        return boardData to plantMap
+    }
+    private fun validateAdjoiningTiles(boardData: BoardData) {
         tiles.forEach {
             when (it.value.type) {
                 TileType.FARMSTEAD -> {
@@ -68,17 +71,17 @@ class MapParser(
                     val neighborOfFarm = boardData.neighbors(1, it.value, excludeSelf = true)
                     require(
                         neighborOfFarm.none
-                        { itt -> itt.type == TileType.MEADOW || itt.type == TileType.FARMSTEAD }
+                            { itt -> itt.type == TileType.MEADOW || itt.type == TileType.FARMSTEAD }
                     )
                     require(
                         neighborOfFarm.none
-                        { itt ->
-                            if (itt.type == TileType.FIELD || itt.type == TileType.PLANTATION) {
-                                itt.farmID != farmId
-                            } else {
-                                false
+                            { itt ->
+                                if (itt.type == TileType.FIELD || itt.type == TileType.PLANTATION) {
+                                    itt.farmID != farmId
+                                } else {
+                                    false
+                                }
                             }
-                        }
                     )
                 }
                 TileType.MEADOW -> {
@@ -94,7 +97,6 @@ class MapParser(
                 else -> {}
             }
         }
-        return boardData to plantMap
     }
     private fun createPlantData(plantType: PlantType): PlantData {
         return when (plantType) {

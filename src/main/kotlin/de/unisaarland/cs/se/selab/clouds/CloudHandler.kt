@@ -78,7 +78,6 @@ class CloudHandler(private val cloudData: CloudData, private val board: BoardDat
      */
     private fun moveOneIfPossible(cloud: Cloud): Boolean {
         // Returns true if hitsVillage or Merged or CantMove
-        var out = false
         val neighbor = getNeighbor(cloud.location)
         if (neighbor != null) {
             Logger.logCloudMovement(cloud.id, cloud.waterAmount, cloud.location, neighbor.id)
@@ -86,12 +85,12 @@ class CloudHandler(private val cloudData: CloudData, private val board: BoardDat
             cloud.location = neighbor.id
             if (neighbor.type == TileType.VILLAGE) {
                 cloudData.stuckOnVillage(cloud)
-                out = true
+                return true
             }
+            return false
         } else {
-            out = true
+            return true
         }
-        return out
     }
     //
     /**

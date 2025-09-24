@@ -75,7 +75,7 @@ class FarmHandler(
 
     /**
      * Assemble usable machines*/
-    private fun assembleMachines(farm: Farm): MutableList<Machine> {
+    fun assembleMachines(farm: Farm): MutableList<Machine> {
         val remainingMachines = mutableListOf<Machine>()
         for (machId in farm.machines) {
             val machine = machines[machId] ?: continue
@@ -150,7 +150,7 @@ class FarmHandler(
 
     /**
      * Try to execute one sowing plan*/
-    private fun executeSowingPlan(
+    fun executeSowingPlan(
         farm: Farm,
         plan: SowingPlan,
         sowableFields: Map<PlantType, MutableList<Fertile>>,
@@ -209,7 +209,7 @@ class FarmHandler(
 
     /**
      * Assemble fields and the actions they can perform in this tick*/
-    private fun createActionMap(
+    fun createActionMap(
         fields: List<Int>,
         fertiles: Map<Int, Fertile>,
         yearTick: Int
@@ -233,7 +233,7 @@ class FarmHandler(
 
     /**
      * Perform actions  that are sorted by field id*/
-    private fun performPrioritizedAction(
+    fun performPrioritizedAction(
         action: Action,
         remainingMachines: MutableList<Machine>,
         plantsToActOn: MutableSet<Fertile>,
@@ -276,7 +276,7 @@ class FarmHandler(
 
     /**
      * Find machine with the best duration for this field and action*/
-    private fun findBestMachine(
+    fun findBestMachine(
         fertile: Fertile,
         remainingMachines: MutableList<Machine>,
         action: Action,
@@ -302,7 +302,7 @@ class FarmHandler(
 
     /**
      * Continue with next field if machine still has time*/
-    private fun nextField(
+    fun nextField(
         action: Action,
         currentPlantType: PlantType?,
         plantsToActOn: MutableSet<Fertile>,
@@ -380,7 +380,10 @@ class FarmHandler(
         }
     }
 
-    private fun performAction(
+    /**
+     * Everything that needs to be done when a machines performs an action
+     */
+    fun performAction(
         action: Action,
         fertile: Fertile,
         machine: Machine,
@@ -400,7 +403,10 @@ class FarmHandler(
         }
     }
 
-    private fun continueWithHarvesting(
+    /**
+     * Continue with harvesting
+     */
+    fun continueWithHarvesting(
         field: Fertile,
         plantsToActOn: MutableSet<Fertile>,
         finishedFields: MutableMap<Int, Fertile>,
@@ -444,7 +450,10 @@ class FarmHandler(
         }
     }
 
-    private fun continueWithIrrigating(
+    /**
+     * Continue with irrigating
+     */
+    fun continueWithIrrigating(
         finishedFields: MutableMap<Int, Fertile>,
         machine: Machine,
         currentLocation: Fertile,
@@ -490,7 +499,10 @@ class FarmHandler(
         Logger.machineFinished(machine.id, machine.location.id)
     }
 
-    private fun continueWithSomething(
+    /**
+     * When a machine still has time
+     */
+    fun continueWithSomething(
         action: Action,
         finishedFields: MutableMap<Int, Fertile>,
         machine: Machine,

@@ -9,7 +9,7 @@ class BoardData(idToTile: Map<Int, Tile>) {
     private val idToTile: SortedMap<Int, Tile> = idToTile.toSortedMap()
     private val coordToId: Map<Coordinate, Int> = idToTile.values.associate { Pair(it.coord, it.id) }
 
-    private fun coordNeighbours(radius: Int, coordinate: Coordinate): Set<Coordinate> {
+    private fun coordNeighbours(radius: Int, coordinate: Coordinate, handled: MutableSet<Coordinate>): Set<Coordinate> {
         // Direction NW, NE, SE, SW
         val coords = mutableSetOf(
             Coordinate(coordinate.x - 1, coordinate.y - 1),
@@ -29,11 +29,13 @@ class BoardData(idToTile: Map<Int, Tile>) {
                 )
             )
         }
-
+        handled.add(coordinate)
         if (radius > 1) {
             val coordsTemp = mutableSetOf<Coordinate>()
             for (coord in coords) {
-                coordsTemp.addAll(coordNeighbours(radius - 1, coord))
+                if (coord !in handled) {
+                    coordsTemp.addAll(coordNeighbours(radius - 1, coord, handled))
+                }
             }
             coords.addAll(coordsTemp)
         }
@@ -48,8 +50,7 @@ class BoardData(idToTile: Map<Int, Tile>) {
         if (radius < 1) {
             return listOf(tile)
         }
-
-        return coordNeighbours(radius, tile.coord)
+        return coordNeighbours(radius, tile.coord, mutableSetOf())
             .mapNotNull { getTileByCoord(it) }
             .sortedBy { it.id }
     }

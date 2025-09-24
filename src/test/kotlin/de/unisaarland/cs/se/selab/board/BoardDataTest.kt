@@ -136,4 +136,36 @@ class BoardDataTest {
         }
         assertNotNull(tile)
     }
+
+    /**
+     *
+     */
+    @Test
+    fun neighborsRadius5() {
+        fun toRoad(id: Int, coord: Coordinate) = Tile(id, coord, null, type = TileType.ROAD)
+        val expected = arrayOf(
+            Coordinate(0, 0),
+            Coordinate(1, -1),
+            Coordinate(2, 0),
+            Coordinate(1, 1),
+            Coordinate(0, 2),
+            Coordinate(-1, 1),
+            Coordinate(-2, 0),
+            Coordinate(-1, -1),
+            Coordinate(0, -2),
+            Coordinate(6, -4)
+        ).mapIndexed { id, coord -> toRoad(id, coord) }
+        val notExpected = arrayOf(
+            Coordinate(10, 10),
+            Coordinate(25, 11),
+            Coordinate(12, 0)
+        ).mapIndexed { id, coord -> toRoad(expected.size + id, coord) }
+        val boardBig = BoardData((expected + notExpected).associateBy { it.id })
+        val tile = boardBig.getTileById(0)
+        if (tile != null) {
+            val actual = boardBig.neighbors(5, tile)
+            assertEquals(expected, actual)
+        }
+        assertNotNull(tile)
+    }
 }

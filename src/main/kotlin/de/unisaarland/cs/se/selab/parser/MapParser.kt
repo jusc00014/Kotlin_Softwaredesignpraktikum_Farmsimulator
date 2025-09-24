@@ -19,6 +19,7 @@ import de.unisaarland.cs.se.selab.plants.PlantType
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
+import kotlin.math.abs
 
 /**
  * Parses the Map Data into a Map of Ids and Tiles
@@ -115,9 +116,6 @@ class MapParser(
                 val possiblePlants = validatePossiblePlant(json.getJSONArray("possiblePlants"))
                 Field(tileId, validCoord, direction, farmId ?: 0, validCategory, capacity, plant, possiblePlants)
             }
-            TileType.VILLAGE -> {
-                Tile(tileId, validCoord, null, shed, null, validCategory)
-            }
             else -> {
                 Tile(tileId, validCoord, direction, shed, farmId, validCategory)
             }
@@ -131,7 +129,7 @@ class MapParser(
         val (xCoord: Int, yCoord: Int) = coord
         require(
             xCoord % 2 == 0 && yCoord % 2 == 0 ||
-                setOf(-1, 1).contains(xCoord % 2) && setOf(-1, 1).contains(yCoord % 2)
+                abs(xCoord % 2) == 1 && abs(yCoord % 2) == 1
         ) { "invalid coordinates" }
         val returnCoord = Coordinate(xCoord, yCoord)
         require(!coordList.contains(returnCoord))
@@ -143,10 +141,10 @@ class MapParser(
         var tileType: TileType = TileType.FARMSTEAD // dummy value
         var errorCatch = true
         when (category) {
-            "FARMSTEAD" -> if (coord.x % 2 == 1) tileType = TileType.FARMSTEAD else errorCatch = false
+            "FARMSTEAD" -> if (abs(coord.x % 2) == 1) tileType = TileType.FARMSTEAD else errorCatch = false
             "FIELD" -> if (coord.x % 2 == 0) tileType = TileType.FIELD else errorCatch = false
             "FOREST" -> tileType = TileType.FOREST
-            "MEADOW" -> if (coord.x % 2 == 1) tileType = TileType.MEADOW else errorCatch = false
+            "MEADOW" -> if (abs(coord.x % 2) == 1) tileType = TileType.MEADOW else errorCatch = false
             "PLANTATION" -> if (coord.x % 2 == 0) tileType = TileType.PLANTATION else errorCatch = false
             "ROAD" -> tileType = TileType.ROAD
             "VILLAGE" -> tileType = TileType.VILLAGE
@@ -165,7 +163,7 @@ class MapParser(
         }
         if (returnValue != null) {
             returnValue = json.getInt("farm")
-            assert(returnValue >= 0)
+            require(returnValue >= 0)
         }
         return returnValue
     }
@@ -199,7 +197,7 @@ class MapParser(
     private fun validateMoistureCapacity(json: JSONObject, category: TileType): Int {
         if (category == TileType.FIELD || category == TileType.PLANTATION) {
             val capacity = json.getInt("capacity")
-            assert(capacity > 0)
+            require(capacity > 0)
             return capacity
         } else {
             return -1

@@ -19,12 +19,12 @@ class CloudCreationTestOverlappingDifferentTicks : TestExtension() {
     override val startYearTick = 1
 
     override suspend fun run() {
-        var expectedLine = "[IMPORTANT] Incident: Incident 1 of type CLOUD_CREATION happened and affected tiles [5]."
+        var expectedLine = "[IMPORTANT] Incident: Incident 1 of type CLOUD_CREATION happened and affected tiles [1, 5]."
         assert(skipUntilLogType(LogLevel.IMPORTANT, "Incident") == expectedLine)
-        expectedLine = "[IMPORTANT] Incident: Incident 2 of type CLOUD_CREATION happened and affected tiles [5, 6]."
+        expectedLine = "[IMPORTANT] Incident: Incident 2 of type CLOUD_CREATION happened and affected tiles [2, 5, 6]."
         assert(skipUntilLogType(LogLevel.IMPORTANT, "Incident") == expectedLine)
         assertNextLine(
-            "[IMPORTANT] Cloud Union: Clouds 1 and 2 united to cloud 3 with 2000 L water and duration 1 on tile 5."
+            "[IMPORTANT] Cloud Union: Clouds 2 and 4 united to cloud 5 with 2000 L water and duration 1 on tile 5."
         )
     }
 }

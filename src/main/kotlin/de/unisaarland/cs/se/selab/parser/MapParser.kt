@@ -27,6 +27,25 @@ import kotlin.math.abs
 class MapParser(
     private var tiles: MutableMap<Int, Tile>,
 ) {
+    /**
+     * Strings to check if the Json contains invalid keys
+     */
+    companion object {
+        const val FARM = "farm"
+        const val AIRFLOW = "airflow"
+        const val DIRECTION = "direction"
+        const val CAPACITY = "capacity"
+        const val PLANT = "plant"
+        const val POSSIBLEPLANTS = "possiblePlants"
+        const val SHED = "shed"
+        var farmsteadInvalidKeys = setOf(CAPACITY, PLANT, POSSIBLEPLANTS)
+        val fieldInvalidKeys = setOf(PLANT, SHED)
+        val forestInvalidKeys = setOf(FARM, CAPACITY, PLANT, POSSIBLEPLANTS, SHED)
+        val meadowInvalidKeys = setOf(FARM, CAPACITY, PLANT, POSSIBLEPLANTS, SHED)
+        val plantationInvalidKeys = setOf(POSSIBLEPLANTS, SHED)
+        val roadInvalidKeys = setOf(FARM, CAPACITY, PLANT, POSSIBLEPLANTS, SHED)
+        val villageInvalidKeys = setOf(FARM, AIRFLOW, CAPACITY, PLANT, POSSIBLEPLANTS, SHED)
+    }
     val coordList: MutableList<Coordinate> = mutableListOf()
 
     /**
@@ -57,11 +76,45 @@ class MapParser(
         for (i in 0 until tilesJson.length()) {
             val tile = tilesJson.getJSONObject(i)
             val (id, validTile) = validateTile(tile, plantMap, yearTick)
+            val keys = tile.keySet()
+            validateNoAdditionalKeysInJson(keys, validTile)
             addTileToMap(id to validTile)
         }
         val boardData = BoardData(tiles)
         validateAdjoiningTiles(boardData)
         return boardData to plantMap
+    }
+    private fun checkNoMutualKeys(jsonKeys: Set<String>, invalidKeys: Set<String>) {
+        require(!jsonKeys.any { it in invalidKeys })
+    }
+    private fun validateNoAdditionalKeysInJson(keys: Set<String>, tile: Tile) {
+        val directionSet = mutableSetOf<String>()
+        if (tile.airflow == null) {
+            directionSet += DIRECTION
+        }
+        when (tile.type) {
+            TileType.FARMSTEAD -> {
+                checkNoMutualKeys(keys, farmsteadInvalidKeys + directionSet)
+            }
+            TileType.FIELD -> {
+                checkNoMutualKeys(keys, fieldInvalidKeys + directionSet)
+            }
+            TileType.FOREST -> {
+                checkNoMutualKeys(keys, forestInvalidKeys + directionSet)
+            }
+            TileType.MEADOW -> {
+                checkNoMutualKeys(keys, meadowInvalidKeys + directionSet)
+            }
+            TileType.PLANTATION -> {
+                checkNoMutualKeys(keys, plantationInvalidKeys + directionSet)
+            }
+            TileType.ROAD -> {
+                checkNoMutualKeys(keys, roadInvalidKeys + directionSet)
+            }
+            TileType.VILLAGE -> {
+                checkNoMutualKeys(keys, villageInvalidKeys + directionSet)
+            }
+        }
     }
     private fun validateAdjoiningTiles(boardData: BoardData) {
         tiles.forEach {
@@ -91,7 +144,8 @@ class MapParser(
                 }
                 TileType.VILLAGE -> {
                     require(
-                        boardData.neighbors(1, it.value, excludeSelf = true).none { itt -> itt.type == TileType.FOREST }
+                        boardData.neighbors(1, it.value, true).none { itt -> itt.type == TileType.FOREST },
+                        { "Village shouldn't adjoin forest tiles" }
                     )
                 }
                 else -> {}

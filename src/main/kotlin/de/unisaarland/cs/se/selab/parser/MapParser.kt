@@ -64,9 +64,21 @@ class MapParser(
         tiles.forEach {
             when (it.value.type) {
                 TileType.FARMSTEAD -> {
+                    val farmId = it.value.farmID
+                    val neighborOfFarm = boardData.neighbors(1, it.value, excludeSelf = true)
                     require(
-                        boardData.neighbors(1, it.value, excludeSelf = true).none
-                            { itt -> itt.type == TileType.MEADOW || itt.type == TileType.FARMSTEAD }
+                        neighborOfFarm.none
+                        { itt -> itt.type == TileType.MEADOW || itt.type == TileType.FARMSTEAD }
+                    )
+                    require(
+                        neighborOfFarm.none
+                        { itt ->
+                            if (itt.type == TileType.FIELD || itt.type == TileType.PLANTATION) {
+                                itt.farmID != farmId
+                            } else {
+                                false
+                            }
+                        }
                     )
                 }
                 TileType.MEADOW -> {

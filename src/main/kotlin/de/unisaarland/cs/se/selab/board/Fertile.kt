@@ -57,7 +57,7 @@ abstract class Fertile(
     /**
      * checks if farm should irrigate on this tile*/
     fun irrigatable(yearTick: Int): Boolean {
-        if (drought || !plant.isSown()) return false
+        if (drought || (!plant.isSown() && !plant.isFallow(yearTick))) return false
 
         return moisture < plant.getMinMoisture() || plant.isFallow(yearTick) || plant.getHarvestEstimate() <= 0
     }

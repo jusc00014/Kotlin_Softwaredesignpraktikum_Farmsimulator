@@ -228,7 +228,7 @@ class ScenarioParser {
             "[City Expansion ${incident.id}] TileType changed to invalid: ${incident.affectedTile.type}"
         }
         val neighbours = board.neighbors(1, incident.affectedTile)
-        require(neighbours.any { (tilesModified[it.id] ?: it.type) in validTypes }) {
+        require(neighbours.any { (tilesModified[it.id] ?: it.type) == TileType.VILLAGE }) {
             "[City Expansion ${incident.id}] No adjoining Village tile found."
         }
         require(neighbours.none { (tilesModified[it.id] ?: it.type) == TileType.FOREST }) {
@@ -283,7 +283,9 @@ class ScenarioParser {
 
         for (farm in farms) {
             for (sowingPlan in farm.plans) {
-                require(sowingPlan.fields.any { (tilesModified[it] ?: board.getTileById(it)) == TileType.FIELD }) {
+                require(
+                    sowingPlan.fields.any { (tilesModified[it] ?: board.getTileById(it)?.type) == TileType.FIELD }
+                ) {
                     "[SowingPlan ${sowingPlan.id}] No field in tiles at end of Simulation"
                 }
             }

@@ -24,7 +24,7 @@ class CloudCreationTestOverlappingDifferentTicks : TestExtension() {
         expectedLine = "[IMPORTANT] Incident: Incident 2 of type CLOUD_CREATION happened and affected tiles [5, 6]."
         assert(skipUntilLogType(LogLevel.IMPORTANT, "Incident") == expectedLine)
         assertNextLine(
-            "[IMPORTANT] Cloud Union: Clouds 2 and 1 united to cloud 3 with 2000 L water and duration 1 on tile 5."
+            "[IMPORTANT] Cloud Union: Clouds 1 and 2 united to cloud 3 with 2000 L water and duration 1 on tile 5."
         )
     }
 }

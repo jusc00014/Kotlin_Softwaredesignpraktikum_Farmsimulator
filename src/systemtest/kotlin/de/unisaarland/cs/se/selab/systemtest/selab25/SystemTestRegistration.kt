@@ -4,6 +4,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.basictests.ExampleSystemTes
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestOverlapping
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestOverlappingDifferentTicks
+import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.Onefieldtest
 
 /**
  * Used for test registration
@@ -20,6 +21,7 @@ object SystemTestRegistration {
         testSuite.registerTest(CloudCreationTest())
         testSuite.registerTest(CloudCreationTestOverlapping())
         testSuite.registerTest(CloudCreationTestOverlappingDifferentTicks())
+        testSuite.registerTest(Onefieldtest())
     }
 
     /**

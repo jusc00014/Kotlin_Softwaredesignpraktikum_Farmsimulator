@@ -1,0 +1,26 @@
+{
+  "clouds": [
+    {
+      "id": 17,
+      "location": 17,
+      "duration": -1,
+      "amount": 7000
+    }
+  ],
+  "incidents": [
+    {
+      "id": 1,
+      "type": "DROUGHT",
+      "tick": 0,
+      "location": 38,
+      "radius": 1
+    },
+    {
+      "id": 2,
+      "type": "BROKEN_MACHINE",
+      "tick": 1,
+      "duration": 3,
+      "machineId": 3
+    }
+  ]
+}

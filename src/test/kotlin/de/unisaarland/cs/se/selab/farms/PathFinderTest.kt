@@ -117,22 +117,22 @@ class PathFinderTest {
 
         board = mock()
 
-        whenever(board.neighbors(1, tile1))
+        whenever(board.neighbors(1, tile1, true))
             .thenReturn(listOf(tile5, tile7))
 
-        whenever(board.neighbors(1, tile5))
+        whenever(board.neighbors(1, tile5, true))
             .thenReturn(listOf(tile1, tile4))
 
-        whenever(board.neighbors(1, tile7))
+        whenever(board.neighbors(1, tile7, true))
             .thenReturn(listOf(tile1))
 
-        whenever(board.neighbors(1, tile4))
+        whenever(board.neighbors(1, tile4, true))
             .thenReturn(listOf(tile5, tile10))
 
-        whenever(board.neighbors(1, tile10))
+        whenever(board.neighbors(1, tile10, true))
             .thenReturn(listOf(tile4, tile11))
 
-        whenever(board.neighbors(1, tile11))
+        whenever(board.neighbors(1, tile11, true))
             .thenReturn(listOf(tile10))
         farm = mock()
         whenever(farm.farmsteads).thenReturn(listOf(7, 12, 14))

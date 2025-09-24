@@ -21,7 +21,7 @@ class PathFinder {
         val explored = mutableListOf<Tile>()
         while (stack.isNotEmpty() && !found) {
             val current = stack[0]
-            val neigbors = board.neighbors(1, current)
+            val neigbors = board.neighbors(1, current, true)
             for (neigbor in neigbors) {
                 if (neigbor == dest) {
                     found = true
@@ -120,7 +120,7 @@ class PathFinder {
         harvest: Boolean
     ): MutableList<Tile> {
         val stack = mutableListOf<Tile>()
-        val neigbors = board.neighbors(1, src)
+        val neigbors = board.neighbors(1, src, true)
         for (neigbor in neigbors) {
             if (neigbor == dest) {
                 return mutableListOf(neigbor)

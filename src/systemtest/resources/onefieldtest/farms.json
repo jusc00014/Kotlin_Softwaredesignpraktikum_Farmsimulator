@@ -1,0 +1,37 @@
+{
+  "farms": [
+    {
+      "id": 11,
+      "name": "cloud",
+      "farmsteads": [ 17 ],
+      "fields": [ 38 ],
+      "plantations": [ ],
+      "machines": [
+        {
+          "id": 1,
+          "name": "Johannes",
+          "actions": ["IRRIGATING", "SOWING"],
+          "plants": ["APPLE", "WHEAT"],
+          "duration": 10,
+          "location": 17
+        },
+        {
+          "id": 3,
+          "name": "Johann",
+          "actions": ["IRRIGATING", "SOWING"],
+          "plants": ["APPLE", "WHEAT"],
+          "duration": 1,
+          "location": 17
+        }
+      ],
+      "sowingPlans": [
+        {
+          "id": 1,
+          "tick": 0,
+          "plant": "WHEAT",
+          "fields": [ 38, 17, 22 ]
+        }
+      ]
+    }
+  ]
+}

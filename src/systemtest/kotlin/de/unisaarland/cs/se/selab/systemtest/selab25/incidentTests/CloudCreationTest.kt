@@ -1,4 +1,5 @@
 package de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests
+import de.unisaarland.cs.se.selab.systemtest.selab25.utils.LogLevel
 import de.unisaarland.cs.se.selab.systemtest.selab25.utils.TestExtension
 
 /**
@@ -17,6 +18,10 @@ class CloudCreationTest : TestExtension() {
     override val startYearTick = 1
 
     override suspend fun run() {
-        return
+        val expectedLine = "[IMPORTANT] Incident: Incident 1 of type CLOUD_CREATION happened and affected tiles [5]."
+        assert(skipUntilLogType(LogLevel.IMPORTANT, "Incident") == expectedLine)
+        assertNextLine(
+            "[IMPORTANT] Incident: Incident 2 of type CLOUD_CREATION happened and affected tiles [6, 7]."
+        )
     }
 }

@@ -24,7 +24,7 @@ abstract class TestExtension : SystemTestSELab25() {
     /**
      * Skips until the given [logLevel] and [logType] is found
      */
-    suspend fun skipUntilLogType(logLevel: LogLevel, logType: LogType): String {
+    suspend fun skipUntilLogType(logLevel: LogLevel, logType: String): String {
         return skipUntilString("[$logLevel] $logType")
     }
 }

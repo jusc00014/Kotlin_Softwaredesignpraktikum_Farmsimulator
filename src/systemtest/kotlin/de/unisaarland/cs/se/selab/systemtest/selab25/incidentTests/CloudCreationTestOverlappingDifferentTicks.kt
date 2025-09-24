@@ -7,7 +7,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.utils.TestExtension
  * Detekt
  */
 class CloudCreationTestOverlappingDifferentTicks : TestExtension() {
-    override val name = "CloudCreationTestOverlapping"
+    override val name = "CloudCreationTestOverlappingDifferentTick"
     override val description = "Tests Overlapping of CloudCreation throughout ticks."
 
     override val farms = "incidentTest/farms.json"

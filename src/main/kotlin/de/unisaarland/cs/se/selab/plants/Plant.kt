@@ -330,7 +330,16 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
     }
 
     override fun hashCode(): Int {
-        return super.hashCode()
+        return when (type) {
+            PlantType.POTATO -> 1
+            PlantType.OAT -> 2
+            PlantType.WHEAT -> 3
+            PlantType.PUMPKIN -> 4
+            PlantType.APPLE -> 5
+            PlantType.ALMOND -> 6
+            PlantType.CHERRY -> 7
+            PlantType.GRAPE -> 8
+        }
     }
 
     override fun equals(other: Any?): Boolean {

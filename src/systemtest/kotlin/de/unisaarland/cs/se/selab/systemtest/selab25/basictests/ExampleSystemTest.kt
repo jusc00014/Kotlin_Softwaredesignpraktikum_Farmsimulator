@@ -21,8 +21,8 @@ class ExampleSystemTest : ExampleSystemTestExtension() {
     override val startYearTick = 1
 
     override suspend fun run() {
-        val expectedLine = "[IMPORTANT] Simulation Statistics: Farm 0 collected 0 g of harvest."
-        assert(skipUntilLogType(LogLevel.IMPORTANT, LogType.SIMULATION_STATISTICS) == expectedLine)
+        skipUntilLogType(LogLevel.IMPORTANT, LogType.SIMULATION_STATISTICS)
+        assertCurrentLine("[IMPORTANT] Simulation Statistics: Farm 0 collected 0 g of harvest.")
         listOf("POTATO", "WHEAT", "OAT", "PUMPKIN", "APPLE", "GRAPE", "ALMOND", "CHERRY").forEach { plant ->
             assertNextLine("[IMPORTANT] Simulation Statistics: Total amount of $plant harvested: 0 g.")
         }

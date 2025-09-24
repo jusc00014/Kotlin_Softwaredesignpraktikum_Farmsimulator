@@ -10,7 +10,7 @@ class CloudCreationTest : TestExtension() {
     override val description = "Tests CloudCreationIncident at tick 1."
 
     override val farms = "incidentTest/farms.json"
-    override val scenario = "incidentTest/scenario.json"
+    override val scenario = "incidentTest/scenarioCloudCreationBasic.json"
     override val map = "incidentTest/map.json"
 
     override val logLevel = "DEBUG"

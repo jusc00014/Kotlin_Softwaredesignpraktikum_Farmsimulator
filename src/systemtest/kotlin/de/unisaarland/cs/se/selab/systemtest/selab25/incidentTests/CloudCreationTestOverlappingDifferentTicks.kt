@@ -11,7 +11,7 @@ class CloudCreationTestOverlappingDifferentTicks : TestExtension() {
     override val description = "Tests Overlapping of CloudCreation throughout ticks."
 
     override val farms = "incidentTest/farms.json"
-    override val scenario = "incidentTest/scenarioCloudCreationOverlappingDifferentTicks.json"
+    override val scenario = "incidentTest/scenarioCloudCreationOverlappingDifferentTick.json"
     override val map = "incidentTest/map.json"
 
     override val logLevel = "DEBUG"

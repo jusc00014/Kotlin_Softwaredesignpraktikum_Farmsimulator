@@ -66,7 +66,7 @@ class MapParserTest {
             type = TileType.FIELD,
             moistureCapacity = 10000,
             plant = Plant(PlantType.POTATO, Constants.potato, Constants.OCT_1),
-            possiblePlants = mutableSetOf(PlantType.PUMPKIN, PlantType.WHEAT)
+            possiblePlants = mutableSetOf(PlantType.PUMPKIN, PlantType.WHEAT, PlantType.POTATO)
         )
 
     @BeforeEach

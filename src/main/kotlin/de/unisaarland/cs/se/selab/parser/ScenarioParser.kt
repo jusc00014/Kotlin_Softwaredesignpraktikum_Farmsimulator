@@ -251,7 +251,7 @@ class ScenarioParser {
     private fun checkCloudCreationRequirementsCV(
         incident: CloudCreation,
         tilesModified: Map<Int, TileType>,
-        cloudTilesForTick: Map<Int, Set<Int>>
+        cloudTilesForTick: MutableMap<Int, MutableSet<Int>>
     ) {
         cloudTilesForTick[incident.tick]?.let { tiles ->
             {
@@ -266,11 +266,12 @@ class ScenarioParser {
         require(incident.tiles.any { (tilesModified[it.id] ?: it.type) != TileType.VILLAGE }) {
             "[CloudCreation $incident.id] No non village tile in tiles at tick"
         }
+        cloudTilesForTick.getOrPut(incident.tick) { mutableSetOf() }.addAll(incident.tiles.map { it.id })
     }
 
     private fun checkCityExpansions(board: BoardData, farms: List<Farm>) {
         val tilesModified = mutableMapOf<Int, TileType>()
-        val cloudTilesForTick = mutableMapOf<Int, Set<Int>>()
+        val cloudTilesForTick = mutableMapOf<Int, MutableSet<Int>>()
         // Sort is Stable!
         for (incident in incidents.sortedBy { it.id }.sortedBy { it.tick }) {
             when (incident) {

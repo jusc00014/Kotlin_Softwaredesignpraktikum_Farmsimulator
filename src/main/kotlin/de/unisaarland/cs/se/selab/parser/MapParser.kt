@@ -124,9 +124,8 @@ class MapParser(
                     val neighborOfFarm = boardData.neighbors(1, it.value, excludeSelf = true)
                     require(
                         neighborOfFarm.none
-                            { itt -> itt.type == TileType.MEADOW || itt.type == TileType.FARMSTEAD },
-                        { "Farmstead cannot adjoin meadow or farmstead" }
-                    )
+                            { itt -> itt.type == TileType.MEADOW || itt.type == TileType.FARMSTEAD }
+                    ) { "Farmstead cannot adjoin meadow or farmstead" }
                     require(
                         neighborOfFarm.none
                             { itt ->
@@ -135,21 +134,18 @@ class MapParser(
                                 } else {
                                     false
                                 }
-                            },
-                        { "Farmstead cannot adjoin fields or plantations of different farms" }
-                    )
+                            }
+                    ) { "Farmstead cannot adjoin fields or plantations of different farms" }
                 }
                 TileType.MEADOW -> {
                     require(
-                        boardData.neighbors(1, it.value, true).none { itt -> itt.type == TileType.MEADOW },
-                        { "Meadow cannot adjoin another meadow" }
-                    )
+                        boardData.neighbors(1, it.value, true).none { itt -> itt.type == TileType.MEADOW }
+                    ) { "Meadow cannot adjoin another meadow" }
                 }
                 TileType.VILLAGE -> {
                     require(
-                        boardData.neighbors(1, it.value, true).none { itt -> itt.type == TileType.FOREST },
-                        { "Village shouldn't adjoin forest tiles" }
-                    )
+                        boardData.neighbors(1, it.value, true).none { itt -> itt.type == TileType.FOREST }
+                    ) { "Village shouldn't adjoin forest tiles" }
                 }
                 else -> {}
             }
@@ -199,15 +195,15 @@ class MapParser(
     }
 
     private fun validateTileIdAndCoordinate(id: Int, coord: Pair<Int, Int>): Coordinate {
-        require(tiles[id] == null, { "TileIDs have to be unique. $id is not unique" })
-        require(id >= 0, { "TileIDs have to be greater equal 0. $id is not" })
+        require(tiles[id] == null) { "TileIDs have to be unique. $id is not unique" }
+        require(id >= 0) { "TileIDs have to be greater equal 0. $id is not" }
         val (xCoord: Int, yCoord: Int) = coord
         require(
             xCoord % 2 == 0 && yCoord % 2 == 0 ||
                 abs(xCoord % 2) == 1 && abs(yCoord % 2) == 1
         ) { "invalid coordinates" }
         val returnCoord = Coordinate(xCoord, yCoord)
-        require(!coordList.contains(returnCoord), { "Coordinate of tile $id is already used" })
+        require(!coordList.contains(returnCoord)) { "Coordinate of tile $id is already used" }
         coordList.add(returnCoord)
         return returnCoord
     }
@@ -238,7 +234,7 @@ class MapParser(
         }
         if (returnValue != null) {
             returnValue = json.getInt("farm")
-            require(returnValue >= 0, { "FarmIDs have to be greater equal 0. $returnValue is not" })
+            require(returnValue >= 0) { "FarmIDs have to be greater equal 0. $returnValue is not" }
         }
         return returnValue
     }
@@ -272,7 +268,7 @@ class MapParser(
     private fun validateMoistureCapacity(json: JSONObject, category: TileType): Int {
         if (category == TileType.FIELD || category == TileType.PLANTATION) {
             val capacity = json.getInt("capacity")
-            require(capacity > 0, { "Capacity has to be greater 0. $capacity is not" })
+            require(capacity > 0) { "Capacity has to be greater 0. $capacity is not" }
             return capacity
         } else {
             return -1

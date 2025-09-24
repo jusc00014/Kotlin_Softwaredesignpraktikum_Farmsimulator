@@ -12,6 +12,7 @@ class BoardData(idToTile: Map<Int, Tile>) {
     private fun coordNeighbours(radius: Int, coordinate: Coordinate, handled: MutableSet<Coordinate>): Set<Coordinate> {
         // Direction NW, NE, SE, SW
         val coords = mutableSetOf(
+            coordinate,
             Coordinate(coordinate.x - 1, coordinate.y - 1),
             Coordinate(coordinate.x + 1, coordinate.y - 1),
             Coordinate(coordinate.x + 1, coordinate.y + 1),
@@ -46,13 +47,14 @@ class BoardData(idToTile: Map<Int, Tile>) {
     /**
      * Get all neighbouring tiles in $radius around the $tile (tile excluded)
      */
-    fun neighbors(radius: Int, tile: Tile): List<Tile> {
+    fun neighbors(radius: Int, tile: Tile, excludeSelf: Boolean = false): List<Tile> {
         if (radius < 1) {
-            return listOf(tile)
+            return if (excludeSelf) emptyList() else listOf(tile)
         }
         return coordNeighbours(radius, tile.coord, mutableSetOf())
             .mapNotNull { getTileByCoord(it) }
             .sortedBy { it.id }
+            .filterNot { excludeSelf && it == tile }
     }
 
     /**

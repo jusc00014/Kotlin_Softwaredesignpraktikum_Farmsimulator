@@ -65,15 +65,19 @@ class MapParser(
             when (it.value.type) {
                 TileType.FARMSTEAD -> {
                     require(
-                        boardData.neighbors(1, it.value).none
+                        boardData.neighbors(1, it.value, excludeSelf = true).none
                             { itt -> itt.type == TileType.MEADOW || itt.type == TileType.FARMSTEAD }
                     )
                 }
                 TileType.MEADOW -> {
-                    require(boardData.neighbors(1, it.value).none { itt -> itt.type == TileType.MEADOW })
+                    require(
+                        boardData.neighbors(1, it.value, excludeSelf = true).none { itt -> itt.type == TileType.MEADOW }
+                    )
                 }
                 TileType.VILLAGE -> {
-                    require(boardData.neighbors(1, it.value).none { itt -> itt.type == TileType.FOREST })
+                    require(
+                        boardData.neighbors(1, it.value, excludeSelf = true).none { itt -> itt.type == TileType.FOREST }
+                    )
                 }
                 else -> {}
             }

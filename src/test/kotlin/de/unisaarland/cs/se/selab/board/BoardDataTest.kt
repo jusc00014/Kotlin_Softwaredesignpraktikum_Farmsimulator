@@ -89,6 +89,7 @@ class BoardDataTest {
         val tile = board.getTileById(10)
         if (tile != null) {
             val expected = listOf(
+                tile,
                 board.getTileById(11),
                 board.getTileById(12),
                 board.getTileById(14),
@@ -109,7 +110,8 @@ class BoardDataTest {
                 board.getTileById(10),
                 board.getTileById(11),
                 board.getTileById(12),
-                board.getTileById(13)
+                board.getTileById(13),
+                tile,
             )
             val actual = board.neighbors(1, tile)
             assertEquals(expected, actual)

@@ -29,7 +29,7 @@ class PathFinder {
                 }
 
                 when {
-                    neigbor in explored -> { continue }
+                    neigbor in explored.union(stack) -> { continue }
                     neigbor.type in listOf(TileType.ROAD, TileType.MEADOW) ||
                         (!harvest && neigbor.type == TileType.VILLAGE) -> {
                         stack.add(neigbor)

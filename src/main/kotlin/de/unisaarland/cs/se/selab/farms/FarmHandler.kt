@@ -327,7 +327,6 @@ class FarmHandler(
                 if (action != Action.SOWING) {
                     performAction(action, fertile, machine, null, finishedFertiles, farm.id, yearTick)
                 }
-                plantsToActOn.remove(fertile)
                 return fertile
             }
         }
@@ -336,7 +335,7 @@ class FarmHandler(
 
     /**
      * Perform actions that are sorted after machine id*/
-    private fun performNonPrioritizedAction(
+    fun performNonPrioritizedAction(
         machine: Machine,
         remainingMachines: MutableList<Machine>,
         fieldMap: Map<Action, MutableSet<Fertile>>,
@@ -358,7 +357,7 @@ class FarmHandler(
             }
             for (fertile in fertileType) {
                 if (fertile.id in finishedFields || fertile.plant.type !in machine.plants ||
-                    pathFinder.reachable(machine.location, fertile, farm.id, board)
+                    !pathFinder.reachable(machine.location, fertile, farm.id, board)
                 ) {
                     continue
                 }

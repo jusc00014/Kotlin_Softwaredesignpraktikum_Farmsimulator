@@ -1,10 +1,10 @@
 package de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests
-import de.unisaarland.cs.se.selab.systemtest.selab25.SystemTestSELab25
+import de.unisaarland.cs.se.selab.systemtest.selab25.utils.TestExtension
 
 /**
  * Tests CloudCreation
  */
-class CloudCreationTest : SystemTestSELab25() {
+class CloudCreationTest : TestExtension() {
     override val name = "CloudCreationTest"
     override val description = "Tests CloudCreationIncident at tick 1."
 

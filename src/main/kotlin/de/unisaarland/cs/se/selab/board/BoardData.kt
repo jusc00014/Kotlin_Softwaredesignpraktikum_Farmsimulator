@@ -35,7 +35,6 @@ class BoardData(idToTile: Map<Int, Tile>) {
             for (coord in coords) {
                 coordsTemp.addAll(coordNeighbours(radius - 1, coord))
             }
-            coordsTemp.remove(coordinate)
             coords.addAll(coordsTemp)
         }
 
@@ -47,11 +46,10 @@ class BoardData(idToTile: Map<Int, Tile>) {
      */
     fun neighbors(radius: Int, tile: Tile): List<Tile> {
         if (radius < 1) {
-            return emptyList()
+            return listOf(tile)
         }
 
         return coordNeighbours(radius, tile.coord)
-            .filter { it != tile.coord }
             .mapNotNull { getTileByCoord(it) }
             .sortedBy { it.id }
     }

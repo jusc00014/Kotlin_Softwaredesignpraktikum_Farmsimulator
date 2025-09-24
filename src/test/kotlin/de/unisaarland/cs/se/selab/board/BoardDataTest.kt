@@ -124,6 +124,7 @@ class BoardDataTest {
         if (tile != null) {
             val expected = listOf(
                 board.getTileById(10),
+                tile,
                 board.getTileById(12),
                 board.getTileById(13),
                 board.getTileById(14),

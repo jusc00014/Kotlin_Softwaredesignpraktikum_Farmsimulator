@@ -19,13 +19,13 @@ class CloudCreationTestOverlapping : TestExtension() {
     override val startYearTick = 1
 
     override suspend fun run() {
-        val expectedLine = "Initialization Info: map.json successfully parsed and validated."
+        val expectedLine = "[INFO] Initialization Info: map.json successfully parsed and validated."
         assert(skipUntilLogType(LogLevel.INFO, "Initialization Info") == expectedLine)
         assertNextLine(
-            "Initialization Info: farms.json successfully parsed and validated."
+            "[INFO] Initialization Info: farms.json successfully parsed and validated."
         )
         assertNextLine(
-            "Initialization Info: scenarioCloudCreationOverlapping.json is invalid."
+            "[IMPORTANT] Initialization Info: scenarioCloudCreationOverlapping.json is invalid."
         )
     }
 }

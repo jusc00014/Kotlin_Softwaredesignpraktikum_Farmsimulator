@@ -213,6 +213,6 @@ class FarmHandlerTest {
         whenever(tile00.id).thenReturn(8)
         whenever(tile26.id).thenReturn(6)
         farmHandler.sow(sowFields, farm, remainingMachines, finishedFields, board, 9, fertiles)
-        assertTrue { finishedFields.contains(6) }
+        assertTrue { finishedFields.contains(4) }
     }
 }

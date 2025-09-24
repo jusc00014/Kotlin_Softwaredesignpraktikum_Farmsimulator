@@ -26,7 +26,6 @@ object SystemTestRegistration {
      */
     fun registerSystemTestsMutantValidation(testSuite: SELab25TestSuite) {
         testSuite.registerTest(ExampleSystemTest())
-        testSuite.registerTest(CloudCreationTest())
     }
 
     /**

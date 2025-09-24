@@ -12,6 +12,9 @@ import de.unisaarland.cs.se.selab.plants.Plant
 import de.unisaarland.cs.se.selab.plants.PlantType
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 class ReduceSoilTest {
     lateinit var wheatField: Field
@@ -121,10 +124,17 @@ class ReduceSoilTest {
         )
         boardHandler = BoardHandler()
         futureVillage.type = TileType.VILLAGE
-        // assertTrue(wheatField.loseMoisture())
-        // assertFalse(pumpkinField.loseMoisture())
-        // assertTrue(almondPlantation.loseMoisture())
-        // assertFalse(grapePlantation.loseMoisture())
-        // assertEquals(4, boardData.getFertiles().values.size)
+        wheatField.plant.sow(PlantType.WHEAT, wheatField.plant.data, 1)
+        pumpkinField.plant.sow(PlantType.PUMPKIN, pumpkinField.plant.data, 1)
+        assertTrue(wheatField.loseMoisture())
+        repeat(3) {
+            assertTrue(wheatField.loseMoisture())
+        }
+        wheatField.updateHarvestEstimate(4)
+        assertFalse(wheatField.loseMoisture())
+        assertFalse(pumpkinField.loseMoisture())
+        assertTrue(almondPlantation.loseMoisture())
+        assertFalse(grapePlantation.loseMoisture())
+        assertEquals(4, boardData.getFertiles().values.size)
     }
 }

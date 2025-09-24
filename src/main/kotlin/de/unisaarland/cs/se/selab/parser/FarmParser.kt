@@ -181,14 +181,14 @@ class FarmParser {
             }
             require(fields.isNotEmpty())
             val sowingPlan = SowingPlan(sowingPlanId, sowingPlanTick, plantType, fields.map { it.id })
-            validateSowingPlanPossible(board, sowingPlan, machines)
+            validateSowingPlanPossible(board, sowingPlan, machines, farmId)
             sowingPlans.add(sowingPlan)
         }
         return sowingPlans
     }
 
     private fun validateSowingPlanIdAndTick(id: Int, tick: Int, maxTick: Int) {
-        require(!sowingPlanIds.contains(id) && tick <= maxTick)
+        require(!sowingPlanIds.contains(id) && tick < maxTick)
     }
 
     private fun validateSowingPlanPlantTypes(plant: String): PlantType {
@@ -283,7 +283,7 @@ class FarmParser {
 
     private fun validateMachineTile(tileId: Int, farmId: Int, board: BoardData): Int {
         val tile = board.getTileById(tileId)
-        require(tile != null && tile.type == TileType.FARMSTEAD && tile.farmID == farmId)
+        require(tile != null && tile.type == TileType.FARMSTEAD && tile.farmID == farmId && tile.shed)
         return tileId
     }
 
@@ -323,13 +323,15 @@ class FarmParser {
     private fun validateSowingPlanPossible(
         boardData: BoardData,
         sowingPlan: SowingPlan,
-        machines: List<Machine>
+        machines: List<Machine>,
+        farmId: Int
     ) {
         val fieldInts = sowingPlan.fields
         val fields: MutableList<Field> = mutableListOf()
         for (i in fieldInts) {
             val tile = boardData.getTileById(i) ?: return
-            fields.add(tile as Field)
+            require(tile.farmID == farmId && tile is Field)
+            fields.add(tile)
         }
         val plantTypes = fields.filter { it.possiblePlants.contains(sowingPlan.plant) }
         val possibleMachines = machines

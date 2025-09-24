@@ -153,7 +153,7 @@ class CloudHandler(private val cloudData: CloudData, private val board: BoardDat
     private fun <T : Any> mutableIterate(list: MutableList<T>, action: (T) -> Unit) {
         val processed = mutableSetOf<T>()
         while (true) {
-            val next = list.firstOrNull { it !in processed } ?: break
+            val next = list.firstOrNull { candidate -> processed.none { it === candidate } } ?: break
             processed.add(next)
             action(next)
         }

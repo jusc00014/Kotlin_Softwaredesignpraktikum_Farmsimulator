@@ -47,8 +47,8 @@ class CloudData(private var maxId: Int, val clouds: MutableList<Cloud>) {
             max(cloud1.stepsRemaining, cloud2.stepsRemaining)
         )
         Logger.logCloudUnion(
-            cloud1.id,
             cloud2.id,
+            cloud1.id,
             newCloud.id,
             newCloud.waterAmount,
             newCloud.duration,

@@ -210,6 +210,7 @@ class ScenarioParser {
         val location = obj.getInt(LOCATION)
         val tile = board.getTileById(location)
         requireNotNull(tile) { "[City Expansion $id] Invalid location: $location" }
+
         incident = CityExpansion(id, tick, tile, cloudData)
         incidents.add(incident)
     }

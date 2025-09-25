@@ -4,24 +4,23 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.utils.LogLevel
 import de.unisaarland.cs.se.selab.systemtest.selab25.utils.TestExtension
 
 /**
- * Super
+ * Detekt
  */
-class CloudCreationTestOverlapping : TestExtension() {
-    override val name = "CloudCreationTestOverlapping"
-    override val description = "Tests CloudCreationIncident Overlapping Tiles within same tick."
+class CloudCreationTestNoTileToAffect : TestExtension() {
+    override val name = "CloudCreationTestNoTileToAffect"
+    override val description = "Tests CloudCreationIncident when all are Village."
 
     override val farms = "incidentTest/farms.json"
-    override val scenario = "incidentTest/scenarioCloudCreationOverlapping.json"
+    override val scenario = "incidentTest/scenarioCloudCreationVillage.json"
     override val map = "incidentTest/map.json"
 
     override val logLevel = "DEBUG"
     override val maxTicks = 1
     override val startYearTick = 1
-
     override suspend fun run() {
         val expectedLine = "[INFO] Initialization Info: map.json successfully parsed and validated."
         assert(skipUntilLogType(LogLevel.INFO, "Initialization Info") == expectedLine)
         assertNextLine("[INFO] Initialization Info: farms.json successfully parsed and validated.")
-        assertNextLine("[IMPORTANT] Initialization Info: scenarioCloudCreationOverlapping.json is invalid.")
+        assertNextLine("[IMPORTANT] Initialization Info: scenarioCloudCreationVillage.json is invalid.")
     }
 }

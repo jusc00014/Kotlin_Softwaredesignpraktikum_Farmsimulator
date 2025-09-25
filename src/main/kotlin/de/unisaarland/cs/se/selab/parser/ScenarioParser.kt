@@ -210,6 +210,7 @@ class ScenarioParser {
         val location = obj.getInt(LOCATION)
         val tile = board.getTileById(location)
         requireNotNull(tile) { "[City Expansion $id] Invalid location: $location" }
+
         incident = CityExpansion(id, tick, tile, cloudData)
         incidents.add(incident)
     }
@@ -227,7 +228,7 @@ class ScenarioParser {
         require(affectedTileModified == null || affectedTileModified in validTypes) {
             "[City Expansion ${incident.id}] TileType changed to invalid: ${incident.affectedTile.type}"
         }
-        val neighbours = board.neighbors(1, incident.affectedTile)
+        val neighbours = board.neighbors(1, incident.affectedTile, true)
         require(neighbours.any { (tilesModified[it.id] ?: it.type) == TileType.VILLAGE }) {
             "[City Expansion ${incident.id}] No adjoining Village tile found."
         }
@@ -254,10 +255,8 @@ class ScenarioParser {
         cloudTilesForTick: MutableMap<Int, MutableSet<Int>>
     ) {
         cloudTilesForTick[incident.tick]?.let { tiles ->
-            {
-                require(incident.tiles.none { it.id in tiles }) {
-                    "[CloudCreation $incident.id] Tiles overlap!"
-                }
+            require(incident.tiles.none { tiles.contains(it.id) }) {
+                "[CloudCreation $incident.id] Tiles overlap!"
             }
         }
         require(incident.tiles.any { it.type != TileType.VILLAGE }) {

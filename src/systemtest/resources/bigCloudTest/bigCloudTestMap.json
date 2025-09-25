@@ -99,7 +99,8 @@
       "farm": 1,
       "capacity": 2000,
       "possiblePlants": ["PUMPKIN", "WHEAT"],
-      "airflow": false
+      "airflow": true,
+      "direction": "270"
     }
   ]
 }

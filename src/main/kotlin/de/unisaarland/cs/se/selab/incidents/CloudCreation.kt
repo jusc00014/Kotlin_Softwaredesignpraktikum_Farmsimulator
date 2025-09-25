@@ -21,14 +21,12 @@ class CloudCreation(
     //
     override fun execute() {
         val tileIds = mutableListOf<Int>()
-        for (tile in tiles) {
-            if (tile.type != TileType.VILLAGE) {
-                val newCloud = cloudData.createCloud(duration, amount, tile.id, STEP_DEFAULT)
-                cloudData.mergeIfNecessary(newCloud)
-                tileIds.add(tile.id)
-            }
-        }
+        tiles.forEach { if (it.type != TileType.VILLAGE) tileIds.add(it.id) }
         Logger.incidentExecuted(id, this, tileIds)
+        for (tile in tiles) {
+            val newCloud = cloudData.createCloud(duration, amount, tile.id, STEP_DEFAULT)
+            cloudData.mergeIfNecessary(newCloud)
+        }
     }
 
     //

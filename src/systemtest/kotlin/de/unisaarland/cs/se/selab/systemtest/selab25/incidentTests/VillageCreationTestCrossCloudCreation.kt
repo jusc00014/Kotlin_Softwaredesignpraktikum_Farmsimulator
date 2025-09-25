@@ -19,8 +19,8 @@ class VillageCreationTestCrossCloudCreation : TestExtension() {
     override val startYearTick = 1
 
     override suspend fun run() {
-        val expectedLine = "[INFO] Initialization Info: map.json successfully parsed and validated."
-        assert(skipUntilLogType(LogLevel.INFO, "Initialization Info") == expectedLine)
+        skipUntilLogType(LogLevel.INFO, "Initialization Info")
+        assertCurrentLine("[INFO] Initialization Info: map2.json successfully parsed and validated.")
         assertNextLine("[INFO] Initialization Info: farms.json successfully parsed and validated.")
         assertNextLine("[IMPORTANT] Initialization Info: scenarioVillageCreationCrossCloudCreation.json is invalid.")
     }

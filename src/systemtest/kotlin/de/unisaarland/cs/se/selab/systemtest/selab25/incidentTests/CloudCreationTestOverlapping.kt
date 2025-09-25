@@ -19,8 +19,9 @@ class CloudCreationTestOverlapping : TestExtension() {
     override val startYearTick = 1
 
     override suspend fun run() {
-        val expectedLine = "[IMPORTANT] Incident: Incident 1 of type CLOUD_CREATION happened and affected tiles [1, 5]."
-        assert(skipUntilLogType(LogLevel.INFO, "Incident") == expectedLine)
-        assertNextLine("[IMPORTANT] Incident: Incident 2 of type CLOUD_CREATION happened and affected tiles [2, 6].")
+        val expectedLine = "[INFO] Initialization Info: map.json successfully parsed and validated."
+        assert(skipUntilLogType(LogLevel.INFO, "Initialization Info") == expectedLine)
+        assertNextLine("[INFO] Initialization Info: farms.json successfully parsed and validated.")
+        assertNextLine("[IMPORTANT] Initialization Info: scenarioCloudCreationOverlapping.json is invalid.")
     }
 }

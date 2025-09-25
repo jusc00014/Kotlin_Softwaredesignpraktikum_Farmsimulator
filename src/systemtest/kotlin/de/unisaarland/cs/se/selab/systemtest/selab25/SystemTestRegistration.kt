@@ -22,6 +22,14 @@ object SystemTestRegistration {
      */
     fun registerSystemTestsForReferenceImplementation(testSuite: SELab25TestSuite) {
         testSuite.registerTest(ExampleSystemTest())
+        // region ParserTests
+        testSuite.registerTest(ValidParser())
+        testSuite.registerTest(ShedlessFarm())
+        testSuite.registerTest(WindyVillage())
+        testSuite.registerTest(ForestVillage())
+        testSuite.registerTest(FarmSowless())
+        testSuite.registerTest(CloudyVillage())
+        // endregion ParserTests
         testSuite.registerTest(CloudCreationTest())
         testSuite.registerTest(CloudCreationTestOverlapping())
         testSuite.registerTest(CloudCreationTestOverlappingDifferentTicks())

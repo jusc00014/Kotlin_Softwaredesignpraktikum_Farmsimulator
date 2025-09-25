@@ -87,6 +87,7 @@ class CloudHandler(private val cloudData: CloudData, private val board: BoardDat
                 cloudData.stuckOnVillage(cloud)
                 return true
             }
+            if (cloudData.mergeIfNecessary(cloud)) { return true }
             return false
         } else {
             return true

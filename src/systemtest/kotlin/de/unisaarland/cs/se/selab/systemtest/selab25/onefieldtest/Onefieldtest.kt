@@ -44,9 +44,9 @@ class Onefieldtestshouldsow : TestExtension() {
             "[IMPORTANT] Incident: Incident 1 of type DROUGHT happened and affected tiles [38]."
         )
         skipUntilString(
-            "[INFO] Soil Moisture: The soil moisture is below threshold in 1 FIELD and 0 PLANTATION tiles."
+            "[INFO] Soil Moisture: The soil moisture is below threshold in 0 FIELD and 0 PLANTATION tiles."
         )
-        skipUntilString("[IMPORTANT] Farm Action: Machine 3 performs IRRIGATING on tile 38 for 1 days.")
+        skipUntilString("[IMPORTANT] Farm Action: Machine 1 performs IRRIGATING on tile 38 for 10 days.")
         assert(true)
     }
 }

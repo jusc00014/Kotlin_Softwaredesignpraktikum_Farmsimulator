@@ -317,7 +317,8 @@ class FarmHandler(
             if (fertile.id in finishedFertiles) {
                 continue
             }
-            if (fertile.plant.type !in machine.plants ||
+            if (
+                !machineCanHandle(machine, fertile) ||
                 (action in setOf(Action.HARVESTING, Action.SOWING) && fertile.plant.type != currentPlantType)
             ) {
                 continue
@@ -355,8 +356,8 @@ class FarmHandler(
             if (action !in machine.actions || fertileType.isEmpty()) {
                 continue
             }
-            for (fertile in fertileType) {
-                if (fertile.id in finishedFields || fertile.plant.type !in machine.plants ||
+            for (fertile in fertileType.filter { it.id !in finishedFields }) {
+                if (!machineCanHandle(machine, fertile) ||
                     !pathFinder.reachable(machine.location, fertile, farm.id, board)
                 ) {
                     continue
@@ -543,5 +544,12 @@ class FarmHandler(
             remainingTime -= machine.duration
         }
         Logger.machineFinished(machine.id, machine.location.id)
+    }
+
+    private fun machineCanHandle(
+        machine: Machine,
+        fertile: Fertile
+    ): Boolean {
+        return machine.plants.contains(fertile.plant.type) || !fertile.plant.isSown()
     }
 }

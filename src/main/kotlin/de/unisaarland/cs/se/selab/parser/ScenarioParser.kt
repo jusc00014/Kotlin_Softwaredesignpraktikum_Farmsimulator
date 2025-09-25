@@ -20,7 +20,6 @@ import de.unisaarland.cs.se.selab.incidents.Incident
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
-import kotlin.concurrent.fixedRateTimer
 
 const val LOCATION = "location"
 const val DURATION = "duration"

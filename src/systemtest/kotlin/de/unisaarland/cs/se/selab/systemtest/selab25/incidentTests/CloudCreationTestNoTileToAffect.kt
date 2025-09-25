@@ -7,8 +7,8 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.utils.TestExtension
  * Detekt
  */
 class CloudCreationTestNoTileToAffect : TestExtension() {
-    override val name = "CloudCreationTestLargeRadius"
-    override val description = "Tests CloudCreationIncident with high radius."
+    override val name = "CloudCreationTestNoTileToAffect"
+    override val description = "Tests CloudCreationIncident when all are Village."
 
     override val farms = "incidentTest/farms.json"
     override val scenario = "incidentTest/scenarioCloudCreationVillage.json"

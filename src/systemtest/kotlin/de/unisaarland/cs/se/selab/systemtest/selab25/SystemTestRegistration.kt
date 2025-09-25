@@ -4,6 +4,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.basictests.ExampleSystemTes
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.BigCloudTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestLargeRadius
+import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestNoTileToAffect
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestOverlapping
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestOverlappingDifferentTicks
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.Onefieldtest
@@ -28,6 +29,7 @@ object SystemTestRegistration {
         testSuite.registerTest(BigCloudTest())
         testSuite.registerTest(Onefieldtestshouldsow())
         testSuite.registerTest(CloudCreationTestLargeRadius())
+        testSuite.registerTest(CloudCreationTestNoTileToAffect())
     }
 
     /**

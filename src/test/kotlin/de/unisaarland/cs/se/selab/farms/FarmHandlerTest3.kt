@@ -13,7 +13,7 @@ class FarmHandlerTest3 {
     var farmJson: String = "src/systemtest/resources/onefieldtest/farms.json"
 
     @Test
-    fun farmAction() {
+    fun farmActionNothingToDo() {
         val mapParser = MapParser(mutableMapOf())
         val (boardData, plantMap) = mapParser.parse(mapJson, 9)
         val farmParser = FarmParser()
@@ -83,6 +83,64 @@ class FarmHandlerTest3 {
             assertTrue { finishedFields.isEmpty() }
             assertTrue { farm.plans.isNotEmpty() }
             assertTrue { farm.plans[0].isActive(1) }
+        }
+    }
+
+    @Test
+    fun farmActionSowingToDo() {
+        val mapParser = MapParser(mutableMapOf())
+        val (boardData, plantMap) = mapParser.parse(mapJson, 19)
+        val farmParser = FarmParser()
+        val (farms, machines) = farmParser.parse(farmJson, boardData, 2)
+        val farmHandler = FarmHandler(mapOf(Pair(1, farms[0])), plantMap, machines, PathFinder())
+        val boardHandler = BoardHandler()
+        boardHandler.reduceSoil(19, boardData)
+        val fertiles = boardData.getFertiles()
+        for (farm in farmHandler.idToFarm.values) {
+            Logger.farmStartAction(farm.id)
+            val remainingMachines = farmHandler.assembleMachines(farm)
+            val sowFields = farmHandler.assembleSowableFields(farm.fields, fertiles, 19)
+            val finishedFields = mutableMapOf<Int, Fertile>()
+            farmHandler.sow(
+                sowFields,
+                farm,
+                remainingMachines,
+                finishedFields = finishedFields,
+                board = boardData,
+                yearTick = 19,
+                fertiles = fertiles
+            )
+            val fieldMap = farmHandler.createActionMap(farm.fields, fertiles, 19)
+            val plantationMap = farmHandler.createActionMap(farm.plantages, fertiles, 19)
+            for ((action, fertileType) in listOf(
+                Action.HARVESTING to plantationMap[Action.HARVESTING],
+                Action.HARVESTING to fieldMap[Action.HARVESTING],
+                Action.CUTTING to plantationMap[Action.CUTTING]
+            )) {
+                farmHandler.performPrioritizedAction(
+                    action,
+                    remainingMachines,
+                    fertileType ?: error("Set not Initialized for $action"),
+                    finishedFields,
+                    boardData,
+                    farm,
+                    19
+                )
+            }
+            for (machine in remainingMachines) {
+                farmHandler.performNonPrioritizedAction(
+                    machine,
+                    remainingMachines,
+                    fieldMap,
+                    plantationMap,
+                    finishedFields,
+                    boardData,
+                    farm,
+                    19
+                )
+            }
+            assertTrue { finishedFields.isNotEmpty() }
+            assertTrue { farm.plans.isEmpty() }
         }
     }
 }

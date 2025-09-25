@@ -49,10 +49,8 @@ class Field(
                 pd.sowRange.start,
                 pd.sowRange.endInclusive + SOWING_LATE_TIMEFRAME
             )
-            if (extendedSowRange.contains(SOWING_LATE_TIMEFRAME)) {
-                if (yearTick in pd.sowRange.first..(pd.sowRange.last + 2)) {
-                    pt.add(plantType)
-                }
+            if (extendedSowRange.contains(yearTick)) {
+                pt.add(plantType)
             }
         }
         return pt

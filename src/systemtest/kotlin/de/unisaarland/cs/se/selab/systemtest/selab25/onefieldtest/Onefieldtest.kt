@@ -20,3 +20,23 @@ class Onefieldtest : TestExtension() {
         return
     }
 }
+
+/**
+ * Tests sowing and drought
+ */
+class Onefieldtestshouldsow : TestExtension() {
+    override val name = "OneFieldTestShouldSow"
+    override val description = "Tests one field with sowing"
+
+    override val farms = "onefieldtest/farms.json"
+    override val scenario = "onefieldtest/scenario.json"
+    override val map = "onefieldtest/map.json"
+
+    override val logLevel = "DEBUG"
+    override val maxTicks = 2
+    override val startYearTick = 17
+
+    override suspend fun run() {
+        return
+    }
+}

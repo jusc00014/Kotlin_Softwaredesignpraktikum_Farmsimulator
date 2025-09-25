@@ -20,6 +20,7 @@ import de.unisaarland.cs.se.selab.incidents.Incident
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
+import kotlin.concurrent.fixedRateTimer
 
 const val LOCATION = "location"
 const val DURATION = "duration"
@@ -228,7 +229,7 @@ class ScenarioParser {
         require(affectedTileModified == null || affectedTileModified in validTypes) {
             "[City Expansion ${incident.id}] TileType changed to invalid: ${incident.affectedTile.type}"
         }
-        val neighbours = board.neighbors(1, incident.affectedTile)
+        val neighbours = board.neighbors(1, incident.affectedTile, true)
         require(neighbours.any { (tilesModified[it.id] ?: it.type) == TileType.VILLAGE }) {
             "[City Expansion ${incident.id}] No adjoining Village tile found."
         }

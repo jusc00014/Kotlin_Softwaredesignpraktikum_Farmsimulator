@@ -20,7 +20,8 @@ class VillageCreationTestNextToForest : TestExtension() {
 
     override suspend fun run() {
         val expectedLine = "[INFO] Initialization Info: map.json successfully parsed and validated."
-        assert(skipUntilLogType(LogLevel.INFO, "Initialization Info") == expectedLine)
+        skipUntilLogType(LogLevel.INFO, "Initialization Info")
+        assertCurrentLine(expectedLine)
         assertNextLine("[INFO] Initialization Info: farms.json successfully parsed and validated.")
         assertNextLine("[IMPORTANT] Initialization Info: scenarioVillageCreation.json is invalid.")
     }

@@ -18,8 +18,8 @@ class CloudCreationTest : TestExtension() {
     override val startYearTick = 1
 
     override suspend fun run() {
-        val expectedLine = "[IMPORTANT] Incident: Incident 1 of type CLOUD_CREATION happened and affected tiles [1, 5]."
-        assert(skipUntilLogType(LogLevel.IMPORTANT, "Incident") == expectedLine)
+        skipUntilLogType(LogLevel.IMPORTANT, "Incident")
+        assertCurrentLine("[IMPORTANT] Incident: Incident 1 of type CLOUD_CREATION happened and affected tiles [1, 5].")
         assertNextLine(
             "[IMPORTANT] Incident: Incident 2 of type CLOUD_CREATION happened and affected tiles [3, 6, 7]."
         )

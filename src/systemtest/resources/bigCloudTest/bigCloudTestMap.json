@@ -15,10 +15,7 @@
     {
       "id": 3,
       "coordinates": { "x": 1, "y": 1 },
-      "category": "PLANTATION",
-      "farm": 1,
-      "capacity": 2000,
-      "plant": "APPLE",
+      "category": "ROAD",
       "airflow": true,
       "direction": "315"
     },
@@ -94,13 +91,6 @@
       "plant": "GRAPE",
       "airflow": true,
       "direction": "270"
-    },
-    {
-      "id": 12,
-      "coordinates": { "x": 3, "y": 3 },
-      "category": "ROAD",
-      "airflow": true,
-      "direction": "45"
     },
     {
       "id": 13,

@@ -20,7 +20,7 @@ class BigCloudTest : TestExtension() {
     override val scenario = "bigCloudTest/bigCloudTestScenario.json"
 
     override val logLevel = "DEBUG"
-    override val maxTicks = 2
+    override val maxTicks = 3
     override val startYearTick = 1
 
     val expectedLineCloud1FirstMove =

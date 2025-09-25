@@ -34,9 +34,19 @@ class Onefieldtestshouldsow : TestExtension() {
 
     override val logLevel = "DEBUG"
     override val maxTicks = 2
-    override val startYearTick = 17
+    override val startYearTick = 19
 
     override suspend fun run() {
-        return
+        skipUntilString(
+            "[IMPORTANT] Farm Sowing: Machine 3 has sowed WHEAT according to sowing plan 1."
+        )
+        skipUntilString(
+            "[IMPORTANT] Incident: Incident 1 of type DROUGHT happened and affected tiles [38]."
+        )
+        skipUntilString(
+            "[INFO] Soil Moisture: The soil moisture is below threshold in 1 FIELD and 0 PLANTATION tiles."
+        )
+        skipUntilString("[IMPORTANT] Farm Action: Machine 3 performs IRRIGATING on tile 38 for 1 days.")
+        assert(true)
     }
 }

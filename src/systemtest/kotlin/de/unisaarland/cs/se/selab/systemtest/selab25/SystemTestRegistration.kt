@@ -2,6 +2,7 @@ package de.unisaarland.cs.se.selab.systemtest.selab25
 
 import de.unisaarland.cs.se.selab.systemtest.selab25.basictests.ExampleSystemTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.BigCloudTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.CloudTestSmall
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestLargeRadius
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestNoTileToAffect
@@ -56,6 +57,7 @@ object SystemTestRegistration {
         testSuite.registerTest(VillageCreationTestNextToForest())
         testSuite.registerTest(VillageCreationTestCrossCloudCreation())
         testSuite.registerTest(MachineTravelTest())
+        testSuite.registerTest(CloudTestSmall())
     }
 
     /**

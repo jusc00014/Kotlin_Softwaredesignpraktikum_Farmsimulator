@@ -257,7 +257,7 @@ class FarmHandler(
             remainingMachines.remove(machine)
             var remainingTime = TICKTIME - 2 * machine.duration
             var currentField: Fertile = field
-            plantsToActOn.remove(field)
+            finishedFields[field.id] = field
             if (action == Action.HARVESTING) {
                 continueWithHarvesting(currentField, plantsToActOn, finishedFields, machine, board, farm, yearTick)
             } else {

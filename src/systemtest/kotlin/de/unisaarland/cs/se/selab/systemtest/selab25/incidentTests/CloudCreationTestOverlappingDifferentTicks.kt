@@ -26,7 +26,7 @@ class CloudCreationTestOverlappingDifferentTicks : TestExtension() {
             "[IMPORTANT] Incident: Incident 2 of type CLOUD_CREATION happened and affected tiles [2, 5, 6]."
         )
         assertNextLine(
-            "[IMPORTANT] Cloud Union: Clouds 2 and 4 united to cloud 5 with 2000 L water and duration 1 on tile 5."
+            "[IMPORTANT] Cloud Union: Clouds 1 and 3 united to cloud 4 with 2000 L water and duration 1 on tile 5."
         )
     }
 }

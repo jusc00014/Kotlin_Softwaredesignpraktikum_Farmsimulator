@@ -1,0 +1,64 @@
+{
+  "farms": [
+    {
+      "id": 0,
+      "name": "Mildly Cool Farm",
+      "farmsteads": [0, 4],
+      "fields": [1],
+      "plantations": [],
+      "machines": [
+        {
+          "id": 0,
+          "name": "Potato Machine 3000",
+          "actions": ["SOWING", "IRRIGATING", "WEEDING", "HARVESTING"],
+          "plants": ["POTATO"],
+          "duration": 1,
+          "location": 4
+        }
+      ],
+      "sowingPlans": [
+        {
+          "id": 0,
+          "tick": 0,
+          "plant": "POTATO",
+          "location": 1,
+          "radius": 0
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Slightly Cool Farm",
+      "farmsteads": [8],
+      "fields": [9],
+      "plantations": [5],
+      "machines": [
+        {
+          "id": 1,
+          "name": "Almond Machine 2999",
+          "actions": ["IRRIGATING", "MOWING", "CUTTING", "HARVESTING"],
+          "plants": ["GRAPE"],
+          "duration": 1,
+          "location": 8
+        },
+        {
+          "id": 2,
+          "name": "Potato Machine 3001",
+          "actions": ["SOWING", "IRRIGATING", "WEEDING", "HARVESTING"],
+          "plants": ["POTATO"],
+          "duration": 1,
+          "location": 8
+        }
+      ],
+      "sowingPlans": [
+        {
+          "id": 0,
+          "tick": 0,
+          "plant": "POTATO",
+          "location": 9,
+          "radius": 0
+        }
+      ]
+    }
+  ]
+}

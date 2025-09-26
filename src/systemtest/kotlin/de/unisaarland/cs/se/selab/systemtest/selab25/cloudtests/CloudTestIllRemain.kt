@@ -27,5 +27,8 @@ class CloudTestIllRemain : TestExtension() {
         )
         assertNextLine("[IMPORTANT] Cloud Rain: Cloud 3 on tile 5 rained down 70 L water.")
         assertNextLine("[INFO] Cloud Dissipation: Cloud 3 dissipates on tile 5.")
+        assertNextLine(
+            "[DEBUG] Cloud Position: Cloud 3 is on tile 5, where the amount of sunlight is 118."
+        )
     }
 }

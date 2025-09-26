@@ -172,7 +172,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
         }
 
         // Moisture too low
-        val irrigationNeeded = moisture < data.moistureMin
+        val irrigationNeeded = (data.tileType == PlantTile.PLANTATION || sowTime > 0) && moisture < data.moistureMin
         if (irrigationNeeded) {
             if (moisture > 0) {
                 repeat(

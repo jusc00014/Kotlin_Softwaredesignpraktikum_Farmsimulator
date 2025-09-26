@@ -4,7 +4,6 @@ import de.unisaarland.cs.se.selab.YEAR_TICK_MAX
 import de.unisaarland.cs.se.selab.logger.Logger
 import kotlin.collections.Map
 
-const val THREE = 3
 const val FOUR = 4
 const val FIVE = 5
 const val SIX = 6

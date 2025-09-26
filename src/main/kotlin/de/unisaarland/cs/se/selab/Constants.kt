@@ -34,6 +34,12 @@ object Constants {
     const val CHERRY_HE = 1_200_000
     const val GRAPE_HE = 1_200_000
 
+    const val YEAR_TICK_1 = 1
+    const val YEAR_TICK_2 = 2
+    const val YEAR_TICK_3 = 3
+    const val YEAR_TICK_9 = 9
+    const val YEAR_TICK_24 = 24
+
     const val JAN_1 = 1
     const val JAN_2 = 2
     const val FEB_1 = 3
@@ -67,7 +73,7 @@ object Constants {
         SEP_1..OCT_2,
         0,
         APR_1..MAY_2,
-        (JAN_2..DEC_2 step 2).toList(),
+        (YEAR_TICK_2..YEAR_TICK_24 step 2).toList(),
         emptyList(),
         emptyList(),
         PlantTile.FIELD
@@ -81,7 +87,7 @@ object Constants {
         JUN_1..JUL_1,
         2,
         OCT_1..OCT_2,
-        listOf(FEB_1, MAY_1),
+        listOf(YEAR_TICK_3, YEAR_TICK_9),
         emptyList(),
         emptyList(),
         PlantTile.FIELD
@@ -95,7 +101,7 @@ object Constants {
         JUL_1..AUG_2,
         2,
         MAR_2..MAR_2,
-        listOf(1, 2, 3),
+        listOf(YEAR_TICK_1, YEAR_TICK_2, YEAR_TICK_3),
         emptyList(),
         emptyList(),
         PlantTile.FIELD
@@ -108,8 +114,8 @@ object Constants {
         true,
         SEP_1..OCT_2,
         0,
-        MAY_1..JUN_2,
-        (JAN_2..DEC_2 step 2).toList(),
+        MAY_2..JUN_2,
+        (YEAR_TICK_2..YEAR_TICK_24 step 2).toList(),
         emptyList(),
         emptyList(),
         PlantTile.FIELD
@@ -160,7 +166,7 @@ object Constants {
         GRAPE_MOISTURE,
         GRAPE_SUNLIGHT,
         GRAPE_HE,
-        JUN_2..AUG_2,
+        JUN_2..JUL_1,
         false,
         SEP_1..SEP_1,
         3,

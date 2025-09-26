@@ -20,6 +20,6 @@ class VillageCreationTest : TestExtension() {
 
     override suspend fun run() {
         skipUntilLogType(LogLevel.IMPORTANT, "Incident")
-        assertCurrentLine("[IMPORTANT] Incident: Incident 1 of type CITY_EXPANSION happened and affected tiles [14].")
+        assertCurrentLine("[IMPORTANT] Incident: Incident 1 of type CITY_EXPANSION happened and affected tiles 14.")
     }
 }

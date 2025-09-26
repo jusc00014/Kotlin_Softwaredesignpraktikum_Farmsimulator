@@ -20,7 +20,7 @@ class CloudCreationTestLargeRadius : TestExtension() {
 
     override suspend fun run() {
         val expectedLine = "[IMPORTANT] Incident: Incident 1 of type CLOUD_CREATION" +
-            " happened and affected tiles [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 16, 17]."
+            " happened and affected tiles 1,2,3,4,5,6,7,8,9,10,12,13,14,16,17."
         skipUntilLogType(LogLevel.IMPORTANT, "Incident")
         assertCurrentLine(expectedLine)
     }

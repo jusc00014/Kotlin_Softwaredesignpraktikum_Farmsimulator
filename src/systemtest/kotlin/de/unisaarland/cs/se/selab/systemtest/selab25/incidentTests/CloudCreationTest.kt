@@ -19,9 +19,9 @@ class CloudCreationTest : TestExtension() {
 
     override suspend fun run() {
         skipUntilLogType(LogLevel.IMPORTANT, "Incident")
-        assertCurrentLine("[IMPORTANT] Incident: Incident 1 of type CLOUD_CREATION happened and affected tiles [1, 5].")
+        assertCurrentLine("[IMPORTANT] Incident: Incident 1 of type CLOUD_CREATION happened and affected tiles 1,5.")
         assertNextLine(
-            "[IMPORTANT] Incident: Incident 2 of type CLOUD_CREATION happened and affected tiles [3, 6, 7]."
+            "[IMPORTANT] Incident: Incident 2 of type CLOUD_CREATION happened and affected tiles 3,6,7."
         )
     }
 }

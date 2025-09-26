@@ -20,10 +20,10 @@ class CloudCreationTestOverlappingDifferentTicks : TestExtension() {
 
     override suspend fun run() {
         skipUntilLogType(LogLevel.IMPORTANT, "Incident")
-        assertCurrentLine("[IMPORTANT] Incident: Incident 1 of type CLOUD_CREATION happened and affected tiles [1, 5].")
+        assertCurrentLine("[IMPORTANT] Incident: Incident 1 of type CLOUD_CREATION happened and affected tiles 1,5.")
         skipUntilLogType(LogLevel.IMPORTANT, "Incident")
         assertCurrentLine(
-            "[IMPORTANT] Incident: Incident 2 of type CLOUD_CREATION happened and affected tiles [2, 5, 6]."
+            "[IMPORTANT] Incident: Incident 2 of type CLOUD_CREATION happened and affected tiles 2,5,6."
         )
         assertNextLine(
             "[IMPORTANT] Cloud Union: Clouds 1 and 3 united to cloud 4 with 2000 L water and duration 1 on tile 5."

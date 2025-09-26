@@ -158,10 +158,12 @@ class FarmHandlerTest2 {
         val pathFinder = PathFinder()
         val farmHandler = FarmHandler(mapOf(Pair(1, farm)), plantData, machines, pathFinder)
         val machine = machines[2] ?: error("Detekt sucks")
-        val remainingMachines = mutableListOf(
-            machines[1] ?: error("FUCK DETEKT"),
-            machines[2] ?: error("FUCK DETEKT")
-        )
+
+        /** val remainingMachines = mutableListOf(
+         machines[1] ?: error("FUCK DETEKT"),
+         machines[2] ?: error("FUCK DETEKT")
+         )
+         */
         val fieldMap = mutableMapOf<Action, MutableSet<Fertile>>(
             Pair(Action.IRRIGATING, mutableSetOf(tile3, tile5, tile6, tile7, tile8)),
             Pair(Action.WEEDING, mutableSetOf()),
@@ -193,7 +195,6 @@ class FarmHandlerTest2 {
         val finishedFields = mutableMapOf<Int, Fertile>(Pair(7, tile7))
         farmHandler.performNonPrioritizedAction(
             machine,
-            remainingMachines,
             fieldMap,
             plantationMap,
             finishedFields,

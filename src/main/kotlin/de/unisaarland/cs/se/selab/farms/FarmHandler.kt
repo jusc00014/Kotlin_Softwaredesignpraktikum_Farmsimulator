@@ -57,10 +57,11 @@ class FarmHandler(
                     yearTick
                 )
             }
-            for (machine in remainingMachines) {
+            val iter = remainingMachines.iterator()
+            while (iter.hasNext()) {
+                val machine = iter.next()
                 performNonPrioritizedAction(
                     machine,
-                    remainingMachines,
                     fieldMap,
                     plantationMap,
                     finishedFields,
@@ -181,6 +182,7 @@ class FarmHandler(
             val machine = findBestMachine(
                 field, remainingMachines, Action.SOWING, toSow, board, farm
             ) ?: continue
+            field.plant.sow(toSow, plantData[toSow] ?: error("Do not the detekt"), yearTick)
             Logger.machinePerformedAction(machine.id, Action.SOWING, field.id, machine.duration)
             Logger.machineSowed(machine.id, toSow, plan.id)
             finishedFields[field.id] = field
@@ -251,7 +253,8 @@ class FarmHandler(
             }
             val plant = field.plant
             val machine = findBestMachine(field, remainingMachines, action, plant.type, board, farm) ?: continue
-            performAction(action, field, machine, remainingMachines, finishedFields, farm.id, yearTick)
+            performAction(action, field, machine, finishedFields, farm.id, yearTick)
+            remainingMachines.remove(machine)
             var remainingTime = TICKTIME - 2 * machine.duration
             var currentField: Fertile = field
             plantsToActOn.remove(field)
@@ -329,7 +332,7 @@ class FarmHandler(
             val harvest = action == Action.HARVESTING
             if (pathFinder.canContinue(currentLocation, fertile, farm.id, board, harvest)) {
                 if (action != Action.SOWING) {
-                    performAction(action, fertile, machine, null, finishedFertiles, farm.id, yearTick)
+                    performAction(action, fertile, machine, finishedFertiles, farm.id, yearTick)
                 }
                 return fertile
             }
@@ -341,7 +344,6 @@ class FarmHandler(
      * Perform actions that are sorted after machine id*/
     fun performNonPrioritizedAction(
         machine: Machine,
-        remainingMachines: MutableList<Machine>,
         fieldMap: Map<Action, MutableSet<Fertile>>,
         plantationMap: Map<Action, MutableSet<Fertile>>,
         finishedFields: MutableMap<Int, Fertile>,
@@ -365,7 +367,7 @@ class FarmHandler(
                 ) {
                     continue
                 }
-                performAction(action, fertile, machine, remainingMachines, finishedFields, farm.id, yearTick)
+                performAction(action, fertile, machine, finishedFields, farm.id, yearTick)
                 val plantations = plantationMap[Action.IRRIGATING]
                 requireNotNull(plantations)
                 continueWithSomething(
@@ -391,7 +393,6 @@ class FarmHandler(
         action: Action,
         fertile: Fertile,
         machine: Machine,
-        remainingMachines: MutableList<Machine>?,
         finishedFields: MutableMap<Int, Fertile>,
         farmId: Int,
         yearTick: Int
@@ -399,7 +400,6 @@ class FarmHandler(
         val amount: Int? = fertile.performAction(action, yearTick)
         Logger.machinePerformedAction(machine.id, action, fertile.id, machine.duration)
         finishedFields[fertile.id] = fertile
-        remainingMachines?.remove(machine)
         if (action == Action.HARVESTING) {
             requireNotNull(amount)
             Logger.machineCollected(farmId, machine.id, amount, fertile.plant.type)

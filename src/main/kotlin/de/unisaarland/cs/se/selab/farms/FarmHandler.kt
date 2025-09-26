@@ -133,17 +133,19 @@ class FarmHandler(
         Logger.farmSowingPlan(farm.id, planIds)
         val delete = mutableListOf<SowingPlan>()
         for (plan in farm.plans) {
-            executeSowingPlan(
-                farm,
-                plan,
-                sowableFields,
-                remainingMachines,
-                finishedFields,
-                fertiles,
-                board,
-                yearTick,
-                delete
-            )
+            if (planIds.contains(plan.id)) {
+                executeSowingPlan(
+                    farm,
+                    plan,
+                    sowableFields,
+                    remainingMachines,
+                    finishedFields,
+                    fertiles,
+                    board,
+                    yearTick,
+                    delete
+                )
+            }
         }
         farm.plans.removeAll(delete)
     }

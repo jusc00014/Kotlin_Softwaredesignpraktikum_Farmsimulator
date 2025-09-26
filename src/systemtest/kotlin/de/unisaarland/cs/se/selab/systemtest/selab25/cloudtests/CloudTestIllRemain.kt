@@ -23,7 +23,7 @@ class CloudTestIllRemain : TestExtension() {
         assertCurrentLine("[INFO] Cloud Movement: Cloud 1 with 3000 L water moved from tile 2 to tile 5.")
         assertNextLine("[INFO] Cloud Movement: Cloud 2 with 3000 L water moved from tile 3 to tile 5.")
         assertNextLine(
-            "[IMPORTANT] Cloud Union: Clouds 1 and 2 united to cloud 3 with 6000 L water and duration 1 on tile 5."
+            "[IMPORTANT] Cloud Union: Clouds 1 and 2 united to cloud 3 with 6000 L water and duration 2 on tile 5."
         )
         assertNextLine("[IMPORTANT] Cloud Rain: Cloud 3 on tile 5 rained down 70 L water.")
         assertNextLine(

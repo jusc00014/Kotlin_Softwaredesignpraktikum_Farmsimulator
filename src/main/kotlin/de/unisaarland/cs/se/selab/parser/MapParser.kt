@@ -292,8 +292,8 @@ class MapParser(
                 returnPlantData = plantData[PlantType.CHERRY]
             }
             "GRAPE" -> {
-                returnPlantType = PlantType.CHERRY
-                returnPlantData = plantData[PlantType.CHERRY]
+                returnPlantType = PlantType.GRAPE
+                returnPlantData = plantData[PlantType.GRAPE]
             }
             else -> {
                 require(false) { "Invalid Plant for plantation" }

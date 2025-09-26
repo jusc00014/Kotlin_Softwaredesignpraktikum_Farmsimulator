@@ -21,9 +21,9 @@ class MachineTravelTest : TestExtension() {
 
     override suspend fun run() {
         skipUntilLogType(LogLevel.IMPORTANT, "Simulation Statistics")
-        assertCurrentLine("[IMPORTANT] Simulation Statistics: Farm 0 collected 1000000 g of harvest.")
-        assertNextLine("[IMPORTANT] Simulation Statistics: Farm 1 collected 800000 g of harvest.")
-        assertNextLine("[IMPORTANT] Simulation Statistics: Total amount of POTATO harvested: 0 g.")
+        assertCurrentLine("[IMPORTANT] Simulation Statistics: Farm 0 collected 531441 g of harvest.")
+        assertNextLine("[IMPORTANT] Simulation Statistics: Farm 1 collected 1200000 g of harvest.")
+        assertNextLine("[IMPORTANT] Simulation Statistics: Total amount of POTATO harvested: 531441 g.")
         listOf("WHEAT", "OAT", "PUMPKIN", "APPLE").forEach { plant ->
             assertNextLine("[IMPORTANT] Simulation Statistics: Total amount of $plant harvested: 0 g.")
         }

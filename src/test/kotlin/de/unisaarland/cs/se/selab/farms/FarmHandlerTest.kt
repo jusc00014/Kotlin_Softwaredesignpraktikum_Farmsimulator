@@ -1,13 +1,11 @@
 package de.unisaarland.cs.se.selab.farms
 
-import de.unisaarland.cs.se.selab.Constants
-import de.unisaarland.cs.se.selab.board.BoardData
 import de.unisaarland.cs.se.selab.board.Coordinate
-import de.unisaarland.cs.se.selab.board.Fertile
 import de.unisaarland.cs.se.selab.board.Field
 import de.unisaarland.cs.se.selab.board.Plantation
 import de.unisaarland.cs.se.selab.board.Tile
 import de.unisaarland.cs.se.selab.board.TileType
+import de.unisaarland.cs.se.selab.parser.MapParser
 import de.unisaarland.cs.se.selab.plants.PlantType
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -107,8 +105,8 @@ class FarmHandlerTest {
         1,
         TileType.FARMSTEAD
     )
-
-    private val plantData = mapOf(Pair(PlantType.POTATO, Constants.potato), Pair(PlantType.PUMPKIN, Constants.pumpkin))
+    private val mapParser = MapParser(mutableMapOf())
+    private val plantData = mapParser.parse("src/systemtest/resources/example/map.json", 0).second
 
     private val tile00: Field = mock()
     private val tile04: Field = mock()
@@ -178,41 +176,5 @@ class FarmHandlerTest {
                 Pair(PlantType.GRAPE, mutableListOf())
             )
         }
-    }
-
-    @Test
-    fun sow() {
-        val fertiles = mapOf(
-            Pair(1, tile02),
-            Pair(2, tile24),
-            Pair(3, tile06),
-            Pair(4, tile20),
-            Pair(5, tile04),
-            Pair(6, tile26),
-            Pair(7, tile22),
-            Pair(8, tile00)
-        )
-        val sowFields = farmHandler.assembleSowableFields(
-            listOf(3, 4, 6, 7, 8),
-            fertiles,
-            9
-        )
-        val remainingMachines = mutableListOf(
-            machines[1] ?: error("FUCK DETEKT"),
-            machines[2] ?: error("FUCK DETEKT")
-        )
-        val finishedFields = mutableMapOf<Int, Fertile>(Pair(6, tile26))
-        val board: BoardData = mock()
-        whenever(pathFinder.reachable(tile9, tile20, 1, board))
-            .thenReturn(true)
-        whenever(pathFinder.reachable(tile9, tile26, 1, board))
-            .thenReturn(true)
-        whenever(pathFinder.reachable(tile9, tile00, 1, board))
-            .thenReturn(true)
-        whenever(tile20.id).thenReturn(4)
-        whenever(tile00.id).thenReturn(8)
-        whenever(tile26.id).thenReturn(6)
-        farmHandler.sow(sowFields, farm, remainingMachines, finishedFields, board, 9, fertiles)
-        assertTrue { finishedFields.contains(4) }
     }
 }

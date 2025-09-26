@@ -218,7 +218,8 @@ class ScenarioParser {
     private fun checkCityExpansionRequirementsCV(
         incident: CityExpansion,
         board: BoardData,
-        tilesModified: MutableMap<Int, TileType>
+        tilesModified: MutableMap<Int, TileType>,
+        cloudTilesForTick: MutableMap<Int, MutableSet<Int>>
     ) {
         val validTypes = setOf(TileType.ROAD, TileType.FIELD)
         require(incident.affectedTile.type in validTypes) {
@@ -236,6 +237,7 @@ class ScenarioParser {
             "[City Expansion ${incident.id}] Adjoining Forest tile found"
         }
         tilesModified[incident.affectedTile.id] = TileType.VILLAGE
+        cloudTilesForTick[incident.tick]?.remove(incident.affectedTile.id)
     }
 
     private fun checkDroughtRequirementsCV(incident: Drought, tilesModified: Map<Int, TileType>) {
@@ -274,7 +276,7 @@ class ScenarioParser {
         // Sort is Stable!
         for (incident in incidents.sortedBy { it.id }.sortedBy { it.tick }) {
             when (incident) {
-                is CityExpansion -> checkCityExpansionRequirementsCV(incident, board, tilesModified)
+                is CityExpansion -> checkCityExpansionRequirementsCV(incident, board, tilesModified, cloudTilesForTick)
                 is Drought -> checkDroughtRequirementsCV(incident, tilesModified)
                 is CloudCreation -> checkCloudCreationRequirementsCV(incident, tilesModified, cloudTilesForTick)
                 else -> continue

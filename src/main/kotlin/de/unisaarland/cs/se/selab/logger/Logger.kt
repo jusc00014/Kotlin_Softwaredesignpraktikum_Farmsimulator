@@ -235,7 +235,8 @@ object Logger {
         val sortedPlans = sowingPlanIds.sortedBy { it }
         logPrint(
             LogLevel.DEBUG,
-            "Farm: Farm $farmId has the following active sowing plans it intends to pursue in this tick: $sortedPlans."
+            "Farm: Farm $farmId has the following active sowing plans it intends to pursue in this tick: " +
+                "${sortedPlans.joinToString(",")}."
         )
     }
 
@@ -327,7 +328,8 @@ object Logger {
         val sortedTileIds = tileIds.sortedBy { it }
         logPrint(
             LogLevel.IMPORTANT,
-            "Incident: Incident $incidentId of type $incident happened and affected tiles $sortedTileIds."
+            "Incident: Incident $incidentId of type $incident happened and affected tiles " +
+                "${sortedTileIds.joinToString(",")}."
         )
     }
 
@@ -340,7 +342,8 @@ object Logger {
         val sortedActions = actions.sortedBy { it.ordinal }
         logPrint(
             LogLevel.DEBUG,
-            "Harvest Estimate: Required actions on tile $tileId were not performed: $sortedActions."
+            "Harvest Estimate: Required actions on tile $tileId were not performed: " +
+                "${sortedActions.joinToString(",")}."
         )
     }
 

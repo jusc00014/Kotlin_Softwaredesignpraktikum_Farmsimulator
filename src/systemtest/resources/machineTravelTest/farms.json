@@ -19,7 +19,7 @@
       "sowingPlans": [
         {
           "id": 0,
-          "tick": 0,
+          "tick": 5,
           "plant": "POTATO",
           "location": 1,
           "radius": 0
@@ -52,7 +52,7 @@
       ],
       "sowingPlans": [
         {
-          "id": 0,
+          "id": 1,
           "tick": 0,
           "plant": "POTATO",
           "location": 9,

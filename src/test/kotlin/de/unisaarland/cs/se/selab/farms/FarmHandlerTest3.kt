@@ -71,7 +71,6 @@ class FarmHandlerTest3 {
             for (machine in remainingMachines) {
                 farmHandler.performNonPrioritizedAction(
                     machine,
-                    remainingMachines,
                     fieldMap,
                     plantationMap,
                     finishedFields,
@@ -130,7 +129,6 @@ class FarmHandlerTest3 {
             for (machine in remainingMachines) {
                 farmHandler.performNonPrioritizedAction(
                     machine,
-                    remainingMachines,
                     fieldMap,
                     plantationMap,
                     finishedFields,

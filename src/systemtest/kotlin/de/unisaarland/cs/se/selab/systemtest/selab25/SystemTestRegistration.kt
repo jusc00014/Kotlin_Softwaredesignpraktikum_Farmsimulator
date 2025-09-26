@@ -12,6 +12,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreati
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTestCrossCloudCreation
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTestNextToForest
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.MachineTravelTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.mutant.SwissArmyKnife
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.Onefieldtest
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.Onefieldtestshouldsow
 
@@ -64,6 +65,7 @@ object SystemTestRegistration {
         testSuite.registerTest(VillageCreationTest())
         testSuite.registerTest(VillageCreationTestNextToForest())
         testSuite.registerTest(VillageCreationTestCrossCloudCreation())
+        testSuite.registerTest(SwissArmyKnife())
     }
 
     /**

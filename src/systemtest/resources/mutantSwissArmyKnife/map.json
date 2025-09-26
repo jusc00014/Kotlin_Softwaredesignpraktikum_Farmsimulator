@@ -1,0 +1,111 @@
+{
+  "tiles": [
+    {
+      "id": 0,
+      "coordinates": {
+        "x": -1,
+        "y": -1
+      },
+      "category": "FARMSTEAD",
+      "airflow": false,
+      "farm": 0,
+      "shed": true
+    },
+    {
+      "id": 1,
+      "coordinates": {
+        "x": 0,
+        "y": 0
+      },
+      "category": "FIELD",
+      "airflow": false,
+      "farm": 0,
+      "capacity": 10000,
+      "possiblePlants": ["POTATO"]
+    },
+    {
+      "id": 2,
+      "coordinates": {
+        "x": 2,
+        "y": 0
+      },
+      "category": "FIELD",
+      "airflow": false,
+      "farm": 0,
+      "capacity": 10000,
+      "possiblePlants": ["OAT"]
+    },
+    {
+      "id": 3,
+      "coordinates": {
+        "x": 4,
+        "y": 0
+      },
+      "category": "FIELD",
+      "airflow": false,
+      "farm": 0,
+      "capacity": 10000,
+      "possiblePlants": ["WHEAT"]
+    },
+    {
+      "id": 4,
+      "coordinates": {
+        "x": 6,
+        "y": 0
+      },
+      "category": "FIELD",
+      "airflow": false,
+      "farm": 0,
+      "capacity": 300,
+      "possiblePlants": ["PUMPKIN"]
+    },
+    {
+      "id": 5,
+      "coordinates": {
+        "x": 0,
+        "y": 2
+      },
+      "category": "PLANTATION",
+      "airflow": false,
+      "farm": 0,
+      "capacity": 10000,
+      "plant": "APPLE"
+    },
+    {
+      "id": 6,
+      "coordinates": {
+        "x": 2,
+        "y": 2
+      },
+      "category": "PLANTATION",
+      "airflow": false,
+      "farm": 0,
+      "capacity": 10000,
+      "plant": "ALMOND"
+    },
+    {
+      "id": 7,
+      "coordinates": {
+        "x": 4,
+        "y": 2
+      },
+      "category": "PLANTATION",
+      "airflow": false,
+      "farm": 0,
+      "capacity": 10000,
+      "plant": "CHERRY"
+    },
+    {
+      "id": 8,
+      "coordinates": {
+        "x": 6,
+        "y": 2
+      },
+      "category": "PLANTATION",
+      "airflow": false,
+      "farm": 0,
+      "capacity": 10000,
+      "plant": "GRAPE"
+    }
+  ]
+}

@@ -23,7 +23,7 @@ class SwissArmyKnife : SimulationTestExtension(folder = "mutantSwissArmyKnife") 
         skipUntilString("[IMPORTANT] Farm: Farm $farmID starts its actions.")
         assertNextLine(
             "[DEBUG] Farm: Farm $farmID has the following active sowing plans " +
-                "it intends to pursue in this tick: $sowingPlanIDs."
+                "it intends to pursue in this tick: ${sowingPlanIDs.joinToString(",")}."
         )
         assertNextLine(
             "[IMPORTANT] Farm Action: Machine $machineID performs ${Action.SOWING} " +

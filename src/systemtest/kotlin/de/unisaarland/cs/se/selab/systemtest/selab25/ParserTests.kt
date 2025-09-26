@@ -4,22 +4,26 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.utils.ExampleSystemTestExte
 import de.unisaarland.cs.se.selab.systemtest.selab25.utils.LogLevel
 import de.unisaarland.cs.se.selab.systemtest.selab25.utils.LogType
 
+const val PARSER_FILES_DIRECTORY_PATH: String = "parser"
+const val MAP_2: String = "map2.json"
+const val FARMS_2: String = "farms2.json"
+
 /**
  * Base for all Parser Tests
  */
 abstract class ParserTest(
     val failingFile: ParserFile?,
-    val mapFileName: String = "validMap.json",
-    val farmsFileName: String = "validFarms.json",
-    val scenarioFileName: String = "validScenario.json"
+    val mapFileName: String = "map.json",
+    val farmsFileName: String = "farms.json",
+    val scenarioFileName: String = "scenario.json"
 ) : ExampleSystemTestExtension() {
     override val map: String = "$PARSER_FILES_DIRECTORY_PATH/$mapFileName"
     override val farms: String = "$PARSER_FILES_DIRECTORY_PATH/$farmsFileName"
     override val scenario: String = "$PARSER_FILES_DIRECTORY_PATH/$scenarioFileName"
-    override val maxTicks: Int = 1
+    override val maxTicks: Int = 0
     override val startYearTick: Int = 1
     override val logLevel: String = "DEBUG"
-    override val name: String = "Parser.${this.javaClass.name}"
+    override val name: String = "Parser.${this.javaClass.simpleName}"
 
     override suspend fun run() {
         if (failingFile == ParserFile.MAP) {
@@ -56,10 +60,6 @@ abstract class ParserTest(
                 "[IMPORTANT] Initialization Info: $filename is invalid."
         )
     }
-
-    protected companion object ParserTestCompanion {
-        const val PARSER_FILES_DIRECTORY_PATH: String = "parser"
-    }
 }
 
 /**
@@ -74,41 +74,147 @@ enum class ParserFile {
 /**
  * Test the parser with everything
  */
-class ValidParser : ParserTest(null) {
-    override val description: String = "Test the parser with everything"
+class FullData : ParserTest(
+    null,
+    mapFileName = "mapFull.json",
+    farmsFileName = "farmsFull.json",
+    scenarioFileName = "scenarioFull.json"
+) {
+    override val description: String = "Everything"
+    override val maxTicks: Int = 1
 }
 
 /**
+ * Test the parser with 2 Farms
+ */
+class FarmsTimes2 : ParserTest(null, mapFileName = MAP_2, farmsFileName = FARMS_2) {
+    override val description: String = "2 Farms"
+}
+
+// region Map
+/**
  * Test the parser for Farm 0 without a shed
  */
-class ShedlessFarm : ParserTest(ParserFile.MAP, mapFileName = "invalidMapNoShed.json") {
+class ShedlessFarm : ParserTest(ParserFile.MAP, mapFileName = "mapNoShed.json") {
     override val description: String = "Farm 0 without a shed"
 }
 
 /**
  * Test the parser for a Village with airflow == true and a direction
  */
-class WindyVillage : ParserTest(ParserFile.MAP, mapFileName = "invalidMapVillageDirection.json") {
+class WindyVillage : ParserTest(ParserFile.MAP, mapFileName = "mapVillageDirection.json") {
     override val description: String = "Village with airflow == true and a direction"
 }
 
 /**
  * Test the parser for a Village near a Forest
  */
-class ForestVillage : ParserTest(ParserFile.MAP, mapFileName = "invalidMapVillageNearForest.json") {
+class ForestVillage : ParserTest(ParserFile.MAP, mapFileName = "mapVillageNearForest.json") {
     override val description: String = "Village near a Forest"
 }
 
 /**
- * Test the parser for a Farm 0 without Sowing Machine with Sowing Plan
+ * Test the parser for a Shed of Farm 1 near a Plantation of Farm 0
  */
-class FarmSowless : ParserTest(ParserFile.FARMS, farmsFileName = "invalidFarmsNoSowingMachine.json") {
-    override val description: String = "Farm 0 without Sowing Machine with Sowing Plan"
+class ShedWrongNeighbourhood : ParserTest(
+    ParserFile.MAP,
+    mapFileName = "map2ShedWrongNeighbourhood.json",
+    farmsFileName = FARMS_2
+) {
+    override val description: String = "Shed of Farm 1 near a Plantation of Farm 0"
 }
 
 /**
+ * Test the parser for a Road with farm id
+ */
+class OwnedRoad : ParserTest(ParserFile.MAP, mapFileName = "mapOwnedRoad.json") {
+    override val description: String = "Road with farm id"
+}
+
+/**
+ * Test the parser for Tiles with same ID
+ */
+class TileSameID : ParserTest(ParserFile.MAP, mapFileName = "mapSameID.json") {
+    override val description: String = "Tiles with same ID"
+}
+// endregion
+
+// region Farms
+/**
+ * Test the parser for a Machine Clone
+ */
+class MachineClone : ParserTest(ParserFile.FARMS, mapFileName = MAP_2, farmsFileName = "farms2Clone.json") {
+    override val description: String = "Machine Clone"
+}
+
+/**
+ * Test the parser for Machines with the same name
+ */
+class MachineDoppelganger : ParserTest(
+    ParserFile.FARMS,
+    mapFileName = MAP_2,
+    farmsFileName = "farms2Doppelganger.json"
+) {
+    override val description: String = "Machines with the same name"
+}
+
+/**
+ * Test the parser for a Machine at the wrong shed
+ */
+class MachineWrongShed : ParserTest(
+    ParserFile.FARMS,
+    mapFileName = MAP_2,
+    farmsFileName = "farms2WrongShed.json"
+) {
+    override val description: String = "Machine at the wrong shed"
+}
+
+/**
+ * Test the parser for a Machine which location is not a shed
+ */
+class MachineHomeless : ParserTest(
+    ParserFile.FARMS,
+    mapFileName = MAP_2,
+    farmsFileName = "farmsHomelessMachine.json"
+) {
+    override val description: String = "Machine which location is not a shed"
+}
+
+/**
+ * Test the parser for Farms with the same name
+ */
+class FarmImposter : ParserTest(
+    ParserFile.FARMS,
+    mapFileName = MAP_2,
+    farmsFileName = "farms2Imposter.json"
+) {
+    override val description: String = "Farms with the same name"
+}
+
+/**
+ * Test the parser for Farms with shared Farmstead
+ */
+class FarmSplitCustody : ParserTest(
+    ParserFile.FARMS,
+    mapFileName = MAP_2,
+    farmsFileName = "farms2SplitCustody.json"
+) {
+    override val description: String = "Farms with shared Farmstead"
+}
+// endregion
+
+// region Scenario
+/**
  * Test the parser for a Cloud on a Village
  */
-class CloudyVillage : ParserTest(ParserFile.SCENARIO, scenarioFileName = "invalidScenarioCloudOnVillage.json") {
+class CloudyVillage : ParserTest(ParserFile.SCENARIO, scenarioFileName = "scenarioCloudOnVillage.json") {
     override val description: String = "Cloud on a Village"
 }
+
+/**
+ * Test the parser for a 2 Clouds on the same Tile
+ */
+class TwinClouds : ParserTest(ParserFile.SCENARIO, scenarioFileName = "scenarioTwinCloud.json") {
+    override val description: String = "2 Clouds on the same Tile"
+}
+//endregion

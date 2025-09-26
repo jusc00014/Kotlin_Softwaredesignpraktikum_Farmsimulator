@@ -85,8 +85,8 @@ class ScenarioParser {
             clouds.add(Cloud(id, duration, location, amount))
         }
         clouds.sortBy { it.id }
-        val maxId = clouds.lastOrNull()?.id ?: 0
-        return CloudData(maxId, clouds)
+        val maxId = clouds.lastOrNull()?.id ?: -1
+        return CloudData(maxId + 1, clouds)
     }
 
     private fun parseIncidents(

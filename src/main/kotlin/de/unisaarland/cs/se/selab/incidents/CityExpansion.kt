@@ -14,8 +14,8 @@ class CityExpansion(
 ) : Incident(id, tick) {
 
     override fun execute() {
-        clouds.checkIfCloudOnNewVillage(affectedTile.id)
         Logger.incidentExecuted(id, this, listOf(affectedTile.id))
+        clouds.checkIfCloudOnNewVillage(affectedTile.id)
     }
     override fun toString(): String {
         return "CITY_EXPANSION"

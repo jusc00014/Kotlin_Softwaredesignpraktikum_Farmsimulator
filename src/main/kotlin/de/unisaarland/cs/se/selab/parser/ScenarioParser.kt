@@ -71,7 +71,7 @@ class ScenarioParser {
         for (cloud in cloudsJson) {
             require(cloud is JSONObject)
             val id: Int = cloud.getInt("id")
-            require(id !in ids && id >= 0)
+            require(id !in ids && id > 0)
             ids.add(id)
             val location: Int = cloud.getInt(LOCATION)
             require(location !in locations)

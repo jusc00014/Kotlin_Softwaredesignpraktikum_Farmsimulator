@@ -17,7 +17,18 @@ class Onefieldtest : TestExtension() {
     override val startYearTick = 9
 
     override suspend fun run() {
-        return
+        skipUntilString(
+            "[IMPORTANT] Farm: Farm 11 starts its actions."
+        )
+        assertCurrentLine(
+            "[IMPORTANT] Farm: Farm 11 starts its actions."
+        )
+        assertNextLine(
+            "[DEBUG] Farm: Farm 11 has the following active sowing plans it intends to pursue in this tick: [1]."
+        )
+        assertNextLine(
+            "[IMPORTANT] Farm: Farm 11 finished its actions."
+        )
     }
 }
 
@@ -40,13 +51,22 @@ class Onefieldtestshouldsow : TestExtension() {
         skipUntilString(
             "[IMPORTANT] Farm Sowing: Machine 3 has sowed WHEAT according to sowing plan 1."
         )
+        assertCurrentLine(
+            "[IMPORTANT] Farm Sowing: Machine 3 has sowed WHEAT according to sowing plan 1."
+        )
         skipUntilString(
+            "[IMPORTANT] Incident: Incident 1 of type DROUGHT happened and affected tiles [38]."
+        )
+        assertCurrentLine(
             "[IMPORTANT] Incident: Incident 1 of type DROUGHT happened and affected tiles [38]."
         )
         skipUntilString(
             "[INFO] Soil Moisture: The soil moisture is below threshold in 0 FIELD and 0 PLANTATION tiles."
         )
+        assertCurrentLine(
+            "[INFO] Soil Moisture: The soil moisture is below threshold in 0 FIELD and 0 PLANTATION tiles."
+        )
         skipUntilString("[IMPORTANT] Farm Action: Machine 1 performs IRRIGATING on tile 38 for 10 days.")
-        assert(true)
+        assertCurrentLine("[IMPORTANT] Farm Action: Machine 1 performs IRRIGATING on tile 38 for 10 days.")
     }
 }

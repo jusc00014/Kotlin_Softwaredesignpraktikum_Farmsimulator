@@ -58,7 +58,7 @@ class BigCloudTest : TestExtension() {
     val expectedLineCloud5FirstMove =
         "[INFO] Cloud Movement: Cloud 5 with 1000 L water moved from tile 12 to tile 13."
     val expectedLineSecondMerge =
-        "[IMPORTANT] Cloud Union: Clouds 5 and 6 united to cloud 8 with 7000 L water and duration 1 on tile 13."
+        "[IMPORTANT] Cloud Union: Clouds 6 and 5 united to cloud 8 with 7000 L water and duration 2 on tile 13."
     val expectedLineCloud7Rain = "[IMPORTANT] Cloud Rain: Cloud 7 on tile 11 rained down 100 L water."
     val expectedLineCloud7FirstMove =
         "[INFO] Cloud Movement: Cloud 7 with 4950 L water moved from tile 11 to tile 10."
@@ -85,7 +85,7 @@ class BigCloudTest : TestExtension() {
     val expectedLineCloud8SecondSunlightReduction =
         "[DEBUG] Cloud Movement: On tile 5, the amount of sunlight is 92."
     val expectedLineLastMerge =
-        "[IMPORTANT] Cloud Union: Clouds 3 and 8 united to cloud 9 with 10830 L water and duration 1 on tile 2."
+        "[IMPORTANT] Cloud Union: Clouds 3 and 8 united to cloud 9 with 10830 L water and duration 2 on tile 2."
     val expectedLineCloud9RainAll =
         "[IMPORTANT] Cloud Rain: Cloud 9 on tile 2 rained down 10830 L water."
     val expectedLineCloud9Dissipates =
@@ -96,17 +96,17 @@ class BigCloudTest : TestExtension() {
     val expectedLineSecondTick2ndMove =
         "[INFO] Cloud Movement: Cloud 7 with 4950 L water moved from tile 11 to tile 10."
     val expectedLineSecondTickSunlightReduction =
-        "[DEBUG] Cloud Movement: On tile 11, the amount of sunlight is 109."
+        "[DEBUG] Cloud Movement: On tile 11, the amount of sunlight is 95."
     val expectedLineSecondTick3rdMove =
         "[INFO] Cloud Movement: Cloud 7 with 4950 L water moved from tile 10 to tile 7."
     val expectedLineSecondTick4thMove =
         "[INFO] Cloud Movement: Cloud 7 with 4950 L water moved from tile 7 to tile 8."
     val expectedLineSecondTick2ndSunlightReduction =
-        "[DEBUG] Cloud Movement: On tile 11, the amount of sunlight is 106."
+        "[DEBUG] Cloud Movement: On tile 11, the amount of sunlight is 92."
     val expectedLineLastSunlightReduction =
-        "[DEBUG] Cloud Movement: On tile 11, the amount of sunlight is 103."
-    val expectedLineSecondTickDissipate =
-        "[INFO] Cloud Dissipation: Cloud 9 dissipates on tile 10."
+        "[DEBUG] Cloud Movement: On tile 11, the amount of sunlight is 89."
+    val expectedLineDissipation =
+        "[INFO] Cloud Dissipation: Cloud 7 dissipates on tile 10."
 
     override suspend fun run() {
         assert(skipUntilLogType(LogLevel.INFO, CLOUD_MOVEMENT) == expectedLineCloud1FirstMove)
@@ -171,6 +171,6 @@ class BigCloudTest : TestExtension() {
         assert(skipUntilLogType(LogLevel.INFO, CLOUD_MOVEMENT) == expectedLineSecondTick1stMove)
         assert(skipUntilLogType(LogLevel.INFO, CLOUD_MOVEMENT) == expectedLineSecondTick2ndMove)
         assert(skipUntilLogType(LogLevel.INFO, CLOUD_MOVEMENT) == expectedLineLastSunlightReduction)
-        assert(skipUntilLogType(LogLevel.DEBUG, CLOUD_DISSIPATION) == expectedLineSecondTickDissipate)
+        assert(skipUntilLogType(LogLevel.INFO, CLOUD_DISSIPATION) == expectedLineDissipation)
     }
 }

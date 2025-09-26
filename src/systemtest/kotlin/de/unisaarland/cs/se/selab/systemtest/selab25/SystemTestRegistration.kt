@@ -58,6 +58,12 @@ object SystemTestRegistration {
         testSuite.registerTest(VillageCreationTestCrossCloudCreation())
         testSuite.registerTest(MachineTravelTest())
         testSuite.registerTest(CloudTestSmall())
+        testSuite.registerTest(Onefieldtestshouldsow())
+        testSuite.registerTest(CloudCreationTestLargeRadius())
+        testSuite.registerTest(CloudCreationTestNoTileToAffect())
+        testSuite.registerTest(VillageCreationTest())
+        testSuite.registerTest(VillageCreationTestNextToForest())
+        testSuite.registerTest(VillageCreationTestCrossCloudCreation())
     }
 
     /**

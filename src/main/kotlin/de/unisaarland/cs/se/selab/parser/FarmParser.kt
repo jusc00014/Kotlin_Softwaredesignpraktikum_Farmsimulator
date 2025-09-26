@@ -147,7 +147,6 @@ class FarmParser {
         machines: List<Machine>,
         farmId: Int
     ): MutableList<SowingPlan> {
-        val sowingPlanIds = mutableListOf<Int>()
         val sowingPlans = mutableListOf<SowingPlan>()
         for (sowingPlanJson in sowingPlansJson) {
             require(sowingPlanJson is JSONObject)

@@ -1,8 +1,6 @@
 package de.unisaarland.cs.se.selab.systemtest.selab25
 
 import de.unisaarland.cs.se.selab.systemtest.selab25.utils.ExampleSystemTestExtension
-import de.unisaarland.cs.se.selab.systemtest.selab25.utils.LogLevel
-import de.unisaarland.cs.se.selab.systemtest.selab25.utils.LogType
 
 const val PARSER_FILES_DIRECTORY_PATH: String = "parser"
 const val MAP_2: String = "map2.json"
@@ -34,13 +32,11 @@ abstract class ParserTest(
         fileIsValid(mapFileName)
         if (failingFile == ParserFile.FARMS) {
             fileIsInValid(farmsFileName)
-            assertEnd()
             return
         }
         fileIsValid(farmsFileName)
         if (failingFile == ParserFile.SCENARIO) {
             fileIsInValid(scenarioFileName)
-            assertEnd()
             return
         }
         fileIsValid(scenarioFileName)
@@ -48,17 +44,12 @@ abstract class ParserTest(
     }
 
     protected suspend fun fileIsValid(filename: String) {
-        assert(
-            skipUntilLogType(LogLevel.INFO, LogType.INITIALIZATION_INFO) ==
-                "[INFO] Initialization Info: $filename successfully parsed and validated."
-        )
+        assertNextLine("[INFO] Initialization Info: $filename successfully parsed and validated.")
     }
 
     protected suspend fun fileIsInValid(filename: String) {
-        assert(
-            skipUntilLogType(LogLevel.IMPORTANT, LogType.INITIALIZATION_INFO) ==
-                "[IMPORTANT] Initialization Info: $filename is invalid."
-        )
+        assertNextLine("[IMPORTANT] Initialization Info: $filename is invalid.")
+        assertEnd()
     }
 }
 
@@ -92,13 +83,6 @@ class FarmsTimes2 : ParserTest(null, mapFileName = MAP_2, farmsFileName = FARMS_
 }
 
 // region Map
-/**
- * Test the parser for Farm 0 without a shed
- */
-class ShedlessFarm : ParserTest(ParserFile.MAP, mapFileName = "mapNoShed.json") {
-    override val description: String = "Farm 0 without a shed"
-}
-
 /**
  * Test the parser for a Village with airflow == true and a direction
  */
@@ -140,6 +124,13 @@ class TileSameID : ParserTest(ParserFile.MAP, mapFileName = "mapSameID.json") {
 // endregion
 
 // region Farms
+/**
+ * Test the parser for Farm 0 without a shed
+ */
+class ShedlessFarm : ParserTest(ParserFile.FARMS, mapFileName = "mapNoShed.json") {
+    override val description: String = "Farm 0 without a shed"
+}
+
 /**
  * Test the parser for a Machine Clone
  */

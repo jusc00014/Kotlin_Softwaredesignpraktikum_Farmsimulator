@@ -174,6 +174,7 @@ class FarmHandler(
         }
         val commonFields = sowFields.intersect(sowableFields[toSow].orEmpty().toSet()).toMutableSet()
         for (field in commonFields) {
+            field as Field
             if (field.id in finishedFields) {
                 continue
             }

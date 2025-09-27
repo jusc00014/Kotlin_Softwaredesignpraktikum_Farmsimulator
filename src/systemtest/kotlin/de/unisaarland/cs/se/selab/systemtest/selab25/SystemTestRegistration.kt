@@ -11,6 +11,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreation
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestOverlapping
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestOverlappingDifferentTicks
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTestChained
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTestCrossCloudCreation
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTestNextToForest
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.MachineTravelTest
@@ -54,6 +55,7 @@ object SystemTestRegistration {
         testSuite.registerTest(MachineTravelTest())
         testSuite.registerTest(Onefieldtestshouldsow())
         testSuite.registerTest(SwissArmyKnife())
+        testSuite.registerTest(VillageCreationTestChained())
     }
 
     /**

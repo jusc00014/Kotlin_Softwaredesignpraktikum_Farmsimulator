@@ -47,27 +47,12 @@ object SystemTestRegistration {
         testSuite.registerTest(CloudyVillage())
         testSuite.registerTest(TwinClouds())
         // endregion ParserTests
-        testSuite.registerTest(CloudCreationTest())
-        testSuite.registerTest(CloudCreationTestOverlapping())
-        testSuite.registerTest(CloudCreationTestOverlappingDifferentTicks())
         testSuite.registerTest(Onefieldtest())
         testSuite.registerTest(BigCloudTest())
         testSuite.registerTest(Onefieldtestshouldsow())
-        testSuite.registerTest(CloudCreationTestLargeRadius())
-        testSuite.registerTest(CloudCreationTestNoTileToAffect())
-        testSuite.registerTest(VillageCreationTest())
-        testSuite.registerTest(VillageCreationTestNextToForest())
-        testSuite.registerTest(VillageCreationTestCrossCloudCreation())
         testSuite.registerTest(MachineTravelTest())
-        testSuite.registerTest(CloudTestSmall())
         testSuite.registerTest(Onefieldtestshouldsow())
-        testSuite.registerTest(CloudCreationTestLargeRadius())
-        testSuite.registerTest(CloudCreationTestNoTileToAffect())
-        testSuite.registerTest(VillageCreationTest())
-        testSuite.registerTest(VillageCreationTestNextToForest())
-        testSuite.registerTest(VillageCreationTestCrossCloudCreation())
         testSuite.registerTest(SwissArmyKnife())
-        testSuite.registerTest(CloudTestIllRemain())
     }
 
     /**
@@ -90,5 +75,11 @@ object SystemTestRegistration {
      */
     fun registerSystemTestsMutantSimulation(testSuite: SELab25TestSuite) {
         testSuite.registerTest(ExampleSystemTest())
+        testSuite.registerTest(CloudCreationTest())
+        testSuite.registerTest(CloudCreationTestOverlappingDifferentTicks())
+        testSuite.registerTest(VillageCreationTest())
+        testSuite.registerTest(CloudCreationTestLargeRadius())
+        testSuite.registerTest(CloudTestSmall())
+        testSuite.registerTest(CloudTestIllRemain())
     }
 }

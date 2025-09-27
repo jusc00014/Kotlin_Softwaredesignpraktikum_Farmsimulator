@@ -85,5 +85,7 @@ object SystemTestRegistration {
         testSuite.registerTest(CloudTestSmall())
         testSuite.registerTest(CloudTestIllRemain())
         testSuite.registerTest(CloudTestImTired())
+        testSuite.registerTest(ClimateChange())
+        testSuite.registerTest(VillageCreationTestChained())
     }
 }

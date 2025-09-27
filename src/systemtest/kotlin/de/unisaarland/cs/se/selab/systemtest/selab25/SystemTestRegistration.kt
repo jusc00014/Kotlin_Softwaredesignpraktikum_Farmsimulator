@@ -62,7 +62,6 @@ object SystemTestRegistration {
      * Everything after 'Simulation start' works correctly
      */
     fun registerSystemTestsMutantValidation(testSuite: SELab25TestSuite) {
-        testSuite.registerTest(ExampleSystemTest())
         testSuite.registerTest(CloudCreationTestOverlapping())
         testSuite.registerTest(CloudCreationTestNoTileToAffect())
         testSuite.registerTest(VillageCreationTestNextToForest())
@@ -74,7 +73,6 @@ object SystemTestRegistration {
      * from the 'Simulation start' log onwards
      */
     fun registerSystemTestsMutantSimulation(testSuite: SELab25TestSuite) {
-        testSuite.registerTest(ExampleSystemTest())
         testSuite.registerTest(CloudCreationTest())
         testSuite.registerTest(CloudCreationTestOverlappingDifferentTicks())
         testSuite.registerTest(VillageCreationTest())

@@ -54,7 +54,6 @@ object SystemTestRegistration {
         testSuite.registerTest(MachineTravelTest())
         testSuite.registerTest(Onefieldtestshouldsow())
         testSuite.registerTest(SwissArmyKnife())
-        testSuite.registerTest(CloudTestImTired())
     }
 
     /**
@@ -81,5 +80,6 @@ object SystemTestRegistration {
         testSuite.registerTest(CloudCreationTestLargeRadius())
         testSuite.registerTest(CloudTestSmall())
         testSuite.registerTest(CloudTestIllRemain())
+        testSuite.registerTest(CloudTestImTired())
     }
 }

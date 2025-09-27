@@ -7,7 +7,7 @@ The "implemented components" column should only include major contributions to t
 
 | Member    | Implemented Components                                                                 | Testing Contributions                                                            | Additional Work    |
 |-----------|----------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|--------------------|
-| Julia     | Farms Package, PlantType, Coordinate, TileType                                         | FarmHandler, PathFinder, Drought, Sowing, Irrigating, Cloud Package, SystemTests |                    |
+| Julia     | Farms Package, PlantType, Coordinate, TileType                                         | FarmHandler, PathFinder, Drought, Sowing, Irrigating, Cloud Package, SystemTests | Dummy-classes      |
 | Christian | FarmParser, ScenarioParser, BoardHandler, Fertile, Field, Plantation, Incident Package | Plant, SystemTests                                                               |                    |
 | Julian    | Plant, PlantData, Main, ScenarioParser, BoardData, Simulator, PlantTile                | Fertile, SystemTests                                                             | Implementation Plan |
 | Leonard   | Logger, Cloud Package, CloudCreationIncident, CloudParsingValidation                   | BoardDataUnit, SystemTestCloudDebug, SystemTestsIncidents                        |                 |
@@ -29,8 +29,16 @@ For each student, this section should provide a detailed day-by-day timeline of 
 
 ### Julia
 
-- **Day 1:**
-- ...
+- **Day 0:** All dummy classes to get started + FarmHandler.assembleMachines (Tuesday+Wednesday)
+- **Day 1:** PathFinder.reachable, PathFinder.canContinue
+- **Day 2:** PathFinder.findNearestShed + FarmHandler.assembleSowableFields + FarmHandler.sow + FarmHandler.executeSowingPlan
+- **Weekend:** FarmHandler.performPrioritizedAction + FarmHandler.continueWithHarvesting + FarmHandler.nextField + FarmHandler.PerformNonPriorizedActions
+- **Day 3:** Fix in FarmHandler irrigating to continue with plantations after fields + debugging detect-mistakes in Farm-Package
+- **Day 4:** Unit and integration Tests for Pathfinder and BoardHandler.Neigbor + Unit test and fixes for sowing fields
+- **Day 5:** Testing and fixes for irrigating + OneField-System test and fixes in fertile
+- **Day 6:** Test and debugging for drought-incident and following actions
+- **Day 7:** Unit tests for Cloud-Handler + debugging of given farm-Tests + Fix of System tests after logger was fixes
+- **Weekend:** Integration test for AnimalAttack-incident and HarvestEstimate
 
 ### Christian
 
@@ -72,8 +80,8 @@ For each student, this section should provide a detailed day-by-day timeline of 
 ## Usage of Generative AI
 
 **Julia:**
-- ChatGPT (GPT-5): Debugging
-- Copilot (GPT-5): Debugging + Code Completion
+- ChatGPT (GPT-5): Debugging and research
+- Copilot (GPT-5): Debugging
 
 **Christian:**
 - ChatGPT (GPT-5): Research on how things work, e.g. how lateinit works

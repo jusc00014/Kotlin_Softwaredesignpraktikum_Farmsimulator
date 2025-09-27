@@ -49,7 +49,19 @@ For each student, this section should provide a detailed day-by-day timeline of 
 
 ### Leonard
 
-- ...
+- **Thursday:** FolderStruct & CloudPackageSkeleton & CloudDataLogic & CloudCreationIncident & CloudHandlerPartialLogic main WorkFlow aka Iteration and acting/ all without LoggerCalls
+- **Friday:** Adding LoggerCalls to Clouds & Imp Rain & SingleMovement Logic & Adjustments for Dissipation & DetektIntegration & PostMovementFunc & Commenting & LoggerPrintingLogic
+- **Weekend:** LoggerImplementation & Formatting
+- **Monday:** LoggerStatisticsStoringLogic & further DetektFormatting & CloudParsingValidationLogic & BugFixIncidentParsing & cloudLogicSmallFixes
+- **Tuesday:** LoggerFixes & LoggerFarmInitRework & BoardDataUnitTests & CloudParserDebug(InputFix)
+- **Wednesday:** First SystemTests for Incidents & Small Logical Adjustments
+- **Thursday:** More SystemTests & SystemTest assertFix
+- **Friday:** SystemTestClouds for debug
+- **Weekend:** New SystemTests & MutantRegis/Finding & ImplementationReport
+- **Monday:**
+- **Tuesday:**
+- **Wednesday:**
+- **Thursday:**
 
 ### Laurenz
 

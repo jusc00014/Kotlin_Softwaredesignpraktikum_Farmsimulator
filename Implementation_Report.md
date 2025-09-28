@@ -38,7 +38,7 @@ For each student, this section should provide a detailed day-by-day timeline of 
 - **Day 5:** Testing and fixes for irrigating + OneField-System test and fixes in fertile
 - **Day 6:** Test and debugging for drought-incident and following actions
 - **Day 7:** Unit tests for Cloud-Handler + debugging of given farm-Tests + Fix of System tests after logger was fixes
-- **Weekend:** Integration test for AnimalAttack-incident and HarvestEstimate
+- **Weekend:** Integration test for AnimalAttack-incident and HarvestEstimate, Unit Test for BeeHappy, OneFieldTestTrial
 
 ### Christian
 

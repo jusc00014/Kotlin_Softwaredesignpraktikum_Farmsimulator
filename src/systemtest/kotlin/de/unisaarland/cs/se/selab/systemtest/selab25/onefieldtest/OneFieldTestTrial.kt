@@ -11,6 +11,10 @@ private object Logs {
         "[INFO] Soil Moisture: The soil moisture is below threshold in 1 FIELD and 0 PLANTATION tiles."
     const val IRRIGATION =
         "[IMPORTANT] Farm Action: Machine 1 performs IRRIGATING on tile 38 for 10 days."
+    const val mapp = "onefieldtest/map.json"
+    const val scenarioo = "onefieldtest/scenario.json"
+    const val farmss = "onefieldtest/farms.json"
+    const val debu = "DEBUG"
 }
 
 /**
@@ -18,13 +22,13 @@ private object Logs {
  */
 class OneFieldTestTrialMoisture : TestExtension() {
     override val name = "OneFieldTestTrialMoisture"
-    override val description = "Tests if expected results are wrong"
+    override val description = "Tests moisture after drought"
 
-    override val farms = "onefieldtest/farms.json"
-    override val scenario = "onefieldtest/scenario.json"
-    override val map = "onefieldtest/map.json"
+    override val farms = Logs.farmss
+    override val scenario = Logs.scenarioo
+    override val map = Logs.mapp
 
-    override val logLevel = "DEBUG"
+    override val logLevel = Logs.debu
     override val maxTicks = 2
     override val startYearTick = 19
 
@@ -41,13 +45,13 @@ class OneFieldTestTrialMoisture : TestExtension() {
  */
 class OneFieldTestTrialSowingTime18 : TestExtension() {
     override val name = "OneFieldTestTrialSowingTime18"
-    override val description = "Tests if expected results are wrong"
+    override val description = "Tests sowing WHEAT at 18"
 
-    override val farms = "onefieldtest/farms.json"
-    override val scenario = "onefieldtest/scenario.json"
-    override val map = "onefieldtest/map.json"
+    override val farms = Logs.farmss
+    override val scenario = Logs.scenarioo
+    override val map = Logs.mapp
 
-    override val logLevel = "DEBUG"
+    override val logLevel = Logs.debu
     override val maxTicks = 2
     override val startYearTick = 18
 
@@ -57,15 +61,18 @@ class OneFieldTestTrialSowingTime18 : TestExtension() {
     }
 }
 
+/**
+ * Test of the expected results
+ */
 class OneFieldTestTrialSowingTime19 : TestExtension() {
     override val name = "OneFieldTestTrialSowingTime19"
-    override val description = "Tests if expected results are wrong"
+    override val description = "Tests sowing WHEAT at 19"
 
-    override val farms = "onefieldtest/farms.json"
-    override val scenario = "onefieldtest/scenario.json"
-    override val map = "onefieldtest/map.json"
+    override val farms = Logs.farmss
+    override val scenario = Logs.scenarioo
+    override val map = Logs.mapp
 
-    override val logLevel = "DEBUG"
+    override val logLevel = Logs.debu
     override val maxTicks = 2
     override val startYearTick = 19
 
@@ -75,15 +82,18 @@ class OneFieldTestTrialSowingTime19 : TestExtension() {
     }
 }
 
+/**
+ * Test of the expected results
+ */
 class OneFieldTestTrialSowingTime20 : TestExtension() {
     override val name = "OneFieldTestTrialSowingTime20"
-    override val description = "Tests if expected results are wrong"
+    override val description = "Tests Sowing WHEAT at 20"
 
-    override val farms = "onefieldtest/farms.json"
-    override val scenario = "onefieldtest/scenario.json"
-    override val map = "onefieldtest/map.json"
+    override val farms = Logs.farmss
+    override val scenario = Logs.scenarioo
+    override val map = Logs.mapp
 
-    override val logLevel = "DEBUG"
+    override val logLevel = Logs.debu
     override val maxTicks = 2
     override val startYearTick = 20
 
@@ -93,15 +103,18 @@ class OneFieldTestTrialSowingTime20 : TestExtension() {
     }
 }
 
+/**
+ * Test of the expected results
+ */
 class OneFieldTestTrialIrrigatingAfterDrought : TestExtension() {
     override val name = "OneFieldTestTrialIrrigatingAfterDrought"
-    override val description = "Tests if expected results are wrong"
+    override val description = "Tests irrigating after drought"
 
-    override val farms = "onefieldtest/farms.json"
-    override val scenario = "onefieldtest/scenario.json"
-    override val map = "onefieldtest/map.json"
+    override val farms = Logs.farmss
+    override val scenario = Logs.scenarioo
+    override val map = Logs.mapp
 
-    override val logLevel = "DEBUG"
+    override val logLevel = Logs.debu
     override val maxTicks = 2
     override val startYearTick = 19
 
@@ -113,4 +126,3 @@ class OneFieldTestTrialIrrigatingAfterDrought : TestExtension() {
         assertCurrentLine(Logs.IRRIGATION)
     }
 }
-

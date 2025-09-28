@@ -92,15 +92,15 @@ class BigCloudTest : TestExtension() {
         "[INFO] Cloud Dissipation: Cloud 9 dissipates on tile 2."
 
     val expectedLineSecondTick1stMove =
-        "[INFO] Cloud Movement: Cloud 7 with 4950 L water moved from tile 8 to tile 11."
-    val expectedLineSecondTick2ndMove =
         "[INFO] Cloud Movement: Cloud 7 with 4950 L water moved from tile 11 to tile 10."
+    val expectedLineSecondTick2ndMove =
+        "[INFO] Cloud Movement: Cloud 7 with 4950 L water moved from tile 10 to tile 7."
     val expectedLineSecondTickSunlightReduction =
         "[DEBUG] Cloud Movement: On tile 11, the amount of sunlight is 95."
     val expectedLineSecondTick3rdMove =
-        "[INFO] Cloud Movement: Cloud 7 with 4950 L water moved from tile 10 to tile 7."
-    val expectedLineSecondTick4thMove =
         "[INFO] Cloud Movement: Cloud 7 with 4950 L water moved from tile 7 to tile 8."
+    val expectedLineSecondTick4thMove =
+        "[INFO] Cloud Movement: Cloud 7 with 4950 L water moved from tile 8 to tile 11."
     val expectedLineSecondTick2ndSunlightReduction =
         "[DEBUG] Cloud Movement: On tile 11, the amount of sunlight is 92."
     val expectedLineLastSunlightReduction =
@@ -119,6 +119,7 @@ class BigCloudTest : TestExtension() {
         assertNextLine(expectedLineCloud1SecondMove)
         assertNextLine(expectedLineCloud1ThirdMove)
         assertNextLine(expectedLineCloud1FirstSunlightReduction)
+        assertNextLine(expectedLineCloud1FourthMove)
         assertNextLine(expectedLineCloud1FirstMove)
         assertNextLine(expectedLineCloud1SecondMove)
 
@@ -161,17 +162,16 @@ class BigCloudTest : TestExtension() {
 
         skipUntilLogType(LogLevel.INFO, CLOUD_MOVEMENT)
         assertNextLine(expectedLineSecondTick1stMove)
-        assertNextLine(expectedLineSecondTick2ndMove)
         assertNextLine(expectedLineSecondTickSunlightReduction)
+        assertNextLine(expectedLineSecondTick2ndMove)
         assertNextLine(expectedLineSecondTick3rdMove)
         assertNextLine(expectedLineSecondTick4thMove)
         assertNextLine(expectedLineSecondTick1stMove)
-        assertNextLine(expectedLineSecondTick2ndMove)
         assertNextLine(expectedLineSecondTick2ndSunlightReduction)
+        assertNextLine(expectedLineSecondTick2ndMove)
         assertNextLine(expectedLineSecondTick3rdMove)
         assertNextLine(expectedLineSecondTick4thMove)
         assertNextLine(expectedLineSecondTick1stMove)
-        assertNextLine(expectedLineSecondTick2ndMove)
         assertNextLine(expectedLineLastSunlightReduction)
         assertNextLine(expectedLineDissipation)
     }

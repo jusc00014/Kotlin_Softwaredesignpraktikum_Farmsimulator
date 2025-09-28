@@ -14,6 +14,11 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreation
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestNoTileToAffect
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestOverlapping
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestOverlappingDifferentTicks
+import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.InvalidAnimalAttackTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.InvalidBeeHappyTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.InvalidBrokenMachineTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.InvalidCityExpansionNoFieldLeftTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.InvalidDroughtTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTestChained
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTestCrossCloudCreation
@@ -71,6 +76,11 @@ object SystemTestRegistration {
         testSuite.registerTest(OneFieldTestTrialIrrigatingAfterDrought())
         testSuite.registerTest(BigCloudTestFirstTick())
         testSuite.registerTest(BigCloudTestSecondTick())
+        testSuite.registerTest(InvalidAnimalAttackTest())
+        testSuite.registerTest(InvalidBeeHappyTest())
+        testSuite.registerTest(InvalidBrokenMachineTest())
+        testSuite.registerTest(InvalidCityExpansionNoFieldLeftTest())
+        testSuite.registerTest(InvalidDroughtTest())
     }
 
     /**

@@ -1,0 +1,22 @@
+{
+  "farms": [
+    {
+      "id": 0,
+      "name": "Farm with a lot of problems",
+      "farmsteads": [4],
+      "fields": [1],
+      "plantations": [],
+      "machines": [
+        {
+          "id": 333,
+          "name": "Machine which is trying its best",
+          "actions": ["SOWING", "MOWING", "WEEDING", "CUTTING", "HARVESTING", "IRRIGATING"],
+          "plants": ["POTATO", "OAT", "WHEAT", "PUMPKIN", "ALMOND", "APPLE", "GRAPE", "CHERRY"],
+          "duration": 8,
+          "location": 4
+        }
+      ],
+      "sowingPlans": []
+    }
+  ]
+}

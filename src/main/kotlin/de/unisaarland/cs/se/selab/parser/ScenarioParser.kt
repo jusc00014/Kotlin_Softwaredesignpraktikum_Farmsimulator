@@ -149,6 +149,7 @@ class ScenarioParser {
         requireNotNull(tile) { "[AnimalAttack $id] Invalid location: $location" }
         val tiles = board.neighbors(radius, tile)
         val forestTiles = tiles.filter { it.type == TileType.FOREST }
+        require(forestTiles.isNotEmpty(), { "[AnimalAttack $id] No forest tiles in radius" })
         val affectedTiles = mutableSetOf<Tile>()
         for (forest in forestTiles) {
             affectedTiles.addAll(
@@ -170,6 +171,7 @@ class ScenarioParser {
         requireNotNull(tile) { "[Bee Happy $id] Invalid location: $location" }
         val tiles = board.neighbors(radius, tile)
         val meadowTiles = tiles.filter { it.type == TileType.MEADOW }
+        require(meadowTiles.isNotEmpty(), { "[BeeHappy $id] No meadow tiles in radius" })
         val affectedTiles = mutableSetOf<Tile>()
         for (meadow in meadowTiles) {
             affectedTiles.addAll(
@@ -289,6 +291,13 @@ class ScenarioParser {
                     sowingPlan.fields.any { (tilesModified[it] ?: board.getTileById(it)?.type) == TileType.FIELD }
                 ) {
                     "[SowingPlan ${sowingPlan.id}] No field in tiles at end of Simulation"
+                }
+            }
+            if (farm.plantages.isEmpty()) {
+                require(
+                    farm.fields.any { (tilesModified[it] ?: board.getTileById(it)?.type) == TileType.FIELD }
+                ) {
+                    "[Farm ${farm.id}] No fields or plantations left for farm after all city expansions."
                 }
             }
         }

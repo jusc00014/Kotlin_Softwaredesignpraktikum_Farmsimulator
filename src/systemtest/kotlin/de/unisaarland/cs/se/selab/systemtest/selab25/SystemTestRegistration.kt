@@ -6,6 +6,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.ClimateChange
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.CloudTestIllRemain
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.CloudTestImTired
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.CloudTestSmall
+import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.Floodgates
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestLargeRadius
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestNoTileToAffect
@@ -56,6 +57,7 @@ object SystemTestRegistration {
         testSuite.registerTest(MachineTravelTest())
         testSuite.registerTest(Onefieldtestshouldsow())
         testSuite.registerTest(SwissArmyKnife())
+        testSuite.registerTest(Floodgates())
     }
 
     /**
@@ -85,5 +87,6 @@ object SystemTestRegistration {
         testSuite.registerTest(CloudTestImTired())
         testSuite.registerTest(ClimateChange())
         testSuite.registerTest(VillageCreationTestChained())
+        testSuite.registerTest(Floodgates())
     }
 }

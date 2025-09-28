@@ -3,16 +3,10 @@ package de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests
 import de.unisaarland.cs.se.selab.systemtest.selab25.utils.LogLevel
 import de.unisaarland.cs.se.selab.systemtest.selab25.utils.TestExtension
 
-const val CLOUD1_MOVES = "[INFO] Cloud Movement: Cloud 1 with 2050 L water moved from tile "
-const val CLOUD_MOVEMENT = "Cloud Movement"
-const val CLOUD_UNION = "Cloud Union"
-const val CLOUD_RAIN = "Cloud Rain"
-const val CLOUD_DISSIPATION = "Cloud Dissipation"
-
 /**
  * tests cloud behavior outside of incidents */
-class BigCloudTest : TestExtension() {
-    override val name = "BigCloudTest"
+class BigCloudTestFirstTick : TestExtension() {
+    override val name = "BigCloudTest1"
     override val description = "Tests 2 ticks of everything clouds do (except incidents)"
 
     override val map = "bigCloudTest/bigCloudTestMap.json"
@@ -90,24 +84,6 @@ class BigCloudTest : TestExtension() {
         "[IMPORTANT] Cloud Rain: Cloud 9 on tile 2 rained down 10830 L water."
     val expectedLineCloud9Dissipates =
         "[INFO] Cloud Dissipation: Cloud 9 dissipates on tile 2."
-
-    val expectedLineSecondTick1stMove =
-        "[INFO] Cloud Movement: Cloud 7 with 4950 L water moved from tile 11 to tile 10."
-    val expectedLineSecondTick2ndMove =
-        "[INFO] Cloud Movement: Cloud 7 with 4950 L water moved from tile 10 to tile 7."
-    val expectedLineSecondTickSunlightReduction =
-        "[DEBUG] Cloud Movement: On tile 11, the amount of sunlight is 95."
-    val expectedLineSecondTick3rdMove =
-        "[INFO] Cloud Movement: Cloud 7 with 4950 L water moved from tile 7 to tile 8."
-    val expectedLineSecondTick4thMove =
-        "[INFO] Cloud Movement: Cloud 7 with 4950 L water moved from tile 8 to tile 11."
-    val expectedLineSecondTick2ndSunlightReduction =
-        "[DEBUG] Cloud Movement: On tile 11, the amount of sunlight is 92."
-    val expectedLineLastSunlightReduction =
-        "[DEBUG] Cloud Movement: On tile 11, the amount of sunlight is 89."
-    val expectedLineDissipation =
-        "[INFO] Cloud Dissipation: Cloud 7 dissipates on tile 10."
-
     override suspend fun run() {
         skipUntilLogType(LogLevel.INFO, CLOUD_MOVEMENT)
         assertCurrentLine(expectedLineCloud1FirstMove)
@@ -159,7 +135,42 @@ class BigCloudTest : TestExtension() {
 
         assertNextLine(expectedLineCloud9RainAll)
         assertNextLine(expectedLineCloud9Dissipates)
+    }
+}
 
+/**
+ * tests cloud behavior outside of incidents */
+class BigCloudTestSecondTick : TestExtension() {
+    override val name = "BigCloudTest2"
+    override val description = "Tests 2 ticks of everything clouds do (except incidents)"
+
+    override val map = "bigCloudTest/bigCloudTestMap.json"
+    override val farms = "bigCloudTest/bigCloudTestFarms.json"
+    override val scenario = "bigCloudTest/bigCloudTestScenario.json"
+
+    override val logLevel = "DEBUG"
+    override val maxTicks = 2
+    override val startYearTick = 1
+
+    val expectedLineSecondTick1stMove =
+        "[INFO] Cloud Movement: Cloud 7 with 4950 L water moved from tile 11 to tile 10."
+    val expectedLineSecondTick2ndMove =
+        "[INFO] Cloud Movement: Cloud 7 with 4950 L water moved from tile 10 to tile 7."
+    val expectedLineSecondTickSunlightReduction =
+        "[DEBUG] Cloud Movement: On tile 11, the amount of sunlight is 95."
+    val expectedLineSecondTick3rdMove =
+        "[INFO] Cloud Movement: Cloud 7 with 4950 L water moved from tile 7 to tile 8."
+    val expectedLineSecondTick4thMove =
+        "[INFO] Cloud Movement: Cloud 7 with 4950 L water moved from tile 8 to tile 11."
+    val expectedLineSecondTick2ndSunlightReduction =
+        "[DEBUG] Cloud Movement: On tile 11, the amount of sunlight is 92."
+    val expectedLineLastSunlightReduction =
+        "[DEBUG] Cloud Movement: On tile 11, the amount of sunlight is 89."
+    val expectedLineDissipation =
+        "[INFO] Cloud Dissipation: Cloud 7 dissipates on tile 10."
+
+    override suspend fun run() {
+        skipUntilLogType(LogLevel.INFO, "Simulation Info: Tick 1")
         skipUntilLogType(LogLevel.INFO, CLOUD_MOVEMENT)
         assertNextLine(expectedLineSecondTick1stMove)
         assertNextLine(expectedLineSecondTickSunlightReduction)

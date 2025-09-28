@@ -2,6 +2,8 @@ package de.unisaarland.cs.se.selab.systemtest.selab25
 
 import de.unisaarland.cs.se.selab.systemtest.selab25.basictests.ExampleSystemTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.BigCloudTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.BigCloudTestFirstTick
+import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.BigCloudTestSecondTick
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.ClimateChange
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.CloudTestIllRemain
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.CloudTestImTired
@@ -67,6 +69,8 @@ object SystemTestRegistration {
         testSuite.registerTest(OneFieldTestTrialSowingTime19())
         testSuite.registerTest(OneFieldTestTrialSowingTime20())
         testSuite.registerTest(OneFieldTestTrialIrrigatingAfterDrought())
+        testSuite.registerTest(BigCloudTestFirstTick())
+        testSuite.registerTest(BigCloudTestSecondTick())
     }
 
     /**

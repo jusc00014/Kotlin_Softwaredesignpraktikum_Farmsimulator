@@ -190,7 +190,8 @@ class FarmHandler(
             delete.add(plan)
             var remainingTime = TICKTIME - 2 * machine.duration
             var currentField: Fertile = field
-            while (remainingTime >= 0 && commonFields.isNotEmpty()) {
+            val plantsToActOn = commonFields.filter { it.id !in finishedFields }.toMutableSet()
+            while (remainingTime >= 0 && plantsToActOn.isNotEmpty()) {
                 currentField = nextField(
                     Action.SOWING,
                     toSow,
@@ -207,6 +208,7 @@ class FarmHandler(
                 Logger.machineSowed(machine.id, toSow, plan.id)
                 finishedFields[currentField.id] = currentField
                 remainingTime -= machine.duration
+                plantsToActOn.remove(currentField)
             }
             Logger.machineFinished(machine.id, machine.location.id)
         }

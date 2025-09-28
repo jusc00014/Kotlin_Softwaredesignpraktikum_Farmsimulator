@@ -18,6 +18,11 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreati
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTestNextToForest
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.MachineTravelTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.mutant.SwissArmyKnife
+import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialIrrigatingAfterDrought
+import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialMoisture
+import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialSowingTime18
+import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialSowingTime19
+import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialSowingTime20
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.Onefieldtest
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.Onefieldtestshouldsow
 
@@ -55,9 +60,13 @@ object SystemTestRegistration {
         testSuite.registerTest(BigCloudTest())
         testSuite.registerTest(Onefieldtestshouldsow())
         testSuite.registerTest(MachineTravelTest())
-        testSuite.registerTest(Onefieldtestshouldsow())
         testSuite.registerTest(SwissArmyKnife())
         testSuite.registerTest(Floodgates())
+        testSuite.registerTest(OneFieldTestTrialMoisture())
+        testSuite.registerTest(OneFieldTestTrialSowingTime18())
+        testSuite.registerTest(OneFieldTestTrialSowingTime19())
+        testSuite.registerTest(OneFieldTestTrialSowingTime20())
+        testSuite.registerTest(OneFieldTestTrialIrrigatingAfterDrought())
     }
 
     /**

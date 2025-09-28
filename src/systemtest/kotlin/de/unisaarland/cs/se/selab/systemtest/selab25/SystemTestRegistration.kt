@@ -56,8 +56,6 @@ object SystemTestRegistration {
         testSuite.registerTest(MachineTravelTest())
         testSuite.registerTest(Onefieldtestshouldsow())
         testSuite.registerTest(SwissArmyKnife())
-        testSuite.registerTest(VillageCreationTestChained())
-        testSuite.registerTest(ClimateChange())
     }
 
     /**

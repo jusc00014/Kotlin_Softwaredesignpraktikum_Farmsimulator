@@ -106,6 +106,69 @@ class OneFieldTestTrialSowingTime20 : TestExtension() {
 /**
  * Test of the expected results
  */
+class OneFieldTestTrialSowingTime21 : TestExtension() {
+    override val name = "OneFieldTestTrialSowingTime21"
+    override val description = "Tests sowing WHEAT at 21"
+
+    override val farms = Logs.farmss
+    override val scenario = Logs.scenarioo
+    override val map = Logs.mapp
+
+    override val logLevel = Logs.debu
+    override val maxTicks = 2
+    override val startYearTick = 21
+
+    override suspend fun run() {
+        skipUntilString(Logs.SOWING)
+        assertCurrentLine(Logs.SOWING)
+    }
+}
+
+/**
+ * Test of the expected results
+ */
+class OneFieldTestTrialSowingTime22 : TestExtension() {
+    override val name = "OneFieldTestTrialSowingTime22"
+    override val description = "Tests sowing WHEAT at 22"
+
+    override val farms = Logs.farmss
+    override val scenario = Logs.scenarioo
+    override val map = Logs.mapp
+
+    override val logLevel = Logs.debu
+    override val maxTicks = 2
+    override val startYearTick = 22
+
+    override suspend fun run() {
+        skipUntilString(Logs.SOWING)
+        assertCurrentLine(Logs.SOWING)
+    }
+}
+
+/**
+ * Test of the expected results
+ */
+class OneFieldTestTrialSowingTime17 : TestExtension() {
+    override val name = "OneFieldTestTrialSowingTime17"
+    override val description = "Tests Sowing WHEAT at 17"
+
+    override val farms = Logs.farmss
+    override val scenario = Logs.scenarioo
+    override val map = Logs.mapp
+
+    override val logLevel = Logs.debu
+    override val maxTicks = 2
+    override val startYearTick = 17
+
+    override suspend fun run() {
+        skipUntilString(Logs.SOWING)
+        assertCurrentLine(Logs.SOWING)
+    }
+}
+
+/**
+ * Test of the expected results
+ */
 class OneFieldTestTrialIrrigatingAfterDrought : TestExtension() {
     override val name = "OneFieldTestTrialIrrigatingAfterDrought"
     override val description = "Tests irrigating after drought"
@@ -123,5 +186,26 @@ class OneFieldTestTrialIrrigatingAfterDrought : TestExtension() {
         assertCurrentLine(Logs.DROUGHT)
         // skipUntilString(Logs.IRRIGATION)
         // assertCurrentLine(Logs.IRRIGATION)
+    }
+}
+
+/**
+ * Test of the expected results
+ */
+class OneFieldTestTrialIrrigating : TestExtension() {
+    override val name = "OneFieldTestTrialIrrigating"
+    override val description = "Tests irrigating"
+
+    override val farms = Logs.farmss
+    override val scenario = Logs.scenarioo
+    override val map = Logs.mapp
+
+    override val logLevel = Logs.debu
+    override val maxTicks = 2
+    override val startYearTick = 19
+
+    override suspend fun run() {
+        skipUntilString(Logs.IRRIGATION)
+        assertCurrentLine(Logs.IRRIGATION)
     }
 }

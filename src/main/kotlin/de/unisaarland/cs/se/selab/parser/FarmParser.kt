@@ -95,8 +95,9 @@ class FarmParser {
 
         val sowingPlansToValidate = json.getJSONArray("sowingPlans")
         val sowingPlans = parseSowingPlans(sowingPlansToValidate, board, maxTick, machines, farmId)
+        sowingPlans.sortedWith(compareBy({ it.tick }, { it.id }))
 
-        return Farm(farmId, farmsteads, fields, plantations, machines.map { it.id }, sowingPlans)
+        return Farm(farmId, farmsteads, fields, plantations, machines.map { it.id }.sorted(), sowingPlans)
     }
 
     private fun validateFarmIdAndName(

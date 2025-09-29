@@ -17,7 +17,6 @@ class CityExpansion(
     override fun execute() {
         affectedTile.type = TileType.VILLAGE
         Logger.incidentExecuted(id, this, listOf(affectedTile.id))
-        affectedTile.type = TileType.VILLAGE
         clouds.checkIfCloudOnNewVillage(affectedTile.id)
     }
     override fun toString(): String {

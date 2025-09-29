@@ -16,13 +16,8 @@ class BeeHappy(
 ) : Incident(id, tick) {
 
     override fun execute() {
-        val beeHappyTiles: MutableSet<Fertile> = mutableSetOf()
-        for (tile in affectedTiles) {
-            val maybeTile = tile.asFertile() ?: continue
-            beeHappyTiles.add(maybeTile)
-        }
-        val pollinatableTiles = beeHappyTiles.filter { it.plant.pollinateable(yearTick) }
-        pollinatableTiles.forEach { it.plant.addPollination(this) }
+        val pollinatableTiles = affectedTiles.filter { it.asFertile()?.plant?.pollinateable(yearTick) == true }
+        pollinatableTiles.forEach { if (it is Fertile) it.plant.addPollination(this) }
         Logger.incidentExecuted(id, this, pollinatableTiles.map { it.id }.sortedBy { it })
     }
     override fun toString(): String {

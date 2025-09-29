@@ -160,13 +160,14 @@ class FarmOrderTest {
         PlantType.OAT,
         listOf(2, 3, 4)
     )
+    val plans = listOf(plan1, plan2)
     val farm = Farm(
         1,
         listOf(5, 6, 7),
         listOf(1, 2, 3, 4),
         emptyList(),
         listOf(1, 2, 3),
-        mutableListOf(plan1, plan2)
+        plans.sortedWith(compareBy({ it.tick }, { it.id })).toMutableList()
     )
     private val mapParser = MapParser(mutableMapOf())
     private val plantData = mapParser.parse("src/systemtest/resources/example/map.json", 0).second
@@ -203,6 +204,7 @@ class FarmOrderTest {
             yearTick = yearTick,
             fertiles = fertiles
         )
-        assertTrue { finishedFields.isNotEmpty() }
+        val exp = finishedFields.keys
+        assertTrue { exp == setOf(2, 3, 4, 1) }
     }
 }

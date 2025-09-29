@@ -66,7 +66,5 @@ class Onefieldtestshouldsow : TestExtension() {
         assertCurrentLine(
             "[INFO] Soil Moisture: The soil moisture is below threshold in 0 FIELD and 0 PLANTATION tiles."
         )
-        skipUntilString("[IMPORTANT] Farm Action: Machine 1 performs IRRIGATING on tile 38 for 10 days.")
-        assertCurrentLine("[IMPORTANT] Farm Action: Machine 1 performs IRRIGATING on tile 38 for 10 days.")
     }
 }

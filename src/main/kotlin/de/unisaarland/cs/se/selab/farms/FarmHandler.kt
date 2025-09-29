@@ -328,7 +328,7 @@ class FarmHandler(
             }
             if (
                 !machineCanHandle(machine, fertile) ||
-                (action in setOf(Action.HARVESTING, Action.SOWING) && fertile.plant.type != currentPlantType)
+                (action == Action.HARVESTING && fertile.plant.type != currentPlantType)
             ) {
                 continue
             }

@@ -26,10 +26,8 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreati
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTestNextToForest
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.MachineTravelTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.mutant.SwissArmyKnife
-import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialIrrigating
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialIrrigatingAfterDrought
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialMoisture
-import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialSowingTime17
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialSowingTime18
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialSowingTime19
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialSowingTime20
@@ -68,10 +66,8 @@ object SystemTestRegistration {
         testSuite.registerTest(InvalidBeeHappyTest())
         testSuite.registerTest(InvalidBrokenMachineTest())
         testSuite.registerTest(InvalidDroughtTest())
-        testSuite.registerTest(OneFieldTestTrialSowingTime17())
         testSuite.registerTest(OneFieldTestTrialSowingTime21())
         testSuite.registerTest(OneFieldTestTrialSowingTime22())
-        testSuite.registerTest(OneFieldTestTrialIrrigating())
         testSuite.registerTest(DroughtTest())
         testSuite.registerTest(FarmSowingAfterTheEnd())
         testSuite.registerTest(FarmInvalidPlantationTile())

@@ -22,6 +22,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.InvalidDrough
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTestChained
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTestCrossCloudCreation
+import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTestCrossCloudValid
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTestNextToForest
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.MachineTravelTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.mutant.SwissArmyKnife
@@ -81,6 +82,7 @@ object SystemTestRegistration {
         testSuite.registerTest(InvalidBrokenMachineTest())
         testSuite.registerTest(InvalidCityExpansionNoFieldLeftTest())
         testSuite.registerTest(InvalidDroughtTest())
+        testSuite.registerTest(VillageCreationTestCrossCloudValid())
     }
 
     /**
@@ -111,5 +113,6 @@ object SystemTestRegistration {
         testSuite.registerTest(ClimateChange())
         testSuite.registerTest(VillageCreationTestChained())
         testSuite.registerTest(Floodgates())
+        testSuite.registerTest(VillageCreationTestCrossCloudValid())
     }
 }

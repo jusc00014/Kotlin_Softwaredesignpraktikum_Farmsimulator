@@ -76,6 +76,7 @@ object SystemTestRegistration {
         testSuite.registerTest(OneFieldTestTrialSowingTime22())
         testSuite.registerTest(OneFieldTestTrialIrrigating())
         testSuite.registerTest(DroughtTest())
+        testSuite.registerTest(OneFieldTestTrialMachineTakes20())
     }
 
     /**
@@ -109,7 +110,6 @@ object SystemTestRegistration {
         testSuite.registerTest(InvalidBeeHappyTest())
         testSuite.registerTest(InvalidBrokenMachineTest())
         testSuite.registerTest(InvalidDroughtTest())
-        testSuite.registerTest(OneFieldTestTrialMachineTakes20())
     }
 
     /**

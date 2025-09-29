@@ -8,10 +8,10 @@ import de.unisaarland.cs.se.selab.plants.PlantType
  */
 abstract class SimulationTestExtension(
     folder: String,
+    val mapFileName: String = "map.json",
+    val farmsFileName: String = "farms.json",
+    val scenarioFileName: String = "scenario.json",
 ) : TestExtension() {
-    open val mapFileName: String = "map.json"
-    open val farmsFileName: String = "farms.json"
-    open val scenarioFileName: String = "scenario.json"
     override val map: String = "$folder/$mapFileName"
     override val farms: String = "$folder/$farmsFileName"
     override val scenario: String = "$folder/$scenarioFileName"
@@ -41,4 +41,9 @@ abstract class SimulationTestExtension(
         "IMPORTANT] Farm Machine: Machine $machineID unloads $amount g of ${plant.name} harvest in the shed."
     protected fun farmFinishedActions(farmID: Int): String =
         "[IMPORTANT] Farm: Farm $farmID finished its actions."
+    protected fun incidentOccured(incidentID: Int, incidentType: String, tileIDs: List<Int>) =
+        "[IMPORTANT] Incident: Incident $incidentID of type $incidentType happened and affected tiles " +
+            "${formatArray(tileIDs.sortedBy { it })}."
+    protected fun harvestEstimate(tileID: Int, amount: Int, plant: PlantType) =
+        "[INFO] Harvest Estimate: Harvest estimate on tile $tileID changed to $amount g of ${plant.name}."
 }

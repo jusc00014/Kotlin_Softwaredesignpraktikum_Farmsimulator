@@ -14,6 +14,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreation
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestNoTileToAffect
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestOverlapping
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestOverlappingDifferentTicks
+import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.DroughtTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.InvalidAnimalAttackTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.InvalidBeeHappyTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.InvalidBrokenMachineTest
@@ -73,6 +74,7 @@ object SystemTestRegistration {
         testSuite.registerTest(OneFieldTestTrialSowingTime21())
         testSuite.registerTest(OneFieldTestTrialSowingTime22())
         testSuite.registerTest(OneFieldTestTrialIrrigating())
+        testSuite.registerTest(DroughtTest())
     }
 
     /**

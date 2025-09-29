@@ -29,7 +29,7 @@ class FarmParser {
 
     /**
      * parse called by main with farmFile and result of mapParser. Returns farms and machines or null if invalid file*/
-    fun parse(jsonFile: String, board: BoardData, maxTick: Int): Pair<List<Farm>, Map<Int, Machine>> {
+    fun parse(jsonFile: String, board: BoardData): Pair<List<Farm>, Map<Int, Machine>> {
         val schema = SchemaLoader.forURL("classpath://schema/farms.schema").load()
         // loads our farms.schema file as a schema
         val validator = Validator.forSchema(schema)
@@ -45,7 +45,7 @@ class FarmParser {
         // farmFile as JSONObject
         val farmsJson = json.getJSONArray("farms")
         // gets the array of farms
-        val farms = parseFarms(farmsJson, board, maxTick)
+        val farms = parseFarms(farmsJson, board)
         // the farms (at least one)
         val (fieldsByFarms, plantationsByFarm, farmsteadsByFarms) = createFieldMapByFarms(farms)
         validateFarmsOpinions(fieldsByFarms, plantationsByFarm, farmsteadsByFarms, board)
@@ -54,7 +54,7 @@ class FarmParser {
 
     /**
      * parses the farms*/
-    private fun parseFarms(json: JSONArray, board: BoardData, maxTick: Int): List<Farm> {
+    private fun parseFarms(json: JSONArray, board: BoardData): List<Farm> {
         val farms = mutableListOf<Farm>()
         val farmNames = mutableListOf<String>()
         val farmIds = mutableListOf<Int>()

@@ -48,7 +48,7 @@ fun main(args: Array<String>) {
     val machines: Map<Int, Machine>
     val farmFileName = File(data.farms).name
     try {
-        val farmData = farmParser.parse(data.farms, boardData, data.maxTick)
+        val farmData = farmParser.parse(data.farms, boardData)
         farms = farmData.first
         machines = farmData.second
     } catch (_: IllegalArgumentException) {

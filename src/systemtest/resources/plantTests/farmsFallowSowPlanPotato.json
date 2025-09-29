@@ -1,0 +1,35 @@
+{
+  "farms": [
+    {
+      "id": 0,
+      "name": "F0",
+      "farmsteads": [0],
+      "fields": [1],
+      "plantations": [],
+      "machines": [
+        {
+          "id": 0,
+          "name": "M0",
+          "actions": ["SOWING", "HARVESTING"],
+          "plants": ["POTATO"],
+          "duration": 1,
+          "location": 0
+        }
+      ],
+      "sowingPlans": [
+        {
+          "id": 0,
+          "tick": 0,
+          "plant": "POTATO",
+          "fields": [1]
+        },
+        {
+          "id": 1,
+          "tick": 1,
+          "plant": "POTATO",
+          "fields": [1]
+        }
+      ]
+    }
+  ]
+}

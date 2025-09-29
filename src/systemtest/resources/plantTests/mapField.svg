@@ -1,0 +1,38 @@
+<svg height="530" width="470" xmlns="http://www.w3.org/2000/svg">
+
+    <defs>
+        <polygon id="Octagon" points="100,41 41,100 -41,100 -100,41 -100,-41 -41,-100 41,-100 100,-41" />
+        <polygon id="Diamond" points="0,58 58,0 0,-58 -58,0" />
+        
+        <g id="ColorTable">
+            <rect width="135" height="210" fill="white" />
+            <text x="30" y="20">FARMSTEAD</text>
+            <rect x="5" y="5" fill="#D9AE82" width="20" height="20" stroke-width="1" stroke="black" />
+
+            <text x="30" y="50">FIELD</text>
+            <rect x="5" y="35" fill="#C9DB70" width="20" height="20" stroke-width="1" stroke="black" />
+
+            <text x="30" y="80">MEADOW</text>
+            <rect x="5" y="65" fill="#A9EE81" width="20" height="20" stroke-width="1" stroke="black" />
+
+            <text x="30" y="110">PLANTATION</text>
+            <rect x="5" y="95" fill="#4B9A47" width="20" height="20" stroke-width="1" stroke="black" />
+
+            <text x="30" y="140">FOREST</text>
+            <rect x="5" y="125" fill="#07641E" width="20" height="20" stroke-width="1" stroke="black" />
+            
+            <text x="30" y="170">ROAD</text>
+            <rect x="5" y="155" fill="#A1A1A1" width="20" height="20" stroke-width="1" stroke="black" />
+            
+            <text x="30" y="200">VILLAGE</text>
+            <rect x="5" y="185" fill="#970C18" width="20" height="20" stroke-width="1" stroke="black" />
+        </g>
+    </defs>
+    <use x="100" y="100" href="#Diamond" fill="#D9AE82" />
+    <text x="88" y="93">ID: 0</text>
+    <text x="83" y="107">(-1,-1)</text>
+    <use x="200" y="200" href="#Octagon" fill="#C9DB70" />
+    <text x="188" y="193">ID: 1</text>
+    <text x="188" y="207">(0,0)</text>
+    <use x="310" y="310" href="#ColorTable" />
+</svg>

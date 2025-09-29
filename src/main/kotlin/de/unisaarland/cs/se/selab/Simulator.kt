@@ -6,6 +6,7 @@ import de.unisaarland.cs.se.selab.clouds.CloudHandler
 import de.unisaarland.cs.se.selab.farms.FarmHandler
 import de.unisaarland.cs.se.selab.incidents.IncidentHandler
 import de.unisaarland.cs.se.selab.logger.Logger
+import kotlin.math.max
 
 /**
  * Heart of the Simulation
@@ -34,7 +35,7 @@ class Simulator(
             boardHandler.computeEstimate(yearTick, boardData)
             yearTick = (yearTick % YEAR_TICK_MAX) + 1
         }
-        Logger.simulationEnded(maxTick)
+        Logger.simulationEnded(max(maxTick - 1, 0))
         Logger.statisticCalculated()
         val amount = boardData.getFertiles().values.sumOf { it.plant.getHarvestEstimate() }
         Logger.totalEstimateFertile(amount)

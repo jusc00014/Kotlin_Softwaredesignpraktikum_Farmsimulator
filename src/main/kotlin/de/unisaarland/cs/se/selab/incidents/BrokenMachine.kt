@@ -10,7 +10,11 @@ class BrokenMachine(id: Int, tick: Int, private val duration: Int, private val m
 
     override fun execute() {
         if (duration > 0) {
-            machine.brokenFor = max(machine.brokenFor, duration)
+            machine.brokenFor = if (machine.brokenFor == -1) {
+                -1
+            } else {
+                max(machine.brokenFor, duration)
+            }
         } else {
             machine.brokenFor = -1
         }

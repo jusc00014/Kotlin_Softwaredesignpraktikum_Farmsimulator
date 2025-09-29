@@ -36,15 +36,15 @@ class MapParser(
         const val DIRECTION = "direction"
         const val CAPACITY = "capacity"
         const val PLANT = "plant"
-        const val POSSIBLEPLANTS = "possiblePlants"
+        const val POSSIBLE_PLANTS = "possiblePlants"
         const val SHED = "shed"
-        var farmsteadInvalidKeys = setOf(CAPACITY, PLANT, POSSIBLEPLANTS)
+        var farmsteadInvalidKeys = setOf(CAPACITY, PLANT, POSSIBLE_PLANTS)
         val fieldInvalidKeys = setOf(PLANT, SHED)
-        val forestInvalidKeys = setOf(FARM, CAPACITY, PLANT, POSSIBLEPLANTS, SHED)
-        val meadowInvalidKeys = setOf(FARM, CAPACITY, PLANT, POSSIBLEPLANTS, SHED)
-        val plantationInvalidKeys = setOf(POSSIBLEPLANTS, SHED)
-        val roadInvalidKeys = setOf(FARM, CAPACITY, PLANT, POSSIBLEPLANTS, SHED)
-        val villageInvalidKeys = setOf(FARM, AIRFLOW, CAPACITY, PLANT, POSSIBLEPLANTS, SHED)
+        val forestInvalidKeys = setOf(FARM, CAPACITY, PLANT, POSSIBLE_PLANTS, SHED)
+        val meadowInvalidKeys = setOf(FARM, CAPACITY, PLANT, POSSIBLE_PLANTS, SHED)
+        val plantationInvalidKeys = setOf(POSSIBLE_PLANTS, SHED)
+        val roadInvalidKeys = setOf(FARM, CAPACITY, PLANT, POSSIBLE_PLANTS, SHED)
+        val villageInvalidKeys = setOf(FARM, AIRFLOW, CAPACITY, PLANT, POSSIBLE_PLANTS, SHED)
     }
     val coordList: MutableList<Coordinate> = mutableListOf()
 

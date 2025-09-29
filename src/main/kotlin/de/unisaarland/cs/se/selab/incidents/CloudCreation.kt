@@ -20,10 +20,9 @@ class CloudCreation(
 ) : Incident(id, tick) {
     //
     override fun execute() {
-        val tileIds = mutableListOf<Int>()
-        tiles.forEach { if (it.type != TileType.VILLAGE) tileIds.add(it.id) }
-        Logger.incidentExecuted(id, this, tileIds)
-        for (tile in tiles) {
+        val affected = tiles.filter { it.type != TileType.VILLAGE }
+        Logger.incidentExecuted(id, this, affected.map { it.id })
+        for (tile in affected) {
             val newCloud = cloudData.createCloud(duration, amount, tile.id, STEP_DEFAULT)
             cloudData.mergeIfNecessary(newCloud)
         }

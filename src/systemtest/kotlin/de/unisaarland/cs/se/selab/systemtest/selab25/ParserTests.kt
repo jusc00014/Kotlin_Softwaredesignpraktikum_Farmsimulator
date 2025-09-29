@@ -192,6 +192,47 @@ class FarmSplitCustody : ParserTest(
 ) {
     override val description: String = "Farms with shared Farmstead"
 }
+
+/**
+ * SowingPlan after maxTick
+ */
+class FarmSowingAfterTheEnd : ParserTest(
+    ParserFile.FARMS,
+    mapFileName = "mapWField.json",
+    farmsFileName = "farmsSowingAfterTheEnd.json",
+) {
+    override val description: String = "SowingPlan after maxTick"
+}
+
+/**
+ * Invalid Plantation Tile
+ */
+class FarmInvalidPlantationTile : ParserTest(
+    ParserFile.FARMS,
+    farmsFileName = "farmsInvalidPlantationTile.json"
+) {
+    override val description: String = "Invalid plantation tile"
+}
+
+/**
+ * Sowing plan without Field
+ */
+class FarmNoFieldsWSowingPlan : ParserTest(
+    ParserFile.FARMS,
+    farmsFileName = "farmsNoFieldsWSowingPlan.json"
+) {
+    override val description: String = "No fields in farm with sowing plan"
+}
+
+/**
+ * Farm without Plantations and Fields
+ */
+class FarmWOPlantationsAndFields : ParserTest(
+    ParserFile.FARMS,
+    farmsFileName = "farmsNoPlantations.json"
+) {
+    override val description: String = "Farm without Plantations and Fields"
+}
 // endregion
 
 // region Scenario

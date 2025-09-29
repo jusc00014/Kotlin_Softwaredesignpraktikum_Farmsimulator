@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../../src/main/resources/schema/farms.schema.json",
+  "farms": [
+    {
+      "id": 0,
+      "name": "F0",
+      "farmsteads": [0],
+      "fields": [],
+      "plantations": [1],
+      "machines": [
+        {
+          "id": 0,
+          "name": "I0",
+          "actions": ["IRRIGATING"],
+          "plants": ["APPLE"],
+          "duration": 14,
+          "location": 0
+        }
+      ],
+      "sowingPlans": [
+        {
+          "id": 0,
+          "tick": 0,
+          "plant": "PUMPKIN",
+          "fields": []
+        }
+      ]
+    }
+  ]
+}

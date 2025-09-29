@@ -77,6 +77,10 @@ object SystemTestRegistration {
         testSuite.registerTest(OneFieldTestTrialIrrigating())
         testSuite.registerTest(DroughtTest())
         testSuite.registerTest(OneFieldTestTrialMachineTakes20())
+        testSuite.registerTest(FarmSowingAfterTheEnd())
+        testSuite.registerTest(FarmInvalidPlantationTile())
+        testSuite.registerTest(FarmWOPlantationsAndFields())
+        testSuite.registerTest(FarmNoFieldsWSowingPlan())
     }
 
     /**

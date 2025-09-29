@@ -60,10 +60,9 @@ class FarmParser {
         val farmIds = mutableListOf<Int>()
         for (farmJson in json) {
             require(farmJson is JSONObject)
-            val farm = parseFarm(farmJson, board, farmIds, farmNames, maxTick)
+            val farm = parseFarm(farmJson, board, farmIds, farmNames)
             farms.add(farm)
         }
-        require(farms.isNotEmpty())
         return farms
     }
 
@@ -71,8 +70,7 @@ class FarmParser {
         json: JSONObject,
         board: BoardData,
         farmIds: MutableList<Int>,
-        farmNames: MutableList<String>,
-        maxTick: Int
+        farmNames: MutableList<String>
     ): Farm {
         val farmId = json.getInt(ID)
         val farmName = json.getString(NAME)
@@ -94,7 +92,7 @@ class FarmParser {
         val machines = validateMachines(farmId, json.getJSONArray("machines"), board)
 
         val sowingPlansToValidate = json.getJSONArray("sowingPlans")
-        val sowingPlans = parseSowingPlans(sowingPlansToValidate, board, maxTick, machines, farmId)
+        val sowingPlans = parseSowingPlans(sowingPlansToValidate, board, machines, farmId)
         sowingPlans.sortedWith(compareBy({ it.tick }, { it.id }))
 
         return Farm(farmId, farmsteads, fields, plantations, machines.map { it.id }.sorted(), sowingPlans)
@@ -144,7 +142,6 @@ class FarmParser {
     private fun parseSowingPlans(
         sowingPlansJson: JSONArray,
         board: BoardData,
-        maxTick: Int,
         machines: List<Machine>,
         farmId: Int
     ): MutableList<SowingPlan> {
@@ -154,7 +151,7 @@ class FarmParser {
 
             val sowingPlanId = sowingPlanJson.getInt(ID)
             val sowingPlanTick = sowingPlanJson.getInt("tick")
-            validateSowingPlanIdAndTick(sowingPlanId, sowingPlanTick, maxTick)
+            validateSowingPlanIdAndTick(sowingPlanId)
             sowingPlanIds.add(sowingPlanId)
 
             val sowingPlanPlant = sowingPlanJson.getString("plant")
@@ -162,7 +159,8 @@ class FarmParser {
 
             val sowingPlanFields = sowingPlanJson.optJSONArray("fields")
             val fields: MutableList<Tile> = mutableListOf()
-            if (sowingPlanFields == null) {
+            val sowingPlanKeySet = sowingPlanJson.keySet()
+            if (sowingPlanKeySet.contains(LOCATION)) {
                 fields.addAll(
                     validateSowingPlanFieldsByRadius(
                         sowingPlanJson.getInt(LOCATION),
@@ -192,8 +190,8 @@ class FarmParser {
         return sowingPlans
     }
 
-    private fun validateSowingPlanIdAndTick(id: Int, tick: Int, maxTick: Int) {
-        require(!sowingPlanIds.contains(id) && tick < maxTick)
+    private fun validateSowingPlanIdAndTick(id: Int) {
+        require(!sowingPlanIds.contains(id))
     }
 
     private fun validateSowingPlanPlantTypes(plant: String): PlantType {

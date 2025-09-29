@@ -259,7 +259,7 @@ class ScenarioParser {
         cloudTilesForTick: MutableMap<Int, MutableSet<Int>>
     ) {
         cloudTilesForTick[incident.tick]?.let { tiles ->
-            require(incident.tiles.none { tiles.contains(it.id) }) {
+            require(incident.tiles.none { tiles.contains(it.id) && it.type != TileType.VILLAGE }) {
                 "[CloudCreation $incident.id] Tiles overlap!"
             }
         }

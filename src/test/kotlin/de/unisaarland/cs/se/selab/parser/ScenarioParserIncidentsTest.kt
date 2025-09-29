@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test
 class ScenarioParserIncidentsTest {
     lateinit var boardData: BoardData
     lateinit var boardData2: BoardData
+    lateinit var boardDataCloudCreationVillageOverlap: BoardData
     lateinit var farmList: List<Farm>
     lateinit var idToMachines: Map<Int, Machine>
     val scenarioParser = ScenarioParser()
@@ -71,6 +72,14 @@ class ScenarioParserIncidentsTest {
         null,
         TileType.ROAD
     )
+    val tile6 = Tile(
+        6,
+        Coordinate(3, 1),
+        null,
+        false,
+        null,
+        TileType.ROAD
+    )
     val farm = Farm(
         0,
         listOf(0),
@@ -108,6 +117,16 @@ class ScenarioParserIncidentsTest {
                 5 to tile5
             )
         )
+        boardDataCloudCreationVillageOverlap = BoardData(
+            mapOf(
+                1 to tile1,
+                2 to tile2,
+                3 to tile3,
+                4 to tile4,
+                5 to tile5,
+                6 to tile6
+            )
+        )
         farmList = listOf(farm)
         idToMachines = mapOf(333 to machine)
     }
@@ -130,6 +149,18 @@ class ScenarioParserIncidentsTest {
         var parseWorked = true
         try {
             scenarioParser.parse(scenarioJson, boardData, 17, idToMachines, farmList, 1)
+        } catch (_: IllegalArgumentException) {
+            parseWorked = false
+        }
+        assertTrue(parseWorked, "Cloud Creation parsing didn't work. Not good.")
+    }
+
+    @Test
+    fun parseValidCloudCreationOverlap() {
+        val scenarioJson = "src/systemtest/resources/scenarioParser/validCloudOverlapScenario.json"
+        var parseWorked = true
+        try {
+            scenarioParser.parse(scenarioJson, boardDataCloudCreationVillageOverlap, 17, idToMachines, farmList, 1)
         } catch (_: IllegalArgumentException) {
             parseWorked = false
         }

@@ -126,7 +126,7 @@ class FarmHandlerTest3 {
                     19
                 )
             }
-            for (machine in remainingMachines) {
+            for (machine in remainingMachines.sortedBy { it.duration }) {
                 farmHandler.performNonPrioritizedAction(
                     machine,
                     fieldMap,

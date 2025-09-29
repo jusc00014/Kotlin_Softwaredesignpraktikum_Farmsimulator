@@ -28,7 +28,7 @@ class FarmHandler(
         val fertiles = board.getFertiles()
         for (farm in idToFarm.values) {
             Logger.farmStartAction(farm.id)
-            val remainingMachines = assembleMachines(farm)
+            val remainingMachines = assembleMachines(farm).sortedBy { it.duration }.toMutableList()
             val sowFields = assembleSowableFields(farm.fields, fertiles, yearTick)
             val finishedFields = mutableMapOf<Int, Fertile>()
             sow(
@@ -57,7 +57,8 @@ class FarmHandler(
                     yearTick
                 )
             }
-            val iter = remainingMachines.iterator()
+            val machines = remainingMachines.sortedWith(compareBy({ it.duration }, { it.id })).toMutableList()
+            val iter = machines.iterator()
             while (iter.hasNext()) {
                 val machine = iter.next()
                 performNonPrioritizedAction(

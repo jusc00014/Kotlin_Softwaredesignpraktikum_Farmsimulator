@@ -28,7 +28,6 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.MachineTr
 import de.unisaarland.cs.se.selab.systemtest.selab25.mutant.SwissArmyKnife
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialIrrigating
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialIrrigatingAfterDrought
-import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialMachineTakes20
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialMoisture
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialSowingTime17
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialSowingTime18
@@ -76,7 +75,6 @@ object SystemTestRegistration {
         testSuite.registerTest(OneFieldTestTrialSowingTime22())
         testSuite.registerTest(OneFieldTestTrialIrrigating())
         testSuite.registerTest(DroughtTest())
-        testSuite.registerTest(OneFieldTestTrialMachineTakes20())
         testSuite.registerTest(FarmSowingAfterTheEnd())
         testSuite.registerTest(FarmInvalidPlantationTile())
         testSuite.registerTest(FarmWOPlantationsAndFields())

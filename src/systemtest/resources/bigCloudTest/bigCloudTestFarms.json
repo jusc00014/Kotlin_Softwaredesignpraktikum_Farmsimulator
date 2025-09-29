@@ -10,7 +10,7 @@
         {
           "id": 0,
           "name": "Tractor",
-          "actions": ["SOWING", "IRRIGATING"],
+          "actions": ["SOWING"],
           "plants": ["PUMPKIN", "WHEAT"],
           "duration": 4,
           "location": 9

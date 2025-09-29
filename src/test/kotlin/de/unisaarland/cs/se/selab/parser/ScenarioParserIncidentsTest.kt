@@ -245,18 +245,6 @@ class ScenarioParserIncidentsTest {
     }
 
     @Test
-    fun parseInvalidCityExpansionNoField() {
-        val scenarioJson = "src/systemtest/resources/scenarioParser/invalidCityScenario.json"
-        var failedParse = false
-        try {
-            scenarioParser.parse(scenarioJson, boardData2, 17, idToMachines, farmList, 1)
-        } catch (_: IllegalArgumentException) {
-            failedParse = true
-        }
-        assertTrue(failedParse, "Parsing worked. Not good. There is no field left for the farm.")
-    }
-
-    @Test
     fun parseValidCityExpansion() {
         val scenarioJson = "src/systemtest/resources/scenarioParser/validCityScenario.json"
         var parseWorked = true

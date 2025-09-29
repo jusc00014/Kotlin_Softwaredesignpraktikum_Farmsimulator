@@ -293,13 +293,6 @@ class ScenarioParser {
                     "[SowingPlan ${sowingPlan.id}] No field in tiles at end of Simulation"
                 }
             }
-            if (farm.plantages.isEmpty()) {
-                require(
-                    farm.fields.any { (tilesModified[it] ?: board.getTileById(it)?.type) == TileType.FIELD }
-                ) {
-                    "[Farm ${farm.id}] No fields or plantations left for farm after all city expansions."
-                }
-            }
         }
     }
 }

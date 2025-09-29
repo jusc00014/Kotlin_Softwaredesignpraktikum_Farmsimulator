@@ -170,11 +170,7 @@ class FarmParser {
                     )
                 )
             } else {
-                require(
-                    !sowingPlanJson.keySet().contains(LOCATION) &&
-                        !sowingPlanJson.keySet().contains(RADIUS) &&
-                        !sowingPlanFields.isEmpty
-                )
+                require(!sowingPlanFields.isEmpty)
                 val fieldInts = sowingPlanFields.map { (it ?: error("sowingPlanFields null")) as Int }.toMutableList()
                 for (int in fieldInts) {
                     val tile = board.getTileById(int)

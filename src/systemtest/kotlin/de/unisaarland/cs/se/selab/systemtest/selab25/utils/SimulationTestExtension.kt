@@ -22,6 +22,11 @@ abstract class SimulationTestExtension(
 
     protected fun formatArray(arr: List<*>): String = arr.joinToString(",")
 
+    protected fun tickStarted(tick: Int, yearTick: Int): String =
+        "[INFO] Simulation Info: Tick $tick started at tick $yearTick within the year."
+    protected fun soilMoisture(amountField: Int, amountPlantation: Int): String =
+        "[INFO] Soil Moisture: The soil moisture is below threshold in $amountField FIELD and $amountPlantation " +
+            "PLANTATION tiles."
     protected fun farmStartActions(farmID: Int): String =
         "[IMPORTANT] Farm: Farm $farmID starts its actions."
     protected fun farmSowingPlans(farmID: Int, sowingPlanIDs: List<Int>): String =
@@ -46,4 +51,6 @@ abstract class SimulationTestExtension(
             "${formatArray(tileIDs.sortedBy { it })}."
     protected fun harvestEstimate(tileID: Int, amount: Int, plant: PlantType) =
         "[INFO] Harvest Estimate: Harvest estimate on tile $tileID changed to $amount g of ${plant.name}."
+    protected fun simulationEnd(tick: Int): String =
+        "[IMPORTANT] Simulation Info: Simulation ended at tick $tick."
 }

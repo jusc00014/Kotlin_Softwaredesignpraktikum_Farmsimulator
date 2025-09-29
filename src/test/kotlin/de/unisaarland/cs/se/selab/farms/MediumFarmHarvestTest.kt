@@ -2,10 +2,16 @@ package de.unisaarland.cs.se.selab.farms
 
 import de.unisaarland.cs.se.selab.Constants
 import de.unisaarland.cs.se.selab.board.BoardData
+import de.unisaarland.cs.se.selab.board.BoardHandler
 import de.unisaarland.cs.se.selab.board.Coordinate
 import de.unisaarland.cs.se.selab.board.Field
 import de.unisaarland.cs.se.selab.board.Tile
 import de.unisaarland.cs.se.selab.board.TileType
+import de.unisaarland.cs.se.selab.clouds.CloudData
+import de.unisaarland.cs.se.selab.incidents.BrokenMachine
+import de.unisaarland.cs.se.selab.incidents.CityExpansion
+import de.unisaarland.cs.se.selab.incidents.Incident
+import de.unisaarland.cs.se.selab.incidents.IncidentHandler
 import de.unisaarland.cs.se.selab.plants.Plant
 import de.unisaarland.cs.se.selab.plants.PlantType
 import org.junit.jupiter.api.BeforeEach
@@ -28,6 +34,10 @@ class MediumFarmHarvestTest {
     lateinit var thirdField2Pumpkin: Field
     lateinit var machine1: Machine
     lateinit var machine2: Machine
+    val clouds = CloudData(-1, mutableListOf())
+    lateinit var brokenFarmHandler: FarmHandler
+    val farmMapping = mutableMapOf<Int, Farm>()
+    val machineMapping = mutableMapOf<Int, Machine>()
 
     @BeforeEach
     fun setUpTiles() {
@@ -84,19 +94,30 @@ class MediumFarmHarvestTest {
             )
         )
         mapping[thirdField2Pumpkin.id] = thirdField2Pumpkin
+        val oatField = Field(14, Coordinate(12, 4), null, 3, TileType.FIELD, 500, potatoPlant, setOf(PlantType.OAT))
+        mapping[oatField.id] = oatField
         board = BoardData(mapping)
     }
 
     @BeforeEach
     fun setFarmsUp() {
-        val farmMapping = mutableMapOf<Int, Farm>()
         val farm1 = Farm(
             1,
             listOf(7),
             listOf(0, 1, 2),
             emptyList(),
             listOf(1),
-            mutableListOf(SowingPlan(0, 99, PlantType.PUMPKIN, listOf(0, 2)))
+            mutableListOf(
+                SowingPlan(
+                    0,
+                    2,
+                    PlantType.PUMPKIN,
+                    listOf(0, 2)
+                ),
+                SowingPlan(1, 2, PlantType.POTATO, listOf(1)),
+                SowingPlan(4, Constants.MAY_2, PlantType.POTATO, listOf(1)),
+                SowingPlan(5, Constants.MAY_2, PlantType.PUMPKIN, listOf(0, 2))
+            )
         )
         farmMapping[farm1.id] = farm1
         val farm2 = Farm(
@@ -105,32 +126,34 @@ class MediumFarmHarvestTest {
             listOf(4, 6, 13),
             emptyList(),
             listOf(2),
-            mutableListOf()
+            mutableListOf(
+                SowingPlan(3, 2, PlantType.PUMPKIN, listOf(4, 6, 13)),
+                SowingPlan(6, Constants.MAY_2, PlantType.PUMPKIN, listOf(4, 6, 13))
+            )
         )
         farmMapping[farm2.id] = farm2
         machine1 = Machine(
             1,
-            listOf(Action.HARVESTING),
+            listOf(Action.HARVESTING, Action.SOWING),
             listOf(PlantType.POTATO, PlantType.PUMPKIN),
             3,
             board.getTileById(7) ?: return,
         )
         machine2 = Machine(
             2,
-            listOf(Action.HARVESTING),
+            listOf(Action.HARVESTING, Action.SOWING),
             listOf(PlantType.POTATO, PlantType.PUMPKIN),
             3,
             board.getTileById(9) ?: return,
         )
-        val machineMapping = mutableMapOf<Int, Machine>(machine1.id to machine1, machine2.id to machine2)
-        val pathFinder = PathFinder()
+        machineMapping.putAll(mapOf(machine1.id to machine1, machine2.id to machine2))
         farmHandler = FarmHandler(
             farmMapping,
             mapOf(
                 PlantType.PUMPKIN to Constants.pumpkin,
                 PlantType.POTATO to Constants.potato
             ),
-            machineMapping, pathFinder
+            machineMapping, PathFinder()
         )
     }
 
@@ -214,5 +237,72 @@ class MediumFarmHarvestTest {
         assert(firstField2Pumpkin.plant.getHarvestEstimate() == 0)
         assert(secondField2Pumpkin.plant.getHarvestEstimate() != 0)
         assert(thirdField2Pumpkin.plant.getHarvestEstimate() != 0)
+    }
+
+    @Test
+    fun impossibleSowingTest() {
+        farmHandler.farmAction(2, board)
+        assert(firstFieldTile1Pumpkin.plant.getHarvestEstimate() == 0)
+        assert(secondField2Pumpkin.plant.getHarvestEstimate() == 0)
+        assert(thirdField2Pumpkin.plant.getHarvestEstimate() == 0)
+        assert(firstField2Pumpkin.plant.getHarvestEstimate() == 0)
+        assert(secondFieldTile1Potato.plant.getHarvestEstimate() == 0)
+        assert(thirdFieldPumpkin2.plant.getHarvestEstimate() == 0)
+    }
+
+    @Test
+    fun veryPossibleSowingTest() {
+        val boardHandler = BoardHandler()
+        boardHandler.reduceSoil(Constants.MAY_1, board)
+        boardHandler.computeEstimate(Constants.MAY_1, board)
+        farmHandler.farmAction(Constants.MAY_2, board)
+        assert(firstFieldTile1Pumpkin.plant.getHarvestEstimate() != 0)
+        assert(secondFieldTile1Potato.plant.getHarvestEstimate() == 0)
+        assert(thirdFieldPumpkin2.plant.getHarvestEstimate() != 0)
+        assert(thirdField2Pumpkin.plant.getHarvestEstimate() != 0)
+        assert(firstField2Pumpkin.plant.getHarvestEstimate() != 0)
+        assert(secondField2Pumpkin.plant.getHarvestEstimate() != 0)
+    }
+
+    @Test
+    fun cityExpansionTest() {
+        val village = CityExpansion(0, Constants.MAY_1, firstFieldTile1Pumpkin, clouds)
+        IncidentHandler(mutableMapOf<Int, List<Incident>>(Constants.MAY_1 to listOf(village)))
+            .executeIncidents(Constants.MAY_1)
+        BoardHandler().computeEstimate(Constants.MAY_1, board)
+        farmHandler.farmAction(Constants.MAY_2, board)
+        assert(firstFieldTile1Pumpkin.plant.getHarvestEstimate() == 0)
+        assert(secondFieldTile1Potato.plant.getHarvestEstimate() == 0)
+        assert(thirdFieldPumpkin2.plant.getHarvestEstimate() != 0)
+        assert(thirdField2Pumpkin.plant.getHarvestEstimate() != 0)
+        assert(firstField2Pumpkin.plant.getHarvestEstimate() != 0)
+        assert(secondField2Pumpkin.plant.getHarvestEstimate() != 0)
+    }
+
+    @Test
+    fun brokenMachine() {
+        IncidentHandler(mutableMapOf(9 to listOf(BrokenMachine(3, 9, -1, machine1), BrokenMachine(4, 9, 2, machine2))))
+            .executeIncidents(Constants.MAY_1)
+        BoardHandler().computeEstimate(Constants.MAY_1, board)
+        farmHandler.farmAction(Constants.MAY_2, board)
+        assert(machine1.brokenFor == -1)
+        assert(machine2.brokenFor == 1)
+        farmHandler.farmAction(Constants.JUN_1, board)
+        assert(machine2.brokenFor == 0)
+        farmHandler.farmAction(Constants.JUN_2, board)
+    }
+
+    @Test
+    fun errorThrow() {
+        val errorFarm = Farm(
+            3,
+            emptyList(),
+            listOf(10, 48, 14),
+            emptyList(),
+            listOf(99),
+            mutableListOf()
+        )
+        val brokenFarmHandler = FarmHandler(mapOf(2 to errorFarm), emptyMap(), emptyMap(), PathFinder())
+        brokenFarmHandler.farmAction(2, board)
     }
 }

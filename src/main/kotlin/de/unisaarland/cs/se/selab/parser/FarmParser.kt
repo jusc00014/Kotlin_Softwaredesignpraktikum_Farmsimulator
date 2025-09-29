@@ -184,7 +184,7 @@ class FarmParser {
                 }
             }
             require(fields.isNotEmpty())
-            val sowingPlan = SowingPlan(sowingPlanId, sowingPlanTick, plantType, fields.map { it.id })
+            val sowingPlan = SowingPlan(sowingPlanId, sowingPlanTick, plantType, fields.map { it.id }.sorted())
             validateSowingPlanPossible(board, sowingPlan, machines, farmId)
             sowingPlans.add(sowingPlan)
         }

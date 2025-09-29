@@ -15,6 +15,7 @@ class CityExpansion(
 ) : Incident(id, tick) {
 
     override fun execute() {
+        affectedTile.type = TileType.VILLAGE
         Logger.incidentExecuted(id, this, listOf(affectedTile.id))
         affectedTile.type = TileType.VILLAGE
         clouds.checkIfCloudOnNewVillage(affectedTile.id)

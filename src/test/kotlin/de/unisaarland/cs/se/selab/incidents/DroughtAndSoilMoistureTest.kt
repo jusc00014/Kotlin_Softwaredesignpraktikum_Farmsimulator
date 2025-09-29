@@ -22,7 +22,7 @@ class DroughtAndSoilMoistureTest {
         val mapParser = MapParser(mutableMapOf())
         val (boardData, plantMap) = mapParser.parse(mapJson, 19)
         val farmParser = FarmParser()
-        val (farms, machines) = farmParser.parse(farmJson, boardData, 2)
+        val (farms, machines) = farmParser.parse(farmJson, boardData)
         val farmHandler = FarmHandler(mapOf(Pair(1, farms[0])), plantMap, machines, PathFinder())
         val boardHandler = BoardHandler()
         val scenarioParser = ScenarioParser()

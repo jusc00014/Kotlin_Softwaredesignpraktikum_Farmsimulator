@@ -29,7 +29,7 @@ class FarmHandlerTestHarvest {
         val a = MapParser(mutableMapOf<Int, Tile>()).parse(mapJson, 21)
         boardData = a.first
         plantMap = a.second
-        val x = FarmParser().parse(farmJson, boardData, 24)
+        val x = FarmParser().parse(farmJson, boardData)
         farmList = x.first
         idToMachine = x.second
         val y = ScenarioParser().parse(scenarioJson, boardData, 24, idToMachine, farmList, 21)

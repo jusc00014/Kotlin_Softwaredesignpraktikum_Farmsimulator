@@ -29,7 +29,7 @@ class FarmParserTest {
     @Test
     fun parse() {
         val farmParser = FarmParser()
-        val (listFarms, idToMachine) = farmParser.parse(farmJson, expectedBoardData, 1000)
+        val (listFarms, idToMachine) = farmParser.parse(farmJson, expectedBoardData)
         val farmstead = expectedBoardData.getTileById(0) ?: mock<Tile>()
         val machineTractor = Machine(
             0,

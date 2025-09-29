@@ -28,7 +28,7 @@ class ScenarioParserTest {
         val mapParser = MapParser(mutableMapOf<Int, Tile>())
         val farmParser = FarmParser()
         expectedBoardData = mapParser.parse(mapJson, Constants.OCT_1).first
-        val (farmsList, idToMachines) = farmParser.parse(farmJson, expectedBoardData, 1)
+        val (farmsList, idToMachines) = farmParser.parse(farmJson, expectedBoardData)
         farmList = farmsList
         idToMachine = idToMachines
     }

@@ -17,7 +17,7 @@ class OneFarmSystemTestParsingTest {
         val mapParser = MapParser(mutableMapOf<Int, Tile>())
         val (boardData, plantMap) = mapParser.parse(mapJson, 9)
         val farmParser = FarmParser()
-        val (farms, machines) = farmParser.parse(farmJson, boardData, 2)
+        val (farms, machines) = farmParser.parse(farmJson, boardData)
         val scenarioParser = ScenarioParser()
         val (incidents, clouds) = scenarioParser.parse(scenarioJson, boardData, 2, machines, farms, 9)
         assertTrue { true }

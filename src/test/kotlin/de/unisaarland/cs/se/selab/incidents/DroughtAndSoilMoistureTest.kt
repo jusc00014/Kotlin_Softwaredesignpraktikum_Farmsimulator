@@ -43,7 +43,7 @@ class DroughtAndSoilMoistureTest {
         boardHandler.computeEstimate(19, boardData)
         boardHandler.reduceSoil(20, boardData)
         val fert = (boardData.getTileById(38) ?: error("null assertion message")) as Fertile
-        assertFalse(fert.irrigatable(20))
+        assertFalse(fert.irrigatable())
         farmAction(boardData, farmHandler)
     }
 

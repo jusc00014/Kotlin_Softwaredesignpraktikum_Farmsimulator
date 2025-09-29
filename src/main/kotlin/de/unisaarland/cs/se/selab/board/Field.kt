@@ -27,7 +27,7 @@ class Field(
     override fun performableActions(yearTick: Int): List<Action> {
         if (drought) return emptyList()
         val actions = mutableListOf<Action>()
-        if (irrigatable(yearTick)) {
+        if (irrigatable()) {
             actions.add(Action.IRRIGATING)
         }
         if (plant.weedable(yearTick)) {

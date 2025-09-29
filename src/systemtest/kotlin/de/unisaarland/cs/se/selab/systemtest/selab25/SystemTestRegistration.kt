@@ -1,5 +1,9 @@
 package de.unisaarland.cs.se.selab.systemtest.selab25
 
+import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.FieldOfOtherFarm
+import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.IDsNotUnique
+import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.MachineCanTReach
+import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.SowingAndVillage
 import de.unisaarland.cs.se.selab.systemtest.selab25.basictests.ExampleSystemTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.BigCloudTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.BigCloudTestFirstTick
@@ -73,6 +77,10 @@ object SystemTestRegistration {
         testSuite.registerTest(FarmInvalidPlantationTile())
         testSuite.registerTest(FarmWOPlantationsAndFields())
         testSuite.registerTest(FarmNoFieldsWSowingPlan())
+        testSuite.registerTest(MachineCanTReach())
+        testSuite.registerTest(IDsNotUnique())
+        testSuite.registerTest(FieldOfOtherFarm())
+        testSuite.registerTest(SowingAndVillage())
     }
 
     /**

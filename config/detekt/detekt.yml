@@ -733,7 +733,7 @@ style:
   UnusedImports:
     active: true
   UnusedParameter:
-    active: false
+    active: true
     allowedNames: ''
   UnusedPrivateClass:
     active: true

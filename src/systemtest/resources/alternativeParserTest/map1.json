@@ -1,0 +1,26 @@
+{
+  "tiles": [
+    {
+      "id": 1,
+      "coordinates": {
+        "x": 7,
+        "y": 5
+      },
+      "category": "FARMSTEAD",
+      "farm": 1,
+      "airflow": true,
+      "direction": "45",
+      "shed": true
+    },
+    {
+      "id": 2,
+      "coordinates": { "x": 0, "y": 0 },
+      "category": "FIELD",
+      "farm": 1,
+      "airflow": true,
+      "direction": "225",
+      "capacity": 2500,
+      "possiblePlants": ["WHEAT"]
+    }
+  ]
+}

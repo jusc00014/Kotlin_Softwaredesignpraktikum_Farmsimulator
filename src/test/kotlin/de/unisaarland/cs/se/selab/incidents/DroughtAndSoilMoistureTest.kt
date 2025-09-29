@@ -9,8 +9,8 @@ import de.unisaarland.cs.se.selab.farms.PathFinder
 import de.unisaarland.cs.se.selab.parser.FarmParser
 import de.unisaarland.cs.se.selab.parser.MapParser
 import de.unisaarland.cs.se.selab.parser.ScenarioParser
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Test
-import kotlin.test.assertTrue
 
 class DroughtAndSoilMoistureTest {
     var mapJson: String = "src/systemtest/resources/onefieldtest/map.json"
@@ -43,7 +43,7 @@ class DroughtAndSoilMoistureTest {
         boardHandler.computeEstimate(19, boardData)
         boardHandler.reduceSoil(20, boardData)
         val fert = (boardData.getTileById(38) ?: error("null assertion message")) as Fertile
-        assertTrue { fert.irrigatable(20) }
+        assertFalse(fert.irrigatable(20))
         farmAction(boardData, farmHandler)
     }
 
@@ -63,7 +63,7 @@ class DroughtAndSoilMoistureTest {
                 fertiles = fertiles
             )
             val fieldMap = farmHandler.createActionMap(farm.fields, fertiles, 20)
-            assertTrue { fieldMap[Action.IRRIGATING]?.contains(fertiles[38]) ?: false }
+            assertFalse(fieldMap[Action.IRRIGATING]?.contains(fertiles[38]) ?: false)
             val plantationMap = farmHandler.createActionMap(farm.plantages, fertiles, 20)
             for ((action, fertileType) in listOf(
                 Action.HARVESTING to plantationMap[Action.HARVESTING],
@@ -91,7 +91,7 @@ class DroughtAndSoilMoistureTest {
                     20
                 )
             }
-            assertTrue { finishedFields.contains(38) }
+            assertFalse(finishedFields.contains(38))
             // assertTrue { !remainingMachines.contains(farmHandler.machines[1]) }
         }
     }

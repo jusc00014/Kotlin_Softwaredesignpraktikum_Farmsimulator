@@ -49,6 +49,7 @@ class FarmHandlerTest3 {
                 finishedFields = finishedFields,
                 board = boardData,
                 yearTick = 9,
+                tick = 9,
                 fertiles = fertiles
             )
             val fieldMap = farmHandler.createActionMap(farm.fields, fertiles, 9)
@@ -107,6 +108,7 @@ class FarmHandlerTest3 {
                 finishedFields = finishedFields,
                 board = boardData,
                 yearTick = 19,
+                tick = 19,
                 fertiles = fertiles
             )
             val fieldMap = farmHandler.createActionMap(farm.fields, fertiles, 19)

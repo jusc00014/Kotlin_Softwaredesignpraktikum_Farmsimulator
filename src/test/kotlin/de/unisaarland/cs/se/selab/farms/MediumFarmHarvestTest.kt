@@ -229,7 +229,7 @@ class MediumFarmHarvestTest {
         firstField2Pumpkin.plant.sow(PlantType.POTATO, firstField2Pumpkin.plant.data, Constants.MAY_2)
         secondField2Pumpkin.plant.sow(PlantType.PUMPKIN, secondField2Pumpkin.plant.data, Constants.MAY_2)
         thirdField2Pumpkin.plant.sow(PlantType.PUMPKIN, thirdField2Pumpkin.plant.data, Constants.MAY_2)
-        farmHandler.farmAction(Constants.OCT_1, board)
+        farmHandler.farmAction(Constants.OCT_1, Constants.OCT_1, board)
         assert(firstFieldTile1Pumpkin.plant.getHarvestEstimate() == 0)
         assert(secondFieldTile1Potato.plant.getHarvestEstimate() != 0)
         assert(thirdFieldPumpkin2.plant.getHarvestEstimate() == 0)
@@ -241,7 +241,7 @@ class MediumFarmHarvestTest {
 
     @Test
     fun impossibleSowingTest() {
-        farmHandler.farmAction(2, board)
+        farmHandler.farmAction(2, 2, board)
         assert(firstFieldTile1Pumpkin.plant.getHarvestEstimate() == 0)
         assert(secondField2Pumpkin.plant.getHarvestEstimate() == 0)
         assert(thirdField2Pumpkin.plant.getHarvestEstimate() == 0)
@@ -255,7 +255,7 @@ class MediumFarmHarvestTest {
         val boardHandler = BoardHandler()
         boardHandler.reduceSoil(Constants.MAY_1, board)
         boardHandler.computeEstimate(Constants.MAY_1, board)
-        farmHandler.farmAction(Constants.MAY_2, board)
+        farmHandler.farmAction(Constants.MAY_2, Constants.MAY_2, board)
         assert(firstFieldTile1Pumpkin.plant.getHarvestEstimate() != 0)
         assert(secondFieldTile1Potato.plant.getHarvestEstimate() == 0)
         assert(thirdFieldPumpkin2.plant.getHarvestEstimate() != 0)
@@ -270,7 +270,7 @@ class MediumFarmHarvestTest {
         IncidentHandler(mutableMapOf<Int, List<Incident>>(Constants.MAY_1 to listOf(village)))
             .executeIncidents(Constants.MAY_1)
         BoardHandler().computeEstimate(Constants.MAY_1, board)
-        farmHandler.farmAction(Constants.MAY_2, board)
+        farmHandler.farmAction(Constants.MAY_2, Constants.MAY_2, board)
         assert(firstFieldTile1Pumpkin.plant.getHarvestEstimate() == 0)
         assert(secondFieldTile1Potato.plant.getHarvestEstimate() == 0)
         assert(thirdFieldPumpkin2.plant.getHarvestEstimate() != 0)
@@ -284,12 +284,12 @@ class MediumFarmHarvestTest {
         IncidentHandler(mutableMapOf(9 to listOf(BrokenMachine(3, 9, -1, machine1), BrokenMachine(4, 9, 2, machine2))))
             .executeIncidents(Constants.MAY_1)
         BoardHandler().computeEstimate(Constants.MAY_1, board)
-        farmHandler.farmAction(Constants.MAY_2, board)
+        farmHandler.farmAction(Constants.MAY_2, Constants.MAY_2, board)
         assert(machine1.brokenFor == -1)
         assert(machine2.brokenFor == 1)
-        farmHandler.farmAction(Constants.JUN_1, board)
+        farmHandler.farmAction(Constants.JUN_1, Constants.JUN_1, board)
         assert(machine2.brokenFor == 0)
-        farmHandler.farmAction(Constants.JUN_2, board)
+        farmHandler.farmAction(Constants.JUN_2, Constants.JUN_2, board)
     }
 
     @Test
@@ -303,6 +303,6 @@ class MediumFarmHarvestTest {
             mutableListOf()
         )
         val brokenFarmHandler = FarmHandler(mapOf(2 to errorFarm), emptyMap(), emptyMap(), PathFinder())
-        brokenFarmHandler.farmAction(2, board)
+        brokenFarmHandler.farmAction(2, 2, board)
     }
 }

@@ -224,9 +224,8 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
             actionsMissed.add(Action.MOWING)
         }
         if (irrigationNeeded) actionsMissed.add(Action.IRRIGATING)
-        val harvestPenalty = harvestPenalty(yearTick)
-        if (harvestPenalty in 0.0..<1.0) {
-            harvestEstimate = (harvestEstimate * harvestPenalty).toInt()
+        harvestEstimate = (harvestEstimate * harvestPenalty(yearTick)).toInt()
+        if (harvestable(yearTick)) {
             actionsMissed.add(Action.HARVESTING)
         }
         return actionsMissed
@@ -267,9 +266,9 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
      * Checks if the plant can be harvested
      */
     fun harvestable(yearTick: Int): Boolean {
-        val fullHarvestRange = IntRange(
-            data.harvestingRange.start,
-            data.harvestingRange.endInclusive + data.lateHarvestTimeFrame
+        val fullHarvestRange = yearTickRange(
+            data.harvestingRange.first,
+            data.harvestingRange.last + data.lateHarvestTimeFrame
         )
         return actionPerformed != Action.HARVESTING &&
             harvestEstimate > 0 &&

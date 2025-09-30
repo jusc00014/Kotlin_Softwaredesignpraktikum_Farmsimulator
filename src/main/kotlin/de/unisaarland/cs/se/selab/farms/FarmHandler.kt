@@ -454,6 +454,7 @@ class FarmHandler(
                 Logger.machineFinishedNoReturn(machine.id)
             }
         } else {
+            Logger.machineFinished(machine.id, machine.location.id)
             Logger.machineUnloads(machine.id, harvestAmount, field.plant.type)
             harvestAmount = 0
         }

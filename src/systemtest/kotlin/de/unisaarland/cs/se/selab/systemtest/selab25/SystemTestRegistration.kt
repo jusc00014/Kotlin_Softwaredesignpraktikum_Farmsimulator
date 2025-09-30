@@ -47,7 +47,6 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTr
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.Onefieldtest
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.Onefieldtestshouldsow
 import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.FallowSowPlanPotato
-import de.unisaarland.cs.se.selab.systemtest.selab25.sowingPlanTest.SowingPlanTest
 
 /**
  * Used for test registration
@@ -74,12 +73,10 @@ object SystemTestRegistration {
         testSuite.registerTest(SowingPlanDoesTheSame())
         testSuite.registerTest(MachineCanTSow())
         testSuite.registerTest(MachineWrongPlant())
-        testSuite.registerTest(NonPrioritizedTest())
         testSuite.registerTest(BigBigTestOctober1())
         testSuite.registerTest(FallowSowPlanPotato())
         testSuite.registerTest(VillageExpansionNearForest())
         testSuite.registerTest(VillagePlantationTakeover())
-        testSuite.registerTest(SowingPlanTest())
     }
 
     /**

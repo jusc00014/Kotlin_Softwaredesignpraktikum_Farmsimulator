@@ -16,17 +16,20 @@ import kotlin.math.max
 class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
     private var oldHarvestEstimate: Int? = null
     private var harvestEstimate: Int = initHarvestEstimate(yearTick)
-    private var sowTime: Int = 0
-    private var harvestTime: Int = 0
+    private var sowTime: Int = if (data.tileType == PlantTile.FIELD) SOW_TIME_NO_PLANT else SOW_TIME_PLANTATION
+    private var harvestTime: Int = HARVEST_TIME_NOT_PERFORMED
     private var actionPerformed: Action? = null
     private val incidents: MutableList<Incident> = mutableListOf()
     private var mowedFor: Int = 0
-    private var cutted: Boolean = false
+    private var cutPerformed: Boolean = false
 
     /**
      * Constants used in Plant
      */
     companion object PlantConstants {
+        const val SOW_TIME_NO_PLANT = -1
+        const val SOW_TIME_PLANTATION = 0
+        const val HARVEST_TIME_NOT_PERFORMED = 0
         const val FALLOW_TICKS = 4
         const val PLANTATION_HARVEST_RESET = 21
 
@@ -45,22 +48,32 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
         const val MOWING_MISSED_PENALTY_FACTOR = 0.9
         const val ANIMAL_ATTACK_FIELD_GRAPE_PENALTY_FACTOR = 0.5
         const val ANIMAL_ATTACK_PLANTATION_PENALTY_FACTOR = 0.9
+
+        /**
+         * Generates a set from `start` to `endInclusive` wrapping around to 1 if exceeding 24
+         * @return Set of yearTicks
+         */
+        fun yearTickRangeSet(start: Int, endInclusive: Int): Set<Int> {
+            require(start in YEAR_TICK_MIN..YEAR_TICK_MAX)
+            val end = if (endInclusive > YEAR_TICK_MAX) endInclusive % YEAR_TICK_MAX else endInclusive
+            return if (end < start) {
+                IntRange(start - 1, end + YEAR_TICK_MAX - 1).map { it % YEAR_TICK_MAX + 1 }
+            } else {
+                IntRange(start, end)
+            }.toSet()
+        }
+
+        /**
+         * Corrects the yearTick to be in Range 1..24
+         */
+        fun yearTickFix(yearTick: Int): Int = if (yearTick > YEAR_TICK_MAX) yearTick % YEAR_TICK_MAX else yearTick
     }
+
     private fun initHarvestEstimate(yearTick: Int): Int {
         return when (data.tileType) {
             PlantTile.PLANTATION -> (data.initialHarvestEstimate * harvestPenalty(yearTick)).toInt()
             PlantTile.FIELD -> 0
         }
-    }
-
-    private fun yearTickRange(start: Int, endInclusive: Int): Set<Int> {
-        require(start in YEAR_TICK_MIN..YEAR_TICK_MAX)
-        val end = if (endInclusive > YEAR_TICK_MAX) endInclusive % YEAR_TICK_MAX else endInclusive
-        return if (end < start) {
-            IntRange(start - 1, end + YEAR_TICK_MAX - 1).map { it % YEAR_TICK_MAX + 1 }
-        } else {
-            IntRange(start, end)
-        }.toSet()
     }
 
     /**
@@ -72,7 +85,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
         } else {
             data.sowRange.first
         }
-        return yearTickRange(data.harvestingRange.last + 1, sowingTimeStart - 1)
+        return yearTickRangeSet(data.harvestingRange.last + 1, sowingTimeStart - 1)
     }
 
     private fun harvestPenalty(yearTick: Int): Double {
@@ -92,23 +105,19 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
     /**
      * Getter for Harvest Estimate
      */
-    fun getHarvestEstimate(): Int {
-        return harvestEstimate
-    }
+    fun getHarvestEstimate(): Int = harvestEstimate
 
     /**
      * Getter for data.moistureMin
      */
-    fun getMinMoisture(): Int {
-        return data.moistureMin
-    }
+    fun getMinMoisture(): Int = data.moistureMin
 
     private fun blooming(yearTick: Int): Boolean {
-        if (data.tileType == PlantTile.FIELD && sowTime < 1) return false
+        if (sowTime == SOW_TIME_NO_PLANT) return false
 
         return when (type) {
             PlantType.POTATO, PlantType.PUMPKIN -> {
-                data.bloomRange.map { it + sowTime }.contains(yearTick)
+                data.bloomRange.map { yearTickFix(it + sowTime) }.contains(yearTick)
             }
             else -> {
                 data.bloomRange.contains(yearTick)
@@ -135,7 +144,9 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
      */
     fun addStampede(animalAttack: AnimalAttack): Boolean {
         if (harvestEstimate <= 0) return false
+
         incidents.add(animalAttack)
+
         when (type) {
             PlantType.APPLE, PlantType.ALMOND, PlantType.CHERRY -> {
                 mowedFor = 2
@@ -157,13 +168,11 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
      */
     fun updateHarvestEstimate(
         yearTick: Int,
-        drought: Boolean,
         sunlight: Int,
         moisture: Int,
         tileID: Int
     ) {
-        val droughtNotInThisTick = drought && incidents.none { it is Drought }
-        if (actionPerformed == Action.HARVESTING || !isSown() || droughtNotInThisTick) {
+        if (actionPerformed == Action.HARVESTING || !exists()) {
             resetForNextTick()
             return
         }
@@ -181,57 +190,83 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
         }
 
         // Moisture too low
-        val irrigationNeeded = (data.tileType == PlantTile.PLANTATION || sowTime > 0) && moisture < data.moistureMin
-        if (irrigationNeeded) {
-            if (moisture > 0) {
-                repeat(
-                    (data.moistureMin - moisture) / MOISTURE_LOW_DIVISOR
-                ) { harvestEstimate = max(harvestEstimate - MOISTURE_LOW_PENALTY, 0) }
-            } else {
-                harvestEstimate = 0
-                sowTime = 0
-                harvestTime = yearTick
-            }
-        }
-        val actionsNotPerformed = applyAndGetMissed(yearTick, drought, irrigationNeeded)
-        if (actionsNotPerformed.isNotEmpty()) {
-            Logger.actionNotPerformed(tileID, actionsNotPerformed)
-        }
+        val irrigationMissedInfluence = applyMoisturePenaltyIfNeeded(moisture, yearTick)
 
-        applyIncidents(yearTick)
+        val actionsNotPerformed = missed(yearTick, irrigationMissedInfluence)
+        if (actionsNotPerformed.isNotEmpty()) Logger.actionNotPerformed(tileID, actionsNotPerformed)
+
+        applyIncidentsToHarvestEstimate(yearTick)
 
         if (oldHarvestEstimate != harvestEstimate) {
             Logger.changedHarvestEstimate(tileID, harvestEstimate, type)
+
+            if (harvestEstimate < 1 && data.tileType == PlantTile.FIELD) {
+                sowTime = SOW_TIME_NO_PLANT
+                harvestTime = yearTick
+            }
         }
+
         resetForNextTick()
     }
 
-    private fun applyAndGetMissed(yearTick: Int, drought: Boolean, irrigationNeeded: Boolean): List<Action> {
-        if (drought) return emptyList()
-        val actionsMissed = mutableListOf<Action>()
-
-        if (weedable(yearTick)) {
-            harvestEstimate = (harvestEstimate * WEEDING_MISSED_PENALTY_FACTOR).toInt()
-            actionsMissed.add(Action.WEEDING)
+    private fun applyMoisturePenaltyIfNeeded(moistureFertile: Int, yearTick: Int): Boolean {
+        val estimate = harvestEstimate
+        if (moistureFertile > 0) {
+            repeat((data.moistureMin - moistureFertile) / MOISTURE_LOW_DIVISOR) {
+                harvestEstimate = max(harvestEstimate - MOISTURE_LOW_PENALTY, 0)
+            }
+        } else {
+            harvestEstimate = 0
+            if (harvestTime <= 0) harvestTime = yearTick
         }
-        if (cuttable(yearTick) && data.cuttingTimes.last() == yearTick) {
-            harvestEstimate = (harvestEstimate * CUTTING_MISSED_PENALTY_FACTOR).toInt()
-            actionsMissed.add(Action.CUTTING)
-        }
-        if (mowable(yearTick)) {
-            harvestEstimate = (harvestEstimate * MOWING_MISSED_PENALTY_FACTOR).toInt()
-            actionsMissed.add(Action.MOWING)
-        }
-        if (irrigationNeeded) actionsMissed.add(Action.IRRIGATING)
-        val harvestPenalty = harvestPenalty(yearTick)
-        if (harvestEstimate != 0 && harvestPenalty != 1.0) {
-            harvestEstimate = (harvestEstimate * harvestPenalty).toInt()
-            actionsMissed.add(Action.HARVESTING)
-        }
-        return actionsMissed
+        return estimate != harvestEstimate
     }
 
-    private fun applyIncidents(yearTick: Int) {
+    private fun missed(yearTick: Int, irrigationMissedInfluence: Boolean): List<Action> {
+        if (sowTime == SOW_TIME_NO_PLANT) return emptyList()
+        return listOfNotNull(
+            weedingMissed(yearTick),
+            cuttingMissed(yearTick),
+            mowingMissed(yearTick),
+            if (irrigationMissedInfluence) Action.IRRIGATING else null,
+            harvestMissed(yearTick),
+        )
+    }
+
+    private fun weedingMissed(yearTick: Int): Action? {
+        if (data.tileType == PlantTile.PLANTATION || !weedable(yearTick)) return null
+
+        val harvestEstimateTemp = harvestEstimate
+        harvestEstimate = (harvestEstimate * WEEDING_MISSED_PENALTY_FACTOR).toInt()
+        return if (harvestEstimateTemp != harvestEstimate) Action.WEEDING else null
+    }
+
+    private fun cuttingMissed(yearTick: Int): Action? {
+        if (data.tileType == PlantTile.FIELD) return null
+        if (data.cuttingTimes.last() != yearTick || cutPerformed) return null
+
+        val harvestEstimateTemp = harvestEstimate
+        harvestEstimate = (harvestEstimate * CUTTING_MISSED_PENALTY_FACTOR).toInt()
+        return if (harvestEstimateTemp != harvestEstimate) Action.CUTTING else null
+    }
+
+    private fun mowingMissed(yearTick: Int): Action? {
+        if (data.tileType == PlantTile.FIELD || !mowable(yearTick)) return null
+
+        val harvestEstimateTemp = harvestEstimate
+        harvestEstimate = (harvestEstimate * MOWING_MISSED_PENALTY_FACTOR).toInt()
+        return if (harvestEstimateTemp != harvestEstimate) Action.MOWING else null
+    }
+
+    private fun harvestMissed(yearTick: Int): Action? {
+        if (!harvestable(yearTick)) return null
+
+        val harvestEstimateTemp = harvestEstimate
+        harvestEstimate = (harvestEstimate * harvestPenalty(yearTick)).toInt()
+        return if (harvestEstimateTemp != harvestEstimate) Action.HARVESTING else null
+    }
+
+    private fun applyIncidentsToHarvestEstimate(yearTick: Int) {
         incidents.forEach {
             when (it) {
                 is BeeHappy -> {
@@ -246,8 +281,8 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
                 }
                 is Drought -> {
                     harvestEstimate = 0
-                    if (harvestTime == 0) harvestTime = yearTick
-                    sowTime = 0
+                    if (harvestTime <= 0) harvestTime = yearTick
+                    sowTime = SOW_TIME_NO_PLANT
                 }
             }
         }
@@ -259,14 +294,14 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
     fun isFallow(yearTick: Int): Boolean {
         return data.tileType == PlantTile.FIELD &&
             harvestTime > 0 &&
-            yearTick in yearTickRange(harvestTime + 1, harvestTime + FALLOW_TICKS)
+            yearTick in yearTickRangeSet((harvestTime % YEAR_TICK_MAX) + 1, harvestTime + FALLOW_TICKS)
     }
 
     /**
      * Checks if the plant can be harvested
      */
     fun harvestable(yearTick: Int): Boolean {
-        val fullHarvestRange = yearTickRange(
+        val fullHarvestRange = yearTickRangeSet(
             data.harvestingRange.first,
             data.harvestingRange.last + data.lateHarvestTimeFrame
         )
@@ -280,9 +315,8 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
      * Checks if the plant can be cut
      */
     fun cuttable(yearTick: Int): Boolean {
-        return !cutted &&
+        return !cutPerformed &&
             harvestEstimate > 0 &&
-            harvestTime <= 0 &&
             data.cuttingTimes.contains(yearTick)
     }
 
@@ -293,7 +327,6 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
         return actionPerformed != Action.MOWING &&
             harvestEstimate > 0 &&
             mowedFor <= 0 &&
-            harvestTime <= 0 &&
             data.mowingTimes.contains(yearTick)
     }
 
@@ -303,12 +336,15 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
     fun weedable(yearTick: Int): Boolean {
         return actionPerformed != Action.WEEDING &&
             sowTime > 0 &&
-            data.weedingTimes.map { it + sowTime }.contains(yearTick)
+            harvestEstimate > 0 &&
+            data.weedingTimes.map { yearTickFix(it + sowTime) }
+                .filterNot { it == sowTime }
+                .contains(yearTick)
     }
 
     private fun harvest(yearTick: Int): Int {
         harvestTime = yearTick
-        sowTime = 0
+        sowTime = SOW_TIME_NO_PLANT
         this.oldHarvestEstimate = null
         val harvestEstimateOld = harvestEstimate
         harvestEstimate = 0
@@ -321,7 +357,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
      */
     fun performAction(action: Action, yearTick: Int): Int? {
         actionPerformed = action
-        if (action == Action.CUTTING) cutted = true
+        if (action == Action.CUTTING) cutPerformed = true
         return if (action == Action.HARVESTING) harvest(yearTick) else null
     }
 
@@ -331,6 +367,11 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
     fun isSown(): Boolean {
         return data.tileType == PlantTile.PLANTATION || sowTime > 0
     }
+
+    /**
+     * Returns if the plant exists
+     */
+    fun exists(): Boolean = sowTime != SOW_TIME_NO_PLANT
 
     /**
      * Sows the field plant
@@ -355,10 +396,14 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
      * Prepares the plant for the current tick
      */
     fun prepareCurrentTick(yearTick: Int) {
-        if (yearTick == PLANTATION_HARVEST_RESET && data.tileType == PlantTile.PLANTATION) {
+        if (yearTick == PLANTATION_HARVEST_RESET &&
+            data.tileType == PlantTile.PLANTATION &&
+            sowTime != SOW_TIME_NO_PLANT
+        ) {
             oldHarvestEstimate = data.initialHarvestEstimate
             harvestEstimate = data.initialHarvestEstimate
-            cutted = false
+            harvestTime = 0
+            cutPerformed = false
         }
     }
 

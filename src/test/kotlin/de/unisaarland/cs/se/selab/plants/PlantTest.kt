@@ -27,7 +27,7 @@ class PlantTest {
     val incidentField: java.lang.reflect.Field = Plant::class.java.getDeclaredField("incidents")
     val mowedForField: java.lang.reflect.Field = Plant::class.java.getDeclaredField("mowedFor")
     val actionPerformedField: java.lang.reflect.Field = Plant::class.java.getDeclaredField("actionPerformed")
-    val cuttedField: java.lang.reflect.Field = Plant::class.java.getDeclaredField("cutted")
+    val cutPerformedField: java.lang.reflect.Field = Plant::class.java.getDeclaredField("cutPerformed")
 
     @BeforeEach
     fun setup() {
@@ -41,7 +41,7 @@ class PlantTest {
         harvestEstimateField.isAccessible = true
         mowedForField.isAccessible = true
         actionPerformedField.isAccessible = true
-        cuttedField.isAccessible = true
+        cutPerformedField.isAccessible = true
         sowTimeField.set(oatPlant, 6)
         sowTimeField.set(potatoPlant, 7)
         harvestEstimateField.set(potatoPlant, 10)
@@ -153,7 +153,7 @@ class PlantTest {
 
     @Test
     fun cuttableAlreadyCutted() {
-        cuttedField.set(grapePlant, true)
+        cutPerformedField.set(grapePlant, true)
         assertFalse(grapePlant.cuttable(14))
     }
 
@@ -165,7 +165,8 @@ class PlantTest {
 
     @Test
     fun cuttableHarvestedPlant() {
-        harvestTimeField.set(grapePlant, 17)
+        // @note harvestTime is not checked in cuttable
+        grapePlant.performAction(Action.HARVESTING, 17)
         assertFalse(grapePlant.cuttable(14))
     }
 
@@ -232,7 +233,7 @@ class PlantTest {
     @Test
     fun performActionCut() {
         assertNull(grapePlant.performAction(Action.CUTTING, 14))
-        assertTrue(cuttedField.get(grapePlant) == true)
+        assertTrue(cutPerformedField.get(grapePlant) == true)
     }
 
     @Test

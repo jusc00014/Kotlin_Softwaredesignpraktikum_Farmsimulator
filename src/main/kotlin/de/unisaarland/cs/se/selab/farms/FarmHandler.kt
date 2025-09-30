@@ -488,7 +488,9 @@ class FarmHandler(
                 board,
                 yearTick
             )
-            remainingTime -= machine.duration
+            if (currentField != null) {
+                remainingTime -= machine.duration
+            }
         }
         currentField = lastField
         while (remainingTime >= 0 && currentField != null) {

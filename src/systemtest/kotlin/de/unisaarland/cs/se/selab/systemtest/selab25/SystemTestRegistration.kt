@@ -18,6 +18,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.CloudTestImTired
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.CloudTestSmall
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.Floodgates
 import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigTestOctober1
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestLargeRadius
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestNoTileToAffect
@@ -73,6 +74,7 @@ object SystemTestRegistration {
         testSuite.registerTest(SowingPlanDoesTheSame())
         testSuite.registerTest(MachineCanTSow())
         testSuite.registerTest(MachineWrongPlant())
+        testSuite.registerTest(NonPrioritizedTest())
         testSuite.registerTest(BigBigTestOctober1())
         testSuite.registerTest(FallowSowPlanPotato())
         testSuite.registerTest(VillageExpansionNearForest())

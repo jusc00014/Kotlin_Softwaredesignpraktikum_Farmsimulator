@@ -106,7 +106,8 @@ class PlantHarvestEstimateBigTest {
         wheatField?.sunhours = 80
         wheatField?.performAction(Action.IRRIGATING, 15)
         wheatField?.updateHarvestEstimate(15)
-        assertEquals(388_784, wheatField?.plant?.getHarvestEstimate())
+        // after updating harvest estimate in Aug_1 there is no wheat left since harvesting in Aug_2 is too late
+        assertEquals(0, wheatField?.plant?.getHarvestEstimate())
         wheatField?.performAction(Action.HARVESTING, 13)
         wheatField?.plant?.sow(PlantType.WHEAT, wheatField?.plant!!.data, 21)
         wheatField?.updateHarvestEstimate(22)
@@ -169,7 +170,8 @@ class PlantHarvestEstimateBigTest {
         grapePlantation?.updateHarvestEstimate(18)
         // Cutting is skipped!
         // We never enter the cuttable ticks!
-        assertEquals(461_700, grapePlantation?.plant?.getHarvestEstimate())
+        // no cutting penalty + 2 late harvest penalties + 2 sunlight penalties
+        assertEquals(438_615, grapePlantation?.plant?.getHarvestEstimate())
         grapePlantation?.updateHarvestEstimate(20)
         // assertEquals(877_230, grapePlantation?.plant?.getHarvestEstimate())
     }

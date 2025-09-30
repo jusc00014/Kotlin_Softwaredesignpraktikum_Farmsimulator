@@ -10,8 +10,8 @@
         {
           "id": 1,
           "name": "Johannes",
-          "actions": ["IRRIGATING", "SOWING"],
-          "plants": ["APPLE"],
+          "actions": ["IRRIGATING"],
+          "plants": ["APPLE","WHEAT"],
           "duration": 10,
           "location": 1
         }

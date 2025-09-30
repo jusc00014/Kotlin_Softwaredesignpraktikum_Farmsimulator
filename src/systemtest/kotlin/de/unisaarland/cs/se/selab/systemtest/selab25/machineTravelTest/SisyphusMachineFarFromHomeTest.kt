@@ -35,14 +35,21 @@ class SisyphusMachineFarFromHomeTest : TestExtension() {
         assertCurrentLine("[IMPORTANT] Farm Action: Machine 0 performs WEEDING on tile 7 for 14 days.")
         assertNextLine(farmGoHome)
 
-        skipUntilLogType(LogLevel.INFO, "Simulation Info: Tick 19")
-        assertCurrentLine("[INFO] Simulation Info: Tick 19 started at tick 16 within the year.")
+        skipUntilLogType(LogLevel.INFO, "Simulation Info: Tick 18")
+        assertCurrentLine("[INFO] Simulation Info: Tick 18 started at tick 15 within the year.")
         assertNextLine(soilMoist)
         assertNextLine(farmStart)
         assertNextLine(farmCurrentPlans)
         assertNextLine(farmFinish)
         assertNextLine("[DEBUG] Harvest Estimate: Required actions on tile 7 were not performed: HARVESTING.")
         assertNextLine("[INFO] Harvest Estimate: Harvest estimate on tile 7 changed to 0 g of WHEAT.")
+
+        skipUntilLogType(LogLevel.INFO, "Simulation Info: Tick 19")
+        assertCurrentLine("[INFO] Simulation Info: Tick 19 started at tick 16 within the year.")
+        assertNextLine(soilMoist)
+        assertNextLine(farmStart)
+        assertNextLine(farmCurrentPlans)
+        assertNextLine(farmFinish)
 
         assertNextLine("[INFO] Simulation Info: Tick 20 started at tick 17 within the year.")
         assertNextLine(soilMoist)

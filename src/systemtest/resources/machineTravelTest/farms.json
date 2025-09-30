@@ -35,7 +35,7 @@
       "machines": [
         {
           "id": 1,
-          "name": "Almond Machine 2999",
+          "name": "Grape Machine 2999",
           "actions": ["IRRIGATING", "MOWING", "CUTTING", "HARVESTING"],
           "plants": ["GRAPE"],
           "duration": 1,

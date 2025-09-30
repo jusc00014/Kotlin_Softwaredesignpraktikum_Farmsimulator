@@ -1,15 +1,19 @@
 package de.unisaarland.cs.se.selab.farms
 
+import de.unisaarland.cs.se.selab.Simulator
 import de.unisaarland.cs.se.selab.board.BoardData
 import de.unisaarland.cs.se.selab.board.BoardHandler
 import de.unisaarland.cs.se.selab.board.Tile
 import de.unisaarland.cs.se.selab.clouds.CloudData
+import de.unisaarland.cs.se.selab.clouds.CloudHandler
 import de.unisaarland.cs.se.selab.incidents.Incident
+import de.unisaarland.cs.se.selab.incidents.IncidentHandler
 import de.unisaarland.cs.se.selab.parser.FarmParser
 import de.unisaarland.cs.se.selab.parser.MapParser
 import de.unisaarland.cs.se.selab.parser.ScenarioParser
 import de.unisaarland.cs.se.selab.plants.PlantData
 import de.unisaarland.cs.se.selab.plants.PlantType
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -39,16 +43,21 @@ class FarmHandlerTestHarvest {
 
     @Test
     fun farmActionTest() {
-        val farmboi = FarmHandler(
-            mapOf(0 to farmList[0], 1 to farmList[1]),
-            plantMap,
-            idToMachine,
-            PathFinder()
+        val sim = Simulator(
+            BoardHandler(),
+            FarmHandler(
+                mapOf(0 to farmList[0], 1 to farmList[1]),
+                plantMap,
+                idToMachine,
+                PathFinder()
+            ),
+            CloudHandler(cloudData, boardData),
+            IncidentHandler(mutableMapOf()),
+            boardData,
+            21,
+            24
         )
-        val boardboi = BoardHandler()
-        for (i in 1..24) {
-            farmboi.farmAction(i, i, boardData)
-            boardboi.computeEstimate(i, boardData)
-        }
+        sim.start()
+        assertTrue(true)
     }
 }

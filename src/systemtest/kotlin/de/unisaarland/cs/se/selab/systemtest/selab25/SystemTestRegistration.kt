@@ -39,6 +39,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioriti
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest7
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest8
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest9
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTestPerformsIrrigatingOnTile3
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.AnimalAttackTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.AnimalAttackTestStacking
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.BeeHappyTest
@@ -123,6 +124,7 @@ object SystemTestRegistration {
         testSuite.registerTest(NonPrioritizedTest17())
         testSuite.registerTest(NonPrioritizedTest18())
         testSuite.registerTest(NonPrioritizedTest19())
+        testSuite.registerTest(NonPrioritizedTestPerformsIrrigatingOnTile3())
     }
 
     /**

@@ -221,3 +221,26 @@ class NonPrioritizedTest19 : NonPrioritizedBaseTest() {
     override val description = "Checks all statements"
     override val step = 19
 }
+
+/**
+ * Tests non Prio
+ */
+class NonPrioritizedTestPerformsIrrigatingOnTile3 : TestExtension() {
+    override val name = "NonPrioritizedTestPerformsIrrigatingOnTile3"
+    override val description = "Tests nonPrioActions"
+
+    override val farms = "farmActionTests/farm.json"
+    override val scenario = "onefieldtest/noscenario.json"
+    override val map = "farmActionTests/map.json"
+
+    override val logLevel = "DEBUG"
+    override val maxTicks = 3
+    override val startYearTick = 9
+
+    val qwertz = "[IMPORTANT] Farm Action: Machine 2 performs IRRIGATING on tile 3 for 6 days."
+
+    override suspend fun run() {
+        skipUntilString(qwertz)
+        assertCurrentLine(qwertz)
+    }
+}

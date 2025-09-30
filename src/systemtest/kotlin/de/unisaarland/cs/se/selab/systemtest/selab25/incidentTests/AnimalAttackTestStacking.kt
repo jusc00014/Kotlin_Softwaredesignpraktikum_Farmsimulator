@@ -7,7 +7,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.utils.TestExtension
  * Detekt
  */
 class AnimalAttackTestStacking : TestExtension() {
-    override val name = "AnimalAttack"
+    override val name = "AnimalAttack2"
     override val description = "Tests AnimalAttack and Estimate."
 
     override val farms = "incidentTest/farms.json"

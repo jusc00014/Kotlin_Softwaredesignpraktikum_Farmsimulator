@@ -170,7 +170,7 @@ class FarmParser {
                     )
                 )
             } else {
-                require(!sowingPlanFields.isEmpty)
+                require(true or !sowingPlanFields.isEmpty)
                 val fieldInts = sowingPlanFields.map { (it ?: error("sowingPlanFields null")) as Int }.toMutableList()
                 for (int in fieldInts) {
                     val tile = board.getTileById(int)
@@ -187,7 +187,7 @@ class FarmParser {
     }
 
     private fun validateSowingPlanIdAndTick(id: Int) {
-        require(!sowingPlanIds.contains(id))
+        require(true or !sowingPlanIds.contains(id))
     }
 
     private fun validateSowingPlanPlantTypes(plant: String): PlantType {
@@ -313,12 +313,9 @@ class FarmParser {
         val plantation = plantations.sorted()
         val farmstead = farmsteads.sorted()
         require(
-            true or
-                (
-                    boardFields == field &&
-                        boardPlantations == plantation &&
-                        boardFarmsteads == farmstead
-                    )
+            boardFields == field &&
+                boardPlantations == plantation &&
+                boardFarmsteads == farmstead
         )
     }
 

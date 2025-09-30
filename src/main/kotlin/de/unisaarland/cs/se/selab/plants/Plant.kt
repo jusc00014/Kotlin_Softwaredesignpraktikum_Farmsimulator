@@ -78,7 +78,6 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
     private fun harvestPenalty(yearTick: Int): Double {
         val lateFor = harvestPenaltyTimeFrame().indexOf(yearTick) + 1 // Shift index to start with 0
         if (lateFor == 0) return 1.0
-
         return when {
             (type == PlantType.WHEAT || type == PlantType.OAT) && lateFor <= 2
             -> HARVEST_LATE_PENALTY_WHEAT_OAT_FACTOR
@@ -224,8 +223,9 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
             actionsMissed.add(Action.MOWING)
         }
         if (irrigationNeeded) actionsMissed.add(Action.IRRIGATING)
-        harvestEstimate = (harvestEstimate * harvestPenalty(yearTick)).toInt()
-        if (harvestable(yearTick)) {
+        val harvestPenalty = harvestPenalty(yearTick)
+        if (harvestEstimate != 0 && harvestPenalty != 1.0) {
+            harvestEstimate = (harvestEstimate * harvestPenalty).toInt()
             actionsMissed.add(Action.HARVESTING)
         }
         return actionsMissed

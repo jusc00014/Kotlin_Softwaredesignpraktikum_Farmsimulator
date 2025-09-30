@@ -63,6 +63,8 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreati
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTestNextToForest
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.MachineTravelTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.SisyphusMachineFarFromHomeTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.SisyphusMachineFarFromHomeTest2
+import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.SisyphusMachineFarFromHomeTest3
 import de.unisaarland.cs.se.selab.systemtest.selab25.mutant.SwissArmyKnife
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialIrrigatingAfterDrought
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialMoisture
@@ -109,6 +111,8 @@ object SystemTestRegistration {
         testSuite.registerTest(BeeHappyTest())
         testSuite.registerTest(SowingPlanTest())
         testSuite.registerTest(SisyphusMachineFarFromHomeTest())
+        testSuite.registerTest(SisyphusMachineFarFromHomeTest2())
+        testSuite.registerTest(SisyphusMachineFarFromHomeTest3())
         testSuite.registerTest(NonPrioritizedTest1())
         testSuite.registerTest(NonPrioritizedTest2())
         testSuite.registerTest(NonPrioritizedTest3())

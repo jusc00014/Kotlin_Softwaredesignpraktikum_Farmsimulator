@@ -48,7 +48,7 @@ abstract class Fertile(
             else -> MOISTURE_TO_LOSE_PLANT_IS_NOT_GROWING
         }
         moisture = max(0, moisture)
-        if (type == TileType.FIELD && plant.getHarvestEstimate() == 0) {
+        if ((type == TileType.FIELD && plant.getHarvestEstimate() == 0) || drought) {
             return false
         }
         return minAllowedMoisture > moisture

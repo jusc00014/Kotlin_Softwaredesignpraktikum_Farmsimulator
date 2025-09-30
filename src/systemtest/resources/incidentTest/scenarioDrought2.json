@@ -1,0 +1,26 @@
+{
+  "clouds": [
+    {
+      "id": 0,
+      "amount": 7000,
+      "duration": -1,
+      "location": 6
+    }
+  ],
+  "incidents": [
+    {
+      "id": 0,
+      "type": "DROUGHT",
+      "tick": 0,
+      "location": 6,
+      "radius": 0
+    },
+    {
+      "id": 1,
+      "type": "DROUGHT",
+      "tick": 0,
+      "location": 3,
+      "radius": 1
+    }
+  ]
+}

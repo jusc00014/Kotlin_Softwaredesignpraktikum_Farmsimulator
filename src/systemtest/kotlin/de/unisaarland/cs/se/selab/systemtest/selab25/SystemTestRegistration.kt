@@ -72,7 +72,6 @@ object SystemTestRegistration {
         testSuite.registerTest(MachineCanTSow())
         testSuite.registerTest(MachineWrongPlant())
         testSuite.registerTest(FallowSowPlanPotato())
-        testSuite.registerTest(DroughtTestDryDryDesert())
     }
 
     /**
@@ -144,5 +143,6 @@ object SystemTestRegistration {
         testSuite.registerTest(OneFieldTestTrialIrrigatingAfterDrought())
         testSuite.registerTest(OneFieldTestTrialSowingTime21())
         testSuite.registerTest(OneFieldTestTrialSowingTime22())
+        testSuite.registerTest(DroughtTestDryDryDesert())
     }
 }

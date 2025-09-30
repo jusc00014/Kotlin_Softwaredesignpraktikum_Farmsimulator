@@ -24,7 +24,7 @@ class FarmHandler(
 
     /**
      * Started by simulator*/
-    fun farmAction(yearTick: Int, board: BoardData) {
+    fun farmAction(tick: Int, yearTick: Int, board: BoardData) {
         val fertiles = board.getFertiles()
         for (farm in idToFarm.values) {
             Logger.farmStartAction(farm.id)
@@ -38,6 +38,7 @@ class FarmHandler(
                 finishedFields = finishedFields,
                 board = board,
                 yearTick = yearTick,
+                tick = tick,
                 fertiles = fertiles
             )
             val fieldMap = createActionMap(farm.fields, fertiles, yearTick)
@@ -124,11 +125,12 @@ class FarmHandler(
         finishedFields: MutableMap<Int, Fertile>,
         board: BoardData,
         yearTick: Int,
+        tick: Int,
         fertiles: Map<Int, Fertile>
     ) {
         val planIds = mutableListOf<Int>()
         for (plan in farm.plans) {
-            if (plan.isActive(yearTick)) {
+            if (plan.isActive(tick)) {
                 planIds.add(plan.id)
             }
         }

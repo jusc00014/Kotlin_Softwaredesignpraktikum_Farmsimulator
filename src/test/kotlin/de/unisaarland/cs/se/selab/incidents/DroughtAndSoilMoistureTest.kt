@@ -28,7 +28,7 @@ class DroughtAndSoilMoistureTest {
         val scenarioParser = ScenarioParser()
         val (incidentss, cloudData) = scenarioParser.parse(scenarioJson, boardData, 2, machines, farms, 19)
         boardHandler.reduceSoil(19, boardData)
-        farmHandler.farmAction(19, boardData)
+        farmHandler.farmAction(19, 19, boardData)
         val incidentMap = mutableMapOf<Int, MutableList<Incident>>()
         for (inc in incidentss) {
             if (incidentMap[inc.tick] == null) {
@@ -60,6 +60,7 @@ class DroughtAndSoilMoistureTest {
                 finishedFields = finishedFields,
                 board = boardData,
                 yearTick = 20,
+                tick = 20,
                 fertiles = fertiles
             )
             val fieldMap = farmHandler.createActionMap(farm.fields, fertiles, 20)

@@ -30,7 +30,7 @@ class Simulator(
             Logger.tickStarted(tick, yearTick)
             boardHandler.reduceSoil(yearTick, boardData)
             cloudHandler.moveClouds()
-            farmHandler.farmAction(yearTick, boardData)
+            farmHandler.farmAction(tick, yearTick, boardData)
             incidentHandler.executeIncidents(tick)
             boardHandler.computeEstimate(yearTick, boardData)
             yearTick = (yearTick % YEAR_TICK_MAX) + 1

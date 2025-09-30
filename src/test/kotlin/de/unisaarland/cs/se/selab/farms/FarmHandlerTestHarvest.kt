@@ -47,7 +47,7 @@ class FarmHandlerTestHarvest {
         )
         val boardboi = BoardHandler()
         for (i in 1..24) {
-            farmboi.farmAction(i, boardData)
+            farmboi.farmAction(i, i, boardData)
             boardboi.computeEstimate(i, boardData)
         }
     }

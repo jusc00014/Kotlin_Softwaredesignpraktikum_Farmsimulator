@@ -65,16 +65,16 @@ class MoreFarmHandlerTests {
     @Test
     fun noContinue() {
         BoardHandler().computeEstimate(21, board)
-        farmHandler.farmAction(4, board)
-        farmHandler.farmAction(Constants.APR_1, board)
+        farmHandler.farmAction(4, 4, board)
+        farmHandler.farmAction(Constants.APR_1, Constants.APR_1, board)
         assert(field1.plant.getHarvestEstimate() != 0)
         assert(field2.plant.getHarvestEstimate() == 0)
-        farmHandler.farmAction(Constants.APR_2, board)
+        farmHandler.farmAction(Constants.APR_2, Constants.APR_2, board)
         assert(field1.plant.getHarvestEstimate() != 0)
         assert(field2.plant.getHarvestEstimate() != 0)
         BoardHandler().computeEstimate(Constants.SEP_1, board)
-        farmHandler.farmAction(Constants.SEP_2, board)
-        farmHandler.farmAction(Constants.OCT_1, board)
+        farmHandler.farmAction(Constants.SEP_2, Constants.SEP_2, board)
+        farmHandler.farmAction(Constants.OCT_1, Constants.OCT_1, board)
         assert(field1.plant.getHarvestEstimate() == 0)
         assert(field2.plant.getHarvestEstimate() == 0)
     }

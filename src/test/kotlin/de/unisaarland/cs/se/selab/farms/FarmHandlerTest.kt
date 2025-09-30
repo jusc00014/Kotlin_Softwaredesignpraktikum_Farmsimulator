@@ -216,7 +216,7 @@ class FarmHandlerTest {
         whenever(
             tile20.plant
         ).thenReturn(Plant(PlantType.PUMPKIN, plantData[PlantType.PUMPKIN] ?: error("Do not the detekt"), 9))
-        farmHandler.sow(sowFields, farm, remainingMachines, finishedFields, board, 9, fertiles)
+        farmHandler.sow(sowFields, farm, remainingMachines, finishedFields, board, 9, 9, fertiles)
         assertTrue { finishedFields.contains(4) }
     }
 }

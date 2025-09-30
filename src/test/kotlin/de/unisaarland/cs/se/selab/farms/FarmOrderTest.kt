@@ -202,6 +202,7 @@ class FarmOrderTest {
             finishedFields = finishedFields,
             board = board,
             yearTick = yearTick,
+            tick = yearTick,
             fertiles = fertiles
         )
         val exp = finishedFields.keys

@@ -11,20 +11,27 @@
           "id": 0,
           "name": "Sowing_Oats",
           "actions": ["SOWING", "IRRIGATING", "CUTTING", "MOWING"],
-          "plants": ["OATS", "WHEAT"],
-          "duration": 3,
+          "plants": ["OAT", "WHEAT"],
+          "duration": 4,
           "location": 4
         },
         {
           "id": 1,
           "name": "Sowing_Potato",
-          "actions": ["IRRIGATING", "HARVESTING", "WEEDING"],
+          "actions": ["SOWING","IRRIGATING", "HARVESTING", "WEEDING"],
           "plants": ["PUMPKIN", "WHEAT"],
-          "duration": 3,
+          "duration": 7,
           "location": 6
         }
       ],
       "sowingPlans": [
+        {
+          "id": 1,
+          "tick": 0,
+          "plant": "WHEAT",
+          "location": 8,
+          "radius": 8
+        }
       ]
     },
     {
@@ -38,13 +45,12 @@
           "id": 2,
           "name": "Useless",
           "actions": ["IRRIGATING"],
-          "plants": ["OATS"],
+          "plants": ["OAT"],
           "duration": 13,
           "location": 54
         }
       ],
-      "sowingPlan": [
-
+      "sowingPlans": [
       ]
     }
   ]

@@ -92,16 +92,16 @@
     },
     {
       "id": 12,
-      "coordinates": { "x": 2, "y": 2 },
+      "coordinates": { "x": 2, "y": 6 },
       "category": "VILLAGE"
     },
     {
       "id": 8,
-      "coordinates": { "x": 2, "y": 4 },
+      "coordinates": { "x": 2, "y": 2 },
       "category": "FIELD",
       "farm": 1,
       "capacity": 999,
-      "possiblePlants": ["PUMPKIN", "OAT"],
+      "possiblePlants": ["PUMPKIN", "OAT", "WHEAT"],
       "airflow": false
     },
     {
@@ -110,12 +110,12 @@
       "category": "FIELD",
       "farm": 1,
       "capacity": 1000,
-      "possiblePlants": ["PUMPKIN", "OAT"],
+      "possiblePlants": ["PUMPKIN", "OAT", "WHEAT"],
       "airflow": false
     },
     {
       "id": 55,
-      "coordinates": { "x": 2, "y": 6 },
+      "coordinates": { "x": 2, "y": 4 },
       "category": "FIELD",
       "farm": 2,
       "capacity": 1000,
@@ -128,7 +128,7 @@
       "category": "FIELD",
       "farm": 1,
       "capacity": 1000,
-      "possiblePlants": ["PUMPKIN", "OAT"],
+      "possiblePlants": ["PUMPKIN", "OAT", "WHEAT"],
       "airflow": false
     },
     {
@@ -136,6 +136,19 @@
       "coordinates": { "x": 13, "y": 13 },
       "category": "FARMSTEAD",
       "farm": 2,
+      "shed": true,
+      "airflow": false
+    },
+    {
+      "id": 17,
+      "coordinates": { "x": 1, "y": 3 },
+      "category": "ROAD",
+      "airflow": false
+    },
+    {
+      "id": 18,
+      "coordinates": { "x": 1, "y": 5 },
+      "category": "ROAD",
       "airflow": false
     }
   ]

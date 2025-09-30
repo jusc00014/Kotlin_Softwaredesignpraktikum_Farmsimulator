@@ -78,6 +78,7 @@ object SystemTestRegistration {
         testSuite.registerTest(FallowSowPlanPotato())
         testSuite.registerTest(AnimalAttackTest())
         testSuite.registerTest(AnimalAttackTestStacking())
+        testSuite.registerTest(MachineDuplicateActions())
     }
 
     /**

@@ -233,6 +233,16 @@ class FarmWOPlantationsAndFields : ParserTest(
 ) {
     override val description: String = "Farm without Plantations and Fields"
 }
+
+/**
+ * Machine with the same Action twice
+ */
+class MachineDuplicateActions : ParserTest(
+    null,
+    farmsFileName = "farmsDuplicateActions.json"
+) {
+    override val description: String = "Machine with the same Action twice"
+}
 // endregion
 
 // region Scenario

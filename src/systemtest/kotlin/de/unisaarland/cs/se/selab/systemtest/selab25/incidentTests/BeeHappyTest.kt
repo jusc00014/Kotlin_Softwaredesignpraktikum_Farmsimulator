@@ -20,6 +20,6 @@ class BeeHappyTest : TestExtension() {
 
     override suspend fun run() {
         skipUntilLogType(LogLevel.IMPORTANT, "Incident:")
-        assertCurrentLine("[IMPORTANT] Incident: Incident 0 of type BEE_HAPPY happened and affected tiles 5,7.")
+        assertCurrentLine("[IMPORTANT] Incident: Incident 0 of type BEE_HAPPY happened and affected tiles .")
     }
 }

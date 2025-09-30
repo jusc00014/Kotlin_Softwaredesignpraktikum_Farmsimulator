@@ -20,6 +20,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.Floodgates
 import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigTestOctober1
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.AnimalAttackTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.AnimalAttackTestStacking
+import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.BeeHappyTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestLargeRadius
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestNoTileToAffect
@@ -79,6 +80,7 @@ object SystemTestRegistration {
         testSuite.registerTest(AnimalAttackTest())
         testSuite.registerTest(AnimalAttackTestStacking())
         testSuite.registerTest(MachineDuplicateActions())
+        testSuite.registerTest(BeeHappyTest())
     }
 
     /**

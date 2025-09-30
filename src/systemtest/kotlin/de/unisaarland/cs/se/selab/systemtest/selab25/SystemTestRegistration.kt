@@ -20,6 +20,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.Floodgates
 import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigTestOctober1
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.MachineOrder
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.MachineTimeOut
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.AnimalAttackTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.AnimalAttackTestStacking
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.BeeHappyTest
@@ -81,10 +82,9 @@ object SystemTestRegistration {
         testSuite.registerTest(FallowSowPlanPotato())
         testSuite.registerTest(AnimalAttackTest())
         testSuite.registerTest(AnimalAttackTestStacking())
-        testSuite.registerTest(MachineTimeOut())
-        testSuite.registerTest(MachineOrder())
         testSuite.registerTest(MachineDuplicateActions())
         testSuite.registerTest(BeeHappyTest())
+        testSuite.registerTest(NonPrioritizedTest())
     }
 
     /**
@@ -159,5 +159,7 @@ object SystemTestRegistration {
         testSuite.registerTest(OneFieldTestTrialSowingTime21())
         testSuite.registerTest(OneFieldTestTrialSowingTime22())
         testSuite.registerTest(DroughtTestDryDryDesert())
+        testSuite.registerTest(MachineTimeOut())
+        testSuite.registerTest(MachineOrder())
     }
 }

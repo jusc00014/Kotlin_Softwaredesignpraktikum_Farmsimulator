@@ -18,6 +18,8 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.CloudTestImTired
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.CloudTestSmall
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.Floodgates
 import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigTestOctober1
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.MachineOrder
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.MachineTimeOut
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.AnimalAttackTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.AnimalAttackTestStacking
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.BeeHappyTest
@@ -79,6 +81,8 @@ object SystemTestRegistration {
         testSuite.registerTest(FallowSowPlanPotato())
         testSuite.registerTest(AnimalAttackTest())
         testSuite.registerTest(AnimalAttackTestStacking())
+        testSuite.registerTest(MachineTimeOut())
+        testSuite.registerTest(MachineOrder())
         testSuite.registerTest(MachineDuplicateActions())
         testSuite.registerTest(BeeHappyTest())
     }

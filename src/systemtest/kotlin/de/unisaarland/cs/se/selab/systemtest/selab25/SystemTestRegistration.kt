@@ -74,6 +74,8 @@ object SystemTestRegistration {
         testSuite.registerTest(MachineWrongPlant())
         testSuite.registerTest(BigBigTestOctober1())
         testSuite.registerTest(FallowSowPlanPotato())
+        testSuite.registerTest(VillageExpansionNearForest())
+        testSuite.registerTest(VillagePlantationTakeover())
     }
 
     /**

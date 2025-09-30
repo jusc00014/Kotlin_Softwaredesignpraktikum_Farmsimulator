@@ -249,4 +249,26 @@ class CloudyVillage : ParserTest(ParserFile.SCENARIO, scenarioFileName = "scenar
 class TwinClouds : ParserTest(ParserFile.SCENARIO, scenarioFileName = "scenarioTwinCloud.json") {
     override val description: String = "2 Clouds on the same Tile"
 }
+
+/**
+ * Test the parser for CityExpansion expanding near a Forest
+ */
+class VillageExpansionNearForest : ParserTest(
+    ParserFile.SCENARIO,
+    mapFileName = "mapVillageExpansionNearForest.json",
+    scenarioFileName = "scenarioVillageExpansionNearForest.json"
+) {
+    override val description: String = "CityExpansion expanding near a Forest"
+}
+
+/**
+ * Test the parser for CityExpansion expanding on a Plantation
+ */
+class VillagePlantationTakeover : ParserTest(
+    ParserFile.SCENARIO,
+    mapFileName = "mapVillagePlantationTakeover.json",
+    scenarioFileName = "scenarioVillagePlantationTakeover.json"
+) {
+    override val description: String = "CityExpansion expanding on a Plantation"
+}
 //endregion

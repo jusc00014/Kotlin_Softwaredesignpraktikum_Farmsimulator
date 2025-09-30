@@ -2,6 +2,7 @@ package de.unisaarland.cs.se.selab.board
 
 import de.unisaarland.cs.se.selab.Constants
 import de.unisaarland.cs.se.selab.farms.Action
+import de.unisaarland.cs.se.selab.incidents.Drought
 import de.unisaarland.cs.se.selab.plants.Plant
 import de.unisaarland.cs.se.selab.plants.PlantType
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -124,9 +125,10 @@ class FertileTest {
                 yearTick
             )
         )
-        plantation.drought = true
+        plantation.addDrought(Drought(0, 0, setOf(plantation)))
+        assertTrue(plantation.hasDrought())
         plantation.updateHarvestEstimate(yearTick)
-        assertTrue(plantation.drought)
+        assertTrue(plantation.hasDrought())
         val field: Fertile = Field(
             id = 420,
             coord = Coordinate(420, 420),
@@ -141,9 +143,10 @@ class FertileTest {
                 yearTick
             )
         )
-        field.drought = true
+        field.addDrought(Drought(0, 0, setOf(field)))
+        assertTrue(field.hasDrought())
         field.updateHarvestEstimate(yearTick)
-        assertFalse(field.drought)
+        assertFalse(field.hasDrought())
     }
 
     @Test

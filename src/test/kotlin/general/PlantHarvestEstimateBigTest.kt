@@ -9,6 +9,7 @@ import de.unisaarland.cs.se.selab.board.TileType
 import de.unisaarland.cs.se.selab.farms.Action
 import de.unisaarland.cs.se.selab.incidents.AnimalAttack
 import de.unisaarland.cs.se.selab.incidents.BeeHappy
+import de.unisaarland.cs.se.selab.incidents.Drought
 import de.unisaarland.cs.se.selab.plants.Plant
 import de.unisaarland.cs.se.selab.plants.PlantType
 import org.junit.jupiter.api.BeforeEach
@@ -118,7 +119,7 @@ class PlantHarvestEstimateBigTest {
         assertEquals(0, wheatField?.plant?.getHarvestEstimate())
         wheatField?.plant?.sow(PlantType.WHEAT, wheatField?.plant!!.data, 21)
         wheatField?.updateHarvestEstimate(21)
-        wheatField?.drought = true
+        wheatField?.addDrought(Drought(0, 0, setOf(wheatField!!)))
         wheatField?.updateHarvestEstimate(22)
         assertEquals(0, wheatField?.plant?.getHarvestEstimate())
 

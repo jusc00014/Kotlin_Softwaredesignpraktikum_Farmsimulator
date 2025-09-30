@@ -1,6 +1,7 @@
 package de.unisaarland.cs.se.selab.board
 import de.unisaarland.cs.se.selab.farms.Action
 import de.unisaarland.cs.se.selab.incidents.AnimalAttack
+import de.unisaarland.cs.se.selab.incidents.Drought
 import de.unisaarland.cs.se.selab.plants.Plant
 import kotlin.math.max
 import kotlin.math.min
@@ -22,7 +23,7 @@ abstract class Fertile(
 ) : Tile(id, coord, airflow, false, farmID, type) {
     var sunhours: Int = -1
     private var moisture: Int = moistureCapacity
-    var drought: Boolean = false
+    protected var drought: Boolean = false
 
     private fun resetForNextTick() {
         if (type == TileType.FIELD) {
@@ -78,9 +79,6 @@ abstract class Fertile(
     /**
      * called by boardHandler to update harvest estimates on all Fertile*/
     fun updateHarvestEstimate(yearTick: Int) {
-        if (drought) {
-            moisture = 0
-        }
         plant.updateHarvestEstimate(yearTick, drought, sunhours, moisture, id)
         resetForNextTick()
     }
@@ -106,6 +104,20 @@ abstract class Fertile(
     fun stampede(animalAttack: AnimalAttack): Boolean {
         return plant.addStampede(animalAttack)
     }
+
+    /**
+     * called by Drought on all Fertiles
+     */
+    fun addDrought(drought: Drought) {
+        moisture = 0
+        this.drought = true
+        plant.addDrought(drought)
+    }
+
+    /**
+     * Getter for drought
+     */
+    fun hasDrought(): Boolean = drought
 
     override fun asFertile(): Fertile? {
         if (type != TileType.PLANTATION && type != TileType.FIELD) {

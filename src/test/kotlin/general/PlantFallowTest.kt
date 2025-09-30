@@ -7,6 +7,7 @@ import de.unisaarland.cs.se.selab.board.Field
 import de.unisaarland.cs.se.selab.board.Plantation
 import de.unisaarland.cs.se.selab.board.TileType
 import de.unisaarland.cs.se.selab.farms.Action
+import de.unisaarland.cs.se.selab.incidents.Drought
 import de.unisaarland.cs.se.selab.plants.Plant
 import de.unisaarland.cs.se.selab.plants.PlantType
 import org.junit.jupiter.api.BeforeEach
@@ -115,7 +116,7 @@ class PlantFallowTest {
 
         wheatField?.plant?.sow(PlantType.WHEAT, wheatField?.plant!!.data, 20)
         wheatField?.updateHarvestEstimate(20)
-        wheatField?.drought = true
+        wheatField?.addDrought(Drought(0, 0, setOf(wheatField!!)))
         wheatField?.updateHarvestEstimate(22)
         // assertTrue(wheatField?.plant!!.isFallow(23))
         // assertTrue(wheatField?.plant!!.isFallow(24))

@@ -10,8 +10,7 @@ class Drought(id: Int, tick: Int, val affectedTiles: Set<Tile>) : Incident(id, t
     override fun execute() {
         val tiles = affectedTiles.mapNotNull { it.asFertile() }
         tiles.forEach {
-            it.drought = true
-            it.plant.addDrought(this)
+            it.addDrought(this)
         }
         Logger.incidentExecuted(id, this, tiles.map { it.id }.sorted())
     }

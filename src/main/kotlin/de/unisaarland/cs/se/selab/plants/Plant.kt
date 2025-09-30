@@ -341,7 +341,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
         this.data = plantData
         this.sowTime = yearTick
         this.harvestTime = 0
-        this.oldHarvestEstimate = this.harvestEstimate
+        this.oldHarvestEstimate = data.initialHarvestEstimate
         this.harvestEstimate = data.initialHarvestEstimate
     }
 
@@ -357,7 +357,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
      */
     fun prepareCurrentTick(yearTick: Int) {
         if (yearTick == PLANTATION_HARVEST_RESET && data.tileType == PlantTile.PLANTATION) {
-            oldHarvestEstimate = harvestEstimate
+            oldHarvestEstimate = data.initialHarvestEstimate
             harvestEstimate = data.initialHarvestEstimate
             cutted = false
         }

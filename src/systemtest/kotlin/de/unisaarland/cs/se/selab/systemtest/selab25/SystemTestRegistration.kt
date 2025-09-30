@@ -10,8 +10,6 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.Sowin
 import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.SowingPlanDoesTheSame
 import de.unisaarland.cs.se.selab.systemtest.selab25.basictests.ExampleSystemTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.BigCloudTest
-import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.BigCloudTestFirstTick
-import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.BigCloudTestSecondTick
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.ClimateChange
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.CloudTestIllRemain
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.CloudTestImTired
@@ -58,29 +56,7 @@ object SystemTestRegistration {
         testSuite.registerTest(ExampleSystemTest())
         // region ParserTests
         // endregion ParserTests
-        testSuite.registerTest(Onefieldtest())
-        testSuite.registerTest(BigCloudTest())
-        testSuite.registerTest(Onefieldtestshouldsow())
-        testSuite.registerTest(MachineTravelTest())
-        testSuite.registerTest(SwissArmyKnife())
-        testSuite.registerTest(OneFieldTestTrialMoisture())
-        testSuite.registerTest(OneFieldTestTrialSowingTime18())
-        testSuite.registerTest(OneFieldTestTrialSowingTime19())
-        testSuite.registerTest(OneFieldTestTrialSowingTime20())
-        testSuite.registerTest(OneFieldTestTrialIrrigatingAfterDrought())
-        testSuite.registerTest(BigCloudTestFirstTick())
-        testSuite.registerTest(BigCloudTestSecondTick())
-        testSuite.registerTest(InvalidAnimalAttackTest())
-        testSuite.registerTest(InvalidBeeHappyTest())
-        testSuite.registerTest(InvalidBrokenMachineTest())
-        testSuite.registerTest(InvalidDroughtTest())
-        testSuite.registerTest(OneFieldTestTrialSowingTime21())
-        testSuite.registerTest(OneFieldTestTrialSowingTime22())
         testSuite.registerTest(DroughtTest())
-        testSuite.registerTest(FarmSowingAfterTheEnd())
-        testSuite.registerTest(FarmInvalidPlantationTile())
-        testSuite.registerTest(FarmWOPlantationsAndFields())
-        testSuite.registerTest(FarmNoFieldsWSowingPlan())
         testSuite.registerTest(MachineCanTReach())
         testSuite.registerTest(IDsNotUnique())
         testSuite.registerTest(FieldOfOtherFarm())
@@ -122,6 +98,15 @@ object SystemTestRegistration {
         testSuite.registerTest(InvalidBeeHappyTest())
         testSuite.registerTest(InvalidBrokenMachineTest())
         testSuite.registerTest(InvalidDroughtTest())
+        testSuite.registerTest(SwissArmyKnife())
+        testSuite.registerTest(InvalidAnimalAttackTest())
+        testSuite.registerTest(InvalidBeeHappyTest())
+        testSuite.registerTest(InvalidBrokenMachineTest())
+        testSuite.registerTest(InvalidDroughtTest())
+        testSuite.registerTest(FarmSowingAfterTheEnd())
+        testSuite.registerTest(FarmInvalidPlantationTile())
+        testSuite.registerTest(FarmWOPlantationsAndFields())
+        testSuite.registerTest(FarmNoFieldsWSowingPlan())
     }
 
     /**
@@ -140,5 +125,16 @@ object SystemTestRegistration {
         testSuite.registerTest(VillageCreationTestChained())
         testSuite.registerTest(Floodgates())
         testSuite.registerTest(VillageCreationTestCrossCloudValid())
+        testSuite.registerTest(Onefieldtest())
+        testSuite.registerTest(BigCloudTest())
+        testSuite.registerTest(Onefieldtestshouldsow())
+        testSuite.registerTest(MachineTravelTest())
+        testSuite.registerTest(OneFieldTestTrialMoisture())
+        testSuite.registerTest(OneFieldTestTrialSowingTime18())
+        testSuite.registerTest(OneFieldTestTrialSowingTime19())
+        testSuite.registerTest(OneFieldTestTrialSowingTime20())
+        testSuite.registerTest(OneFieldTestTrialIrrigatingAfterDrought())
+        testSuite.registerTest(OneFieldTestTrialSowingTime21())
+        testSuite.registerTest(OneFieldTestTrialSowingTime22())
     }
 }

@@ -20,7 +20,25 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.Floodgates
 import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigTestOctober1
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.MachineOrder
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.MachineTimeOut
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest1
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest10
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest11
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest12
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest13
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest14
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest15
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest16
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest17
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest18
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest19
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest2
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest3
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest4
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest5
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest6
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest7
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest8
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest9
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.AnimalAttackTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.AnimalAttackTestStacking
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.BeeHappyTest
@@ -85,8 +103,26 @@ object SystemTestRegistration {
         testSuite.registerTest(AnimalAttackTestStacking())
         testSuite.registerTest(MachineDuplicateActions())
         testSuite.registerTest(BeeHappyTest())
-        testSuite.registerTest(NonPrioritizedTest())
         testSuite.registerTest(SisyphusMachineFarFromHomeTest())
+        testSuite.registerTest(NonPrioritizedTest1())
+        testSuite.registerTest(NonPrioritizedTest2())
+        testSuite.registerTest(NonPrioritizedTest3())
+        testSuite.registerTest(NonPrioritizedTest4())
+        testSuite.registerTest(NonPrioritizedTest5())
+        testSuite.registerTest(NonPrioritizedTest6())
+        testSuite.registerTest(NonPrioritizedTest7())
+        testSuite.registerTest(NonPrioritizedTest8())
+        testSuite.registerTest(NonPrioritizedTest9())
+        testSuite.registerTest(NonPrioritizedTest10())
+        testSuite.registerTest(NonPrioritizedTest11())
+        testSuite.registerTest(NonPrioritizedTest12())
+        testSuite.registerTest(NonPrioritizedTest13())
+        testSuite.registerTest(NonPrioritizedTest14())
+        testSuite.registerTest(NonPrioritizedTest15())
+        testSuite.registerTest(NonPrioritizedTest16())
+        testSuite.registerTest(NonPrioritizedTest17())
+        testSuite.registerTest(NonPrioritizedTest18())
+        testSuite.registerTest(NonPrioritizedTest19())
     }
 
     /**

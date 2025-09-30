@@ -23,6 +23,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreation
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestOverlapping
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestOverlappingDifferentTicks
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.DroughtTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.DroughtTestDryDryDesert
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.InvalidAnimalAttackTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.InvalidBeeHappyTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.InvalidBrokenMachineTest
@@ -43,6 +44,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTr
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialSowingTime22
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.Onefieldtest
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.Onefieldtestshouldsow
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.FallowSowPlanPotato
 
 /**
  * Used for test registration
@@ -69,6 +71,7 @@ object SystemTestRegistration {
         testSuite.registerTest(SowingPlanDoesTheSame())
         testSuite.registerTest(MachineCanTSow())
         testSuite.registerTest(MachineWrongPlant())
+        testSuite.registerTest(FallowSowPlanPotato())
     }
 
     /**
@@ -140,5 +143,6 @@ object SystemTestRegistration {
         testSuite.registerTest(OneFieldTestTrialIrrigatingAfterDrought())
         testSuite.registerTest(OneFieldTestTrialSowingTime21())
         testSuite.registerTest(OneFieldTestTrialSowingTime22())
+        testSuite.registerTest(DroughtTestDryDryDesert())
     }
 }

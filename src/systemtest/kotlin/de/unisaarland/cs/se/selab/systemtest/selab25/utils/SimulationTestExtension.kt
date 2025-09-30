@@ -49,8 +49,32 @@ abstract class SimulationTestExtension(
     protected fun incidentOccured(incidentID: Int, incidentType: String, tileIDs: List<Int>) =
         "[IMPORTANT] Incident: Incident $incidentID of type $incidentType happened and affected tiles " +
             "${formatArray(tileIDs.sortedBy { it })}."
+    protected fun actionNotPerformed(tileID: Int, actions: List<Action>): String =
+        "[DEBUG] Harvest Estimate: Required actions on tile $tileID were not performed: ${actions.joinToString(",")}."
     protected fun harvestEstimate(tileID: Int, amount: Int, plant: PlantType) =
         "[INFO] Harvest Estimate: Harvest estimate on tile $tileID changed to $amount g of ${plant.name}."
     protected fun simulationEnd(tick: Int): String =
         "[IMPORTANT] Simulation Info: Simulation ended at tick $tick."
+    protected val statisticsCalculated: String =
+        "[IMPORTANT] Simulation Info: Simulation statistics are calculated."
+    protected fun statisticFarmCollected(farmID: Int, amount: Int): String =
+        "[IMPORTANT] Simulation Statistics: Farm $farmID collected $amount g of harvest."
+    protected fun statisticPlantHarvested(plant: PlantType, amount: Int): String =
+        "[IMPORTANT] Simulation Statistics: Total amount of ${plant.name} harvested: $amount g."
+    protected fun statisticHarvestLeft(amount: Int): String =
+        "[IMPORTANT] Simulation Statistics: Total harvest estimate still in fields and plantations: $amount g."
+    protected suspend fun assertStatisticPlantHarvested(plantMap: Map<PlantType, Int>) {
+        for (plant in arrayOf(
+            PlantType.POTATO,
+            PlantType.WHEAT,
+            PlantType.OAT,
+            PlantType.PUMPKIN,
+            PlantType.APPLE,
+            PlantType.GRAPE,
+            PlantType.ALMOND,
+            PlantType.CHERRY
+        )) {
+            assertNextLine(statisticPlantHarvested(plant, plantMap[plant] ?: 0))
+        }
+    }
 }

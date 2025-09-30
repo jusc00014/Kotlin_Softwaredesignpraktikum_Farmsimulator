@@ -18,6 +18,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.CloudTestImTired
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.CloudTestSmall
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.Floodgates
 import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigTestOctober1
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.HarvestEstimateSowingEarlyTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.MachineOrder
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.MachineTimeOut
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest1
@@ -40,6 +41,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioriti
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest8
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest9
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTestPerformsIrrigatingOnTile3
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.SowingEarlyTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.AnimalAttackTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.AnimalAttackTestStacking
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.BeeHappyTest
@@ -125,6 +127,8 @@ object SystemTestRegistration {
         testSuite.registerTest(NonPrioritizedTest18())
         testSuite.registerTest(NonPrioritizedTest19())
         testSuite.registerTest(NonPrioritizedTestPerformsIrrigatingOnTile3())
+        testSuite.registerTest(SowingEarlyTest())
+        testSuite.registerTest(HarvestEstimateSowingEarlyTest())
     }
 
     /**

@@ -1,28 +1,38 @@
 {
   "tiles": [
     {
-      "id": 2,
-      "coordinates": { "x": 0, "y": 0 },
-      "category": "PLANTATION",
-      "farm": 1,
-      "airflow": true,
-      "direction": "225",
-      "capacity": 400,
-      "plant": "ALMOND"
-    },
-    {
       "id": 3,
-      "coordinates": { "x": -2, "y": 2 },
-      "category": "PLANTATION",
+      "coordinates": { "x": 0, "y": 0 },
+      "category": "FIELD",
       "farm": 1,
       "airflow": true,
       "direction": "225",
-      "capacity": 400,
-      "plant": "ALMOND"
+      "capacity": 4000,
+      "possiblePlants": ["POTATO"]
     },
     {
-      "id": 7,
-      "coordinates": { "x": -1, "y": 1 },
+      "id": 1,
+      "coordinates": { "x": 2, "y": 0 },
+      "category": "FIELD",
+      "farm": 1,
+      "airflow": true,
+      "direction": "225",
+      "capacity": 4000,
+      "possiblePlants": ["POTATO", "WHEAT"]
+    },
+    {
+      "id": 2,
+      "coordinates": { "x": 0, "y": 2 },
+      "category": "FIELD",
+      "farm": 1,
+      "airflow": true,
+      "direction": "225",
+      "capacity": 4000,
+      "possiblePlants": ["POTATO", "WHEAT"]
+    },
+    {
+      "id": 4,
+      "coordinates": { "x": 1, "y": -1 },
       "category": "FARMSTEAD",
       "farm": 1,
       "airflow": true,

@@ -3,6 +3,7 @@ package de.unisaarland.cs.se.selab.systemtest.selab25
 import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.FieldOfOtherFarm
 import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.IDsNotUnique
 import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.MachineCanTReach
+import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.MachineCanTSow
 import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.SameMachineId
 import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.SameMachineName
 import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.SamePlanId
@@ -65,6 +66,7 @@ object SystemTestRegistration {
         testSuite.registerTest(SameMachineName())
         testSuite.registerTest(SamePlanId())
         testSuite.registerTest(SowingPlanDoesTheSame())
+        testSuite.registerTest(MachineCanTSow())
     }
 
     /**

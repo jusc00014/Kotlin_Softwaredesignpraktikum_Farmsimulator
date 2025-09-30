@@ -51,3 +51,28 @@ class SowingAndVillage : TestExtension() {
         )
     }
 }
+
+/**
+ * Test
+ */
+class MachineCanTSow : TestExtension() {
+    override val name = "Machien can not sow"
+    override val description = Strgs.DESC
+
+    override val farms = "alternativeParserTest/farm1.json"
+    override val scenario = Strgs.SCENAAR
+    override val map = "alternativeParserTest/map9.json"
+
+    override val logLevel = Strgs.DBG
+    override val maxTicks = 1
+    override val startYearTick = 19
+
+    override suspend fun run() {
+        skipUntilString(
+            Strgs.STR
+        )
+        assertCurrentLine(
+            Strgs.STR
+        )
+    }
+}

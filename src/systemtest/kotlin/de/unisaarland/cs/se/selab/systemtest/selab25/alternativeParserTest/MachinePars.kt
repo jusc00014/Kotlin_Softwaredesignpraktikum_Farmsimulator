@@ -8,6 +8,9 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.utils.TestExtension
 object Strgs {
     const val STR = "[INFO] Initialization Info: farms.json successfully parsed and validated."
     const val DESC = "Tests if this is valid"
+    const val MAAP = "alternativeParserTest/map3.json"
+    const val SCENAAR = "alternativeParserTest/noscenarios.json"
+    const val DBG = "DEBUG"
 }
 
 /**
@@ -18,10 +21,10 @@ class MachineCanTReach : TestExtension() {
     override val description = Strgs.DESC
 
     override val farms = "alternativeParserTest/farm1.json"
-    override val scenario = "alternativeParserTest/noscenarios.json"
+    override val scenario = Strgs.SCENAAR
     override val map = "alternativeParserTest/map1.json"
 
-    override val logLevel = "DEBUG"
+    override val logLevel = Strgs.DBG
     override val maxTicks = 1
     override val startYearTick = 19
 
@@ -43,10 +46,10 @@ class IDsNotUnique : TestExtension() {
     override val description = Strgs.DESC
 
     override val farms = "alternativeParserTest/farm2.json"
-    override val scenario = "alternativeParserTest/noscenarios.json"
+    override val scenario = Strgs.SCENAAR
     override val map = "alternativeParserTest/map2.json"
 
-    override val logLevel = "DEBUG"
+    override val logLevel = Strgs.DBG
     override val maxTicks = 1
     override val startYearTick = 19
 

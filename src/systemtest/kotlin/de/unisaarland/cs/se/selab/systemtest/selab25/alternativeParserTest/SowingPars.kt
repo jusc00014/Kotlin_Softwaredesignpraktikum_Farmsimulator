@@ -10,10 +10,10 @@ class FieldOfOtherFarm : TestExtension() {
     override val description = Strgs.DESC
 
     override val farms = "alternativeParserTest/farm3.json"
-    override val scenario = "alternativeParserTest/noscenarios.json"
+    override val scenario = Strgs.SCENAAR
     override val map = "alternativeParserTest/map3.json"
 
-    override val logLevel = "DEBUG"
+    override val logLevel = Strgs.DBG
     override val maxTicks = 1
     override val startYearTick = 19
 
@@ -38,7 +38,7 @@ class SowingAndVillage : TestExtension() {
     override val scenario = "alternativeParserTest/scenario4.json"
     override val map = "alternativeParserTest/map4.json"
 
-    override val logLevel = "DEBUG"
+    override val logLevel = Strgs.DBG
     override val maxTicks = 1
     override val startYearTick = 19
 

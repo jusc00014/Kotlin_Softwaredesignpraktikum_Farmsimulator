@@ -3,7 +3,11 @@ package de.unisaarland.cs.se.selab.systemtest.selab25
 import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.FieldOfOtherFarm
 import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.IDsNotUnique
 import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.MachineCanTReach
+import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.SameMachineId
+import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.SameMachineName
+import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.SamePlanId
 import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.SowingAndVillage
+import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.SowingPlanDoesTheSame
 import de.unisaarland.cs.se.selab.systemtest.selab25.basictests.ExampleSystemTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.BigCloudTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.BigCloudTestFirstTick
@@ -81,6 +85,10 @@ object SystemTestRegistration {
         testSuite.registerTest(IDsNotUnique())
         testSuite.registerTest(FieldOfOtherFarm())
         testSuite.registerTest(SowingAndVillage())
+        testSuite.registerTest(SameMachineId())
+        testSuite.registerTest(SameMachineName())
+        testSuite.registerTest(SamePlanId())
+        testSuite.registerTest(SowingPlanDoesTheSame())
     }
 
     /**

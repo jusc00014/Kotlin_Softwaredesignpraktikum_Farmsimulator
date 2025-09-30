@@ -1,5 +1,7 @@
 package de.unisaarland.cs.se.selab.board
 
+import java.util.LinkedList
+import java.util.Queue
 import java.util.SortedMap
 
 /**
@@ -9,39 +11,46 @@ class BoardData(idToTile: Map<Int, Tile>) {
     private val idToTile: SortedMap<Int, Tile> = idToTile.toSortedMap()
     private val coordToId: Map<Coordinate, Int> = idToTile.values.associate { Pair(it.coord, it.id) }
 
-    private fun coordNeighbours(radius: Int, coordinate: Coordinate, handled: MutableSet<Coordinate>): Set<Coordinate> {
+    private fun getCoordNeighbours(radius: Int, coordinate: Coordinate): Set<Pair<Int, Coordinate>> {
         // Direction NW, NE, SE, SW
         val coords = mutableSetOf(
-            coordinate,
-            Coordinate(coordinate.x - 1, coordinate.y - 1),
-            Coordinate(coordinate.x + 1, coordinate.y - 1),
-            Coordinate(coordinate.x + 1, coordinate.y + 1),
-            Coordinate(coordinate.x - 1, coordinate.y + 1),
+            radius to coordinate,
+            radius to Coordinate(coordinate.x - 1, coordinate.y - 1),
+            radius to Coordinate(coordinate.x + 1, coordinate.y - 1),
+            radius to Coordinate(coordinate.x + 1, coordinate.y + 1),
+            radius to Coordinate(coordinate.x - 1, coordinate.y + 1),
         )
 
         // Direction N, E, S, W
         if (coordinate.x % 2 == 0) {
             coords.addAll(
                 setOf(
-                    Coordinate(coordinate.x, coordinate.y + 2),
-                    Coordinate(coordinate.x + 2, coordinate.y),
-                    Coordinate(coordinate.x, coordinate.y - 2),
-                    Coordinate(coordinate.x - 2, coordinate.y),
+                    radius to Coordinate(coordinate.x, coordinate.y + 2),
+                    radius to Coordinate(coordinate.x + 2, coordinate.y),
+                    radius to Coordinate(coordinate.x, coordinate.y - 2),
+                    radius to Coordinate(coordinate.x - 2, coordinate.y),
                 )
             )
         }
-        handled.add(coordinate)
-        if (radius > 1) {
-            val coordsTemp = mutableSetOf<Coordinate>()
-            for (coord in coords) {
-                if (coord !in handled) {
-                    coordsTemp.addAll(coordNeighbours(radius - 1, coord, handled))
-                }
-            }
-            coords.addAll(coordsTemp)
-        }
-
         return coords
+    }
+    private fun coordNeighbours(radius: Int, coordinate: Coordinate): Set<Coordinate> {
+        val toHandle: Queue<Pair<Int, Coordinate>> = LinkedList()
+        val handled = mutableSetOf<Coordinate>()
+        toHandle.addAll(getCoordNeighbours(radius - 1, coordinate))
+        while (toHandle.isNotEmpty()) {
+            val radCoord = toHandle.remove()
+            if (handled.contains(radCoord.second)) {
+                continue
+            }
+            if (radCoord.first < 1) {
+                handled.add(radCoord.second)
+                continue
+            }
+            handled.add(radCoord.second)
+            toHandle.addAll(getCoordNeighbours(radCoord.first - 1, radCoord.second))
+        }
+        return handled
     }
 
     /**
@@ -51,7 +60,7 @@ class BoardData(idToTile: Map<Int, Tile>) {
         if (radius < 1) {
             return if (excludeSelf) emptyList() else listOf(tile)
         }
-        return coordNeighbours(radius, tile.coord, mutableSetOf())
+        return coordNeighbours(radius, tile.coord)
             .mapNotNull { getTileByCoord(it) }
             .sortedBy { it.id }
             .filterNot { excludeSelf && it == tile }

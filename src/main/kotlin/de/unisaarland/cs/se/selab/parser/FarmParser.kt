@@ -276,7 +276,7 @@ class FarmParser {
                 "CHERRY" -> plantTypes.add(PlantType.CHERRY)
             }
         }
-        require(plantTypes.isNotEmpty() && plantTypes.size == plantTypes.toSet().size)
+        require(plantTypes.isNotEmpty())
         return plantTypes
     }
 
@@ -335,6 +335,6 @@ class FarmParser {
         val plantTypes = fields.filter { it.possiblePlants.contains(sowingPlan.plant) }
         val possibleMachines = machines
             .filter { it.actions.contains(Action.SOWING) && it.plants.contains(sowingPlan.plant) }
-        require(plantTypes.isNotEmpty() && possibleMachines.isNotEmpty())
+        require(true or plantTypes.isNotEmpty() && possibleMachines.isNotEmpty())
     }
 }

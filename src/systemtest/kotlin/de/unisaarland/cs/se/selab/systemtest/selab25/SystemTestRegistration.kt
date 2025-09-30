@@ -108,9 +108,6 @@ object SystemTestRegistration {
         testSuite.registerTest(AnimalAttackTestStacking())
         testSuite.registerTest(MachineDuplicateActions())
         testSuite.registerTest(BeeHappyTest())
-        testSuite.registerTest(SowingPlanTest())
-        testSuite.registerTest(SisyphusMachineFarFromHomeTest())
-        testSuite.registerTest(SisyphusMachineFarFromHomeTest3())
         testSuite.registerTest(NonPrioritizedTest1())
         testSuite.registerTest(NonPrioritizedTest2())
         testSuite.registerTest(NonPrioritizedTest3())
@@ -205,5 +202,7 @@ object SystemTestRegistration {
         testSuite.registerTest(DroughtTestDryDryDesert())
         testSuite.registerTest(MachineTimeOut())
         testSuite.registerTest(MachineOrder())
+        testSuite.registerTest(SowingPlanTest())
+        testSuite.registerTest(SisyphusMachineFarFromHomeTest())
     }
 }

@@ -1,0 +1,48 @@
+{
+  "farms": [
+    {
+      "id": 0,
+      "name": "Sadistic Farm which really likes to see its machine in pain",
+      "farmsteads": [
+        100,
+        6
+      ],
+      "fields": [
+        7
+      ],
+      "plantations": [],
+      "machines": [
+        {
+          "id": 0,
+          "name": "Wheat Sisyphus",
+          "actions": [
+            "SOWING",
+            "IRRIGATING",
+            "WEEDING"
+          ],
+          "plants": [
+            "WHEAT"
+          ],
+          "duration": 14,
+          "location": 100
+        }
+      ],
+      "sowingPlans": [
+        {
+          "id": 0,
+          "tick": 0,
+          "plant": "WHEAT",
+          "location": 7,
+          "radius": 0
+        },
+        {
+          "id": 1,
+          "tick": 0,
+          "plant": "WHEAT",
+          "location": 7,
+          "radius": 0
+        }
+      ]
+    }
+  ]
+}

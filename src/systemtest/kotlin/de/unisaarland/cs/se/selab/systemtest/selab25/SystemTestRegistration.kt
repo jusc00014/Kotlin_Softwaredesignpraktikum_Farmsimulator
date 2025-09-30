@@ -41,6 +41,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreati
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTestCrossCloudValid
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTestNextToForest
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.MachineTravelTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.SisyphusMachineFarFromHomeTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.mutant.SwissArmyKnife
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialIrrigatingAfterDrought
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialMoisture
@@ -85,6 +86,7 @@ object SystemTestRegistration {
         testSuite.registerTest(MachineDuplicateActions())
         testSuite.registerTest(BeeHappyTest())
         testSuite.registerTest(NonPrioritizedTest())
+        testSuite.registerTest(SisyphusMachineFarFromHomeTest())
     }
 
     /**

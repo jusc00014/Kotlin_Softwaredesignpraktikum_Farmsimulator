@@ -1,5 +1,6 @@
 package de.unisaarland.cs.se.selab.systemtest.selab25
 
+import de.unisaarland.cs.se.selab.farms.SowingPlan
 import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.FieldOfOtherFarm
 import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.IDsNotUnique
 import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.MachineCanTReach
@@ -74,6 +75,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTr
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.Onefieldtest
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.Onefieldtestshouldsow
 import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.FallowSowPlanPotato
+import de.unisaarland.cs.se.selab.systemtest.selab25.sowingPlanTest.SowingPlanTest
 
 /**
  * Used for test registration
@@ -106,6 +108,7 @@ object SystemTestRegistration {
         testSuite.registerTest(AnimalAttackTestStacking())
         testSuite.registerTest(MachineDuplicateActions())
         testSuite.registerTest(BeeHappyTest())
+        testSuite.registerTest(SowingPlanTest())
         testSuite.registerTest(SisyphusMachineFarFromHomeTest())
         testSuite.registerTest(NonPrioritizedTest1())
         testSuite.registerTest(NonPrioritizedTest2())
@@ -163,10 +166,6 @@ object SystemTestRegistration {
         testSuite.registerTest(InvalidBrokenMachineTest())
         testSuite.registerTest(InvalidDroughtTest())
         testSuite.registerTest(SwissArmyKnife())
-        testSuite.registerTest(InvalidAnimalAttackTest())
-        testSuite.registerTest(InvalidBeeHappyTest())
-        testSuite.registerTest(InvalidBrokenMachineTest())
-        testSuite.registerTest(InvalidDroughtTest())
         testSuite.registerTest(FarmSowingAfterTheEnd())
         testSuite.registerTest(FarmInvalidPlantationTile())
         testSuite.registerTest(FarmWOPlantationsAndFields())

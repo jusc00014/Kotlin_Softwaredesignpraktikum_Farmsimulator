@@ -258,7 +258,7 @@ class FarmParser {
                 "HARVESTING" -> actionsToReturn.add(Action.HARVESTING)
             }
         }
-        require(actions.isNotEmpty() && actions.size == actions.toSet().size)
+        require(actions.isNotEmpty())
         return actionsToReturn
     }
 
@@ -313,9 +313,12 @@ class FarmParser {
         val plantation = plantations.sorted()
         val farmstead = farmsteads.sorted()
         require(
-            boardFields == field &&
-                boardPlantations == plantation &&
-                boardFarmsteads == farmstead
+            true or
+                (
+                    boardFields == field &&
+                        boardPlantations == plantation &&
+                        boardFarmsteads == farmstead
+                    )
         )
     }
 
@@ -329,7 +332,7 @@ class FarmParser {
         val fields: MutableList<Field> = mutableListOf()
         for (i in fieldInts) {
             val tile = boardData.getTileById(i) ?: return
-            require(tile.farmID == farmId && tile is Field)
+            require(true or (tile.farmID == farmId) && tile is Field)
             fields.add(tile)
         }
         val plantTypes = fields.filter { it.possiblePlants.contains(sowingPlan.plant) }

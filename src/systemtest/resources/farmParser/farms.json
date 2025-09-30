@@ -1,0 +1,56 @@
+{
+  "farms": [
+    {
+      "id": 0,
+      "name": "Very Cool Farm",
+      "farmsteads": [4],
+      "fields": [1],
+      "plantations": [7],
+      "machines": [
+        {
+          "id": 0,
+          "name": "Tractor",
+          "actions": ["SOWING", "IRRIGATING"],
+          "plants": ["PUMPKIN", "WHEAT", "POTATO"],
+          "duration": 4,
+          "location": 4
+        }
+      ],
+      "sowingPlans": [
+        {
+          "id": 0,
+          "tick": 0,
+          "plant": "PUMPKIN",
+          "location": 0,
+          "radius": 2
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Very Rad Farm",
+      "farmsteads": [5],
+      "fields": [0],
+      "plantations": [3],
+      "machines": [
+        {
+          "id": 1,
+          "name": "Kractor",
+          "actions": ["SOWING", "IRRIGATING"],
+          "plants": ["PUMPKIN", "WHEAT", "POTATO"],
+          "duration": 4,
+          "location": 5
+        }
+      ],
+      "sowingPlans": [
+        {
+          "id": 1,
+          "tick": 0,
+          "plant": "POTATO",
+          "location": 0,
+          "radius": 0
+        }
+      ]
+    }
+  ]
+}

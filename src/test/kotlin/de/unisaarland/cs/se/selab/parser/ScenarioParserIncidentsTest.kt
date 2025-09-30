@@ -9,6 +9,8 @@ import de.unisaarland.cs.se.selab.board.TileType
 import de.unisaarland.cs.se.selab.farms.Action
 import de.unisaarland.cs.se.selab.farms.Farm
 import de.unisaarland.cs.se.selab.farms.Machine
+import de.unisaarland.cs.se.selab.incidents.CloudCreation
+import de.unisaarland.cs.se.selab.incidents.Incident
 import de.unisaarland.cs.se.selab.plants.Plant
 import de.unisaarland.cs.se.selab.plants.PlantType
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -18,7 +20,7 @@ import org.junit.jupiter.api.Test
 class ScenarioParserIncidentsTest {
     lateinit var boardData: BoardData
     lateinit var boardData2: BoardData
-    lateinit var boardDataCloudCreationVillageOverlap: BoardData
+    lateinit var boardDataGap: BoardData
     lateinit var farmList: List<Farm>
     lateinit var idToMachines: Map<Int, Machine>
     val scenarioParser = ScenarioParser()
@@ -80,6 +82,14 @@ class ScenarioParserIncidentsTest {
         null,
         TileType.ROAD
     )
+    val tile7 = Tile(
+        7,
+        Coordinate(2, 10),
+        null,
+        false,
+        null,
+        TileType.ROAD
+    )
     val farm = Farm(
         0,
         listOf(0),
@@ -105,7 +115,8 @@ class ScenarioParserIncidentsTest {
                 2 to tile2,
                 3 to tile3,
                 4 to tile4,
-                5 to tile5
+                5 to tile5,
+                6 to tile6
             )
         )
         boardData2 = BoardData(
@@ -117,14 +128,12 @@ class ScenarioParserIncidentsTest {
                 5 to tile5
             )
         )
-        boardDataCloudCreationVillageOverlap = BoardData(
+        boardDataGap = BoardData(
             mapOf(
                 1 to tile1,
                 2 to tile2,
-                3 to tile3,
                 4 to tile4,
-                5 to tile5,
-                6 to tile6
+                7 to tile7
             )
         )
         farmList = listOf(farm)
@@ -160,11 +169,35 @@ class ScenarioParserIncidentsTest {
         val scenarioJson = "src/systemtest/resources/scenarioParser/validCloudOverlapScenario.json"
         var parseWorked = true
         try {
-            scenarioParser.parse(scenarioJson, boardDataCloudCreationVillageOverlap, 17, idToMachines, farmList, 1)
+            scenarioParser.parse(scenarioJson, boardData, 17, idToMachines, farmList, 1)
         } catch (_: IllegalArgumentException) {
             parseWorked = false
         }
         assertTrue(parseWorked, "Cloud Creation parsing didn't work. Not good.")
+    }
+
+    @Test
+    fun parseValidCloudCreationCorrectSet() {
+        val scenarioJson = "src/systemtest/resources/scenarioParser/validCloudGapScenario.json"
+        var parseWorked = true
+        var incidentList = emptyList<Incident>()
+        try {
+            incidentList = scenarioParser.parse(
+                scenarioJson,
+                boardDataGap,
+                17,
+                idToMachines,
+                farmList,
+                1
+            ).first
+        } catch (_: IllegalArgumentException) {
+            parseWorked = false
+        }
+        assertTrue(parseWorked, "Cloud Creation parsing didn't work. Not good.")
+        val incident = incidentList.first()
+        if (incident is CloudCreation) {
+            assertTrue(incident.tiles == setOf(tile1, tile2, tile4, tile7))
+        }
     }
 
     @Test

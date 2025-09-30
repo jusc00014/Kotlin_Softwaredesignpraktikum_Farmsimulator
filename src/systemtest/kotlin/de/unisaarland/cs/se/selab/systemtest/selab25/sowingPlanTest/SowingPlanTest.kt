@@ -59,5 +59,8 @@ class SowingPlanTest : TestExtension() {
         listOf("POTATO", "WHEAT", "OAT", "PUMPKIN", "APPLE", "GRAPE", "ALMOND", "CHERRY").forEach { plant ->
             assertNextLine("[IMPORTANT] Simulation Statistics: Total amount of $plant harvested: 0 g.")
         }
+        assertNextLine(
+            "[IMPORTANT] Simulation Statistics: Total harvest estimate still in fields and plantations: 1719384 g."
+        )
     }
 }

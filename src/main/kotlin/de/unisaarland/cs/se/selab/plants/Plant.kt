@@ -70,10 +70,19 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
     }
 
     private fun initHarvestEstimate(yearTick: Int): Int {
-        return when (data.tileType) {
-            PlantTile.PLANTATION -> (data.initialHarvestEstimate * harvestPenalty(yearTick)).toInt()
-            PlantTile.FIELD -> 0
+        var initHE: Int
+        when (data.tileType) {
+            PlantTile.PLANTATION -> {
+                initHE = (data.initialHarvestEstimate * harvestPenalty(yearTick - 1)).toInt()
+                val x = harvestPenalty(yearTick - 2)
+                val y = harvestPenalty(yearTick - 3)
+                initHE = (initHE * x * y).toInt()
+            }
+            PlantTile.FIELD -> {
+                initHE = 0
+            }
         }
+        return initHE
     }
 
     /**
@@ -89,7 +98,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
     }
 
     private fun harvestPenalty(yearTick: Int): Double {
-        val lateFor = harvestPenaltyTimeFrame().indexOf(yearTick) + 1 // Shift index to start with 0
+        val lateFor = harvestPenaltyTimeFrame().indexOf(yearTick + 1) + 1 // Shift index to start with 0
         if (lateFor == 0) return 1.0
         return when {
             (type == PlantType.WHEAT || type == PlantType.OAT) && lateFor <= 2

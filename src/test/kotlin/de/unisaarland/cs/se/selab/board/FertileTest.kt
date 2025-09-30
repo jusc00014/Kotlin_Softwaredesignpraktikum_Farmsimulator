@@ -171,8 +171,8 @@ class FertileTest {
         assertNull(r)
         assertFalse(fertile.irrigatable())
         fertile.updateHarvestEstimate(yearTick)
-        r = fertile.performAction(Action.HARVESTING, yearTick)
+        r = fertile.performAction(Action.HARVESTING, 20)
         assertNotNull(r)
-        assertEquals(Constants.apple.initialHarvestEstimate, r)
+        assertEquals((Constants.apple.initialHarvestEstimate * 0.5).toInt(), r)
     }
 }

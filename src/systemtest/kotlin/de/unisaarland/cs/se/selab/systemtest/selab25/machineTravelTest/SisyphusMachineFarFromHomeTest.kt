@@ -29,11 +29,6 @@ class SisyphusMachineFarFromHomeTest : TestExtension() {
         assertCurrentLine("[IMPORTANT] Farm Action: Machine 0 performs SOWING on tile 7 for 14 days.")
         assertNextLine("[IMPORTANT] Farm Sowing: Machine 0 has sowed WHEAT according to sowing plan 0.")
         assertNextLine(farmGoHome)
-        skipUntilLogType(LogLevel.DEBUG, "Farm")
-        assertCurrentLine(farmCurrentPlans)
-        skipUntilLogType(LogLevel.IMPORTANT, "Farm Action")
-        assertCurrentLine("[IMPORTANT] Farm Action: Machine 0 performs WEEDING on tile 7 for 14 days.")
-        assertNextLine(farmGoHome)
 
         skipUntilLogType(LogLevel.INFO, "Simulation Info: Tick 18")
         assertCurrentLine("[INFO] Simulation Info: Tick 18 started at tick 15 within the year.")
@@ -73,6 +68,9 @@ class SisyphusMachineFarFromHomeTest : TestExtension() {
         assertNextLine(soilMoist)
         assertNextLine(farmStart)
         assertNextLine(farmCurrentPlans)
+        assertNextLine("[IMPORTANT] Farm Action: Machine 0 performs SOWING on tile 7 for 14 days.")
+        assertNextLine("[IMPORTANT] Farm Sowing: Machine 0 has sowed WHEAT according to sowing plan 1.")
+        assertNextLine(farmGoHome)
         assertNextLine(farmFinish)
 
         skipUntilLogType(LogLevel.IMPORTANT, "Simulation Statistics")
@@ -81,7 +79,7 @@ class SisyphusMachineFarFromHomeTest : TestExtension() {
             assertNextLine("[IMPORTANT] Simulation Statistics: Total amount of $plant harvested: 0 g.")
         }
         assertNextLine(
-            "[IMPORTANT] Simulation Statistics: Total harvest estimate still in fields and plantations: 0 g."
+            "[IMPORTANT] Simulation Statistics: Total harvest estimate still in fields and plantations: 1500000 g."
         )
     }
 }

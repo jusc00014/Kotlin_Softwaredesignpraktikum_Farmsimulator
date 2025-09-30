@@ -211,13 +211,24 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
         if (drought) return emptyList()
         val actionsMissed = mutableListOf<Action>()
 
-        if (weedable(yearTick)) harvestEstimate = (harvestEstimate * WEEDING_MISSED_PENALTY_FACTOR).toInt()
+        if (weedable(yearTick)) {
+            harvestEstimate = (harvestEstimate * WEEDING_MISSED_PENALTY_FACTOR).toInt()
+            actionsMissed.add(Action.WEEDING)
+        }
         if (cuttable(yearTick) && data.cuttingTimes.last() == yearTick) {
             harvestEstimate = (harvestEstimate * CUTTING_MISSED_PENALTY_FACTOR).toInt()
+            actionsMissed.add(Action.CUTTING)
         }
-        if (mowable(yearTick)) harvestEstimate = (harvestEstimate * MOWING_MISSED_PENALTY_FACTOR).toInt()
+        if (mowable(yearTick)) {
+            harvestEstimate = (harvestEstimate * MOWING_MISSED_PENALTY_FACTOR).toInt()
+            actionsMissed.add(Action.MOWING)
+        }
         if (irrigationNeeded) actionsMissed.add(Action.IRRIGATING)
-        harvestEstimate = (harvestEstimate * harvestPenalty(yearTick)).toInt()
+        val harvestPenalty = harvestPenalty(yearTick)
+        if (harvestPenalty in 0.0..<1.0) {
+            harvestEstimate = (harvestEstimate * harvestPenalty).toInt()
+            actionsMissed.add(Action.HARVESTING)
+        }
         return actionsMissed
     }
 
@@ -237,6 +248,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
                 is Drought -> {
                     harvestEstimate = 0
                     if (harvestTime == 0) harvestTime = yearTick
+                    sowTime = 0
                 }
             }
         }

@@ -1,0 +1,103 @@
+{
+  "tiles": [
+    {
+      "id": 1,
+      "coordinates": { "x": -1, "y": -1 },
+      "category": "FARMSTEAD",
+      "farm": 2,
+      "airflow": true,
+      "direction": "45",
+      "shed": true
+    },
+    {
+      "id": 2,
+      "coordinates": { "x": 3, "y": 1 },
+      "category": "FARMSTEAD",
+      "farm": 1,
+      "airflow": true,
+      "direction": "45",
+      "shed": true
+    },
+    {
+      "id": 3,
+      "coordinates": { "x": 7, "y": 3 },
+      "category": "FARMSTEAD",
+      "farm": 1,
+      "airflow": true,
+      "direction": "45",
+      "shed": true
+    },
+    {
+      "id": 4,
+      "coordinates": { "x": 7, "y": -1 },
+      "category": "FARMSTEAD",
+      "farm": 1,
+      "airflow": true,
+      "direction": "45",
+      "shed": true
+    },
+    {
+      "id": 12,
+      "coordinates": { "x": 1, "y": 3 },
+      "category": "FARMSTEAD",
+      "farm": 1,
+      "airflow": true,
+      "direction": "45",
+      "shed": false
+    },
+    {
+      "id": 6,
+      "coordinates": { "x": 2, "y": 2 },
+      "category": "VILLAGE"
+    },
+    {
+      "id": 10,
+      "coordinates": { "x": 4, "y": 0 },
+      "category": "VILLAGE"
+    },
+    {
+      "id": 5,
+      "coordinates": { "x": 0, "y": 2 },
+      "category": "PLANTATION",
+      "farm": 1,
+      "airflow": true,
+      "direction": "225",
+      "capacity": 4000,
+      "plant": "ALMOND"
+    },
+    {
+      "id": 11,
+      "coordinates": { "x": 6, "y": 0 },
+      "category": "PLANTATION",
+      "farm": 1,
+      "airflow": true,
+      "direction": "225",
+      "capacity": 4000,
+      "plant": "ALMOND"
+    },
+    {
+      "id": 8,
+      "coordinates": { "x": 0, "y": 0 },
+      "category": "PLANTATION",
+      "farm": 2,
+      "airflow": true,
+      "direction": "225",
+      "capacity": 4000,
+      "plant": "GRAPE"
+    },
+    {
+      "id": 9,
+      "coordinates": { "x": 2, "y": 0 },
+      "category": "ROAD",
+      "airflow": true,
+      "direction": "225"
+    },
+    {
+      "id": 7,
+      "coordinates": { "x": 6, "y": 2 },
+      "category": "ROAD",
+      "airflow": true,
+      "direction": "225"
+    }
+  ]
+}

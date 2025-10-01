@@ -1,0 +1,48 @@
+{
+  "farms": [
+    {
+      "id": 1,
+      "name": "farmerFred",
+      "farmsteads": [ 2, 3, 4, 12 ],
+      "fields": [ ],
+      "plantations": [ 5, 11 ],
+      "machines": [
+        {
+          "id": 1,
+          "name": "m1",
+          "actions": ["HARVESTING"],
+          "plants": ["ALMOND"],
+          "duration": 13,
+          "location": 2
+        },
+        {
+          "id": 2,
+          "name": "m2",
+          "actions": ["HARVESTING"],
+          "plants": ["ALMOND"],
+          "duration": 13,
+          "location": 2
+        }
+      ],
+      "sowingPlans": []
+    },
+    {
+      "id": 2,
+      "name": "farmerAlbert",
+      "farmsteads": [ 1 ],
+      "fields": [ ],
+      "plantations": [ 8 ],
+      "machines": [
+        {
+          "id": 3,
+          "name": "m3",
+          "actions": ["IRRIGATING"],
+          "plants": ["ALMOND"],
+          "duration": 13,
+          "location": 1
+        }
+      ],
+      "sowingPlans": []
+    }
+  ]
+}

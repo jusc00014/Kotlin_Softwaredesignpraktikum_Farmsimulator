@@ -14,8 +14,8 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigTestO
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.HarvestEstimateSowingEarlyTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.MachineOrder
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.MachineTimeOut
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.MachineTravelTrial
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest17
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTestPerformsIrrigatingOnTile3
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.SowingEarlyTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.AnimalAttackTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.AnimalAttackTestStacking
@@ -75,7 +75,7 @@ object SystemTestRegistration {
         testSuite.registerTest(AnimalAttackTestStacking())
         testSuite.registerTest(MachineDuplicateActions())
         testSuite.registerTest(BeeHappyTest())
-        testSuite.registerTest(NonPrioritizedTestPerformsIrrigatingOnTile3())
+        testSuite.registerTest(MachineTravelTrial())
     }
 
     /**

@@ -283,7 +283,6 @@ class PlantTest {
     @Test
     fun initAlmondPlantationPenalty() {
         val almondPlant = Plant(PlantType.ALMOND, Constants.almond, 20)
-        println(almondPlant)
         assertTrue(almondPlant.getHarvestEstimate() == (Constants.ALMOND_HE * 0.9).toInt())
     }
 

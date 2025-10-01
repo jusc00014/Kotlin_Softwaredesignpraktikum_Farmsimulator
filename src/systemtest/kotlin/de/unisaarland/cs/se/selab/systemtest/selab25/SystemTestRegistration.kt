@@ -1,15 +1,8 @@
 package de.unisaarland.cs.se.selab.systemtest.selab25
 
-import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.FieldOfOtherFarm
-import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.IDsNotUnique
 import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.MachineCanTReach
 import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.MachineCanTSow
 import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.MachineWrongPlant
-import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.SameMachineId
-import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.SameMachineName
-import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.SamePlanId
-import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.SowingAndVillage
-import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.SowingPlanDoesTheSame
 import de.unisaarland.cs.se.selab.systemtest.selab25.basictests.ExampleSystemTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.BigCloudTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.ClimateChange
@@ -21,25 +14,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigTestO
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.HarvestEstimateSowingEarlyTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.MachineOrder
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.MachineTimeOut
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest1
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest10
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest11
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest12
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest13
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest14
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest15
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest16
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest17
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest18
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest19
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest2
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest3
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest4
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest5
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest6
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest7
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest8
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest9
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTestPerformsIrrigatingOnTile3
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.SowingEarlyTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.AnimalAttackTest
@@ -63,7 +38,6 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreati
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTestNextToForest
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.MachineTravelTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.SisyphusMachineFarFromHomeTest
-import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.SisyphusMachineFarFromHomeTest3
 import de.unisaarland.cs.se.selab.systemtest.selab25.mutant.SwissArmyKnife
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialIrrigatingAfterDrought
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialMoisture
@@ -93,13 +67,6 @@ object SystemTestRegistration {
         // endregion ParserTests
         testSuite.registerTest(DroughtTest())
         testSuite.registerTest(MachineCanTReach())
-        testSuite.registerTest(IDsNotUnique())
-        testSuite.registerTest(FieldOfOtherFarm())
-        testSuite.registerTest(SowingAndVillage())
-        testSuite.registerTest(SameMachineId())
-        testSuite.registerTest(SameMachineName())
-        testSuite.registerTest(SamePlanId())
-        testSuite.registerTest(SowingPlanDoesTheSame())
         testSuite.registerTest(MachineCanTSow())
         testSuite.registerTest(MachineWrongPlant())
         testSuite.registerTest(BigBigTestOctober1())
@@ -108,28 +75,7 @@ object SystemTestRegistration {
         testSuite.registerTest(AnimalAttackTestStacking())
         testSuite.registerTest(MachineDuplicateActions())
         testSuite.registerTest(BeeHappyTest())
-        testSuite.registerTest(NonPrioritizedTest1())
-        testSuite.registerTest(NonPrioritizedTest2())
-        testSuite.registerTest(NonPrioritizedTest3())
-        testSuite.registerTest(NonPrioritizedTest4())
-        testSuite.registerTest(NonPrioritizedTest5())
-        testSuite.registerTest(NonPrioritizedTest6())
-        testSuite.registerTest(NonPrioritizedTest7())
-        testSuite.registerTest(NonPrioritizedTest8())
-        testSuite.registerTest(NonPrioritizedTest9())
-        testSuite.registerTest(NonPrioritizedTest10())
-        testSuite.registerTest(NonPrioritizedTest11())
-        testSuite.registerTest(NonPrioritizedTest12())
-        testSuite.registerTest(NonPrioritizedTest13())
-        testSuite.registerTest(NonPrioritizedTest14())
-        testSuite.registerTest(NonPrioritizedTest15())
-        testSuite.registerTest(NonPrioritizedTest16())
-        testSuite.registerTest(NonPrioritizedTest17())
-        testSuite.registerTest(NonPrioritizedTest18())
-        testSuite.registerTest(NonPrioritizedTest19())
         testSuite.registerTest(NonPrioritizedTestPerformsIrrigatingOnTile3())
-        testSuite.registerTest(SowingEarlyTest())
-        testSuite.registerTest(HarvestEstimateSowingEarlyTest())
     }
 
     /**
@@ -204,5 +150,8 @@ object SystemTestRegistration {
         testSuite.registerTest(MachineOrder())
         testSuite.registerTest(SowingPlanTest())
         testSuite.registerTest(SisyphusMachineFarFromHomeTest())
+        testSuite.registerTest(SowingEarlyTest())
+        testSuite.registerTest(HarvestEstimateSowingEarlyTest())
+        testSuite.registerTest(NonPrioritizedTest17())
     }
 }

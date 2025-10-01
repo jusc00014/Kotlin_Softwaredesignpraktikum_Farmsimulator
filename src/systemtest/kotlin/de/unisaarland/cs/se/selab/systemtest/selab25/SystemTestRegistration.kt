@@ -26,6 +26,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.BeeHappyTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.BeeHappyTest2
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.BeeHappyTest3Overlapping
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.BeeHappyTestInvalid
+import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.BrokenMachineTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestLargeRadius
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestNoTileToAffect
@@ -91,6 +92,7 @@ object SystemTestRegistration {
         testSuite.registerTest(FieldOfOtherFarm())
         testSuite.registerTest(SowingAndVillage())
         testSuite.registerTest(SowingPlanDoesTheSame())
+        testSuite.registerTest(BrokenMachineTest())
     }
 
     /**

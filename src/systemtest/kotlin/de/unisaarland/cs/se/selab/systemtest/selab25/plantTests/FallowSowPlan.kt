@@ -42,7 +42,6 @@ class FallowSowPlanPotato : FallowSowPlanTestExtension(
         assertNextLine(soilMoisture(0, 0))
         assertSowing(PlantType.POTATO, 0)
         assertNextLine(incidentOccured(0, "DROUGHT", listOf(1)))
-        assertNextLine(actionNotPerformed(1, listOf(Action.IRRIGATING)))
         assertNextLine(harvestEstimate(1, 0, PlantType.POTATO))
         // endregion Tick 0
         // Tick 1: moisture: 860

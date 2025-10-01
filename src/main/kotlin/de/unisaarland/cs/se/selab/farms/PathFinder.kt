@@ -90,16 +90,18 @@ class PathFinder {
                 harvest
             )
             if (dest in neigbors) return true
-            for (srrc in neigbors) {
-                val dests = reachableWithinOne(
-                    srrc,
-                    dest,
-                    farmId,
-                    board,
-                    harvest
-                )
-                if (dest in dests) return true
-            }
+            /**
+             * for (srrc in neigbors) {
+             *                 val dests = reachableWithinOne(
+             *                     srrc,
+             *                     dest,
+             *                     farmId,
+             *                     board,
+             *                     harvest
+             *                 )
+             *                 if (dest in dests) return true
+             *             }
+             */
         }
         return false
     }

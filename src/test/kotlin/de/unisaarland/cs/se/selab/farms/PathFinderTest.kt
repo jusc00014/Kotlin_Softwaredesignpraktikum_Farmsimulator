@@ -172,14 +172,14 @@ class PathFinderTest {
         assertTrue(pathFinder.reachableWithHarvest(tile4, tile14, 1, boardData))
     }
 
-    //@Test
-    //fun canContinueIntegration() {
+    // @Test
+    // fun canContinueIntegration() {
     //    assertTrue(pathFinder.canContinue(tile1, tile4, 1, boardData, false))
     //    assertFalse(pathFinder.canContinue(tile1, tile4, 1, boardData, true))
     //    assertTrue(pathFinder.canContinue(tile7, tile4, 1, boardData, false))
     //    assertFalse(pathFinder.canContinue(tile7, tile10, 1, boardData, false))
     //    assertFalse(pathFinder.canContinue(tile5, tile11, 1, boardData, false))
-    //}
+    // }
 
     @Test
     fun findNearestShedIntegration() {

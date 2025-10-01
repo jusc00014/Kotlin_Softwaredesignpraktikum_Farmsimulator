@@ -35,7 +35,7 @@ class Simulator(
             boardHandler.computeEstimate(yearTick, boardData)
             yearTick = (yearTick % YEAR_TICK_MAX) + 1
         }
-        Logger.simulationEnded(max(maxTick - 1, 0))
+        Logger.simulationEnded(max(maxTick, 0))
         Logger.statisticCalculated()
         val amount = boardData.getFertiles().values.sumOf { it.plant.getHarvestEstimate() }
         Logger.totalEstimateFertile(amount)

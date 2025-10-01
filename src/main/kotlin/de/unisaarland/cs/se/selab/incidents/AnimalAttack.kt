@@ -14,15 +14,9 @@ class AnimalAttack(id: Int, tick: Int, val affectedTiles: Set<Tile>) : Incident(
         for (tile in affectedTiles) {
             val fertile = tile.asFertile() ?: continue
             tiles.add(fertile)
+            fertile.stampede(this)
         }
-        val tileIds = mutableListOf<Int>()
-        for (tile in tiles) {
-            if (tile.stampede(this)) {
-                tileIds.add(tile.id)
-            }
-        }
-        tileIds.sort()
-        Logger.incidentExecuted(id, this, tileIds)
+        Logger.incidentExecuted(id, this, tiles.map { it.id }.sorted())
     }
     override fun toString(): String {
         return "ANIMAL_ATTACK"

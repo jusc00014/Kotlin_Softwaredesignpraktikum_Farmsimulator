@@ -67,7 +67,7 @@ class BigBigTestLowMoisture : SimulationTestExtension(
         assertNextLine(soilMoisture(3, 1))
         skipUntilLogType(LogLevel.IMPORTANT, "Farm")
         assertCurrentLine(farmStartActions(1))
-        assertNextLine(farmSowingPlans(1, listOf()))
+        assertNextLine(farmSowingPlans(1, emptyList()))
         assertNextLine(machinePerformAction(0, Action.IRRIGATING, 0, 3))
         assertNextLine(machinePerformAction(0, Action.IRRIGATING, 1, 3))
         assertNextLine(machinePerformAction(0, Action.IRRIGATING, 3, 3))

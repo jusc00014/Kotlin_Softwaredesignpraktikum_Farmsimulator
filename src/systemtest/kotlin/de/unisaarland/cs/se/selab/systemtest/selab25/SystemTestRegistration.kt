@@ -44,6 +44,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.InvalidBeeHap
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.InvalidBrokenMachineTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.InvalidDroughtTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.LongBrokenMachineTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VeryLongBrokenMachineTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTestChained
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTestCrossCloudCreation
@@ -55,7 +56,6 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.machineMutantsHunt.MachineT
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineMutantsHunt.UltimateMachineTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.MachineTravelTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.SisyphusMachineFarFromHomeTest
-import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.SisyphusMachineFarFromHomeTest2
 import de.unisaarland.cs.se.selab.systemtest.selab25.mutant.SwissArmyKnife
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialIrrigatingAfterDrought
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialMoisture
@@ -95,8 +95,7 @@ object SystemTestRegistration {
         testSuite.registerTest(WeirdBeeHappyTest())
         testSuite.registerTest(SowingEarlyTest())
         testSuite.registerTest(LongBrokenMachineTest())
-        testSuite.registerTest(SisyphusMachineFarFromHomeTest())
-        testSuite.registerTest(SisyphusMachineFarFromHomeTest2())
+        testSuite.registerTest(VeryLongBrokenMachineTest())
         testSuite.registerTest(BigBigHostiletakeOverFieldsTest())
         testSuite.registerTest(BigBigHostileTakeOverFarmSteadsTest())
         testSuite.registerTest(UltimateMachineTest())

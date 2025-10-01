@@ -53,6 +53,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreati
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.WeirdBeeHappyTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineMutantsHunt.MachineTest2
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineMutantsHunt.MachineTest3
+import de.unisaarland.cs.se.selab.systemtest.selab25.machineMutantsHunt.MachineTest3x2
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineMutantsHunt.UltimateMachineTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.MachineTravelTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.SisyphusMachineFarFromHomeTest
@@ -104,6 +105,7 @@ object SystemTestRegistration {
         testSuite.registerTest(CherryLateHarvestTest4T())
         testSuite.registerTest(MachineTest2())
         testSuite.registerTest(MachineTest3())
+        testSuite.registerTest(MachineTest3x2())
         // endregion PlantationLateHarvestTests
     }
 

@@ -88,12 +88,9 @@ object SystemTestRegistration {
         testSuite.registerTest(WeirdBeeHappyTest())
         testSuite.registerTest(SowingEarlyTest())
         testSuite.registerTest(LongBrokenMachineTest())
-<<<<<<< Updated upstream
         testSuite.registerTest(SisyphusMachineFarFromHomeTest())
-=======
         testSuite.registerTest(BigBigHostiletakeOverFieldsTest())
         testSuite.registerTest(BigBigHostileTakeOverFarmSteadsTest())
->>>>>>> Stashed changes
     }
 
     /**

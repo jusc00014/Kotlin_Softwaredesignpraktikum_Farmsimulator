@@ -82,7 +82,6 @@ object SystemTestRegistration {
         testSuite.registerTest(FieldOfOtherFarm())
         testSuite.registerTest(SowingAndVillage())
         testSuite.registerTest(SowingPlanDoesTheSame())
-        testSuite.registerTest(BrokenMachineTest())
         testSuite.registerTest(WeirdBeeHappyTest())
         testSuite.registerTest(WeirdBeeHappyTest2())
         testSuite.registerTest(SowingEarlyTest())
@@ -179,5 +178,6 @@ object SystemTestRegistration {
         testSuite.registerTest(BeeHappyTestInvalid())
         testSuite.registerTest(FallowSowPlanPotato())
         testSuite.registerTest(MachineTravelTrial())
+        testSuite.registerTest(BrokenMachineTest())
     }
 }

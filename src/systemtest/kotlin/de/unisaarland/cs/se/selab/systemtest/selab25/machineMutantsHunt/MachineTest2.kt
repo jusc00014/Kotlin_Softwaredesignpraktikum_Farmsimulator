@@ -8,7 +8,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.utils.TestExtension
  */
 class MachineTest2 : TestExtension() {
     override val name = "ThereWeGoAgain"
-    override val description = "Tests machine movement behavior."
+    override val description = "Tests machine additional behavior."
 
     override val farms = "machineMutantsHunt/farms2.json"
     override val scenario = "machineMutantsHunt/scenario.json"

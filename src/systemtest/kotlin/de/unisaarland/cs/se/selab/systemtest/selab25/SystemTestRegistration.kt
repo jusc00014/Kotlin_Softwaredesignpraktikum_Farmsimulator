@@ -75,6 +75,7 @@ object SystemTestRegistration {
     fun registerSystemTestsForReferenceImplementation(testSuite: SELab25TestSuite) {
         testSuite.registerTest(ExampleSystemTest())
         // region ParserTests
+        testSuite.registerTest(FarmPlantationIdentifiesAsField())
         // endregion ParserTests
         testSuite.registerTest(DroughtTest())
         testSuite.registerTest(BigBigTestOctober1())

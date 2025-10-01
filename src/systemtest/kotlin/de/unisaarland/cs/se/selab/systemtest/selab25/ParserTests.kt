@@ -237,6 +237,13 @@ class FarmInvalidPlantationTile : ParserTest(
 }
 
 /**
+ * Plantation as Field declared
+ */
+class FarmPlantationIdentifiesAsField : ParserTest(ParserFile.FARMS, farmsFileName = "farmsPlantationAsField.json") {
+    override val description: String = "Plantation as Field declared"
+}
+
+/**
  * Sowing plan without Field
  */
 class FarmNoFieldsWSowingPlan : ParserTest(

@@ -204,5 +204,6 @@ object SystemTestRegistration {
         testSuite.registerTest(VeryLongBrokenMachineTest())
         testSuite.registerTest(MachineTest2())
         testSuite.registerTest(UltimateMachineTest())
+        testSuite.registerTest(MachineTest3x2())
     }
 }

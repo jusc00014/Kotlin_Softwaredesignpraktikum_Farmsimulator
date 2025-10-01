@@ -208,7 +208,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
         moisture: Int,
         tileID: Int
     ) {
-        if (actionPerformed == Action.HARVESTING || !exists()) {
+        if (!exists()) {
             resetForNextTick()
             return
         }
@@ -229,9 +229,10 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
         val irrigationMissedInfluence = applyMoisturePenaltyIfNeeded(moisture, yearTick)
 
         val actionsNotPerformed = missed(yearTick, irrigationMissedInfluence)
-        if (actionsNotPerformed.isNotEmpty()) Logger.actionNotPerformed(tileID, actionsNotPerformed)
 
-        applyIncidentsToHarvestEstimate(yearTick)
+        val droughtHappened = applyIncidentsToHarvestEstimate(yearTick)
+
+        if (actionsNotPerformed.isNotEmpty() && !droughtHappened) Logger.actionNotPerformed(tileID, actionsNotPerformed)
 
         if (oldHarvestEstimate != harvestEstimate) {
             Logger.changedHarvestEstimate(tileID, harvestEstimate, type)
@@ -302,7 +303,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
         return if (harvestEstimateTemp != harvestEstimate) Action.HARVESTING else null
     }
 
-    private fun applyIncidentsToHarvestEstimate(yearTick: Int) {
+    private fun applyIncidentsToHarvestEstimate(yearTick: Int): Boolean {
         incidents.forEach {
             when (it) {
                 is BeeHappy -> {
@@ -322,6 +323,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
                 }
             }
         }
+        return incidents.any { it is Drought }
     }
 
     /**
@@ -417,7 +419,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
         this.data = plantData
         this.sowTime = yearTick
         this.harvestTime = 0
-        this.oldHarvestEstimate = data.initialHarvestEstimate
+        this.oldHarvestEstimate = -1
         this.harvestEstimate = data.initialHarvestEstimate
     }
 
@@ -436,7 +438,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
             data.tileType == PlantTile.PLANTATION &&
             sowTime != SOW_TIME_NO_PLANT
         ) {
-            oldHarvestEstimate = data.initialHarvestEstimate
+            oldHarvestEstimate = null
             harvestEstimate = data.initialHarvestEstimate
             harvestTime = 0
             cutPerformed = false

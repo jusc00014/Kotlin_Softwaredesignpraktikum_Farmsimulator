@@ -32,7 +32,7 @@
       "coordinates": { "x": 6, "y": 0 },
       "category": "PLANTATION",
       "farm": 1,
-      "capacity": 299,
+      "capacity": 250,
       "plant": "GRAPE",
       "airflow": false
     },

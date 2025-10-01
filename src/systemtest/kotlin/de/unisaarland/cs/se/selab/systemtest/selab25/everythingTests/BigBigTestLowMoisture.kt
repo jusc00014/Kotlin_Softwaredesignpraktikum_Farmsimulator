@@ -10,13 +10,13 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.utils.SimulationTestExtensi
 class BigBigTestLowMoisture : SimulationTestExtension(
     "bigBigTest",
     "bigBigTestLowMoistureMap.json",
-    "bigBigTestFarms.json",
+    "bigBigTestLowMoistureFarm.json",
     "bigBigTestScenarioOctober1.json"
 ) {
     override val description = "tests all phases for tick 19"
 
     override val startYearTick = 19
-    override val maxTicks = 1
+    override val maxTicks = 2
     override val logLevel = "DEBUG"
 
     override suspend fun run() {
@@ -35,16 +35,18 @@ class BigBigTestLowMoisture : SimulationTestExtension(
         assertNextLine("[DEBUG] Cloud Position: Cloud 1 is on tile 99, where the amount of sunlight is 47.")
         assertNextLine(farmStartActions(1))
         assertNextLine(farmSowingPlans(1, listOf(1)))
-        assertNextLine(machinePerformAction(0, Action.SOWING, 0, 4))
+        assertNextLine(machinePerformAction(0, Action.SOWING, 0, 3))
         assertNextLine(machineSowed(0, PlantType.WHEAT, 1))
-        assertNextLine(machinePerformAction(0, Action.SOWING, 1, 4))
+        assertNextLine(machinePerformAction(0, Action.SOWING, 1, 3))
         assertNextLine(machineSowed(0, PlantType.WHEAT, 1))
-        assertNextLine(machinePerformAction(0, Action.SOWING, 3, 4))
+        assertNextLine(machinePerformAction(0, Action.SOWING, 3, 3))
+        assertNextLine(machineSowed(0, PlantType.WHEAT, 1))
+        assertNextLine(machinePerformAction(0, Action.SOWING, 8, 3))
         assertNextLine(machineSowed(0, PlantType.WHEAT, 1))
         assertNextLine("[IMPORTANT] Farm Machine: Machine 0 is finished and returns to the shed at 4.")
-        assertNextLine(machinePerformAction(1, Action.SOWING, 8, 7))
-        assertNextLine(machineSowed(1, PlantType.WHEAT, 1))
         assertNextLine(machinePerformAction(1, Action.SOWING, 10, 7))
+        assertNextLine(machineSowed(1, PlantType.WHEAT, 1))
+        assertNextLine(machinePerformAction(1, Action.SOWING, 16, 7))
         assertNextLine(machineSowed(1, PlantType.WHEAT, 1))
         assertNextLine("[IMPORTANT] Farm Machine: Machine 1 is finished and returns to the shed at 6.")
         assertNextLine("[IMPORTANT] Farm: Farm 1 finished its actions.")
@@ -57,8 +59,18 @@ class BigBigTestLowMoisture : SimulationTestExtension(
         assertNextLine(actionNotPerformed(1, listOf(Action.IRRIGATING)))
         assertNextLine(harvestEstimate(1, 1_499_950, PlantType.WHEAT))
         assertNextLine(actionNotPerformed(2, listOf(Action.IRRIGATING, Action.HARVESTING)))
-        assertNextLine(harvestEstimate(2, 1_028_806, PlantType.GRAPE))
-        assertNextLine(actionNotPerformed(99, listOf(Action.IRRIGATING, Action.HARVESTING)))
-        assertNextLine(harvestEstimate(99, 1_028_806, PlantType.GRAPE))
+        assertNextLine(harvestEstimate(2, 1_028_802, PlantType.GRAPE))
+        assertNextLine(actionNotPerformed(99, listOf(Action.HARVESTING)))
+        assertNextLine(harvestEstimate(99, 1_028_850, PlantType.GRAPE))
+
+        assertNextLine("[INFO] Simulation Info: Tick 1 started at tick 20 within the year.")
+        assertNextLine(soilMoisture(3, 1))
+        skipUntilLogType(LogLevel.IMPORTANT, "Farm")
+        assertCurrentLine(farmStartActions(1))
+        assertNextLine(farmSowingPlans(1, listOf()))
+        assertNextLine(machinePerformAction(0, Action.IRRIGATING, 0, 3))
+        assertNextLine(machinePerformAction(0, Action.IRRIGATING, 1, 3))
+        assertNextLine(machinePerformAction(0, Action.IRRIGATING, 3, 3))
+        assertNextLine(machinePerformAction(0, Action.IRRIGATING, 2, 3))
     }
 }

@@ -265,6 +265,7 @@ class FarmHandler(
             finishedFields[field.id] = field
             if (action == Action.HARVESTING) {
                 continueWithHarvesting(currentField, plantsToActOn, finishedFields, machine, board, farm, yearTick)
+                harvestAmount = 0
             } else {
                 while (remainingTime >= 0) {
                     currentField = nextField(
@@ -282,6 +283,7 @@ class FarmHandler(
                 }
                 Logger.machineFinished(machine.id, machine.location.id)
             }
+            harvestAmount = 0
         }
     }
 
@@ -452,6 +454,7 @@ class FarmHandler(
             } else {
                 machine.setStuck()
                 Logger.machineFinishedNoReturn(machine.id)
+                harvestAmount = 0
             }
         } else {
             Logger.machineFinished(machine.id, machine.location.id)

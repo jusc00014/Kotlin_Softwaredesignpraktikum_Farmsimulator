@@ -1,8 +1,5 @@
 package de.unisaarland.cs.se.selab.systemtest.selab25
 
-import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.MachineCanTReach
-import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.MachineCanTSow
-import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.MachineWrongPlant
 import de.unisaarland.cs.se.selab.systemtest.selab25.basictests.ExampleSystemTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.basictests.MissingFarmsteadTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.basictests.MissingPlantationTest
@@ -71,9 +68,6 @@ object SystemTestRegistration {
         // region ParserTests
         // endregion ParserTests
         testSuite.registerTest(DroughtTest())
-        testSuite.registerTest(MachineCanTReach())
-        testSuite.registerTest(MachineCanTSow())
-        testSuite.registerTest(MachineWrongPlant())
         testSuite.registerTest(BigBigTestOctober1())
         testSuite.registerTest(FallowSowPlanPotato())
         testSuite.registerTest(AnimalAttackTest())
@@ -88,8 +82,6 @@ object SystemTestRegistration {
         testSuite.registerTest(SowingEarlyTest())
         testSuite.registerTest(HarvestEstimateSowingEarlyTest())
         testSuite.registerTest(LateHarvestTest())
-        testSuite.registerTest(MissingPlantationTest())
-        testSuite.registerTest(MissingFarmsteadTest())
     }
 
     /**
@@ -130,6 +122,8 @@ object SystemTestRegistration {
         testSuite.registerTest(FarmNoFieldsWSowingPlan())
         testSuite.registerTest(VillageExpansionNearForest())
         testSuite.registerTest(VillagePlantationTakeover())
+        testSuite.registerTest(MissingPlantationTest())
+        testSuite.registerTest(MissingFarmsteadTest())
     }
 
     /**

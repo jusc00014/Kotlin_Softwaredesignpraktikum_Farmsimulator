@@ -6,20 +6,21 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.utils.TestExtension
 /**
  * Detekt
  */
-class BeeHappyTest : TestExtension() {
-    override val name = "BeeHappy"
-    override val description = "Tests BeeHappyAffectedTiles."
+class BeeHappyTest2 : TestExtension() {
+    override val name = "BeeHappy2"
+    override val description = "Tests BeeHappyImpact."
 
     override val farms = "incidentTest/farms.json"
-    override val scenario = "incidentTest/scenarioBeeHappy2.json"
+    override val scenario = "incidentTest/scenarioBeeHappy3.json"
     override val map = "incidentTest/map.json"
 
     override val logLevel = "DEBUG"
     override val maxTicks = 1
-    override val startYearTick = 1
+    override val startYearTick = 8
 
     override suspend fun run() {
         skipUntilLogType(LogLevel.IMPORTANT, "Incident:")
-        assertCurrentLine("[IMPORTANT] Incident: Incident 0 of type BEE_HAPPY happened and affected tiles .")
+        assertCurrentLine("[IMPORTANT] Incident: Incident 0 of type BEE_HAPPY happened and affected tiles 5.")
+        assertNextLine("[INFO] Harvest Estimate: Harvest estimate on tile 5 changed to 1363230 g of APPLE.")
     }
 }

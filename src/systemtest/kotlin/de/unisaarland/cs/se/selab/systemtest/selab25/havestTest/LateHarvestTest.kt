@@ -89,7 +89,7 @@ class LateHarvestTest : SimulationTestExtension("lateHarvesting") {
         assertNextLine(farmSowingPlans(1, listOf(2, 3)))
         assertNextLine(machinePerformAction(1, Action.SOWING, 1, 7))
         skipUntilLogType(LogLevel.INFO, HARVEST_ESTIMATE)
-        assertNextLine(harvestEstimate(2, 637_729, PlantType.WHEAT))
+        assertCurrentLine(harvestEstimate(2, 637_729, PlantType.WHEAT))
         assertNextLine(actionNotPerformed(3, listOf(Action.WEEDING)))
         assertNextLine(harvestEstimate(3, 787_320, PlantType.OAT))
         assertNextLine(actionNotPerformed(5, listOf(Action.MOWING)))

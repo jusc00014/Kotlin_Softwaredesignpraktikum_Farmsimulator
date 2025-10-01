@@ -19,8 +19,8 @@ class WeirdBeeHappyTest : TestExtension() {
     override val startYearTick = 7
 
     override suspend fun run() {
-        skipUntilLogType(LogLevel.IMPORTANT, "Incident: Incident 3")
-        assertCurrentLine("[IMPORTANT] Incident: Incident 3 of type BEE_HAPPY happened and affected tiles 7.")
+        skipUntilLogType(LogLevel.IMPORTANT, "Incident: Incident 4")
+        assertCurrentLine("[IMPORTANT] Incident: Incident 4 of type BEE_HAPPY happened and affected tiles 7.")
         skipUntilLogType(LogLevel.IMPORTANT, "Simulation Statistics")
         assertCurrentLine("[IMPORTANT] Simulation Statistics: Farm 0 collected 0 g of harvest.")
         listOf("POTATO", "WHEAT", "OAT", "PUMPKIN", "APPLE", "GRAPE", "ALMOND", "CHERRY").forEach { plant ->

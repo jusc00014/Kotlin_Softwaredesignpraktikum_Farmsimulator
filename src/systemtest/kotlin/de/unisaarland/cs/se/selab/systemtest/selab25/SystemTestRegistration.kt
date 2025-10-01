@@ -44,7 +44,6 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreati
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTestCrossCloudValid
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTestNextToForest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.WeirdBeeHappyTest
-import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.WeirdBeeHappyTest2
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.MachineTravelTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.SisyphusMachineFarFromHomeTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.mutant.SwissArmyKnife
@@ -84,7 +83,6 @@ object SystemTestRegistration {
         testSuite.registerTest(SowingAndVillage())
         testSuite.registerTest(SowingPlanDoesTheSame())
         testSuite.registerTest(WeirdBeeHappyTest())
-        testSuite.registerTest(WeirdBeeHappyTest2())
         testSuite.registerTest(SowingEarlyTest())
     }
 

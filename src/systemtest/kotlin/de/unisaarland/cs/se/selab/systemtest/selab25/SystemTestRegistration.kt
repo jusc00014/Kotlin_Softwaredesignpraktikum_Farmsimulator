@@ -21,6 +21,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.AnimalAttackT
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.AnimalAttackTestStacking
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.BeeHappyTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.BeeHappyTest2
+import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.BeeHappyTest3Overlapping
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestLargeRadius
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.CloudCreationTestNoTileToAffect
@@ -79,6 +80,7 @@ object SystemTestRegistration {
         testSuite.registerTest(HarvestEstimateSowingEarlyTest())
         testSuite.registerTest(LateHarvestTest())
         testSuite.registerTest(BeeHappyTest2())
+        testSuite.registerTest(BeeHappyTest3Overlapping())
     }
 
     /**

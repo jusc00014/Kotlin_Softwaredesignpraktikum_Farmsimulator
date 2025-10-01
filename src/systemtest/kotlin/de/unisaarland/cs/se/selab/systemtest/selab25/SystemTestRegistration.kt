@@ -1,6 +1,5 @@
 package de.unisaarland.cs.se.selab.systemtest.selab25
 
-import de.unisaarland.cs.se.selab.farms.SowingPlan
 import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.FieldOfOtherFarm
 import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.SowingAndVillage
 import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.SowingPlanDoesTheSame

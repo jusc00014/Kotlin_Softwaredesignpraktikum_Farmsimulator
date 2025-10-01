@@ -4,7 +4,7 @@
     {
       "id": 1,
       "type": "BEE_HAPPY",
-      "tick": 7,
+      "tick": 1,
       "location": 9,
       "radius": 3,
       "effect": 4

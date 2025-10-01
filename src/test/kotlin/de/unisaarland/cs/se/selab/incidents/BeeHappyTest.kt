@@ -104,10 +104,10 @@ class BeeHappyTest {
     fun simpleBeeHappy() {
         val json = "src/systemtest/resources/incidentTest/scenarioBeeHappy.json"
         val scenarioParser = ScenarioParser()
-        val incidents = scenarioParser.parse(json, board, 9, machines, emptyList(), 8).first
-        val incidentHandler = IncidentHandler(mutableMapOf(7 to listOf(incidents[0])))
+        val incidents = scenarioParser.parse(json, board, 9, machines, emptyList(), 7).first
+        val incidentHandler = IncidentHandler(mutableMapOf(1 to listOf(incidents[0])))
         val before = tile6.plant.getHarvestEstimate()
-        incidentHandler.executeIncidents(7)
+        incidentHandler.executeIncidents(1)
         val boardHandler = BoardHandler()
         boardHandler.computeEstimate(8, board)
         val after = tile6.plant.getHarvestEstimate()

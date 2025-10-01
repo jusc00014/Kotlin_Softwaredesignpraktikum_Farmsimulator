@@ -1,0 +1,39 @@
+{
+  "farms": [
+    {
+      "id": 0,
+      "name": "Bee",
+      "farmsteads": [0],
+      "fields": [100, 1, 5, 7, 8, 9],
+      "plantations": [ 3, 4, 6, 10 ],
+      "machines": [
+        {
+          "id": 1,
+          "name": "Happy",
+          "actions": ["SOWING"],
+          "plants": ["POTATO"],
+          "duration": 1,
+          "location": 0
+        },
+        {
+          "id": 2,
+          "name": "VeryHappy",
+          "actions": ["SOWING"],
+          "plants": ["PUMPKIN"],
+          "duration": 1,
+          "location": 0
+        },
+        {
+          "id": 3,
+          "name": "NotHappy",
+          "actions": ["SOWING"],
+          "plants": ["WHEAT"],
+          "duration": 1,
+          "location": 0
+        }
+      ],
+      "sowingPlans": [
+      ]
+    }
+  ]
+}

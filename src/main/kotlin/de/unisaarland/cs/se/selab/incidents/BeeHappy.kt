@@ -24,11 +24,6 @@ class BeeHappy(
                     fertile.plant.pollinateable((yearTick - 1 + tick) % YEAR_TICK_MAX + 1)
             } == true
         }
-        println("Start")
-        for (tile in pollinatableTiles) {
-            println("Pollinatable : Tile ${tile.id}")
-        }
-        println("End")
         pollinatableTiles.forEach { if (it is Fertile) it.plant.addPollination(this) }
         Logger.incidentExecuted(id, this, pollinatableTiles.map { it.id }.sortedBy { it })
     }

@@ -1,0 +1,61 @@
+{
+  "clouds": [],
+  "incidents": [
+    {
+      "id": 1,
+      "type": "BEE_HAPPY",
+      "tick": 1,
+      "location": 101,
+      "radius": 3,
+      "effect": 100
+    },
+    {
+      "id": 2,
+      "type": "BEE_HAPPY",
+      "tick": 2,
+      "location": 101,
+      "radius": 3,
+      "effect": 100
+    },
+    {
+      "id": 3,
+      "type": "BEE_HAPPY",
+      "tick": 3,
+      "location": 101,
+      "radius": 3,
+      "effect": 100
+    },
+    {
+      "id": 4,
+      "type": "BEE_HAPPY",
+      "tick": 4,
+      "location": 101,
+      "radius": 3,
+      "effect": 100
+    },
+    {
+      "id": 5,
+      "type": "BEE_HAPPY",
+      "tick": 5,
+      "location": 101,
+      "radius": 3,
+      "effect": 100
+    },
+    {
+      "id": 6,
+      "type": "BEE_HAPPY",
+      "tick": 6,
+      "location": 101,
+      "radius": 3,
+      "effect": 100
+    },
+    {
+      "id": 7,
+      "type": "BEE_HAPPY",
+      "tick": 7,
+      "location": 101,
+      "radius": 3,
+      "effect": 100
+    }
+  ]
+}

@@ -12,6 +12,8 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.CloudTestIllRema
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.CloudTestImTired
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.CloudTestSmall
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.Floodgates
+import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigHostileTakeOverFarmSteadsTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigHostiletakeOverFieldsTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigTestOctober1
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.HarvestEstimateSowingEarlyTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.MachineOrder
@@ -86,7 +88,12 @@ object SystemTestRegistration {
         testSuite.registerTest(WeirdBeeHappyTest())
         testSuite.registerTest(SowingEarlyTest())
         testSuite.registerTest(LongBrokenMachineTest())
+<<<<<<< Updated upstream
         testSuite.registerTest(SisyphusMachineFarFromHomeTest())
+=======
+        testSuite.registerTest(BigBigHostiletakeOverFieldsTest())
+        testSuite.registerTest(BigBigHostileTakeOverFarmSteadsTest())
+>>>>>>> Stashed changes
     }
 
     /**

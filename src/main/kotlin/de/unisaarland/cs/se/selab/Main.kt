@@ -100,9 +100,9 @@ private fun buildSimulator(
 ): Simulator {
     val boardHandler = BoardHandler()
     val farmHandler = FarmHandler(
-        idToFarm = farms.associateBy { it.id },
+        unsortedIdToFarm = farms.associateBy { it.id },
         plantData = plantDataMap,
-        machines = machines,
+        unsortedMachines = machines,
         pathFinder = PathFinder()
     )
     val cloudHandler = CloudHandler(cloudData, boardData)

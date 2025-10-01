@@ -48,9 +48,11 @@ class DroughtAndSoilMoistureTest {
     }
 
     fun farmAction(boardData: BoardData, farmHandler: FarmHandler) {
-        val fertiles = boardData.getFertiles()
+        val fertiles = boardData.getFertiles().toSortedMap()
         for (farm in farmHandler.idToFarm.values) {
-            val remainingMachines = farmHandler.assembleMachines(farm)
+            val remainingMachines = farmHandler.assembleMachines(
+                farm
+            ).toSortedSet(compareBy({ it.duration }, { it.id }))
             val sowFields = farmHandler.assembleSowableFields(farm.fields, fertiles, 9)
             val finishedFields = mutableMapOf<Int, Fertile>()
             farmHandler.sow(

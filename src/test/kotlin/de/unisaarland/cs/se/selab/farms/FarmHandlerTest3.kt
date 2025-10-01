@@ -36,10 +36,12 @@ class FarmHandlerTest3 {
             boardData.getFertiles()
         )*/
 
-        val fertiles = boardData.getFertiles()
+        val fertiles = boardData.getFertiles().toSortedMap()
         for (farm in farmHandler.idToFarm.values) {
             Logger.farmStartAction(farm.id)
-            val remainingMachines = farmHandler.assembleMachines(farm)
+            val remainingMachines = farmHandler.assembleMachines(
+                farm
+            ).toSortedSet(compareBy({ it.duration }, { it.id }))
             val sowFields = farmHandler.assembleSowableFields(farm.fields, fertiles, 9)
             val finishedFields = mutableMapOf<Int, Fertile>()
             farmHandler.sow(
@@ -95,10 +97,12 @@ class FarmHandlerTest3 {
         val farmHandler = FarmHandler(mapOf(Pair(1, farms[0])), plantMap, machines, PathFinder())
         val boardHandler = BoardHandler()
         boardHandler.reduceSoil(19, boardData)
-        val fertiles = boardData.getFertiles()
+        val fertiles = boardData.getFertiles().toSortedMap()
         for (farm in farmHandler.idToFarm.values) {
             Logger.farmStartAction(farm.id)
-            val remainingMachines = farmHandler.assembleMachines(farm)
+            val remainingMachines = farmHandler.assembleMachines(
+                farm
+            ).toSortedSet(compareBy({ it.duration }, { it.id }))
             val sowFields = farmHandler.assembleSowableFields(farm.fields, fertiles, 19)
             val finishedFields = mutableMapOf<Int, Fertile>()
             farmHandler.sow(

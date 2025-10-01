@@ -190,9 +190,9 @@ class FarmOrderTest {
             mapOf(1 to machine1, 2 to machine2, 3 to machine3),
             pathFinder
         )
-        val fertiles = board.getFertiles()
+        val fertiles = board.getFertiles().toSortedMap()
         Logger.farmStartAction(farm.id)
-        val remainingMachines = farmer.assembleMachines(farm).sortedBy { it.duration }.toMutableList()
+        val remainingMachines = farmer.assembleMachines(farm).toSortedSet(compareBy({ it.duration }, { it.id }))
         val sowFields = farmer.assembleSowableFields(farm.fields, fertiles, yearTick)
         val finishedFields = mutableMapOf<Int, Fertile>()
         farmer.sow(

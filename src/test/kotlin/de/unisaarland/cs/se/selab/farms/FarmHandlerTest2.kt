@@ -14,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
+import java.util.SortedSet
 import kotlin.test.assertTrue
 
 class FarmHandlerTest2 {
@@ -164,15 +165,15 @@ class FarmHandlerTest2 {
          machines[2] ?: error("FUCK DETEKT")
          )
          */
-        val fieldMap = mutableMapOf<Action, MutableSet<Fertile>>(
-            Pair(Action.IRRIGATING, mutableSetOf(tile3, tile5, tile6, tile7, tile8)),
-            Pair(Action.WEEDING, mutableSetOf()),
-            Pair(Action.MOWING, mutableSetOf())
+        val fieldMap = mapOf<Action, SortedSet<Fertile>>(
+            Pair(Action.IRRIGATING, sortedSetOf(compareBy<Fertile> { it.id }, tile3, tile5, tile6, tile7, tile8)),
+            Pair(Action.WEEDING, sortedSetOf(compareBy { it.id })),
+            Pair(Action.MOWING, sortedSetOf(compareBy { it.id }))
         )
-        val plantationMap = mutableMapOf<Action, MutableSet<Fertile>>(
-            Pair(Action.IRRIGATING, mutableSetOf(tile1, tile2)),
-            Pair(Action.WEEDING, mutableSetOf()),
-            Pair(Action.MOWING, mutableSetOf())
+        val plantationMap = mapOf<Action, SortedSet<Fertile>>(
+            Pair(Action.IRRIGATING, sortedSetOf(compareBy<Fertile> { it.id }, tile1, tile2)),
+            Pair(Action.WEEDING, sortedSetOf()),
+            Pair(Action.MOWING, sortedSetOf())
         )
         val boardData =
             BoardData(

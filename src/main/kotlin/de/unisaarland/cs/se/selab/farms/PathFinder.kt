@@ -137,7 +137,7 @@ class PathFinder {
     /**
      * If machine can't go back to its original shed after harvesting*/
     fun findNearestShed(src: Tile, farm: Farm, board: BoardData): Tile? {
-        val shedIds = farm.farmsteads
+        val shedIds = farm.farmsteads.sorted()
         for (shedId in shedIds) {
             val farmstead = board.getTileById(shedId) ?: continue
             if (farmstead.shed) {

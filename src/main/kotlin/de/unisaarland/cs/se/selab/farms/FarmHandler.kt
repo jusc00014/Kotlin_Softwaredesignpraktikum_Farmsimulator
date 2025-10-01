@@ -7,28 +7,33 @@ import de.unisaarland.cs.se.selab.board.TileType
 import de.unisaarland.cs.se.selab.logger.Logger
 import de.unisaarland.cs.se.selab.plants.PlantData
 import de.unisaarland.cs.se.selab.plants.PlantType
+import java.util.SortedMap
+import java.util.SortedSet
 import kotlin.collections.orEmpty
 import kotlin.collections.set
+import kotlin.collections.sortedWith
 
 const val TICKTIME = 14
 
 /**
  * Handles the farm action*/
 class FarmHandler(
-    val idToFarm: Map<Int, Farm>,
+    val unsortedIdToFarm: Map<Int, Farm>,
     val plantData: Map<PlantType, PlantData>,
-    val machines: Map<Int, Machine>,
+    val unsortedMachines: Map<Int, Machine>,
     val pathFinder: PathFinder
 ) {
     var harvestAmount = 0
+    val idToFarm = unsortedIdToFarm.toSortedMap()
+    val machines = unsortedMachines.toSortedMap()
 
     /**
      * Started by simulator*/
     fun farmAction(tick: Int, yearTick: Int, board: BoardData) {
-        val fertiles = board.getFertiles().toList().sortedBy { it.first }.toMap(LinkedHashMap())
+        val fertiles = board.getFertiles().toSortedMap()
         for (farm in idToFarm.values) {
             Logger.farmStartAction(farm.id)
-            val remainingMachines = assembleMachines(farm).sortedBy { it.duration }.toMutableList()
+            val remainingMachines = assembleMachines(farm).toSortedSet(compareBy({ it.duration }, { it.id }))
             val sowFields = assembleSowableFields(farm.fields, fertiles, yearTick)
             val finishedFields = mutableMapOf<Int, Fertile>()
             sow(
@@ -48,20 +53,22 @@ class FarmHandler(
                 Action.HARVESTING to fieldMap[Action.HARVESTING],
                 Action.CUTTING to plantationMap[Action.CUTTING]
             )) {
+                requireNotNull(fertileType)
                 performPrioritizedAction(
                     action,
                     remainingMachines,
-                    fertileType ?: error("Set not Initialized for $action"),
+                    fertileType,
                     finishedFields,
                     board,
                     farm,
                     yearTick
                 )
             }
-            val machines = remainingMachines.sortedWith(compareBy({ it.duration }, { it.id })).toMutableList()
+            val machines = remainingMachines.toSortedSet(compareBy({ it.duration }, { it.id }))
             val iter = machines.iterator()
             while (iter.hasNext()) {
                 val machine = iter.next()
+                requireNotNull(machine)
                 performNonPrioritizedAction(
                     machine,
                     fieldMap,
@@ -95,12 +102,12 @@ class FarmHandler(
      * For all field plants assemble the fields that can currently sow this plant*/
     fun assembleSowableFields(
         fields: List<Int>,
-        fertiles: Map<Int, Fertile>,
+        fertiles: SortedMap<Int, Fertile>,
         yearTick: Int
-    ): Map<PlantType, MutableList<Fertile>> {
-        val sowFields = mutableMapOf<PlantType, MutableList<Fertile>>()
+    ): Map<PlantType, SortedSet<Fertile>> {
+        val sowFields = mutableMapOf<PlantType, SortedSet<Fertile>>()
         for (plantType in PlantType.entries) {
-            sowFields[plantType] = mutableListOf()
+            sowFields[plantType] = sortedSetOf<Fertile>(compareBy { it.id })
         }
         for (fieldId in fields) {
             val fieldFound = fertiles[fieldId]
@@ -119,14 +126,14 @@ class FarmHandler(
     /**
      * Start executing active sowing plans*/
     fun sow(
-        sowableFields: Map<PlantType, MutableList<Fertile>>,
+        sowableFields: Map<PlantType, SortedSet<Fertile>>,
         farm: Farm,
-        remainingMachines: MutableList<Machine>,
+        remainingMachines: SortedSet<Machine>,
         finishedFields: MutableMap<Int, Fertile>,
         board: BoardData,
         yearTick: Int,
         tick: Int,
-        fertiles: Map<Int, Fertile>
+        fertiles: SortedMap<Int, Fertile>
     ) {
         val planIds = mutableListOf<Int>()
         for (plan in farm.plans) {
@@ -136,7 +143,7 @@ class FarmHandler(
         }
         Logger.farmSowingPlan(farm.id, planIds)
         val delete = mutableListOf<SowingPlan>()
-        for (plan in farm.plans) {
+        for (plan in farm.plans.sortedWith(compareBy({ it.tick }, { it.id })).toMutableList()) {
             if (planIds.contains(plan.id)) {
                 executeSowingPlan(
                     farm,
@@ -159,26 +166,26 @@ class FarmHandler(
     fun executeSowingPlan(
         farm: Farm,
         plan: SowingPlan,
-        sowableFields: Map<PlantType, MutableList<Fertile>>,
-        remainingMachines: MutableList<Machine>,
+        sowableFields: Map<PlantType, SortedSet<Fertile>>,
+        remainingMachines: SortedSet<Machine>,
         finishedFields: MutableMap<Int, Fertile>,
-        fertiles: Map<Int, Fertile>,
+        fertiles: SortedMap<Int, Fertile>,
         board: BoardData,
         yearTick: Int,
         delete: MutableList<SowingPlan>
     ) {
         val toSow = plan.plant
         val sowFieldIds = plan.fields
-        val sowFields = mutableListOf<Field>()
+        val sowFields = sortedSetOf<Field>(compareBy { it.id })
         for (sid in sowFieldIds) {
             val fert = fertiles[sid]
             if (fert is Field) {
                 sowFields.add(fert)
             }
         }
-        val commonFields = sowFields.intersect(sowableFields[toSow].orEmpty().toSet()).toMutableSet()
+        val commonFields = sowFields.intersect(sowableFields[toSow].orEmpty().toSet()).toSortedSet(compareBy { it.id })
         for (field in commonFields) {
-            field as Field
+            require(field is Field)
             if (field.id in finishedFields) {
                 continue
             }
@@ -193,7 +200,7 @@ class FarmHandler(
             delete.add(plan)
             var remainingTime = TICKTIME - 2 * machine.duration
             var currentField: Fertile = field
-            val plantsToActOn = commonFields.filter { it.id !in finishedFields }.toMutableSet()
+            val plantsToActOn = commonFields.filter { it.id !in finishedFields }.toSortedSet(compareBy { it.id })
             while (remainingTime >= 0 && plantsToActOn.isNotEmpty()) {
                 currentField = nextField(
                     Action.SOWING,
@@ -223,11 +230,11 @@ class FarmHandler(
         fields: List<Int>,
         fertiles: Map<Int, Fertile>,
         yearTick: Int
-    ): MutableMap<Action, MutableSet<Fertile>> {
-        val actionMap = mutableMapOf<Action, MutableSet<Fertile>>()
+    ): MutableMap<Action, SortedSet<Fertile>> {
+        val actionMap = mutableMapOf<Action, SortedSet<Fertile>>()
         val acts = listOf(Action.CUTTING, Action.MOWING, Action.WEEDING, Action.IRRIGATING, Action.HARVESTING)
         for (currentAct in acts) {
-            actionMap[currentAct] = mutableSetOf()
+            actionMap[currentAct] = sortedSetOf<Fertile>(compareBy { it.id })
         }
         for (fieldId in fields) {
             val fieldFound = fertiles[fieldId] ?: continue
@@ -245,15 +252,15 @@ class FarmHandler(
      * Perform actions  that are sorted by field id*/
     fun performPrioritizedAction(
         action: Action,
-        remainingMachines: MutableList<Machine>,
-        plantsToActOn: MutableSet<Fertile>,
+        remainingMachines: SortedSet<Machine>,
+        plantsToActOn: SortedSet<Fertile>,
         finishedFields: MutableMap<Int, Fertile>,
         board: BoardData,
         farm: Farm,
         yearTick: Int
     ) {
         for (field in plantsToActOn) {
-            if (field.id in finishedFields) {
+            if (field == null || field.id in finishedFields) {
                 continue
             }
             val plant = field.plant
@@ -291,7 +298,7 @@ class FarmHandler(
      * Find machine with the best duration for this field and action*/
     fun findBestMachine(
         fertile: Fertile,
-        remainingMachines: MutableList<Machine>,
+        remainingMachines: SortedSet<Machine>,
         action: Action,
         plantType: PlantType?,
         board: BoardData,
@@ -302,7 +309,8 @@ class FarmHandler(
             return null
         }
         var bestDuration = TICKTIME + 1
-        for (machine in remainingMachines) {
+        for (machine in remainingMachines.sortedBy { it.id }) {
+            requireNotNull(machine)
             if (machine.duration < bestDuration && action in machine.actions && plantType in machine.plants) {
                 if (pathFinder.reachable(machine.location, fertile, farm.id, board)) {
                     bestMachine = machine
@@ -318,7 +326,7 @@ class FarmHandler(
     fun nextField(
         action: Action,
         currentPlantType: PlantType?,
-        plantsToActOn: MutableSet<Fertile>,
+        plantsToActOn: SortedSet<Fertile>,
         finishedFertiles: MutableMap<Int, Fertile>,
         machine: Machine,
         currentLocation: Tile,
@@ -327,6 +335,7 @@ class FarmHandler(
         yearTick: Int
     ): Fertile? {
         for (fertile in plantsToActOn) {
+            require(fertile is Fertile)
             if (fertile.id in finishedFertiles) {
                 continue
             }
@@ -351,8 +360,8 @@ class FarmHandler(
      * Perform actions that are sorted after machine id*/
     fun performNonPrioritizedAction(
         machine: Machine,
-        fieldMap: Map<Action, MutableSet<Fertile>>,
-        plantationMap: Map<Action, MutableSet<Fertile>>,
+        fieldMap: Map<Action, SortedSet<Fertile>>,
+        plantationMap: Map<Action, SortedSet<Fertile>>,
         finishedFields: MutableMap<Int, Fertile>,
         board: BoardData,
         farm: Farm,
@@ -369,6 +378,7 @@ class FarmHandler(
                 continue
             }
             for (fertile in fertileType.filter { it.id !in finishedFields }) {
+                require(fertile is Fertile)
                 if (!machineCanHandle(machine, fertile) ||
                     !pathFinder.reachable(machine.location, fertile, farm.id, board)
                 ) {
@@ -419,7 +429,7 @@ class FarmHandler(
      */
     fun continueWithHarvesting(
         field: Fertile,
-        plantsToActOn: MutableSet<Fertile>,
+        plantsToActOn: SortedSet<Fertile>,
         finishedFields: MutableMap<Int, Fertile>,
         machine: Machine,
         board: BoardData,
@@ -474,8 +484,8 @@ class FarmHandler(
         farm: Farm,
         board: BoardData,
         yearTick: Int,
-        fields: MutableSet<Fertile>,
-        plantations: MutableSet<Fertile>
+        fields: SortedSet<Fertile>,
+        plantations: SortedSet<Fertile>
     ) {
         var remainingTime = TICKTIME - 2 * machine.duration
         var currentField: Fertile? = currentLocation
@@ -526,8 +536,8 @@ class FarmHandler(
         farm: Farm,
         board: BoardData,
         yearTick: Int,
-        fertiles: MutableSet<Fertile>,
-        plantations: MutableSet<Fertile>
+        fertiles: SortedSet<Fertile>,
+        plantations: SortedSet<Fertile>
     ) {
         if (action == Action.IRRIGATING && currentLocation.type == TileType.FIELD) {
             continueWithIrrigating(

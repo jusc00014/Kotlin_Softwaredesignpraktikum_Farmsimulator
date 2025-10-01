@@ -66,9 +66,9 @@ For each student, this section should provide a detailed day-by-day timeline of 
 - **Thursday:** More SystemTests & SystemTest assertFix
 - **Friday:** SystemTestClouds for debug
 - **Weekend:** New SystemTests & MutantRegis/Finding & ImplementationReport
-- **Monday:**
-- **Tuesday:**
-- **Wednesday:**
+- **Monday:** Incident Rework & SomeFixes & SystemTests
+- **Tuesday:** AnimalAttack / Drought SyTests & Minor Changes
+- **Wednesday:** TestFixes & BeeHappyTesting & BrokenMachine + Mutants
 - **Thursday:**
 
 ### Laurenz

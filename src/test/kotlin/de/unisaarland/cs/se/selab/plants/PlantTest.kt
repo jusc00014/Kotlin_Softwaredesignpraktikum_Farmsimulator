@@ -65,7 +65,7 @@ class PlantTest {
 
     @Test
     fun pollinateableFieldEasy() {
-        assertTrue(potatoPlant.pollinateable(11), "Potato should be pollinateable during YearTick 10")
+        assertTrue(potatoPlant.pollinateable(11), "Potato should be pollinateable during YearTick 11")
         assertFalse(oatPlant.pollinateable(0), "Oat should never be pollinateable")
     }
 

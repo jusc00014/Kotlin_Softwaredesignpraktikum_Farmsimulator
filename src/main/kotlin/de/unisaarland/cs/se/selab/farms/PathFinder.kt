@@ -16,36 +16,30 @@ class PathFinder {
         board: BoardData,
         harvest: Boolean
     ): Boolean {
-        val stack = mutableListOf(src)
-        var found = false
-        val explored = mutableListOf<Tile>()
-        while (stack.isNotEmpty() && !found) {
-            val current = stack[0]
-            val neigbors = board.neighbors(1, current, true)
+        val stack = ArrayDeque<Tile>()
+        stack.add(src)
+        val explored = HashSet<Int>()
+        explored.add(src.id)
+        while (stack.isNotEmpty()) {
+            val current = stack.removeFirst()
+            val neigbors = board.neighbors(1, current, true).filter { !explored.contains(it.id) }
             for (neigbor in neigbors) {
                 if (neigbor == dest) {
-                    found = true
-                    break
+                    return true
                 }
-
-                when {
-                    neigbor in explored.union(stack) -> { continue }
-                    neigbor.type in listOf(TileType.ROAD, TileType.MEADOW) ||
-                        (!harvest && neigbor.type == TileType.VILLAGE) -> {
-                        stack.add(neigbor)
-                    }
-
-                    neigbor.type in listOf(TileType.FIELD, TileType.PLANTATION, TileType.FARMSTEAD) &&
-                        neigbor.farmID == farmId -> {
-                        stack.add(neigbor)
-                    }
-                    else -> {}
+                val canEnter = when (neigbor.type) {
+                    TileType.ROAD, TileType.MEADOW -> true
+                    TileType.VILLAGE -> !harvest
+                    TileType.FIELD, TileType.PLANTATION, TileType.FARMSTEAD -> neigbor.farmID == farmId
+                    else -> false
+                }
+                if (canEnter) {
+                    stack.add(neigbor)
+                    explored.add(neigbor.id)
                 }
             }
-            stack.removeAt(0)
-            explored.add(current)
         }
-        return found
+        return false
     }
 
     /**

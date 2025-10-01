@@ -40,6 +40,12 @@ abstract class Fertile(
     }
 
     /**
+     * Getter for moistureCapacity
+     * Should only be used in MapParserTest
+     */
+    fun getMoistureCapacity(): Int = moistureCapacity
+
+    /**
      * loses moisture in reduceSoil phase. Returns if our moisture is now below min moisture of the plant*/
     fun loseMoisture(): Boolean {
         val minAllowedMoisture = plant.getMinMoisture()

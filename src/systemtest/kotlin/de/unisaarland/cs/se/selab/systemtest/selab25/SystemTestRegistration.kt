@@ -74,25 +74,16 @@ object SystemTestRegistration {
     fun registerSystemTestsForReferenceImplementation(testSuite: SELab25TestSuite) {
         testSuite.registerTest(ExampleSystemTest())
         // region ParserTests
-        testSuite.registerTest(WindyVillage())
-        testSuite.registerTest(VillageWithAirflow())
-        testSuite.registerTest(TileSameCoordinates())
-        testSuite.registerTest(InvalidCategoryForCoord())
         // endregion ParserTests
         testSuite.registerTest(DroughtTest())
         testSuite.registerTest(BigBigTestOctober1())
-        testSuite.registerTest(FallowSowPlanPotato())
-        testSuite.registerTest(MachineDuplicateActions())
-        testSuite.registerTest(MachineTravelTrial())
-        testSuite.registerTest(NonPrioritizedTest17())
-        testSuite.registerTest(SowingEarlyTest())
-        testSuite.registerTest(HarvestEstimateSowingEarlyTest())
         testSuite.registerTest(LateHarvestTest())
         testSuite.registerTest(FieldOfOtherFarm())
         testSuite.registerTest(SowingAndVillage())
         testSuite.registerTest(SowingPlanDoesTheSame())
         testSuite.registerTest(BrokenMachineTest())
         testSuite.registerTest(WeirdBeeHappyTest())
+        testSuite.registerTest(SowingEarlyTest())
     }
 
     /**
@@ -134,6 +125,11 @@ object SystemTestRegistration {
         testSuite.registerTest(VillagePlantationTakeover())
         testSuite.registerTest(MissingPlantationTest())
         testSuite.registerTest(MissingFarmsteadTest())
+        testSuite.registerTest(WindyVillage())
+        testSuite.registerTest(VillageWithAirflow())
+        testSuite.registerTest(TileSameCoordinates())
+        testSuite.registerTest(InvalidCategoryForCoord())
+        testSuite.registerTest(MachineDuplicateActions())
     }
 
     /**
@@ -179,5 +175,7 @@ object SystemTestRegistration {
         testSuite.registerTest(BeeHappyTest())
         testSuite.registerTest(BeeHappyTest3Overlapping())
         testSuite.registerTest(BeeHappyTestInvalid())
+        testSuite.registerTest(FallowSowPlanPotato())
+        testSuite.registerTest(MachineTravelTrial())
     }
 }

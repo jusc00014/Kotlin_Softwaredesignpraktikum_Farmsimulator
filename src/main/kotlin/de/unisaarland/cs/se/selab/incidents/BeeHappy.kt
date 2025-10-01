@@ -1,5 +1,6 @@
 package de.unisaarland.cs.se.selab.incidents
 
+import de.unisaarland.cs.se.selab.YEAR_TICK_MAX
 import de.unisaarland.cs.se.selab.board.Fertile
 import de.unisaarland.cs.se.selab.board.Tile
 import de.unisaarland.cs.se.selab.logger.Logger
@@ -20,9 +21,14 @@ class BeeHappy(
             it.asFertile()?.let { fertile ->
                 !fertile.hasDrought() &&
                     fertile.plant.isSown() &&
-                    fertile.plant.pollinateable(yearTick)
+                    fertile.plant.pollinateable((yearTick - 1 + tick) % YEAR_TICK_MAX + 1)
             } == true
         }
+        println("Start")
+        for (tile in pollinatableTiles) {
+            println("Pollinatable : Tile ${tile.id}")
+        }
+        println("End")
         pollinatableTiles.forEach { if (it is Fertile) it.plant.addPollination(this) }
         Logger.incidentExecuted(id, this, pollinatableTiles.map { it.id }.sortedBy { it })
     }

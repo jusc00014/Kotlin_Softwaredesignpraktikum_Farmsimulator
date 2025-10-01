@@ -221,7 +221,7 @@ class MapParser(
             "VILLAGE" -> tileType = TileType.VILLAGE
             else -> require(false) { "category string matches no existing category" }
         }
-        require(errorCatch) { "invalid category $tileType on tile with coordinates $coord" }
+        require(errorCatch) { "invalid category $category on tile with coordinates $coord" }
         return tileType
     }
 

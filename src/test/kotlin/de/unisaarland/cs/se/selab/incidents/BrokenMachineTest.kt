@@ -12,7 +12,7 @@ class BrokenMachineTest {
     @Test
     fun test1() {
         val tile = Tile(0, Coordinate(0, 0), null, false, 0, TileType.ROAD)
-        val machine = Machine(0, listOf(), listOf(), 10, tile, 0, false)
+        val machine = Machine(0, emptyList(), emptyList(), 10, tile, 0, false)
         val incident = BrokenMachine(0, 0, 3, machine)
         incident.execute()
         assertEquals(3, machine.brokenFor)

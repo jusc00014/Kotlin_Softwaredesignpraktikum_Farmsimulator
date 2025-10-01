@@ -72,6 +72,10 @@ object SystemTestRegistration {
     fun registerSystemTestsForReferenceImplementation(testSuite: SELab25TestSuite) {
         testSuite.registerTest(ExampleSystemTest())
         // region ParserTests
+        testSuite.registerTest(WindyVillage())
+        testSuite.registerTest(VillageWithAirflow())
+        testSuite.registerTest(TileSameCoordinates())
+        testSuite.registerTest(InvalidCategoryForCoord())
         // endregion ParserTests
         testSuite.registerTest(DroughtTest())
         testSuite.registerTest(BigBigTestOctober1())
@@ -103,7 +107,6 @@ object SystemTestRegistration {
         testSuite.registerTest(FullData())
         testSuite.registerTest(FarmsTimes2())
         testSuite.registerTest(ShedlessFarm())
-        testSuite.registerTest(WindyVillage())
         testSuite.registerTest(ForestVillage())
         testSuite.registerTest(ShedWrongNeighbourhood())
         testSuite.registerTest(OwnedRoad())

@@ -121,6 +121,28 @@ class OwnedRoad : ParserTest(ParserFile.MAP, mapFileName = "mapOwnedRoad.json") 
 class TileSameID : ParserTest(ParserFile.MAP, mapFileName = "mapSameID.json") {
     override val description: String = "Tiles with same ID"
 }
+
+/**
+ * Test the parser for Tile with same Coordinates
+ */
+class TileSameCoordinates : ParserTest(ParserFile.MAP, mapFileName = "mapSameCoordinates.json") {
+    override val description: String = "Tiles with same coordinates"
+}
+
+/**
+ * Test the parser for a Meadow as an Octagonal Tile
+ */
+class InvalidCategoryForCoord : ParserTest(ParserFile.MAP, mapFileName = "mapInvalidCategoryForCoord.json") {
+    override val description: String = "Meadow as an Octagonal Tile"
+}
+
+/**
+ * Test the parser for a Village with airflow = true
+ */
+class VillageWithAirflow : ParserTest(ParserFile.MAP, mapFileName = "mapVillageWithAirflow.json") {
+    override val description: String = "Village with airflow = true"
+}
+
 // endregion
 
 // region Farms

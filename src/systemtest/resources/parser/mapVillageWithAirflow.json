@@ -21,7 +21,7 @@
       "id": 2,
       "coordinates": { "x": 2, "y":  0 },
       "category": "VILLAGE",
-      "direction": "315"
+      "airflow": true
     }
   ]
 }

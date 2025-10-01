@@ -6,7 +6,7 @@
       "category": "FARMSTEAD",
       "farm": 0,
       "airflow": false,
-      "shed": false
+      "shed": true
     },
     {
       "id": 1,
@@ -19,9 +19,9 @@
     },
     {
       "id": 2,
-      "coordinates": { "x": 2, "y":  0 },
-      "category": "VILLAGE",
-      "direction": "315"
+      "coordinates": { "x":  0, "y": 0 },
+      "category": "ROAD",
+      "airflow": false
     }
   ]
 }

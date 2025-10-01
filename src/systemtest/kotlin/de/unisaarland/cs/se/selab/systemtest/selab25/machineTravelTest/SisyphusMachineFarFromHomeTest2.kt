@@ -6,8 +6,8 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.utils.TestExtension
 /**
  * Tests the patience of the machine
  */
-class SisyphusMachineFarFromHomeTest : TestExtension() {
-    override val name = "SisyphusMachineFarFromHomeTest"
+class SisyphusMachineFarFromHomeTest2 : TestExtension() {
+    override val name = "SisyphusMachineFarFromHomeTest2"
     override val description = "Tests if the machine takes the long route home and doesn't sow to early."
 
     // Paths are relative from the `src/systemtest/resources` directory.
@@ -37,8 +37,6 @@ class SisyphusMachineFarFromHomeTest : TestExtension() {
         assertNextLine(farmStart)
         assertNextLine(farmCurrentPlans)
         assertNextLine(farmFinish)
-        assertNextLine(missedHarvest)
-        assertNextLine("[INFO] Harvest Estimate: Harvest estimate on tile 7 changed to 105040 g of WHEAT.")
 
         skipUntilLogType(LogLevel.INFO, "Simulation Info: Tick 17")
         assertCurrentLine("[INFO] Simulation Info: Tick 17 started at tick 14 within the year.")

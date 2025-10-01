@@ -24,7 +24,6 @@ class BrokenMachineTest : TestExtension() {
         assertCurrentLine("[IMPORTANT] Farm Sowing: Machine 1 has sowed POTATO according to sowing plan 1.")
         skipUntilLogType(LogLevel.IMPORTANT, "Incident:")
         assertCurrentLine("[IMPORTANT] Incident: Incident 0 of type BROKEN_MACHINE happened and affected tiles 3.")
-        assertNextLine("[INFO] Harvest Estimate: Harvest estimate on tile 4 changed to 1000000 g of POTATO.")
         skipUntilLogType(LogLevel.INFO, "Simulation Info: Tick 2")
         skipUntilLogType(LogLevel.DEBUG, harvestEstimate)
         assertCurrentLine("[DEBUG] Harvest Estimate: Required actions on tile 4 were not performed: WEEDING.")

@@ -20,8 +20,8 @@ class AnimalAttackTestStacking : TestExtension() {
 
     override suspend fun run() {
         skipUntilLogType(LogLevel.IMPORTANT, "Incident:")
-        assertCurrentLine("[IMPORTANT] Incident: Incident 0 of type ANIMAL_ATTACK happened and affected tiles 5,7.")
-        assertNextLine("[IMPORTANT] Incident: Incident 1 of type ANIMAL_ATTACK happened and affected tiles 5,7.")
+        assertCurrentLine("[IMPORTANT] Incident: Incident 0 of type ANIMAL_ATTACK happened and affected tiles 5,6,7.")
+        assertNextLine("[IMPORTANT] Incident: Incident 1 of type ANIMAL_ATTACK happened and affected tiles 5,6,7.")
         assertNextLine("[INFO] Harvest Estimate: Harvest estimate on tile 5 changed to 1239300 g of APPLE.")
         assertNextLine("[INFO] Harvest Estimate: Harvest estimate on tile 7 changed to 300000 g of GRAPE.")
     }

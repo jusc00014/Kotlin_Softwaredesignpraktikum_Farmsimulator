@@ -24,7 +24,7 @@ class MachineTest3 : TestExtension() {
         assertNextLine("[IMPORTANT] Farm Action: Machine 0 performs CUTTING on tile 3 for 1 days.")
         assertNextLine("[IMPORTANT] Farm Action: Machine 0 performs CUTTING on tile 5 for 1 days.")
         assertNextLine("[IMPORTANT] Farm Action: Machine 0 performs CUTTING on tile 6 for 1 days.")
-        assertNextLine("Farm Machine: Machine 0 is finished and returns to the shed at 2.")
+        assertNextLine("[IMPORTANT] Farm Machine: Machine 0 is finished and returns to the shed at 2.")
         assertNextLine("[IMPORTANT] Farm: Farm 0 finished its actions.")
     }
 }

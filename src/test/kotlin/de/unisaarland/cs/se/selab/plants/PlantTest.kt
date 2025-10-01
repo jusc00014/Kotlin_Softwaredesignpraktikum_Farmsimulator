@@ -249,4 +249,71 @@ class PlantTest {
         harvestEstimateField.set(potatoPlant, 421)
         assertTrue(421 == potatoPlant.performAction(Action.HARVESTING, 18))
     }
+
+    @Test
+    fun initApplePlantationNoPenalty() {
+        val applePlant = Plant(PlantType.APPLE, Constants.apple, 19)
+        assertTrue(applePlant.getHarvestEstimate() == Constants.APPLE_HE)
+    }
+
+    @Test
+    fun initAlmondPlantationNoPenalty() {
+        val almondPlant = Plant(PlantType.ALMOND, Constants.almond, 19)
+        assertTrue(almondPlant.getHarvestEstimate() == Constants.ALMOND_HE)
+    }
+
+    @Test
+    fun initCherryPlantationNoPenalty() {
+        val cherryPlant = Plant(PlantType.CHERRY, Constants.cherry, 14)
+        assertTrue(cherryPlant.getHarvestEstimate() == Constants.CHERRY_HE)
+    }
+
+    @Test
+    fun initGrapePlantationNoPenalty() {
+        val grapePlant = Plant(PlantType.GRAPE, Constants.grape, 17)
+        assertTrue(grapePlant.getHarvestEstimate() == Constants.GRAPE_HE)
+    }
+
+    @Test
+    fun initApplePlantationPenalty() {
+        val applePlant = Plant(PlantType.APPLE, Constants.apple, 20)
+        assertTrue(applePlant.getHarvestEstimate() == (Constants.APPLE_HE * 0.5).toInt())
+    }
+
+    @Test
+    fun initAlmondPlantationPenalty() {
+        val almondPlant = Plant(PlantType.ALMOND, Constants.almond, 20)
+        println(almondPlant)
+        assertTrue(almondPlant.getHarvestEstimate() == (Constants.ALMOND_HE * 0.9).toInt())
+    }
+
+    @Test
+    fun initCherryPlantationPenalty() {
+        val cherryPlant = Plant(PlantType.CHERRY, Constants.cherry, 15)
+        assertTrue(cherryPlant.getHarvestEstimate() == (Constants.CHERRY_HE * 0.3).toInt())
+    }
+
+    @Test
+    fun initGrapePlantationMultiplePenalties() {
+        val grapePlant1 = Plant(PlantType.GRAPE, Constants.grape, 18)
+        assertTrue(grapePlant1.getHarvestEstimate() == (Constants.GRAPE_HE * 0.95).toInt())
+        val grapePlant2 = Plant(PlantType.GRAPE, Constants.grape, 19)
+        assertTrue(grapePlant2.getHarvestEstimate() == (Constants.GRAPE_HE * 0.95 * 0.95).toInt())
+        val grapePlant3 = Plant(PlantType.GRAPE, Constants.grape, 20)
+        assertTrue(grapePlant3.getHarvestEstimate() == (Constants.GRAPE_HE * 0.95 * 0.95 * 0.95).toInt())
+    }
+
+    @Test
+    fun initCherryPlantationAfterPossibleHarvest() {
+        val cherryPlant1 = Plant(PlantType.CHERRY, Constants.cherry, 16)
+        val cherryPlant2 = Plant(PlantType.CHERRY, Constants.cherry, 17)
+        val cherryPlant3 = Plant(PlantType.CHERRY, Constants.cherry, 18)
+        val cherryPlant4 = Plant(PlantType.CHERRY, Constants.cherry, 19)
+        val cherryPlant5 = Plant(PlantType.CHERRY, Constants.cherry, 20)
+        assertTrue(cherryPlant1.getHarvestEstimate() == 0)
+        assertTrue(cherryPlant2.getHarvestEstimate() == 0)
+        assertTrue(cherryPlant3.getHarvestEstimate() == 0)
+        assertTrue(cherryPlant4.getHarvestEstimate() == 0)
+        assertTrue(cherryPlant5.getHarvestEstimate() == 0)
+    }
 }

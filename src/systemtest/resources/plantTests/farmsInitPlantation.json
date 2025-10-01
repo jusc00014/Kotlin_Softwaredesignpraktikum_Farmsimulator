@@ -1,0 +1,47 @@
+{
+  "farms": [
+    {
+      "id": 0,
+      "name": "Very Cool Farm",
+      "farmsteads": [0],
+      "fields": [],
+      "plantations": [1, 2, 3, 4],
+      "machines": [
+        {
+          "id": 0,
+          "name": "Attractor",
+          "actions": ["WEEDING", "IRRIGATING", "CUTTING"],
+          "plants": ["APPLE"],
+          "duration": 3,
+          "location": 0
+        },
+        {
+          "id": 1,
+          "name": "Arachnotor",
+          "actions": ["WEEDING", "IRRIGATING", "CUTTING"],
+          "plants": ["ALMOND"],
+          "duration": 3,
+          "location": 0
+        },
+        {
+          "id": 2,
+          "name": "Cracktor",
+          "actions": ["WEEDING", "IRRIGATING", "CUTTING"],
+          "plants": ["CHERRY"],
+          "duration": 3,
+          "location": 0
+        },
+        {
+          "id": 3,
+          "name": "Graptor",
+          "actions": ["WEEDING", "IRRIGATING", "CUTTING"],
+          "plants": ["GRAPE"],
+          "duration": 3,
+          "location": 0
+        }
+      ],
+      "sowingPlans": [
+      ]
+    }
+  ]
+}

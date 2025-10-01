@@ -49,6 +49,8 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTr
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.Onefieldtest
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.Onefieldtestshouldsow
 import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.FallowSowPlanPotato
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.InitializePlantationTick19Test
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.InitializePlantationTick21Test
 import de.unisaarland.cs.se.selab.systemtest.selab25.sowingPlanTest.SowingPlanTest
 
 /**
@@ -76,6 +78,8 @@ object SystemTestRegistration {
         testSuite.registerTest(MachineDuplicateActions())
         testSuite.registerTest(BeeHappyTest())
         testSuite.registerTest(MachineTravelTrial())
+        testSuite.registerTest(InitializePlantationTick19Test())
+        testSuite.registerTest(InitializePlantationTick21Test())
     }
 
     /**

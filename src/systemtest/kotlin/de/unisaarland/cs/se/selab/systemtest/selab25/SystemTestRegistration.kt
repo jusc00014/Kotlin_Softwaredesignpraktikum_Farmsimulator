@@ -96,8 +96,6 @@ object SystemTestRegistration {
         testSuite.registerTest(SowingAndVillage())
         testSuite.registerTest(SowingPlanDoesTheSame())
         testSuite.registerTest(SowingEarlyTest())
-        testSuite.registerTest(BigBigHostiletakeOverFieldsTest())
-        testSuite.registerTest(BigBigHostileTakeOverFarmSteadsTest())
         testSuite.registerTest(BigBigTestLowMoisture())
         testSuite.registerTest(BadAppleTest())
         // region PlantationLateHarvestTests
@@ -156,6 +154,8 @@ object SystemTestRegistration {
         testSuite.registerTest(InvalidCategoryForCoord())
         testSuite.registerTest(MachineDuplicateActions())
         testSuite.registerTest(FarmPlantationIdentifiesAsField())
+        testSuite.registerTest(BigBigHostiletakeOverFieldsTest())
+        testSuite.registerTest(BigBigHostileTakeOverFarmSteadsTest())
     }
 
     /**

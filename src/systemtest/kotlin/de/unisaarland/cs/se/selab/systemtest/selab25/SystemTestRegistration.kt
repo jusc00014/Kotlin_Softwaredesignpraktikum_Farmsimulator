@@ -86,6 +86,7 @@ object SystemTestRegistration {
         testSuite.registerTest(WeirdBeeHappyTest())
         testSuite.registerTest(SowingEarlyTest())
         testSuite.registerTest(LongBrokenMachineTest())
+        testSuite.registerTest(SisyphusMachineFarFromHomeTest())
     }
 
     /**

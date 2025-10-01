@@ -38,6 +38,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.InvalidAnimal
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.InvalidBeeHappyTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.InvalidBrokenMachineTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.InvalidDroughtTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.LongBrokenMachineTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTestChained
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTestCrossCloudCreation
@@ -84,6 +85,7 @@ object SystemTestRegistration {
         testSuite.registerTest(SowingPlanDoesTheSame())
         testSuite.registerTest(WeirdBeeHappyTest())
         testSuite.registerTest(SowingEarlyTest())
+        testSuite.registerTest(LongBrokenMachineTest())
     }
 
     /**

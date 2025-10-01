@@ -1,5 +1,9 @@
 package de.unisaarland.cs.se.selab.systemtest.selab25
 
+import de.unisaarland.cs.se.selab.farms.SowingPlan
+import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.FieldOfOtherFarm
+import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.SowingAndVillage
+import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.SowingPlanDoesTheSame
 import de.unisaarland.cs.se.selab.systemtest.selab25.basictests.ExampleSystemTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.basictests.MissingFarmsteadTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.basictests.MissingPlantationTest
@@ -81,6 +85,9 @@ object SystemTestRegistration {
         testSuite.registerTest(LateHarvestTest())
         testSuite.registerTest(BeeHappyTest3Overlapping())
         testSuite.registerTest(BeeHappyTestInvalid())
+        testSuite.registerTest(FieldOfOtherFarm())
+        testSuite.registerTest(SowingAndVillage())
+        testSuite.registerTest(SowingPlanDoesTheSame())
     }
 
     /**

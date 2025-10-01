@@ -94,10 +94,7 @@ class SowingPlanDoesTheSame : TestExtension() {
 
     override suspend fun run() {
         skipUntilString(
-            Strgs.STR
-        )
-        assertCurrentLine(
-            Strgs.STR
+            "[INFO] Initialization Info: farm8.json successfully parsed and validated."
         )
     }
 }

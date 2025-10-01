@@ -19,10 +19,7 @@ class FieldOfOtherFarm : TestExtension() {
 
     override suspend fun run() {
         skipUntilString(
-            Strgs.STR
-        )
-        assertCurrentLine(
-            Strgs.STR
+            "[INFO] Initialization Info: farm3.json successfully parsed and validated."
         )
     }
 }
@@ -44,10 +41,7 @@ class SowingAndVillage : TestExtension() {
 
     override suspend fun run() {
         skipUntilString(
-            Strgs.STR
-        )
-        assertCurrentLine(
-            Strgs.STR
+            "[INFO] Initialization Info: farm4.json successfully parsed and validated."
         )
     }
 }
@@ -71,9 +65,6 @@ class MachineWrongPlant : TestExtension() {
         skipUntilString(
             "[INFO] Initialization Info: farms1 successfully parsed and validated."
         )
-        assertCurrentLine(
-            "[INFO] Initialization Info: farms1 successfully parsed and validated."
-        )
     }
 }
 
@@ -94,9 +85,6 @@ class MachineCanTSow : TestExtension() {
 
     override suspend fun run() {
         skipUntilString(
-            "[INFO] Initialization Info: farms9 successfully parsed and validated."
-        )
-        assertCurrentLine(
             "[INFO] Initialization Info: farms9 successfully parsed and validated."
         )
     }

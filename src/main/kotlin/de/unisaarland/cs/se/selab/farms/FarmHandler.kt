@@ -452,6 +452,7 @@ class FarmHandler(
                 Logger.machineUnloads(machine.id, harvestAmount, field.plant.type)
                 harvestAmount = 0
             } else {
+                machine.location = lastField
                 machine.setStuck()
                 Logger.machineFinishedNoReturn(machine.id)
                 harvestAmount = 0

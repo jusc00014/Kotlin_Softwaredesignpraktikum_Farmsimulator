@@ -69,6 +69,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTr
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialSowingTime22
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.Onefieldtest
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.Onefieldtestshouldsow
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.FallowSowPlanPotato
 import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.InitializePlantationTick19Test
 import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.InitializePlantationTick21Test
@@ -98,8 +99,7 @@ object SystemTestRegistration {
         testSuite.registerTest(BigBigHostiletakeOverFieldsTest())
         testSuite.registerTest(BigBigHostileTakeOverFarmSteadsTest())
         testSuite.registerTest(BigBigTestLowMoisture())
-        testSuite.registerTest(LongBrokenMachineTest())
-        testSuite.registerTest(VeryLongBrokenMachineTest())
+        testSuite.registerTest(BadAppleTest())
         // region PlantationLateHarvestTests
         testSuite.registerTest(AppleLateHarvestTest())
         testSuite.registerTest(AlmondLateHarvestTest())

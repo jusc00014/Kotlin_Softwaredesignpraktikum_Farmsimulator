@@ -1,7 +1,9 @@
 package de.unisaarland.cs.se.selab.plants
 
 import de.unisaarland.cs.se.selab.Constants
+import de.unisaarland.cs.se.selab.board.Coordinate
 import de.unisaarland.cs.se.selab.board.Field
+import de.unisaarland.cs.se.selab.board.TileType
 import de.unisaarland.cs.se.selab.farms.Action
 import de.unisaarland.cs.se.selab.incidents.AnimalAttack
 import de.unisaarland.cs.se.selab.incidents.BeeHappy
@@ -314,5 +316,39 @@ class PlantTest {
         assertTrue(cherryPlant3.getHarvestEstimate() == 0)
         assertTrue(cherryPlant4.getHarvestEstimate() == 0)
         assertTrue(cherryPlant5.getHarvestEstimate() == 0)
+    }
+
+    @Test
+    fun checkWeedableWheat() {
+        val field = Field(
+            0,
+            Coordinate(0, 0),
+            null,
+            0,
+            TileType.FIELD,
+            100000,
+            Plant(PlantType.WHEAT, Constants.wheat, 1),
+            setOf(PlantType.WHEAT)
+        )
+        field.plant.sow(PlantType.WHEAT, Constants.wheat, 19)
+        assertFalse(field.plant.weedable(20))
+        assertFalse(field.plant.weedable(21))
+        assertTrue(field.plant.weedable(22))
+        assertFalse(field.plant.weedable(23))
+        assertFalse(field.plant.weedable(24))
+        assertFalse(field.plant.weedable(1))
+        assertFalse(field.plant.weedable(2))
+        assertFalse(field.plant.weedable(3))
+        assertTrue(field.plant.weedable(4))
+        field.plant.sow(PlantType.WHEAT, Constants.wheat, 20)
+        assertFalse(field.plant.weedable(21))
+        assertFalse(field.plant.weedable(22))
+        assertTrue(field.plant.weedable(23))
+        assertFalse(field.plant.weedable(24))
+        assertFalse(field.plant.weedable(1))
+        assertFalse(field.plant.weedable(2))
+        assertFalse(field.plant.weedable(3))
+        assertFalse(field.plant.weedable(4))
+        assertTrue(field.plant.weedable(5))
     }
 }

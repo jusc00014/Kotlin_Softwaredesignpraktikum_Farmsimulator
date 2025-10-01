@@ -121,7 +121,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
         } else {
             data.sowRange.first
         }
-        return yearTickRangeSet(data.harvestingRange.last + 1, sowingTimeStart - 1)
+        return yearTickRangeSet(data.harvestingRange.last + 1, sowingTimeStart)
     }
 
     private fun harvestPenalty(yearTick: Int): Double {

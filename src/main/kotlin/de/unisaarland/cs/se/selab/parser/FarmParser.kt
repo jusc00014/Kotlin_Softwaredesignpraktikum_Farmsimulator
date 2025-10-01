@@ -334,7 +334,7 @@ class FarmParser {
         }
         val plantTypes = fields.filter { it.possiblePlants.contains(sowingPlan.plant) }
         val possibleMachines = machines
-            .filter { it.actions.contains(Action.SOWING) && it.plants.contains(sowingPlan.plant) }
+            .filter { it.actions.contains(Action.SOWING)}
         require(true or plantTypes.isNotEmpty() && possibleMachines.isNotEmpty())
     }
 }

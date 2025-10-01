@@ -45,25 +45,29 @@
           "id": 1,
           "tick": 0,
           "plant": "WHEAT",
-          "fields": [2]
+          "location": 0,
+          "radius": 6
         },
         {
           "id": 2,
           "tick": 0,
           "plant": "POTATO",
-          "fields": [1]
+          "location": 0,
+          "radius": 6
         },
         {
           "id": 3,
           "tick": 0,
           "plant": "PUMPKIN",
-          "fields": [0]
+          "location": 0,
+          "radius": 6
         },
         {
           "id": 0,
           "tick": 0,
           "plant": "OAT",
-          "fields": [3]
+          "location": 0,
+          "radius": 6
         }
       ]
     }

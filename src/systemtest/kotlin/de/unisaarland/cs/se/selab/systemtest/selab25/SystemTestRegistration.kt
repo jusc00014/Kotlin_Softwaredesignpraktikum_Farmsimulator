@@ -17,6 +17,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.MachineTime
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.MachineTravelTrial
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest17
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.SowingEarlyTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.havestTest.LateHarvestTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.AnimalAttackTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.AnimalAttackTestStacking
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.BeeHappyTest
@@ -80,6 +81,11 @@ object SystemTestRegistration {
         testSuite.registerTest(MachineTravelTrial())
         testSuite.registerTest(InitializePlantationTick19Test())
         testSuite.registerTest(InitializePlantationTick21Test())
+        testSuite.registerTest(SisyphusMachineFarFromHomeTest())
+        testSuite.registerTest(NonPrioritizedTest17())
+        testSuite.registerTest(SowingEarlyTest())
+        testSuite.registerTest(HarvestEstimateSowingEarlyTest())
+        testSuite.registerTest(LateHarvestTest())
     }
 
     /**

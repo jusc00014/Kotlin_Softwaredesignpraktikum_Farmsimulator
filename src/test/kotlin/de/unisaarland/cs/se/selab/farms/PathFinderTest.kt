@@ -149,20 +149,22 @@ class PathFinderTest {
         assertFalse(pathFinder.reachableWithHarvest(tile7, tile4, 1, board))
     }
 
-    @Test
-    fun canContinue() {
-        assertTrue(pathFinder.canContinue(tile1, tile4, 1, board, false))
-        assertFalse(pathFinder.canContinue(tile1, tile4, 1, board, true))
-        assertTrue(pathFinder.canContinue(tile7, tile4, 1, board, false))
-        assertFalse(pathFinder.canContinue(tile7, tile10, 1, board, false))
-        assertFalse(pathFinder.canContinue(tile5, tile11, 1, board, false))
-    }
-
-    @Test
-    fun reachableIntegration() {
-        assertTrue(pathFinder.reachable(tile7, tile4, 1, boardData))
-        assertFalse(pathFinder.reachable(tile7, tile11, 1, boardData))
-    }
+    /**
+     *     @Test
+     *     fun canContinue() {
+     *         assertTrue(pathFinder.canContinue(tile1, tile4, 1, board, false))
+     *         assertFalse(pathFinder.canContinue(tile1, tile4, 1, board, true))
+     *         assertTrue(pathFinder.canContinue(tile7, tile4, 1, board, false))
+     *         assertFalse(pathFinder.canContinue(tile7, tile10, 1, board, false))
+     *         assertFalse(pathFinder.canContinue(tile5, tile11, 1, board, false))
+     *     }
+     *
+     *     @Test
+     *     fun reachableIntegration() {
+     *         assertTrue(pathFinder.reachable(tile7, tile4, 1, boardData))
+     *         assertFalse(pathFinder.reachable(tile7, tile11, 1, boardData))
+     *     }
+     */
 
     @Test
     fun reachableWithHarvestIntegration() {

@@ -43,7 +43,7 @@ abstract class SimulationTestExtension(
     protected fun machineFailedReturn(machineID: Int): String =
         "[IMPORTANT] Farm Machine: Machine $machineID is finished but failed to return."
     protected fun machineUnloaded(machineID: Int, amount: Int, plant: PlantType): String =
-        "IMPORTANT] Farm Machine: Machine $machineID unloads $amount g of ${plant.name} harvest in the shed."
+        "[IMPORTANT] Farm Machine: Machine $machineID unloads $amount g of ${plant.name} harvest in the shed."
     protected fun farmFinishedActions(farmID: Int): String =
         "[IMPORTANT] Farm: Farm $farmID finished its actions."
     protected fun incidentOccured(incidentID: Int, incidentType: String, tileIDs: List<Int>) =

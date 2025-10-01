@@ -22,8 +22,10 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.MachineTime
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.MachineTravelTrial
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest17
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.SowingEarlyTest
-import de.unisaarland.cs.se.selab.systemtest.selab25.havestTest.CherryLateHarvestTest3T
-import de.unisaarland.cs.se.selab.systemtest.selab25.havestTest.CherryLateHarvestTest4T
+import de.unisaarland.cs.se.selab.systemtest.selab25.havestTest.AlmondLateHarvestTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.havestTest.AppleLateHarvestTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.havestTest.CherryLateHarvestTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.havestTest.GrapeLateHarvestTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.havestTest.LateHarvestTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.AnimalAttackTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.AnimalAttackTestStacking
@@ -85,7 +87,6 @@ object SystemTestRegistration {
     fun registerSystemTestsForReferenceImplementation(testSuite: SELab25TestSuite) {
         testSuite.registerTest(ExampleSystemTest())
         // region ParserTests
-        testSuite.registerTest(FarmPlantationIdentifiesAsField())
         // endregion ParserTests
         testSuite.registerTest(DroughtTest())
         testSuite.registerTest(BigBigTestOctober1())
@@ -100,11 +101,14 @@ object SystemTestRegistration {
         testSuite.registerTest(LongBrokenMachineTest())
         testSuite.registerTest(VeryLongBrokenMachineTest())
         // region PlantationLateHarvestTests
-        testSuite.registerTest(CherryLateHarvestTest3T())
-        testSuite.registerTest(CherryLateHarvestTest4T())
+        testSuite.registerTest(AppleLateHarvestTest())
+        testSuite.registerTest(AlmondLateHarvestTest())
+        testSuite.registerTest(CherryLateHarvestTest())
+        testSuite.registerTest(GrapeLateHarvestTest())
+        // endregion PlantationLateHarvestTests
+        testSuite.registerTest(MachineTest2())
         testSuite.registerTest(MachineTest3())
         testSuite.registerTest(MachineTest3x2())
-        // endregion PlantationLateHarvestTests
     }
 
     /**
@@ -151,6 +155,7 @@ object SystemTestRegistration {
         testSuite.registerTest(TileSameCoordinates())
         testSuite.registerTest(InvalidCategoryForCoord())
         testSuite.registerTest(MachineDuplicateActions())
+        testSuite.registerTest(FarmPlantationIdentifiesAsField())
     }
 
     /**

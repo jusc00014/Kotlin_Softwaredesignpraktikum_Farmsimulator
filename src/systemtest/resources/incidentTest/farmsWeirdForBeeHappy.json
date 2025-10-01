@@ -33,6 +33,24 @@
         }
       ],
       "sowingPlans": [
+        {
+          "id": 1,
+          "tick": 0,
+          "plant": "POTATO",
+          "fields": [5, 7]
+        },
+        {
+          "id": 2,
+          "tick": 0,
+          "plant": "PUMPKIN",
+          "fields": [1, 8]
+        },
+        {
+          "id": 3,
+          "tick": 0,
+          "plant": "WHEAT",
+          "fields": [100]
+        }
       ]
     }
   ]

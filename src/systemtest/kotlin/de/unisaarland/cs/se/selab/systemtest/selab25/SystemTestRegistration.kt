@@ -73,13 +73,11 @@ object SystemTestRegistration {
         testSuite.registerTest(BigBigTestOctober1())
         testSuite.registerTest(FallowSowPlanPotato())
         testSuite.registerTest(MachineDuplicateActions())
-        testSuite.registerTest(BeeHappyTest())
         testSuite.registerTest(MachineTravelTrial())
         testSuite.registerTest(NonPrioritizedTest17())
         testSuite.registerTest(SowingEarlyTest())
         testSuite.registerTest(HarvestEstimateSowingEarlyTest())
         testSuite.registerTest(LateHarvestTest())
-        testSuite.registerTest(BeeHappyTest2())
         testSuite.registerTest(BeeHappyTest3Overlapping())
     }
 
@@ -164,5 +162,7 @@ object SystemTestRegistration {
         testSuite.registerTest(NonPrioritizedTest17())
         testSuite.registerTest(AnimalAttackTest())
         testSuite.registerTest(AnimalAttackTestStacking())
+        testSuite.registerTest(BeeHappyTest2())
+        testSuite.registerTest(BeeHappyTest())
     }
 }

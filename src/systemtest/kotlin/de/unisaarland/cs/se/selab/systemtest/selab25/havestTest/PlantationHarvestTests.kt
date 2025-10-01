@@ -60,6 +60,7 @@ class CherryLateHarvestTest3T : PlantationLateHarvestTestExtension(
         assertNextLine(tickStarted(2, Constants.JUL_2))
         assertHarvest(null)
         assertNextLine(actionNotPerformed(1, listOf(Action.HARVESTING)))
+        assertNextLine(harvestEstimate(1, 360_000, plant))
     }
 }
 
@@ -79,9 +80,10 @@ class CherryLateHarvestTest4T : PlantationLateHarvestTestExtension(
         assertHarvest(null)
         assertNextLine(tickStarted(2, Constants.JUL_2))
         assertHarvest(null)
+        assertNextLine(actionNotPerformed(1, listOf(Action.HARVESTING)))
         assertNextLine(tickStarted(2, Constants.AUG_1))
         assertNextLine(soilMoisture(0, 0))
         assertHarvest(null)
-        assertNextLine(actionNotPerformed(1, listOf(Action.HARVESTING)))
+        assertNextLine(harvestEstimate(1, 360_000, plant))
     }
 }

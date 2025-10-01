@@ -47,6 +47,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreati
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTestCrossCloudValid
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.VillageCreationTestNextToForest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.WeirdBeeHappyTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.machineMutantsHunt.UltimateMachineTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.MachineTravelTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.SisyphusMachineFarFromHomeTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.SisyphusMachineFarFromHomeTest2
@@ -93,6 +94,7 @@ object SystemTestRegistration {
         testSuite.registerTest(SisyphusMachineFarFromHomeTest2())
         testSuite.registerTest(BigBigHostiletakeOverFieldsTest())
         testSuite.registerTest(BigBigHostileTakeOverFarmSteadsTest())
+        testSuite.registerTest(UltimateMachineTest())
     }
 
     /**

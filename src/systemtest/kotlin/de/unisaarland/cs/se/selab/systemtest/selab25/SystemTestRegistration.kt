@@ -107,8 +107,6 @@ object SystemTestRegistration {
         testSuite.registerTest(MachineTest2())
         testSuite.registerTest(MachineTest3())
         testSuite.registerTest(MachineTest3x2())
-        testSuite.registerTest(BadAppleTest())
-        testSuite.registerTest(BadAppleDeadMachineTest())
     }
 
     /**
@@ -212,5 +210,7 @@ object SystemTestRegistration {
         testSuite.registerTest(MachineTest2())
         testSuite.registerTest(UltimateMachineTest())
         testSuite.registerTest(MachineTest3x2())
+        testSuite.registerTest(BadAppleTest())
+        testSuite.registerTest(BadAppleDeadMachineTest())
     }
 }

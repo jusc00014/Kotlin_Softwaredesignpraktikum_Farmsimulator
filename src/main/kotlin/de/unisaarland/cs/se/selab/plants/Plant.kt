@@ -307,7 +307,9 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
         incidents.forEach {
             when (it) {
                 is BeeHappy -> {
-                    harvestEstimate += (it.effect * harvestEstimate).toInt()
+                    if (type != PlantType.POTATO) {
+                        harvestEstimate += (it.effect * harvestEstimate).toInt()
+                    }
                 }
                 is AnimalAttack -> {
                     harvestEstimate = if (type == PlantType.GRAPE || data.tileType == PlantTile.FIELD) {

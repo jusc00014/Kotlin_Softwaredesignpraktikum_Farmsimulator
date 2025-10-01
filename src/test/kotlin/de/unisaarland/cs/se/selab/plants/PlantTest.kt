@@ -351,4 +351,13 @@ class PlantTest {
         assertFalse(field.plant.weedable(4))
         assertTrue(field.plant.weedable(5))
     }
+
+    @Test
+    fun checkBeeHappyOnPotato() {
+        val bee = BeeHappy(0, 4, emptySet(), 1.0, 11)
+        harvestEstimateField.set(potatoPlant, 100)
+        if (potatoPlant.pollinateable(11)) potatoPlant.addPollination(bee)
+        potatoPlant.updateHarvestEstimate(11, 5, 1000, 1)
+        assertTrue(potatoPlant.getHarvestEstimate() == 90)
+    }
 }

@@ -1,0 +1,22 @@
+{
+  "farms": [
+    {
+      "id": 0,
+      "name": "FarmArm",
+      "farmsteads": [ 2 ],
+      "fields": [ ],
+      "plantations": [ 0 ],
+      "machines": [
+        {
+          "id": 0,
+          "name": "AllStar",
+          "actions": ["CUTTING", "SOWING", "IRRIGATING", "MOWING", "HARVESTING", "WEEDING"],
+          "plants": ["APPLE", "POTATO", "WHEAT", "ALMOND", "CHERRY", "OAT", "GRAPE", "PUMPKIN"],
+          "duration": 1,
+          "location": 2
+        }
+      ],
+      "sowingPlans": []
+    }
+  ]
+}

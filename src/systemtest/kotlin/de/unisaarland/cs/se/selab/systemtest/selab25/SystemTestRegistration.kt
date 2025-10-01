@@ -4,6 +4,8 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.Machi
 import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.MachineCanTSow
 import de.unisaarland.cs.se.selab.systemtest.selab25.alternativeParserTest.MachineWrongPlant
 import de.unisaarland.cs.se.selab.systemtest.selab25.basictests.ExampleSystemTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.basictests.MissingFarmsteadTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.basictests.MissingPlantationTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.BigCloudTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.ClimateChange
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.CloudTestIllRemain
@@ -86,6 +88,8 @@ object SystemTestRegistration {
         testSuite.registerTest(SowingEarlyTest())
         testSuite.registerTest(HarvestEstimateSowingEarlyTest())
         testSuite.registerTest(LateHarvestTest())
+        testSuite.registerTest(MissingPlantationTest())
+        testSuite.registerTest(MissingFarmsteadTest())
     }
 
     /**

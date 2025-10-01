@@ -24,5 +24,4 @@ class BeeHappyTestInvalid : TestExtension() {
         assertNextLine("[INFO] Initialization Info: farms.json successfully parsed and validated.")
         assertNextLine("[IMPORTANT] Initialization Info: scenarioBeeHappyNoMeadow.json is invalid.")
     }
-
 }

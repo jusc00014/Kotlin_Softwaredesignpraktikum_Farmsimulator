@@ -22,6 +22,8 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.MachineTime
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.MachineTravelTrial
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.NonPrioritizedTest17
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.SowingEarlyTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.havestTest.CherryLateHarvestTest3T
+import de.unisaarland.cs.se.selab.systemtest.selab25.havestTest.CherryLateHarvestTest4T
 import de.unisaarland.cs.se.selab.systemtest.selab25.havestTest.LateHarvestTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.AnimalAttackTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.AnimalAttackTestStacking
@@ -97,6 +99,10 @@ object SystemTestRegistration {
         testSuite.registerTest(BigBigHostileTakeOverFarmSteadsTest())
         testSuite.registerTest(UltimateMachineTest())
         testSuite.registerTest(BigBigTestLowMoisture())
+        // region PlantationLateHarvestTests
+        testSuite.registerTest(CherryLateHarvestTest3T())
+        testSuite.registerTest(CherryLateHarvestTest4T())
+        // endregion PlantationLateHarvestTests
     }
 
     /**

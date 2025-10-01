@@ -419,7 +419,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
         this.data = plantData
         this.sowTime = yearTick
         this.harvestTime = 0
-        this.oldHarvestEstimate = -1
+        this.oldHarvestEstimate = null
         this.harvestEstimate = data.initialHarvestEstimate
     }
 

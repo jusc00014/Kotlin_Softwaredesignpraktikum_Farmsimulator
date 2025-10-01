@@ -20,7 +20,7 @@ class VeryLongBrokenMachineTest : TestExtension() {
 
     val farmStart = "[IMPORTANT] Farm: Farm 0 starts its actions."
     val farmCurrentPlans =
-        "[DEBUG] Farm: Farm 0 has the following active sowing plans it intends to pursue in this tick: 1."
+        "[DEBUG] Farm: Farm 0 has the following active sowing plans it intends to pursue in this tick: 1,2."
     val farmFinish = "[IMPORTANT] Farm: Farm 0 finished its actions."
     val soilMoist = "[INFO] Soil Moisture: The soil moisture is below threshold in 0 FIELD and 0 PLANTATION tiles."
 

@@ -97,6 +97,8 @@ object SystemTestRegistration {
         testSuite.registerTest(BigBigHostileTakeOverFarmSteadsTest())
         testSuite.registerTest(UltimateMachineTest())
         testSuite.registerTest(BigBigTestLowMoisture())
+        testSuite.registerTest(LongBrokenMachineTest())
+        testSuite.registerTest(VeryLongBrokenMachineTest())
         // region PlantationLateHarvestTests
         testSuite.registerTest(CherryLateHarvestTest3T())
         testSuite.registerTest(CherryLateHarvestTest4T())

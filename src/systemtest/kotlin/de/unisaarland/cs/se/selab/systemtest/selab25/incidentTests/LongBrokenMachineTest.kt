@@ -28,10 +28,10 @@ class LongBrokenMachineTest : TestExtension() {
         assertNextLine("[INFO] Soil Moisture: The soil moisture is below threshold in 0 FIELD and 0 PLANTATION tiles.")
         assertNextLine("[IMPORTANT] Farm: Farm 0 starts its actions.")
         assertNextLine(
-            "[DEBUG] Farm: Farm 0 has the following active sowing plans it intends to pursue in this tick: 1."
+            "[DEBUG] Farm: Farm 0 has the following active sowing plans it intends to pursue in this tick: 1,2."
         )
         assertNextLine("[IMPORTANT] Farm Action: Machine 0 performs SOWING on tile 1 for 14 days.")
-        assertNextLine("[IMPORTANT] Farm Sowing: Machine 0 has sowed POTATO according to sowing plan 1.")
+        assertNextLine("[IMPORTANT] Farm Sowing: Machine 0 has sowed POTATO according to sowing plan 2.")
         assertNextLine("[IMPORTANT] Farm Machine: Machine 0 is finished and returns to the shed at 0.")
 
         skipUntilLogType(LogLevel.IMPORTANT, "Simulation Statistics")

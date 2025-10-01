@@ -18,8 +18,14 @@
       ],
       "sowingPlans": [
         {
-          "id": 1,
+          "id": 2,
           "tick": 0,
+          "plant": "POTATO",
+          "fields": [1]
+        },
+        {
+          "id": 1,
+          "tick": 1,
           "plant": "POTATO",
           "fields": [1]
         }

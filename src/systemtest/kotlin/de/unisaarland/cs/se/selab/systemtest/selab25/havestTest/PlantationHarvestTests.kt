@@ -200,7 +200,7 @@ class GrapeLateHarvestTest : PlantationLateHarvestTestExtension(
         assertMissedHarvesting()
         assertHarvestEstimate(1_028_850)
 
-        assertTickStart(4, Constants.OCT_1) // Third Harvest Penalty Tick
+        assertTickStart(4, Constants.OCT_2) // Third Harvest Penalty Tick
         assertHarvest(1_028_850)
         assertFarmFinished()
         assertSimEnd()

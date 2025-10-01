@@ -1,5 +1,6 @@
 package de.unisaarland.cs.se.selab.plants
 
+import de.unisaarland.cs.se.selab.Constants
 import de.unisaarland.cs.se.selab.YEAR_TICK_MAX
 import de.unisaarland.cs.se.selab.YEAR_TICK_MIN
 import de.unisaarland.cs.se.selab.farms.Action
@@ -67,16 +68,42 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
          * Corrects the yearTick to be in Range 1..24
          */
         fun yearTickFix(yearTick: Int): Int = if (yearTick > YEAR_TICK_MAX) yearTick % YEAR_TICK_MAX else yearTick
+
+        /**
+         * Returns the yearTick n ticks ago
+         */
+        fun getPrevNYearTick(yearTick: Int, n: Int): Int {
+            var counter = n
+            var returnYearTick = yearTick
+            while (counter > 0) {
+                counter -= 1
+                if (returnYearTick <= 1) {
+                    returnYearTick == YEAR_TICK_MAX
+                } else {
+                    returnYearTick -= 1
+                }
+            }
+            return returnYearTick
+        }
     }
 
     private fun initHarvestEstimate(yearTick: Int): Int {
         var initHE: Int
         when (data.tileType) {
             PlantTile.PLANTATION -> {
-                initHE = (data.initialHarvestEstimate * harvestPenalty(yearTick - 1)).toInt()
-                val x = harvestPenalty(yearTick - 2)
-                val y = harvestPenalty(yearTick - 3)
-                initHE = (initHE * x * y).toInt()
+                var temp: Double
+                if (yearTick == Constants.NOV_1) {
+                    return data.initialHarvestEstimate
+                }
+                initHE = (data.initialHarvestEstimate * harvestPenalty(getPrevNYearTick(yearTick, 1))).toInt()
+                temp = harvestPenalty(getPrevNYearTick(yearTick, 2))
+                if (temp != 1.0) {
+                    initHE = (initHE * temp).toInt()
+                    temp = harvestPenalty(getPrevNYearTick(yearTick, 3))
+                    if (temp != 1.0) {
+                        initHE = (initHE * temp).toInt()
+                    }
+                }
             }
             PlantTile.FIELD -> {
                 initHE = 0
@@ -98,7 +125,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
     }
 
     private fun harvestPenalty(yearTick: Int): Double {
-        val lateFor = harvestPenaltyTimeFrame().indexOf(yearTick + 1) + 1 // Shift index to start with 0
+        val lateFor = harvestPenaltyTimeFrame().indexOf(yearTickFix(yearTick + 1)) + 1 // Shift index to start with 0
         if (lateFor == 0) return 1.0
         return when {
             (type == PlantType.WHEAT || type == PlantType.OAT) && lateFor <= 2

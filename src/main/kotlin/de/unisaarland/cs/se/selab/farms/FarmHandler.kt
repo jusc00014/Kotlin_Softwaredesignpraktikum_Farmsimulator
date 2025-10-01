@@ -25,7 +25,7 @@ class FarmHandler(
     /**
      * Started by simulator*/
     fun farmAction(tick: Int, yearTick: Int, board: BoardData) {
-        val fertiles = board.getFertiles()
+        val fertiles = board.getFertiles().toList().sortedBy { it.first }.toMap(LinkedHashMap())
         for (farm in idToFarm.values) {
             Logger.farmStartAction(farm.id)
             val remainingMachines = assembleMachines(farm).sortedBy { it.duration }.toMutableList()

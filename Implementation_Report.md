@@ -5,22 +5,23 @@
 The following table summarizes the actual contributions of each group member, including deviations from the planned responsibilities. 
 The "implemented components" column should only include major contributions to the respective components (i.e., no bugfixes or small additions to existing components).
 
-| Member    | Implemented Components                                                                                 | Testing Contributions                                                           | Additional Work    |
-|-----------|--------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|--------------------|
-| Julia     | Farms Package, PlantType, Coordinate, TileType                                                         | FarmHandler, PathFinder, Drought, Sowing, Irrigating, Cloud Package, FarmParser | Dummy-classes      |
-| Christian | FarmParser, ScenarioParser, BoardHandler, Fertile, Field, Plantation, Incident Package                 | Plant, SystemTests                                                              |                    |
-| Julian    | Plant, PlantData, Main, ScenarioParser, BoardData, Simulator, PlantTile | Fertile, MapParser, ScenarioParser, SystemTests                                 | Implementation Plan |
-| Leonard   | Logger, Cloud Package, CloudCreationIncident, CloudParsingValidation                                   | BoardDataUnit, SystemTestCloudDebug, SystemTestsIncidents                       |                 |
-| Laurenz   | MapParser, LogLevel, Direction, Tile                                                                   | Plant, ScenarioParser, FarmParser, MapParser, SystemTests                       |                 |
+| Member    | Implemented Components                                                                 | Testing Contributions                                                           | Additional Work    |
+|-----------|----------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|--------------------|
+| Julia     | Farms Package, PlantType, Coordinate, TileType                                         | FarmHandler, PathFinder, Drought, Sowing, Irrigating, Cloud Package, FarmParser | Dummy-classes      |
+| Christian | FarmParser, ScenarioParser, BoardHandler, Fertile, Field, Plantation, Incident Package | Plant, SystemTests                                                              |                    |
+| Julian    | Plant, PlantData, Main, ScenarioParser, BoardData, Simulator, PlantTile                | Fertile, MapParser, ScenarioParser, SystemTests                                 | Implementation Plan |
+| Leonard   | Logger, Cloud Package, CloudCreationIncident, CloudParsingValidation, Plant            | BoardDataUnit, SystemTestCloudDebug, SystemTestsIncidents                       |                 |
+| Laurenz   | MapParser, LogLevel, Direction, Tile                                                   | Plant, ScenarioParser, FarmParser, MapParser, SystemTests                       |                 |
 
 ---
 
 ## Adjustments from the Implementation Plan
 
-- FarmHandler took longer
-- Every Component by Artemiy and Jens were reassigned
-- UnitTests were reassigned to persons with free time and/or too few UnitTests written, as the UnitTests of Artemiy and Jens were also reassigned
-- Logger and Incidents was reassigned from Laurenz to Leonard and Christian, as the MapParser took too much time
+- FarmHandler took longer, as it was planned for 1 day, but took 6 days.
+- All Parser took longer than 1 day (mostly 2 to 3 days), because we needed time to figure out how to use the schema.
+- Every Component by Artemiy and Jens were reassigned, like in the table above.
+- UnitTests were reassigned to persons with free time and/or too few UnitTests written, as the UnitTests of Artemiy and Jens were also reassigned.
+- Logger and Incidents was reassigned from Laurenz to Leonard and Christian, as the MapParser took 2 days instead of 1.
 
 ---
 

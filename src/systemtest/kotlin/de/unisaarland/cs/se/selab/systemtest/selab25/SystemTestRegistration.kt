@@ -71,6 +71,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.Onefieldtest
 import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.Onefieldtestshouldsow
 import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleDeadMachineTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.DoubleMissedHarvestIrrigateTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.DoubleMissedMowIrrigateTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.DoubleMissedTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.DoubleMissedWeedIrrigateTest
@@ -113,6 +114,7 @@ object SystemTestRegistration {
         testSuite.registerTest(DoubleMissedTest())
         testSuite.registerTest(DoubleMissedWeedIrrigateTest())
         testSuite.registerTest(DoubleMissedMowIrrigateTest())
+        testSuite.registerTest(DoubleMissedHarvestIrrigateTest())
     }
 
     /**

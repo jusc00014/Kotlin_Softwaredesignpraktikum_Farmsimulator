@@ -273,26 +273,26 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
     private fun weedingMissed(yearTick: Int): Action? {
         if (data.tileType == PlantTile.PLANTATION || !weedable(yearTick)) return null
 
-        val harvestEstimateTemp = harvestEstimate
+        // val harvestEstimateTemp = harvestEstimate
         harvestEstimate = (harvestEstimate * WEEDING_MISSED_PENALTY_FACTOR).toInt()
-        return if (harvestEstimateTemp != harvestEstimate) Action.WEEDING else null
+        return Action.WEEDING
     }
 
     private fun cuttingMissed(yearTick: Int): Action? {
         if (data.tileType == PlantTile.FIELD) return null
         if (data.cuttingTimes.last() != yearTick || cutPerformed) return null
 
-        val harvestEstimateTemp = harvestEstimate
+        // val harvestEstimateTemp = harvestEstimate
         harvestEstimate = (harvestEstimate * CUTTING_MISSED_PENALTY_FACTOR).toInt()
-        return if (harvestEstimateTemp != harvestEstimate) Action.CUTTING else null
+        return Action.CUTTING
     }
 
     private fun mowingMissed(yearTick: Int): Action? {
         if (data.tileType == PlantTile.FIELD || !mowable(yearTick)) return null
 
-        val harvestEstimateTemp = harvestEstimate
+        // val harvestEstimateTemp = harvestEstimate
         harvestEstimate = (harvestEstimate * MOWING_MISSED_PENALTY_FACTOR).toInt()
-        return if (harvestEstimateTemp != harvestEstimate) Action.MOWING else null
+        return Action.MOWING
     }
 
     private fun harvestMissed(yearTick: Int): Action? {
@@ -356,7 +356,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
      */
     fun cuttable(yearTick: Int): Boolean {
         return !cutPerformed &&
-            harvestEstimate > 0 &&
+            (oldHarvestEstimate ?: harvestEstimate) > 0 &&
             data.cuttingTimes.contains(yearTick)
     }
 
@@ -365,7 +365,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
      */
     fun mowable(yearTick: Int): Boolean {
         return actionPerformed != Action.MOWING &&
-            harvestEstimate > 0 &&
+            (oldHarvestEstimate ?: harvestEstimate) > 0 &&
             mowedFor <= 0 &&
             data.mowingTimes.contains(yearTick)
     }
@@ -376,7 +376,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
     fun weedable(yearTick: Int): Boolean {
         return actionPerformed != Action.WEEDING &&
             sowTime > 0 &&
-            harvestEstimate > 0 &&
+            (oldHarvestEstimate ?: harvestEstimate) > 0 &&
             data.weedingTimes.map { yearTickFix(it + sowTime) }
                 .filterNot { it == sowTime }
                 .contains(yearTick)

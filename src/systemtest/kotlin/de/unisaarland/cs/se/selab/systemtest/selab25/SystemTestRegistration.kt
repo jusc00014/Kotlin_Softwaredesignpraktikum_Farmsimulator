@@ -20,6 +20,8 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrri
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationEstimate
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.CatchPlantLover
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.HarvestEstimateSowingEarlyTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.HarvestingTypeTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.HarvestingTypeTestEstimate
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.MachineOrder
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.MachineTimeOut
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.MachineTravelTrial
@@ -120,6 +122,8 @@ object SystemTestRegistration {
         testSuite.registerTest(DoubleMissedHarvestIrrigateTest())
         testSuite.registerTest(AnotherIrrigation())
         testSuite.registerTest(AnotherIrrigationEstimate())
+        testSuite.registerTest(HarvestingTypeTest())
+        testSuite.registerTest(HarvestingTypeTestEstimate())
     }
 
     /**

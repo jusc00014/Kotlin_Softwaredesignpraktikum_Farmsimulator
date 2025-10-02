@@ -15,7 +15,6 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigHosti
 import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigHostiletakeOverFieldsTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigTestLowMoisture
 import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigTestOctober1
-import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.EndlessPossibilities
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationEstimate
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationTrial1
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationTrial2

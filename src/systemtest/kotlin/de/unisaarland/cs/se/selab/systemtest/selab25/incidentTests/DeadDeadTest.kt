@@ -13,30 +13,32 @@ class DeadDeadTest : SimulationTestExtension("deadDeadTest") {
 
     override suspend fun run() {
         skipUntilLogType(LogLevel.INFO, SOIL_MOISTURE)
-        assertCurrentLine(soilMoisture(0, 1))
+        assertCurrentLine(soilMoisture(0, 0))
         assertNextLine(farmStartActions(1))
         assertNextLine(farmSowingPlans(1, emptyList()))
         assertNextLine(farmFinishedActions(1))
         assertNextLine(incidentOccured(1, "DROUGHT", listOf(1)))
-
+        var x = 1
         for (i in 17..24) {
-            val x = 1
-            assertNextLine(tickStarted(x, i))
+            skipUntilLogType(LogLevel.INFO, "Simulation Info")
+            assertCurrentLine(tickStarted(x, i))
             skipUntilLogType(LogLevel.INFO, SOIL_MOISTURE)
             assertCurrentLine(soilMoisture(0, 0))
             assertNextLine(farmStartActions(1))
             assertNextLine(farmSowingPlans(1, emptyList()))
             assertNextLine(farmFinishedActions(1))
+            x++
         }
 
-        for (i in 1..16) {
-            val x = 9
-            assertNextLine(tickStarted(x, i))
+        for (i in 1..15) {
+            skipUntilLogType(LogLevel.INFO, "Simulation Info")
+            assertCurrentLine(tickStarted(x, i))
             skipUntilLogType(LogLevel.INFO, SOIL_MOISTURE)
             assertCurrentLine(soilMoisture(0, 0))
             assertNextLine(farmStartActions(1))
             assertNextLine(farmSowingPlans(1, emptyList()))
             assertNextLine(farmFinishedActions(1))
+            x++
         }
     }
 }

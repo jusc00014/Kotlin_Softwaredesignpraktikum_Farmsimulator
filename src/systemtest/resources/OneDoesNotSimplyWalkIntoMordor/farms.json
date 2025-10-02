@@ -1,0 +1,47 @@
+{
+  "farms": [
+    {
+      "id": 1,
+      "name": "Die Gefährten",
+      "farmsteads": [10],
+      "fields": [11,12],
+      "plantations": [],
+      "machines": [
+        {
+          "id": 1,
+          "name": "Gandalf",
+          "actions": ["SOWING"],
+          "plants": ["POTATO"],
+          "duration": 1,
+          "location": 10
+        }
+      ],
+      "sowingPlans": [
+        {
+          "id": 1,
+          "tick": 0,
+          "plant": "POTATO",
+          "fields": [11, 12]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Mordor",
+      "farmsteads": [20],
+      "fields": [21],
+      "plantations": [],
+      "machines": [
+        {
+          "id": 2,
+          "name": "Saruman",
+          "actions": ["SOWING"],
+          "plants": ["PUMPKIN"],
+          "duration": 1,
+          "location": 20
+        }
+      ],
+      "sowingPlans": []
+    }
+  ]
+}

@@ -35,7 +35,10 @@ class LateHarvestTest : SimulationTestExtension("lateHarvesting") {
     suspend fun november() {
         skipUntilLogType(LogLevel.INFO, HARVEST_ESTIMATE) // Nov_1
         assertCurrentLine(harvestEstimate(2, 1_200_000, PlantType.WHEAT))
+        assertNextLine(harvestEstimate(5, 1_200_000, PlantType.GRAPE))
+        assertNextLine(harvestEstimate(6, 800_000, PlantType.ALMOND))
         assertNextLine(harvestEstimate(7, 1_530_000, PlantType.APPLE))
+        assertNextLine(harvestEstimate(8, 1_200_000, PlantType.CHERRY))
         skipUntilLogType(LogLevel.INFO, HARVEST_ESTIMATE) // Nov_2
         assertCurrentLine(harvestEstimate(7, 1_377_000, PlantType.APPLE))
     }
@@ -192,7 +195,8 @@ class LateHarvestTest : SimulationTestExtension("lateHarvesting") {
         skipUntilLogType(LogLevel.DEBUG, HARVEST_ESTIMATE)
         assertCurrentLine(actionNotPerformed(0, listOf(Action.WEEDING)))
         assertNextLine(harvestEstimate(0, 174_338, PlantType.PUMPKIN))
-        assertNextLine(harvestEstimate(3, 45_780, PlantType.OAT))
+        assertNextLine(actionNotPerformed(3, listOf(Action.HARVESTING)))
+        assertNextLine(harvestEstimate(3, 40_693, PlantType.OAT))
         assertNextLine(actionNotPerformed(5, listOf(Action.CUTTING)))
         assertNextLine(harvestEstimate(5, 486_000, PlantType.GRAPE))
     }

@@ -29,6 +29,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.CatchPlantL
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.HarvestEstimateSowingEarlyTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.HarvestingTypeTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.HarvestingTypeTestEstimate
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.IrrigationContinuationTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.MachineOrder
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.MachineTimeOut
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.MachineTravelTrial
@@ -135,6 +136,7 @@ object SystemTestRegistration {
         testSuite.registerTest(IllegalPlantationCityExpansionTest())
         testSuite.registerTest(IllegalFarmsteadCityExpansionTest())
         testSuite.registerTest(IllegalMeadowCityExpansionTest())
+        testSuite.registerTest(IrrigationContinuationTest())
     }
 
     /**

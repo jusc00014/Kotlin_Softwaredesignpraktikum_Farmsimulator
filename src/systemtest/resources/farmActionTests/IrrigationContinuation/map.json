@@ -1,0 +1,51 @@
+{
+  "tiles": [
+    {
+      "id": 0,
+      "coordinates": {
+        "x": 1,
+        "y": 1
+      },
+      "category": "FARMSTEAD",
+      "farm": 0,
+      "airflow": false,
+      "shed": true
+    },
+    {
+      "id": 1,
+      "coordinates": { "x": 2, "y": 2 },
+      "category": "FIELD",
+      "farm": 0,
+      "airflow": false,
+      "capacity": 370,
+      "possiblePlants": ["OAT"]
+    },
+    {
+      "id": 2,
+      "coordinates": { "x": 4, "y": 2 },
+      "category": "PLANTATION",
+      "farm": 0,
+      "airflow": false,
+      "capacity": 500,
+      "plant": "ALMOND"
+    },
+    {
+      "id": 3,
+      "coordinates": { "x": 6, "y": 2 },
+      "category": "PLANTATION",
+      "farm": 0,
+      "airflow": false,
+      "capacity": 500,
+      "plant": "ALMOND"
+    },
+    {
+      "id": 4,
+      "coordinates": { "x": 8, "y": 2 },
+      "category": "FIELD",
+      "farm": 0,
+      "airflow": false,
+      "capacity": 370,
+      "possiblePlants": ["OAT"]
+    }
+  ]
+}

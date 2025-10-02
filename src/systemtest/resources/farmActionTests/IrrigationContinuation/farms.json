@@ -1,0 +1,37 @@
+{
+  "farms": [
+    {
+      "id": 0,
+      "name": "farmerGreg",
+      "farmsteads": [ 0 ],
+      "fields": [ 1, 4 ],
+      "plantations": [ 2, 3 ],
+      "machines": [
+        {
+          "id": 1,
+          "name": "m1",
+          "actions": ["IRRIGATING", "SOWING"],
+          "plants": ["OAT", "ALMOND"],
+          "duration": 1,
+          "location": 0
+        },
+        {
+          "id": 2,
+          "name": "m2",
+          "actions": ["SOWING"],
+          "plants": ["OAT", "ALMOND"],
+          "duration": 1,
+          "location": 0
+        }
+      ],
+      "sowingPlans": [
+        {
+          "id": 1,
+          "tick": 0,
+          "plant": "OAT",
+          "fields": [ 1 , 4 ]
+        }
+      ]
+    }
+  ]
+}

@@ -11,7 +11,6 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.ClimateChange
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.CloudTestIllRemain
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.CloudTestImTired
 import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.CloudTestSmall
-import de.unisaarland.cs.se.selab.systemtest.selab25.cloudtests.Floodgates
 import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigHostileTakeOverFarmSteadsTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigHostiletakeOverFieldsTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigTestLowMoisture
@@ -19,10 +18,13 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigTestO
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationEstimate
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationTrial1
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationTrial2
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationTrial2m1
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationTrial2m2
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationTrial3
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationTrial3m1
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationTrial3noone
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationTrial4
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationTrial5
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationTriall
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.CatchPlantLover
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.HarvestEstimateSowingEarlyTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.HarvestingTypeTest
@@ -70,15 +72,6 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.machineMutantsHunt.Ultimate
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.MachineTravelTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.SisyphusMachineFarFromHomeTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.mutant.SwissArmyKnife
-import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialIrrigatingAfterDrought
-import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialMoisture
-import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialSowingTime18
-import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialSowingTime19
-import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialSowingTime20
-import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialSowingTime21
-import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.OneFieldTestTrialSowingTime22
-import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.Onefieldtest
-import de.unisaarland.cs.se.selab.systemtest.selab25.onefieldtest.Onefieldtestshouldsow
 import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleDeadMachineTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.DoubleMissedHarvestIrrigateTest
@@ -125,15 +118,15 @@ object SystemTestRegistration {
         testSuite.registerTest(DoubleMissedWeedIrrigateTest())
         testSuite.registerTest(DoubleMissedMowIrrigateTest())
         testSuite.registerTest(DoubleMissedHarvestIrrigateTest())
-        testSuite.registerTest(AnotherIrrigationEstimate())
-        testSuite.registerTest(HarvestingTypeTest())
-        testSuite.registerTest(HarvestingTypeTestEstimate())
-        testSuite.registerTest(AnotherIrrigationTriall())
         testSuite.registerTest(AnotherIrrigationTrial1())
         testSuite.registerTest(AnotherIrrigationTrial2())
         testSuite.registerTest(AnotherIrrigationTrial3())
         testSuite.registerTest(AnotherIrrigationTrial4())
         testSuite.registerTest(AnotherIrrigationTrial5())
+        testSuite.registerTest(AnotherIrrigationTrial2m1())
+        testSuite.registerTest(AnotherIrrigationTrial2m2())
+        testSuite.registerTest(AnotherIrrigationTrial3m1())
+        testSuite.registerTest(AnotherIrrigationTrial3noone())
     }
 
     /**
@@ -199,19 +192,9 @@ object SystemTestRegistration {
         testSuite.registerTest(CloudTestImTired())
         testSuite.registerTest(ClimateChange())
         testSuite.registerTest(VillageCreationTestChained())
-        testSuite.registerTest(Floodgates())
         testSuite.registerTest(VillageCreationTestCrossCloudValid())
-        testSuite.registerTest(Onefieldtest())
         testSuite.registerTest(BigCloudTest())
-        testSuite.registerTest(Onefieldtestshouldsow())
         testSuite.registerTest(MachineTravelTest())
-        testSuite.registerTest(OneFieldTestTrialMoisture())
-        testSuite.registerTest(OneFieldTestTrialSowingTime18())
-        testSuite.registerTest(OneFieldTestTrialSowingTime19())
-        testSuite.registerTest(OneFieldTestTrialSowingTime20())
-        testSuite.registerTest(OneFieldTestTrialIrrigatingAfterDrought())
-        testSuite.registerTest(OneFieldTestTrialSowingTime21())
-        testSuite.registerTest(OneFieldTestTrialSowingTime22())
         testSuite.registerTest(DroughtTestDryDryDesert())
         testSuite.registerTest(MachineTimeOut())
         testSuite.registerTest(MachineOrder())
@@ -243,5 +226,10 @@ object SystemTestRegistration {
         testSuite.registerTest(DoubleMissedWeedIrrigateTest())
         testSuite.registerTest(DoubleMissedMowIrrigateTest())
         testSuite.registerTest(CatchPlantLover())
+        testSuite.registerTest(AnotherIrrigationEstimate())
+        testSuite.registerTest(HarvestingTypeTest())
+        testSuite.registerTest(HarvestingTypeTestEstimate())
+        testSuite.registerTest(AnotherIrrigationTrial3())
+        testSuite.registerTest(DoubleMissedHarvestIrrigateTest())
     }
 }

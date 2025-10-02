@@ -10,6 +10,7 @@ object ANIR {
     const val sc = "onefieldtest/noscenario.json"
     const val mapp = "farmActionTests/AnotherIrrigation/map.json"
     const val deb = "DEBUG"
+    const val qwe = "[IMPORTANT] Farm Action: Machine 2 performs IRRIGATING on tile 2 for 1 days."
 }
 
 /**
@@ -39,9 +40,9 @@ class AnotherIrrigationEstimate : TestExtension() {
 /**
  * Test
  */
-class AnotherIrrigationTriall : TestExtension() {
-    override val name = "AnotherIrrigationTriall"
-    override val description = "Tests machine 2 works tile3"
+class AnotherIrrigationTrial3m1 : TestExtension() {
+    override val name = "AnotherIrrigationTrial3m1"
+    override val description = "Tests machine 1 works tile3"
 
     override val farms = ANIR.farmm
     override val scenario = ANIR.sc
@@ -52,7 +53,68 @@ class AnotherIrrigationTriall : TestExtension() {
     override val startYearTick = 6
 
     override suspend fun run() {
-        skipUntilString("[IMPORTANT] Farm Action: Machine 2 performs IRRIGATING on tile 3 for 1 days.")
+        skipUntilString("[IMPORTANT] Farm Action: Machine 1 performs IRRIGATING on tile 3 for 1 days.")
+    }
+}
+
+/**
+ * Test
+ */
+class AnotherIrrigationTrial2m1 : TestExtension() {
+    override val name = "AnotherIrrigationTrial2m1"
+    override val description = "Tests machine 1 works tile2"
+
+    override val farms = ANIR.farmm
+    override val scenario = ANIR.sc
+    override val map = ANIR.mapp
+
+    override val logLevel = ANIR.deb
+    override val maxTicks = 2
+    override val startYearTick = 6
+
+    override suspend fun run() {
+        skipUntilString("[IMPORTANT] Farm Action: Machine 1 performs IRRIGATING on tile 2 for 1 days.")
+    }
+}
+
+/**
+ * Test
+ */
+class AnotherIrrigationTrial2m2 : TestExtension() {
+    override val name = "AnotherIrrigationTrial2m2"
+    override val description = "Tests machine 2 works tile2"
+
+    override val farms = ANIR.farmm
+    override val scenario = ANIR.sc
+    override val map = ANIR.mapp
+
+    override val logLevel = ANIR.deb
+    override val maxTicks = 2
+    override val startYearTick = 6
+
+    override suspend fun run() {
+        skipUntilString(ANIR.qwe)
+    }
+}
+
+/**
+ * Test
+ */
+class AnotherIrrigationTrial3noone : TestExtension() {
+    override val name = "AnotherIrrigationTrial2noone"
+    override val description = "Tests noone works tile3"
+
+    override val farms = ANIR.farmm
+    override val scenario = ANIR.sc
+    override val map = ANIR.mapp
+
+    override val logLevel = ANIR.deb
+    override val maxTicks = 2
+    override val startYearTick = 6
+
+    override suspend fun run() {
+        skipUntilString("[IMPORTANT] Farm Action: Machine 1 performs IRRIGATING on tile 4 for 1 days.")
+        assertNextLine(ANIR.qwe)
     }
 }
 

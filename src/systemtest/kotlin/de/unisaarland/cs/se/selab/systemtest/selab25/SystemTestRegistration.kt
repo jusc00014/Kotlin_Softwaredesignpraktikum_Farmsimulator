@@ -104,7 +104,6 @@ object SystemTestRegistration {
     fun registerSystemTestsForReferenceImplementation(testSuite: SELab25TestSuite) {
         testSuite.registerTest(ExampleSystemTest())
         // region ParserTests
-        testSuite.registerTest(SowingPlanHostileField())
         // endregion ParserTests
         testSuite.registerTest(DroughtTest())
         testSuite.registerTest(BigBigTestOctober1())
@@ -185,6 +184,7 @@ object SystemTestRegistration {
         testSuite.registerTest(FarmPlantationIdentifiesAsField())
         testSuite.registerTest(BigBigHostiletakeOverFieldsTest())
         testSuite.registerTest(BigBigHostileTakeOverFarmSteadsTest())
+        testSuite.registerTest(SowingPlanHostileField())
     }
 
     /**

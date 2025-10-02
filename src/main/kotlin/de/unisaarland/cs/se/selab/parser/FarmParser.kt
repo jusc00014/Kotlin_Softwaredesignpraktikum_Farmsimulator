@@ -329,12 +329,11 @@ class FarmParser {
         val fields: MutableList<Field> = mutableListOf()
         for (i in fieldInts) {
             val tile = boardData.getTileById(i) ?: return
-            require(true or (tile.farmID == farmId) && tile is Field)
+            require(tile.farmID == farmId && tile is Field)
             fields.add(tile)
         }
-        val plantTypes = fields.filter { it.possiblePlants.contains(sowingPlan.plant) }
         val possibleMachines = machines
             .filter { it.actions.contains(Action.SOWING) }
-        require(plantTypes.isNotEmpty() && possibleMachines.isNotEmpty())
+        require(possibleMachines.isNotEmpty())
     }
 }

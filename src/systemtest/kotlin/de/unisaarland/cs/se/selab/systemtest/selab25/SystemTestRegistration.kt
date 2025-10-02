@@ -84,6 +84,8 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.FallowSowPlanPot
 import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.InitializePlantationTick19Test
 import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.InitializePlantationTick21Test
 import de.unisaarland.cs.se.selab.systemtest.selab25.sowingPlanTest.SowingPlanTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.validationTests.IllegalFarmsteadCityExpansionTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.validationTests.IllegalMeadowCityExpansionTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.validationTests.IllegalPlantationCityExpansionTest
 
 /**
@@ -131,6 +133,8 @@ object SystemTestRegistration {
         testSuite.registerTest(AnotherIrrigationTrial3m1())
         testSuite.registerTest(AnotherIrrigationTrial3noone())
         testSuite.registerTest(IllegalPlantationCityExpansionTest())
+        testSuite.registerTest(IllegalFarmsteadCityExpansionTest())
+        testSuite.registerTest(IllegalMeadowCityExpansionTest())
     }
 
     /**

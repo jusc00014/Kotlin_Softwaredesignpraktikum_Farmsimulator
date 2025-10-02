@@ -14,7 +14,7 @@ class IllegalPlantationCityExpansionTest : SimulationTestExtension(
 
     override suspend fun run() {
         skipUntilLogType(LogLevel.INFO, "Initialization Info")
-        assertCurrentLine("[INFO] Initialization Info: map2.json successfully parsed and validated.")
+        assertCurrentLine("[INFO] Initialization Info: map.json successfully parsed and validated.")
         assertNextLine("[INFO] Initialization Info: farms.json successfully parsed and validated.")
         assertNextLine("[IMPORTANT] Initialization Info: plantationScenario.json is invalid.")
     }

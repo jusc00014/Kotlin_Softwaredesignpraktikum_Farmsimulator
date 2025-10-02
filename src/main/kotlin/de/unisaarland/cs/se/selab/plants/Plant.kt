@@ -273,34 +273,34 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
     private fun weedingMissed(yearTick: Int): Action? {
         if (data.tileType == PlantTile.PLANTATION || !weedable(yearTick)) return null
 
-        // val harvestEstimateTemp = harvestEstimate
+        val harvestEstimateTemp = harvestEstimate
         harvestEstimate = (harvestEstimate * WEEDING_MISSED_PENALTY_FACTOR).toInt()
-        return Action.WEEDING
+        return if (harvestEstimateTemp != harvestEstimate) Action.WEEDING else null
     }
 
     private fun cuttingMissed(yearTick: Int): Action? {
         if (data.tileType == PlantTile.FIELD) return null
         if (data.cuttingTimes.last() != yearTick || cutPerformed) return null
 
-        // val harvestEstimateTemp = harvestEstimate
+        val harvestEstimateTemp = harvestEstimate
         harvestEstimate = (harvestEstimate * CUTTING_MISSED_PENALTY_FACTOR).toInt()
-        return Action.CUTTING
+        return if (harvestEstimateTemp != harvestEstimate) Action.CUTTING else null
     }
 
     private fun mowingMissed(yearTick: Int): Action? {
         if (data.tileType == PlantTile.FIELD || !mowable(yearTick)) return null
 
-        // val harvestEstimateTemp = harvestEstimate
+        val harvestEstimateTemp = harvestEstimate
         harvestEstimate = (harvestEstimate * MOWING_MISSED_PENALTY_FACTOR).toInt()
-        return Action.MOWING
+        return if (harvestEstimateTemp != harvestEstimate) Action.MOWING else null
     }
 
     private fun harvestMissed(yearTick: Int): Action? {
         if (!harvestable(yearTick)) return null
 
-        // val harvestEstimateTemp = harvestEstimate
+        val harvestEstimateTemp = harvestEstimate
         harvestEstimate = (harvestEstimate * harvestPenalty(yearTick)).toInt()
-        return Action.HARVESTING
+        return if (harvestEstimateTemp != harvestEstimate) Action.HARVESTING else null
     }
 
     private fun applyIncidentsToHarvestEstimate(yearTick: Int): Boolean {

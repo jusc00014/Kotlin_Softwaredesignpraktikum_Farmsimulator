@@ -47,7 +47,18 @@ For each student, this section should provide a detailed day-by-day timeline of 
 
 ### Christian
 
-- ...
+- **Day 1:** built Skeleton for Plant and FarmParser; implemented logic for FarmParser, ScenarioParser, Boardhandler and SowingPlan
+- **Day 2:** changes to FarmParser, ScenarioParser, BoardHandler; minor changes to Fertile, BrokenMachine; implemented logic for all incidents; implementation for Plantation and Field
+- **Weekend 1:** added Validation to FarmParser
+- **Day 3:** minor Changes in ScenarioParser, FarmParser, BeeHappy and Plant; Harvest Estimate test
+- **Day 4:** Plant, Moisture reduction and Harvest Estimate Unit Tests, added Validation in FarmParser
+- **Day 5:** changes to FarmParser and previous Tests; Cloud Simulation test
+- **Day 6:** more work on Cloud Tests; bug fix in CloudHandler; detekt fixes
+- **Day 7:** changes to Cloud Simulation Test; Farm Behavior and Harvest Unit Tests
+- **Weekend 2:** fixes to Cloud Simulation Test
+- **Day 8:** more minor Bug fixes CityExpansion; Bug Fixes and changes in FarmParser; more FarmHandler and Harvest Tests
+- **Day 9:** minor changes in FarmParser; added full Simulation Test, Harvest Estimate Simulation Test; Machine Duration Unit Test
+- **Day 10:** changes to FarmParser; changes to Harvest Simulation Test; Farm Validation test; Moisture System tests
 - 
 ### Julian
 

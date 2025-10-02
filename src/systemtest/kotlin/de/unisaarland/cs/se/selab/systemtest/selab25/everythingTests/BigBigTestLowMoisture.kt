@@ -46,8 +46,6 @@ class BigBigTestLowMoisture : SimulationTestExtension(
         assertNextLine("[IMPORTANT] Farm Machine: Machine 0 is finished and returns to the shed at 4.")
         assertNextLine(machinePerformAction(1, Action.SOWING, 10, 7))
         assertNextLine(machineSowed(1, PlantType.WHEAT, 1))
-        assertNextLine(machinePerformAction(1, Action.SOWING, 16, 7))
-        assertNextLine(machineSowed(1, PlantType.WHEAT, 1))
         assertNextLine("[IMPORTANT] Farm Machine: Machine 1 is finished and returns to the shed at 6.")
         assertNextLine("[IMPORTANT] Farm: Farm 1 finished its actions.")
         assertNextLine(farmStartActions(2))

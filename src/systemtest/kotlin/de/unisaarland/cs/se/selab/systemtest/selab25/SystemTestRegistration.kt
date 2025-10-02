@@ -16,8 +16,13 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigHosti
 import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigHostiletakeOverFieldsTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigTestLowMoisture
 import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigTestOctober1
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigation
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationEstimate
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationTrial1
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationTrial2
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationTrial3
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationTrial4
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationTrial5
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationTriall
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.CatchPlantLover
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.HarvestEstimateSowingEarlyTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.HarvestingTypeTest
@@ -120,10 +125,15 @@ object SystemTestRegistration {
         testSuite.registerTest(DoubleMissedWeedIrrigateTest())
         testSuite.registerTest(DoubleMissedMowIrrigateTest())
         testSuite.registerTest(DoubleMissedHarvestIrrigateTest())
-        testSuite.registerTest(AnotherIrrigation())
         testSuite.registerTest(AnotherIrrigationEstimate())
         testSuite.registerTest(HarvestingTypeTest())
         testSuite.registerTest(HarvestingTypeTestEstimate())
+        testSuite.registerTest(AnotherIrrigationTriall())
+        testSuite.registerTest(AnotherIrrigationTrial1())
+        testSuite.registerTest(AnotherIrrigationTrial2())
+        testSuite.registerTest(AnotherIrrigationTrial3())
+        testSuite.registerTest(AnotherIrrigationTrial4())
+        testSuite.registerTest(AnotherIrrigationTrial5())
     }
 
     /**

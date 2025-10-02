@@ -16,15 +16,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigHosti
 import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigTestLowMoisture
 import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigTestOctober1
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationEstimate
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationTrial1
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationTrial2
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationTrial2m1
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationTrial2m2
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationTrial3
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationTrial3m1
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationTrial3noone
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationTrial4
-import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationTrial5
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.CatchPlantLover
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.HarvestEstimateSowingEarlyTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.HarvestingTypeTest
@@ -80,6 +72,30 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.MachineTr
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.SisyphusMachineFarFromHomeTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.mutant.SwissArmyKnife
 import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleDeadMachineTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleEstimateTest1
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleEstimateTest10
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleEstimateTest11
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleEstimateTest12
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleEstimateTest13
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleEstimateTest14
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleEstimateTest15
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleEstimateTest16
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleEstimateTest17
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleEstimateTest18
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleEstimateTest19
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleEstimateTest2
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleEstimateTest20
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleEstimateTest21
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleEstimateTest22
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleEstimateTest23
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleEstimateTest24
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleEstimateTest3
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleEstimateTest4
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleEstimateTest5
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleEstimateTest6
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleEstimateTest7
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleEstimateTest8
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleEstimateTest9
 import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.BadAppleTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.DoubleMissedHarvestIrrigateTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.DoubleMissedMowIrrigateTest
@@ -121,19 +137,30 @@ object SystemTestRegistration {
         testSuite.registerTest(MachineTest2())
         testSuite.registerTest(MachineTest3())
         testSuite.registerTest(MachineTest3x2())
-        testSuite.registerTest(DoubleMissedTest())
-        testSuite.registerTest(DoubleMissedWeedIrrigateTest())
-        testSuite.registerTest(DoubleMissedMowIrrigateTest())
-        testSuite.registerTest(DoubleMissedHarvestIrrigateTest())
-        testSuite.registerTest(AnotherIrrigationTrial1())
-        testSuite.registerTest(AnotherIrrigationTrial2())
-        testSuite.registerTest(AnotherIrrigationTrial3())
-        testSuite.registerTest(AnotherIrrigationTrial4())
-        testSuite.registerTest(AnotherIrrigationTrial5())
-        testSuite.registerTest(AnotherIrrigationTrial2m1())
-        testSuite.registerTest(AnotherIrrigationTrial2m2())
-        testSuite.registerTest(AnotherIrrigationTrial3m1())
-        testSuite.registerTest(AnotherIrrigationTrial3noone())
+        testSuite.registerTest(BadAppleEstimateTest1())
+        testSuite.registerTest(BadAppleEstimateTest2())
+        testSuite.registerTest(BadAppleEstimateTest3())
+        testSuite.registerTest(BadAppleEstimateTest4())
+        testSuite.registerTest(BadAppleEstimateTest5())
+        testSuite.registerTest(BadAppleEstimateTest6())
+        testSuite.registerTest(BadAppleEstimateTest7())
+        testSuite.registerTest(BadAppleEstimateTest8())
+        testSuite.registerTest(BadAppleEstimateTest9())
+        testSuite.registerTest(BadAppleEstimateTest10())
+        testSuite.registerTest(BadAppleEstimateTest11())
+        testSuite.registerTest(BadAppleEstimateTest12())
+        testSuite.registerTest(BadAppleEstimateTest13())
+        testSuite.registerTest(BadAppleEstimateTest14())
+        testSuite.registerTest(BadAppleEstimateTest15())
+        testSuite.registerTest(BadAppleEstimateTest16())
+        testSuite.registerTest(BadAppleEstimateTest17())
+        testSuite.registerTest(BadAppleEstimateTest18())
+        testSuite.registerTest(BadAppleEstimateTest19())
+        testSuite.registerTest(BadAppleEstimateTest20())
+        testSuite.registerTest(BadAppleEstimateTest21())
+        testSuite.registerTest(BadAppleEstimateTest22())
+        testSuite.registerTest(BadAppleEstimateTest23())
+        testSuite.registerTest(BadAppleEstimateTest24())
         testSuite.registerTest(IllegalPlantationCityExpansionTest())
         testSuite.registerTest(IllegalFarmsteadCityExpansionTest())
         testSuite.registerTest(IllegalMeadowCityExpansionTest())

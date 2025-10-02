@@ -93,7 +93,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
             PlantTile.PLANTATION -> {
                 oldHarvestEstimate = data.initialHarvestEstimate
                 var temp: Double
-                if (yearTick == Constants.NOV_1) {
+                if (yearTick >= Constants.NOV_1) {
                     return data.initialHarvestEstimate
                 }
                 initHE = (data.initialHarvestEstimate * harvestPenalty(getPrevNYearTick(yearTick, 1))).toInt()

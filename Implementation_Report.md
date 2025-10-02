@@ -44,7 +44,7 @@ For each student, this section should provide a detailed day-by-day timeline of 
 - **Day 8:** OneFieldTestTrials, MachineTakes20-test, correction assembleMachines().sortBy, correction of unit tests after FarmParser.parse(...) changed, corrected machineCanHandle, fixes everywhere after irrigatable(...) changed
 - **Day 9:** More FarmParser SystemTests (trials), fixed continueWithIrrigating() to not, Systemtest NonPrioritizedTest/Trial, SystemTest SowingEarlyTest, Systemtest IrrigatingOrder, MachineBehaviorTest, Machine returns logging fix
 - **Day 10:** Fixed BuildFailed, FarmParserTests, fix in harvest log, unitTests for parser, fixed location when machine stuck, new/faster pathfinder, reordered every map and list in FarmHandler
-- **Day 11:** Mostly praying
+- **Day 11:** AnotherIrrigationTest + HarvestTypeTest + rewriting FarmHandler.continueWithIrrigating() for the 4th time
 
 ### Christian
 

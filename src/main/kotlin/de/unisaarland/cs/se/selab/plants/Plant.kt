@@ -91,6 +91,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
         var initHE: Int
         when (data.tileType) {
             PlantTile.PLANTATION -> {
+                oldHarvestEstimate = data.initialHarvestEstimate
                 var temp: Double
                 if (yearTick == Constants.NOV_1) {
                     return data.initialHarvestEstimate

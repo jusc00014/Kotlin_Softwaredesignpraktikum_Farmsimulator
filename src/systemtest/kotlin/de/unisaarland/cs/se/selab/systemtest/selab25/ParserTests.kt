@@ -272,6 +272,17 @@ class MachineDuplicateActions : ParserTest(
 ) {
     override val description: String = "Machine with the same Action twice"
 }
+
+/**
+ * Sowing plan hostile field
+ */
+class SowingPlanHostileField : ParserTest(
+    ParserFile.FARMS,
+    mapFileName = "map2Fields.json",
+    farmsFileName = "farms2SowingPlanHostileField.json"
+) {
+    override val description: String = "Sowing plan hostile field"
+}
 // endregion
 
 // region Scenario

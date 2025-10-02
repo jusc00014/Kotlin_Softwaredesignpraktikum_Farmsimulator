@@ -1,0 +1,54 @@
+{
+  "farms": [
+    {
+      "id": 0,
+      "name": "F0",
+      "farmsteads": [0],
+      "fields": [],
+      "plantations": [1],
+      "machines": [
+        {
+          "id": 0,
+          "name": "I0",
+          "actions": ["SOWING"],
+          "plants": ["POTATO"],
+          "duration": 14,
+          "location": 0
+        }
+      ],
+      "sowingPlans": [
+        {
+          "id": 0,
+          "tick": 0,
+          "plant": "POTATO",
+          "fields": [1, 11]
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "F1",
+      "farmsteads": [10],
+      "fields": [],
+      "plantations": [11],
+      "machines": [
+        {
+          "id": 10,
+          "name": "MI10",
+          "actions": ["SOWING"],
+          "duration": 14,
+          "plants": ["POTATO"],
+          "location": 10
+        }
+      ],
+      "sowingPlans": [
+        {
+          "id": 1,
+          "tick": 0,
+          "plant": "POTATO",
+          "fields": [11]
+        }
+      ]
+    }
+  ]
+}

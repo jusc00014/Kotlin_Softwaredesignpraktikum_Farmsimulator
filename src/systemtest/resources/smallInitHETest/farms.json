@@ -1,0 +1,75 @@
+{
+  "farms": [
+    {
+      "id": 1,
+      "name": "Big Farm",
+      "farmsteads": [4],
+      "fields": [0, 1, 2, 3],
+      "plantations": [5, 6, 7, 8],
+      "machines": [
+        {
+          "id": 0,
+          "name": "Sowing_Oats",
+          "actions": ["SOWING"],
+          "plants": ["OAT"],
+          "duration": 7,
+          "location": 4
+        },
+        {
+          "id": 1,
+          "name": "Sowing_Potato",
+          "actions": ["SOWING"],
+          "plants": ["POTATO"],
+          "duration": 7,
+          "location": 4
+        },
+        {
+          "id": 2,
+          "name": "Sowing_Pumpkin",
+          "actions": ["SOWING"],
+          "plants": ["PUMPKIN"],
+          "duration": 7,
+          "location": 4
+        },
+        {
+          "id": 3,
+          "name": "Sowing_Wheat",
+          "actions": ["SOWING"],
+          "plants": ["WHEAT"],
+          "duration": 7,
+          "location": 4
+        }
+      ],
+      "sowingPlans": [
+        {
+          "id": 1,
+          "tick": 0,
+          "plant": "WHEAT",
+          "location": 0,
+          "radius": 6
+        },
+        {
+          "id": 2,
+          "tick": 0,
+          "plant": "POTATO",
+          "location": 0,
+          "radius": 6
+        },
+        {
+          "id": 3,
+          "tick": 0,
+          "plant": "PUMPKIN",
+          "location": 0,
+          "radius": 6
+        },
+        {
+          "id": 0,
+          "tick": 0,
+          "plant": "OAT",
+          "location": 0,
+          "radius": 6
+        }
+      ]
+    }
+  ]
+}

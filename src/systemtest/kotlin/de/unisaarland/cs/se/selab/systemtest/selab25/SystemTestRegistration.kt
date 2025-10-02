@@ -40,6 +40,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.havestTest.AppleLateHarvest
 import de.unisaarland.cs.se.selab.systemtest.selab25.havestTest.CherryLateHarvestTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.havestTest.GrapeLateHarvestTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.havestTest.LateHarvestTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.havestTest.SmallInitHETest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.AnimalAttackTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.AnimalAttackTestStacking
 import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.BeeHappyTest
@@ -137,6 +138,7 @@ object SystemTestRegistration {
         testSuite.registerTest(IllegalMeadowCityExpansionTest())
         testSuite.registerTest(OneDoesNotSimplyWalkIntoMordor())
         testSuite.registerTest(DeadDeadTest())
+        testSuite.registerTest(SmallInitHETest())
     }
 
     /**

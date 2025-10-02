@@ -140,7 +140,6 @@ object SystemTestRegistration {
         testSuite.registerTest(IllegalMeadowCityExpansionTest())
         testSuite.registerTest(IrrigationContinuationTest())
         testSuite.registerTest(OneDoesNotSimplyWalkIntoMordor())
-        testSuite.registerTest(MachineTest7())
     }
 
     /**
@@ -248,5 +247,6 @@ object SystemTestRegistration {
         testSuite.registerTest(MachineTest4())
         testSuite.registerTest(MachineTest5())
         testSuite.registerTest(MachineTest6())
+        testSuite.registerTest(MachineTest7())
     }
 }

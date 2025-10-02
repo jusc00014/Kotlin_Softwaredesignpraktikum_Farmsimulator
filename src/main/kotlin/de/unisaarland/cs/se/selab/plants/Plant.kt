@@ -226,7 +226,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
         }
 
         // Moisture too low
-        val irrigationMissedInfluence = applyMoisturePenaltyIfNeeded(moisture, yearTick)
+        val irrigationMissedInfluence = applyMoisturePenaltyIfNeeded(moisture)
 
         val actionsNotPerformed = missed(yearTick, irrigationMissedInfluence)
 
@@ -251,7 +251,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
         resetForNextTick()
     }
 
-    private fun applyMoisturePenaltyIfNeeded(moistureFertile: Int, yearTick: Int): Boolean {
+    private fun applyMoisturePenaltyIfNeeded(moistureFertile: Int): Boolean {
         val estimate = harvestEstimate
         if (moistureFertile >= 0) {
             repeat((data.moistureMin - moistureFertile) / MOISTURE_LOW_DIVISOR) {

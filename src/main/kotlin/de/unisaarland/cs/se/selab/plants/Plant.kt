@@ -442,7 +442,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
             data.tileType == PlantTile.PLANTATION &&
             sowTime != SOW_TIME_NO_PLANT
         ) {
-            oldHarvestEstimate = null
+            oldHarvestEstimate = 0
             harvestEstimate = data.initialHarvestEstimate
             harvestTime = 0
             cutPerformed = false

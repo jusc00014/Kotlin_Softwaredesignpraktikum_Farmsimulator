@@ -1,0 +1,29 @@
+{
+  "farms": [
+    {
+      "id": 0,
+      "name": "Double",
+      "farmsteads": [0],
+      "fields": [1],
+      "plantations": [],
+      "machines": [
+        {
+          "id": 0,
+          "name": "Dash",
+          "actions": ["SOWING"],
+          "plants": ["PUMPKIN"],
+          "duration": 1,
+          "location": 0
+        }
+      ],
+      "sowingPlans": [
+        {
+          "id": 0,
+          "tick": 0,
+          "fields": [1],
+          "plant": "PUMPKIN"
+        }
+      ]
+    }
+  ]
+}

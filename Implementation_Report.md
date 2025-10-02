@@ -5,13 +5,13 @@
 The following table summarizes the actual contributions of each group member, including deviations from the planned responsibilities. 
 The "implemented components" column should only include major contributions to the respective components (i.e., no bugfixes or small additions to existing components).
 
-| Member    | Implemented Components                                                                 | Testing Contributions                                                            | Additional Work    |
-|-----------|----------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|--------------------|
-| Julia     | Farms Package, PlantType, Coordinate, TileType                                         | FarmHandler, PathFinder, Drought, Sowing, Irrigating, Cloud Package, SystemTests | Dummy-classes      |
-| Christian | FarmParser, ScenarioParser, BoardHandler, Fertile, Field, Plantation, Incident Package | Plant, SystemTests                                                               |                    |
-| Julian    | Plant, PlantData, Main, ScenarioParser, BoardData, Simulator, PlantTile                | Fertile, SystemTests                                                             | Implementation Plan |
-| Leonard   | Logger, Cloud Package, CloudCreationIncident, CloudParsingValidation                   | BoardDataUnit, SystemTestCloudDebug, SystemTestsIncidents                        |                 |
-| Laurenz   | MapParser, LogLevel, Direction, Tile                                                   | Plant, ScenarioParser, FarmParser, MapParser, SystemTests                        |                 |
+| Member    | Implemented Components                                                                                 | Testing Contributions                                                            | Additional Work    |
+|-----------|--------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|--------------------|
+| Julia     | Farms Package, PlantType, Coordinate, TileType                                                         | FarmHandler, PathFinder, Drought, Sowing, Irrigating, Cloud Package, SystemTests | Dummy-classes      |
+| Christian | FarmParser, ScenarioParser, BoardHandler, Fertile, Field, Plantation, Incident Package                 | Plant, SystemTests                                                               |                    |
+| Julian    | Plant, PlantData, Main, ScenarioParser, BoardData, Simulator, PlantTile | Fertile, MapParser, ScenarioParser, SystemTests                    | Implementation Plan |
+| Leonard   | Logger, Cloud Package, CloudCreationIncident, CloudParsingValidation                                   | BoardDataUnit, SystemTestCloudDebug, SystemTestsIncidents                        |                 |
+| Laurenz   | MapParser, LogLevel, Direction, Tile                                                                   | Plant, ScenarioParser, FarmParser, MapParser, SystemTests                        |                 |
 
 ---
 
@@ -19,6 +19,7 @@ The "implemented components" column should only include major contributions to t
 
 - FarmHandler took longer
 - Every Component by Artemiy and Jens were reassigned
+- UnitTests were reassigned to persons with free time and/or too few UnitTests written, as the UnitTests of Artemiy and Jens were also reassigned
 - Logger and Incidents was reassigned from Laurenz to Leonard and Christian, as the MapParser took too much time
 
 ---
@@ -46,14 +47,75 @@ For each student, this section should provide a detailed day-by-day timeline of 
 - 
 ### Julian
 
-- **Day 1:** Main, BoardData, PlantData implemented and started implementing Plant
-- **Day 2:** Changes to Tile and Fertile behaviour, BoardData's neighbours and getFertiles function reworked, implemented Simulator, fixed HarvestEstimate in Plants
-- **Weekend 1:** CityExpansion cross-validation in ScenarioParser implemented, Main reworked for other class changes
-- **Day 3:** added missing Logger prints to Main, made resetForNexTick and irrigate private in Fertile, Plant initializes with HarvestEstimate penalties, fixes to harvestPenalty calculation
-- **Day 4:** harvestEstimate now updated by sow and harvest directly, corrected PlantHarvestEstimateBigTest harvestEstimate values, added Fertile UnitTests, fixed Plant cutting; isFallow; isSown and cutting missed penalty, fixed Fertile's loseMoisture and irrigatable, fixed Main to use fileName instead of the whole Path, fixed argument parsing of --map, fixed Simulation loop executing maxTick, added getter for tiles in BoardData, Constants data class added, added check for Forest around Village tile created by CityExpansion
-- **Day 5:** performance increase of the neighbours function, changed behaviour of neighbours function to include the center tile in return, fixed CrossValidation of CityExpansion, fixed Fertile.irrigatable, fixed CloudCreation validation
-- **Day 6:** added Parser system tests, fixed CloudCreation validation skipping instructions
-- **Day 7:** Parser system tests reworked, wrote Implementation_Report.md
+- **Day 1:**
+  - Main, BoardData, PlantData implemented 
+  - started implementing Plant
+- **Day 2:** 
+  - Changes to Tile and Fertile behaviour
+  - BoardData's neighbours and getFertiles function reworked
+  - implemented Simulator
+  - fixed HarvestEstimate in Plants
+- **Weekend 1:**
+  - CityExpansion cross-validation in ScenarioParser implemented
+  - Main reworked for other class changes
+- **Day 3:**
+  - added missing Logger prints to Main
+  - made resetForNexTick and irrigate private in Fertile
+  - Plant initializes with HarvestEstimate penalties
+  - fixes to harvestPenalty calculation
+- **Day 4:**
+  - harvestEstimate now updated by sow and harvest directly
+  - corrected PlantHarvestEstimateBigTest harvestEstimate values
+  - added Fertile UnitTests
+  - fixed Plant cutting, isFallow, isSown and cutting missed penalty
+  - fixed Fertile's loseMoisture and irrigatable
+  - fixed Main to use fileName instead of the whole Path
+  - fixed argument parsing of --map
+  - fixed Simulation loop executing maxTick
+  - added getter for tiles in BoardData
+  - added Constants data class to the main project scope
+  - added check for Forest around Village tile created by CityExpansion
+- **Day 5:**
+  - performance increase of the neighbours function
+  - changed behaviour of neighbours function to include the center tile in return
+  - fixed CrossValidation of CityExpansion
+  - fixed Fertile.irrigatable
+  - fixed CloudCreation validation
+- **Day 6:**
+  - added Parser system tests
+    - fixed CloudCreation validation skipping instructions
+- **Day 7:**
+  - Parser system tests reworked
+  - wrote Implementation_Report.md
+- **Weekend 2:**
+  - added ScenarioParserTest, testing cloud in the ScenarioParser
+- **Day 8:**
+  - reworked system test: DroughtTest
+  - added some system tests
+  - fixed Simulator correct tick log at end of Simulation
+  - fix Fertile's irrigatable
+  - fix Fertile's performableActions to return an empty list on Drought
+  - fix Plant's Harvest Estimate and drought behaviour
+- **Day 9:** 
+  - extended SimulationTestExtension with new string factory functions
+  - fixed SowingPlant.isActive to use correctly the tick instead of the yearTick in FarmHandler.sow
+  - added + fixed system tests (FallowSowPlanPotato, some ParserTests)
+  - drought in Fertile now only managed by Fertile with hasDrought and addDrought functions
+  - fixed BeeHappy for Drought and unsown plants
+  - reworked Plant:
+    - missed logic
+    - sowTime also used for Plantations
+    - fixes to isFallow and weedable
+    - added exits()
+- **Day 10:**
+  - fixed (again) Simulator correct tick log at end of Simulation
+  - fixed FallowSowPlanPotato and ParserTests
+  - added new ParserTests
+  - fixed Plant Harvest Estimate logging
+  - added UnitTests for MapParser
+  - added + fixed PlantationLateHarvestTest system tests for harvest estimate specification validation
+- **Day 11:**
+  - updated Implementation Report
 
 ### Leonard
 
@@ -93,6 +155,6 @@ For each student, this section should provide a detailed day-by-day timeline of 
 - ChatGPT (GPT-5): Research on how things work, Debugging
 
 **Laurenz:**
-Did not use generative AI in the implementation phase (neither for code-completion, rewriting code, nor testing)
+- Did not use generative AI in the implementation phase (neither for code-completion, rewriting code, nor testing)
 
 We are aware of the potential dangers of using these tools and take full responsibility for any code, documents and other content produced during the group phase.

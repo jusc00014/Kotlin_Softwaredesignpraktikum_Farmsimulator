@@ -6,8 +6,8 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.utils.TestExtension
 /**
  * Tests missed irrigate death + harvesting
  */
-class DoubleMissedHarvestIrrigateTest : TestExtension() {
-    override val name = "DoubleMissedMowIrrigateTest"
+class DoubleMissedHarvestIrrigateTest2 : TestExtension() {
+    override val name = "DoubleMissedMowIrrigateTest2"
     override val description = "Tests if harvesting is considered as missed if the plant died of thirst."
 
     // Paths are relative from the `src/systemtest/resources` directory.
@@ -29,7 +29,7 @@ class DoubleMissedHarvestIrrigateTest : TestExtension() {
         )
         assertNextLine("[IMPORTANT] Farm: Farm 0 finished its actions.")
         assertNextLine(
-            "[DEBUG] Harvest Estimate: Required actions on tile 1 were not performed: HARVESTING,IRRIGATING."
+            "[DEBUG] Harvest Estimate: Required actions on tile 1 were not performed: IRRIGATING."
         )
         assertNextLine("[INFO] Harvest Estimate: Harvest estimate on tile 1 changed to 0 g of GRAPE.")
         skipUntilLogType(LogLevel.IMPORTANT, "Simulation Statistics")

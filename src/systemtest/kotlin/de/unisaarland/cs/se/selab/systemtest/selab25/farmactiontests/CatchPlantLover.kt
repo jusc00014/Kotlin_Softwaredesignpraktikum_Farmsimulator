@@ -6,22 +6,22 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.utils.TestExtension
  * Test
  */
 class CatchPlantLover : TestExtension() {
-    override val name = "MachineTravelTrial"
-    override val description = "Tests machine travel"
+    override val name = "CatchPlantLover1"
+    override val description = "Tests machine behavior"
 
-    override val farms = "farmActionTests/MachineTravel/farm.json"
+    override val farms = "farmActionTests/CatchPlantLover/farm1.json"
     override val scenario = "onefieldtest/noscenario.json"
-    override val map = "farmActionTests/MachineTravel/map.json"
+    override val map = "farmActionTests/CatchPlantLover/map1.json"
 
     override val logLevel = "DEBUG"
     override val maxTicks = 1
     override val startYearTick = 16
 
     override suspend fun run() {
-        skipUntilString("[IMPORTANT] Farm Harvest: Machine 1 has collected 800000 g of ALMOND harvest.")
-        assertNextLine("[IMPORTANT] Farm Machine: Machine 1 is finished but failed to return.")
-        skipUntilString("[IMPORTANT] Farm Harvest: Machine 2 has collected 800000 g of ALMOND harvest.")
-        assertNextLine("[IMPORTANT] Farm Machine: Machine 2 is finished and returns to the shed at 3.")
-        skipUntilString("[DEBUG] Harvest Estimate: Required actions on tile 8 were not performed: CUTTING.")
+        skipUntilString("[INFO] Soil Moisture: The soil moisture is below threshold in 0 FIELD and 4 PLANTATION tiles.")
+        skipUntilString(
+            "[DEBUG] Farm: Farm 1 has the following active sowing plans it intends to pursue in this tick: ."
+        )
+        assertNextLine("[IMPORTANT] Farm: Farm 1 finished its actions.")
     }
 }

@@ -139,7 +139,54 @@ For each student, this section should provide a detailed day-by-day timeline of 
 
 ### Laurenz
 
-- ...
+- **Day 1:**
+  - Create skeleton for some classes
+  - Started work on MapParser parsing & validation
+- **Day 2:** 
+  - Finished parsing of MapParser & simple validation in MapParser
+- **Weekend 1:**
+  - 
+- **Day 3:**
+  - Simple test to check Parser usability, added equals() in various classes for later testing
+  - added Schema Loader to MapParser + fixed usage of Schema Loader
+  - fix to loseMoisture()
+- **Day 4:**
+  - Started unit testing plants
+  - more validation for MapParser
+  - fixed handling of negative coords in MapParser (1st half)
+- **Day 5:**
+  - fixed handling of negative coords in MapParser (2nd half)
+  - creating json for systemtests
+  - fix for Cloud IDs
+  - more validation for MapParser & error messages
+- **Day 6:**
+  - (work pushed onto weekend)
+- **Day 7:**
+  - Fixed Plant Creation in MapParser
+  - systemtests for machine
+  - fix of sowing and executing correct sowing plans
+- **Weekend 2:**
+  - Unit & System tests for ScenarioParser Incidents
+- **Day 8:**
+  - Unit tests for Farm
+  - fix for BrokenMachine overriding -1 duration
+  - Unit & System tests for Cloud Creation
+  - fix in ScenarioParser
+- **Day 9:** 
+  - changed behaviour of neighbour function to get all necessary tiles for larger radii while keeping speed
+  - Scenario & FarmParser tests
+  - Systemtest for sowing Plan execution
+  - changed logging of harvestPenalty
+- **Day 10:**
+  - changed calculation of harvestPenalty to be correctly applied in the right tick
+  - fixed initalHarvestEstimate of plantations
+  - systemtests for BeeHappy & BrokenMachine
+  - fixes in BeeHappy
+  - fixed wrong pollination for 2 plants
+  - fixed pollination effeect being applied on potatoes
+- **Day 11:**
+  - fixed logging of missed actions if plant reaches moisture 0
+
 
 ---
 

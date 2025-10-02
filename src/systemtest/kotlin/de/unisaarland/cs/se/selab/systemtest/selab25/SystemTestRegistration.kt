@@ -87,6 +87,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.DoubleMissedWeed
 import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.FallowSowPlanPotato
 import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.InitializePlantationTick19Test
 import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.InitializePlantationTick21Test
+import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.PlantationTest1
 import de.unisaarland.cs.se.selab.systemtest.selab25.sowingPlanTest.SowingPlanTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.validationTests.IllegalFarmsteadCityExpansionTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.validationTests.IllegalMeadowCityExpansionTest
@@ -137,6 +138,7 @@ object SystemTestRegistration {
         testSuite.registerTest(IllegalMeadowCityExpansionTest())
         testSuite.registerTest(OneDoesNotSimplyWalkIntoMordor())
         testSuite.registerTest(DeadDeadTest())
+        testSuite.registerTest(PlantationTest1())
     }
 
     /**

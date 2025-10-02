@@ -38,8 +38,8 @@ class CloudHandler(private val cloudData: CloudData, private val board: BoardDat
             cloud.stepsRemaining -= 1
             if (rainIfPossible(cloud) || moveOneIfPossible(cloud)) { break }
         }
-        rainIfPossible(cloud)
         if (cloud in cloudData.clouds) {
+            rainIfPossible(cloud)
             if (cloud.duration == 1) {
                 cloudData.dissipate(cloud)
             } else {

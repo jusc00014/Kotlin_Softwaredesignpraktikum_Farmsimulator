@@ -5,13 +5,13 @@
 The following table summarizes the actual contributions of each group member, including deviations from the planned responsibilities. 
 The "implemented components" column should only include major contributions to the respective components (i.e., no bugfixes or small additions to existing components).
 
-| Member    | Implemented Components                                                                                 | Testing Contributions                                                            | Additional Work    |
-|-----------|--------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|--------------------|
-| Julia     | Farms Package, PlantType, Coordinate, TileType                                                         | FarmHandler, PathFinder, Drought, Sowing, Irrigating, Cloud Package, SystemTests | Dummy-classes      |
-| Christian | FarmParser, ScenarioParser, BoardHandler, Fertile, Field, Plantation, Incident Package                 | Plant, SystemTests                                                               |                    |
-| Julian    | Plant, PlantData, Main, ScenarioParser, BoardData, Simulator, PlantTile | Fertile, MapParser, ScenarioParser, SystemTests                    | Implementation Plan |
-| Leonard   | Logger, Cloud Package, CloudCreationIncident, CloudParsingValidation                                   | BoardDataUnit, SystemTestCloudDebug, SystemTestsIncidents                        |                 |
-| Laurenz   | MapParser, LogLevel, Direction, Tile                                                                   | Plant, ScenarioParser, FarmParser, MapParser, SystemTests                        |                 |
+| Member    | Implemented Components                                                                                 | Testing Contributions                                                           | Additional Work    |
+|-----------|--------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|--------------------|
+| Julia     | Farms Package, PlantType, Coordinate, TileType                                                         | FarmHandler, PathFinder, Drought, Sowing, Irrigating, Cloud Package, FarmParser | Dummy-classes      |
+| Christian | FarmParser, ScenarioParser, BoardHandler, Fertile, Field, Plantation, Incident Package                 | Plant, SystemTests                                                              |                    |
+| Julian    | Plant, PlantData, Main, ScenarioParser, BoardData, Simulator, PlantTile | Fertile, MapParser, ScenarioParser, SystemTests                                 | Implementation Plan |
+| Leonard   | Logger, Cloud Package, CloudCreationIncident, CloudParsingValidation                                   | BoardDataUnit, SystemTestCloudDebug, SystemTestsIncidents                       |                 |
+| Laurenz   | MapParser, LogLevel, Direction, Tile                                                                   | Plant, ScenarioParser, FarmParser, MapParser, SystemTests                       |                 |
 
 ---
 

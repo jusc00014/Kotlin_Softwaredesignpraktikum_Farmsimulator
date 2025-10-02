@@ -16,6 +16,8 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigHosti
 import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigHostiletakeOverFieldsTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigTestLowMoisture
 import de.unisaarland.cs.se.selab.systemtest.selab25.everythingTests.BigBigTestOctober1
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigation
+import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.AnotherIrrigationEstimate
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.CatchPlantLover
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.HarvestEstimateSowingEarlyTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.farmactiontests.MachineOrder
@@ -116,7 +118,8 @@ object SystemTestRegistration {
         testSuite.registerTest(DoubleMissedWeedIrrigateTest())
         testSuite.registerTest(DoubleMissedMowIrrigateTest())
         testSuite.registerTest(DoubleMissedHarvestIrrigateTest())
-        testSuite.registerTest(CatchPlantLover())
+        testSuite.registerTest(AnotherIrrigation())
+        testSuite.registerTest(AnotherIrrigationEstimate())
     }
 
     /**
@@ -225,5 +228,6 @@ object SystemTestRegistration {
         testSuite.registerTest(DoubleMissedTest())
         testSuite.registerTest(DoubleMissedWeedIrrigateTest())
         testSuite.registerTest(DoubleMissedMowIrrigateTest())
+        testSuite.registerTest(CatchPlantLover())
     }
 }

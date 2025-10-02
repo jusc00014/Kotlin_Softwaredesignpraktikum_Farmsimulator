@@ -1,0 +1,70 @@
+{
+  "tiles": [
+    {
+      "id": 1,
+      "coordinates": { "x": 0, "y": 6 },
+      "category": "FIELD",
+      "farm": 1,
+      "airflow": true,
+      "direction": "225",
+      "capacity": 350,
+      "possiblePlants": [ "OAT" ]
+    },
+    {
+      "id": 5,
+      "coordinates": { "x": 2, "y": 4 },
+      "category": "FIELD",
+      "farm": 1,
+      "airflow": true,
+      "direction": "225",
+      "capacity": 350,
+      "possiblePlants": [ "OAT" ]
+    },
+    {
+      "id": 3,
+      "coordinates": { "x": 0, "y": 0 },
+      "category": "FIELD",
+      "farm": 1,
+      "airflow": true,
+      "direction": "225",
+      "capacity": 350,
+      "possiblePlants": [ "OAT" ]
+    },
+    {
+      "id": 4,
+      "coordinates": { "x": 0, "y": 4 },
+      "category": "PLANTATION",
+      "farm": 1,
+      "airflow": true,
+      "direction": "225",
+      "capacity": 250,
+      "plant": "APPLE"
+    },
+    {
+      "id": 2,
+      "coordinates": { "x": 2, "y": 0 },
+      "category": "PLANTATION",
+      "farm": 1,
+      "airflow": true,
+      "direction": "225",
+      "capacity": 250,
+      "plant": "APPLE"
+    },
+    {
+      "id": 6,
+      "coordinates": { "x": 1, "y": 7 },
+      "category": "FARMSTEAD",
+      "farm": 1,
+      "airflow": true,
+      "direction": "45",
+      "shed": true
+    },
+    {
+      "id": 7,
+      "coordinates": { "x": 0, "y": 2 },
+      "category": "ROAD",
+      "airflow": true,
+      "direction": "225"
+    }
+  ]
+}

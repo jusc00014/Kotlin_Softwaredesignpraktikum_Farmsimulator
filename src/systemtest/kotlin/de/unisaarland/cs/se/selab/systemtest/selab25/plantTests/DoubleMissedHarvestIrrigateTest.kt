@@ -7,21 +7,21 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.utils.TestExtension
  * Tests missed irrigate death + harvesting
  */
 class DoubleMissedHarvestIrrigateTest : TestExtension() {
-    override val name = "DoubleMissedMowIrrigateTest"
+    override val name = "DoubleMissedHarvestIrrigateTest"
     override val description = "Tests if harvesting is considered as missed if the plant died of thirst."
 
     // Paths are relative from the `src/systemtest/resources` directory.
     override val farms = "plantTests/farmsBadApple.json"
     override val scenario = "plantTests/scenario.json"
-    override val map = "plantTests/mapDoubleMissedMowIrrigateAction.json"
+    override val map = "plantTests/mapDoubleMissedHarvestIrrigateAction.json"
 
     override val logLevel = "DEBUG"
     override val maxTicks = 1
-    override val startYearTick = 20
+    override val startYearTick = 15
 
     override suspend fun run() {
         skipUntilLogType(LogLevel.INFO, "Simulation Info: Tick 0")
-        assertCurrentLine("[INFO] Simulation Info: Tick 0 started at tick 20 within the year.")
+        assertCurrentLine("[INFO] Simulation Info: Tick 0 started at tick 15 within the year.")
         assertNextLine("[INFO] Soil Moisture: The soil moisture is below threshold in 0 FIELD and 1 PLANTATION tiles.")
         assertNextLine("[IMPORTANT] Farm: Farm 0 starts its actions.")
         assertNextLine(
@@ -29,9 +29,9 @@ class DoubleMissedHarvestIrrigateTest : TestExtension() {
         )
         assertNextLine("[IMPORTANT] Farm: Farm 0 finished its actions.")
         assertNextLine(
-            "[DEBUG] Harvest Estimate: Required actions on tile 1 were not performed: HARVESTING,IRRIGATING."
+            "[DEBUG] Harvest Estimate: Required actions on tile 1 were not performed: IRRIGATING,HARVESTING."
         )
-        assertNextLine("[INFO] Harvest Estimate: Harvest estimate on tile 1 changed to 0 g of GRAPE.")
+        assertNextLine("[INFO] Harvest Estimate: Harvest estimate on tile 1 changed to 0 g of CHERRY.")
         skipUntilLogType(LogLevel.IMPORTANT, "Simulation Statistics")
         assertCurrentLine("[IMPORTANT] Simulation Statistics: Farm 0 collected 0 g of harvest.")
         listOf("POTATO", "WHEAT", "OAT", "PUMPKIN", "APPLE", "GRAPE", "ALMOND", "CHERRY").forEach { plant ->

@@ -234,6 +234,11 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
 
         if (actionsNotPerformed.isNotEmpty() && !droughtHappened) Logger.actionNotPerformed(tileID, actionsNotPerformed)
 
+        if (moisture == 0) {
+            harvestEstimate = 0
+            harvestTime = yearTick
+        }
+
         if (oldHarvestEstimate != harvestEstimate) {
             Logger.changedHarvestEstimate(tileID, harvestEstimate, type)
 
@@ -248,13 +253,10 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
 
     private fun applyMoisturePenaltyIfNeeded(moistureFertile: Int, yearTick: Int): Boolean {
         val estimate = harvestEstimate
-        if (moistureFertile > 0) {
+        if (moistureFertile >= 0) {
             repeat((data.moistureMin - moistureFertile) / MOISTURE_LOW_DIVISOR) {
                 harvestEstimate = max(harvestEstimate - MOISTURE_LOW_PENALTY, 0)
             }
-        } else {
-            harvestEstimate = 0
-            if (harvestTime <= 0) harvestTime = yearTick
         }
         return estimate != harvestEstimate
     }
@@ -356,7 +358,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
      */
     fun cuttable(yearTick: Int): Boolean {
         return !cutPerformed &&
-            (oldHarvestEstimate ?: harvestEstimate) > 0 &&
+            harvestEstimate > 0 &&
             data.cuttingTimes.contains(yearTick)
     }
 
@@ -365,7 +367,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
      */
     fun mowable(yearTick: Int): Boolean {
         return actionPerformed != Action.MOWING &&
-            (oldHarvestEstimate ?: harvestEstimate) > 0 &&
+            harvestEstimate > 0 &&
             mowedFor <= 0 &&
             data.mowingTimes.contains(yearTick)
     }
@@ -376,7 +378,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
     fun weedable(yearTick: Int): Boolean {
         return actionPerformed != Action.WEEDING &&
             sowTime > 0 &&
-            (oldHarvestEstimate ?: harvestEstimate) > 0 &&
+            harvestEstimate > 0 &&
             data.weedingTimes.map { yearTickFix(it + sowTime) }
                 .filterNot { it == sowTime }
                 .contains(yearTick)

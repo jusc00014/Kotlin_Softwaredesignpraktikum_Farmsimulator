@@ -1,0 +1,27 @@
+{
+  "tiles": [
+    {
+      "id": 0,
+      "coordinates": {
+        "x": 1,
+        "y": 1
+      },
+      "category": "FARMSTEAD",
+      "airflow": false,
+      "farm": 0,
+      "shed": true
+    },
+    {
+      "id": 1,
+      "coordinates": {
+        "x": 0,
+        "y": 0
+      },
+      "category": "PLANTATION",
+      "airflow": false,
+      "farm": 0,
+      "capacity": 100,
+      "plant": "CHERRY"
+    }
+  ]
+}

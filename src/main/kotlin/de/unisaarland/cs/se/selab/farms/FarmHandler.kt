@@ -1,4 +1,5 @@
 package de.unisaarland.cs.se.selab.farms
+import com.sun.tools.javac.code.TypeAnnotationPosition.field
 import de.unisaarland.cs.se.selab.board.BoardData
 import de.unisaarland.cs.se.selab.board.Fertile
 import de.unisaarland.cs.se.selab.board.Field
@@ -498,28 +499,24 @@ class FarmHandler(
                 fields,
                 finishedFields,
                 machine,
-                currentLocation,
+                lastField,
                 farm,
                 board,
                 yearTick
             )
-            if (currentField != null) {
-                remainingTime -= machine.duration
+            if (currentField == null) {
+                currentField = nextField(
+                    Action.IRRIGATING,
+                    null,
+                    plantations,
+                    finishedFields,
+                    machine,
+                    lastField,
+                    farm,
+                    board,
+                    yearTick
+                )
             }
-        }
-        currentField = lastField
-        while (remainingTime >= 0 && currentField != null) {
-            currentField = nextField(
-                Action.IRRIGATING,
-                null,
-                plantations,
-                finishedFields,
-                machine,
-                currentLocation,
-                farm,
-                board,
-                yearTick
-            )
             remainingTime -= machine.duration
         }
         Logger.machineFinished(machine.id, machine.location.id)

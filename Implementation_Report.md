@@ -136,8 +136,8 @@ For each student, this section should provide a detailed day-by-day timeline of 
 - **Weekend:** New SystemTests & MutantRegis/Finding & ImplementationReport
 - **Monday:** Incident Rework & SomeFixes & SystemTests
 - **Tuesday:** AnimalAttack / Drought SyTests & Minor Changes
-- **Wednesday:** TestFixes & BeeHappyTesting & BrokenMachine + Mutants
-- **Thursday:**
+- **Wednesday:** TestFixes & BeeHappyTesting & BrokenMachine + Mutants & IncidentUnit & NightlyMutantHuntMachines & PathfinderFix
+- **Thursday:** MutantHuntOngoing
 
 ### Laurenz
 
@@ -205,7 +205,7 @@ For each student, this section should provide a detailed day-by-day timeline of 
 - ChatGPT (GPT-5): Research on how things work
 
 **Leonard:**
-- ChatGPT (GPT-5): Research on how things work, Debugging, test statement generation
+- ChatGPT (GPT-4): function lookups, Debugging, test statement generation
 
 **Laurenz:**
 - Did not use generative AI in the implementation phase (neither for code-completion, rewriting code, nor testing)

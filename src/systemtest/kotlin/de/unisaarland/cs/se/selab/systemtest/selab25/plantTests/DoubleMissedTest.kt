@@ -28,7 +28,7 @@ class DoubleMissedTest : TestExtension() {
             "[DEBUG] Farm: Farm 0 has the following active sowing plans it intends to pursue in this tick: ."
         )
         assertNextLine("[IMPORTANT] Farm: Farm 0 finished its actions.")
-        assertNextLine("[DEBUG] Harvest Estimate: Required actions on tile 1 were not performed: IRRIGATING.")
+        assertNextLine("[DEBUG] Harvest Estimate: Required actions on tile 1 were not performed: CUTTING,IRRIGATING.")
         assertNextLine("[INFO] Harvest Estimate: Harvest estimate on tile 1 changed to 0 g of GRAPE.")
         skipUntilLogType(LogLevel.IMPORTANT, "Simulation Statistics")
         assertCurrentLine("[IMPORTANT] Simulation Statistics: Farm 0 collected 0 g of harvest.")

@@ -387,7 +387,7 @@ class Plant(var type: PlantType, var data: PlantData, yearTick: Int) {
 
     private fun harvest(yearTick: Int): Int {
         harvestTime = yearTick
-        sowTime = SOW_TIME_NO_PLANT
+        if (data.tileType == PlantTile.FIELD) sowTime = SOW_TIME_NO_PLANT
         this.oldHarvestEstimate = null
         val harvestEstimateOld = harvestEstimate
         harvestEstimate = 0

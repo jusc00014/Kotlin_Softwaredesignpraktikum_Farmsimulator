@@ -129,8 +129,6 @@ object SystemTestRegistration {
         testSuite.registerTest(AnotherIrrigationTrial2m2())
         testSuite.registerTest(AnotherIrrigationTrial3m1())
         testSuite.registerTest(AnotherIrrigationTrial3noone())
-        testSuite.registerTest(MachineTest4())
-        testSuite.registerTest(MachineTest5())
     }
 
     /**
@@ -235,5 +233,7 @@ object SystemTestRegistration {
         testSuite.registerTest(HarvestingTypeTestEstimate())
         testSuite.registerTest(AnotherIrrigationTrial3())
         testSuite.registerTest(DoubleMissedHarvestIrrigateTest())
+        testSuite.registerTest(MachineTest4())
+        testSuite.registerTest(MachineTest5())
     }
 }

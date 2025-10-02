@@ -115,10 +115,6 @@ object SystemTestRegistration {
         testSuite.registerTest(SowingEarlyTest())
         testSuite.registerTest(BigBigTestLowMoisture())
         // region PlantationLateHarvestTests
-        testSuite.registerTest(AppleLateHarvestTest())
-        testSuite.registerTest(AlmondLateHarvestTest())
-        testSuite.registerTest(CherryLateHarvestTest())
-        testSuite.registerTest(GrapeLateHarvestTest())
         // endregion PlantationLateHarvestTests
         testSuite.registerTest(MachineTest2())
         testSuite.registerTest(MachineTest3())
@@ -249,5 +245,9 @@ object SystemTestRegistration {
         testSuite.registerTest(MachineTest5())
         testSuite.registerTest(MachineTest6())
         testSuite.registerTest(MachineTest7())
+        testSuite.registerTest(AppleLateHarvestTest())
+        testSuite.registerTest(AlmondLateHarvestTest())
+        testSuite.registerTest(CherryLateHarvestTest())
+        testSuite.registerTest(GrapeLateHarvestTest())
     }
 }

@@ -84,6 +84,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.FallowSowPlanPot
 import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.InitializePlantationTick19Test
 import de.unisaarland.cs.se.selab.systemtest.selab25.plantTests.InitializePlantationTick21Test
 import de.unisaarland.cs.se.selab.systemtest.selab25.sowingPlanTest.SowingPlanTest
+import de.unisaarland.cs.se.selab.systemtest.selab25.validationTests.IllegalPlantationCityExpansionTest
 
 /**
  * Used for test registration
@@ -129,6 +130,7 @@ object SystemTestRegistration {
         testSuite.registerTest(AnotherIrrigationTrial2m2())
         testSuite.registerTest(AnotherIrrigationTrial3m1())
         testSuite.registerTest(AnotherIrrigationTrial3noone())
+        testSuite.registerTest(IllegalPlantationCityExpansionTest())
     }
 
     /**

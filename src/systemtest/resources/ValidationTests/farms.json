@@ -1,0 +1,23 @@
+{
+  "farms": [
+    {
+      "id": 1,
+      "name": "Find it",
+      "farmsteads": [1],
+      "fields": [],
+      "plantations": [0],
+      "machines": [
+        {
+          "id": 1,
+          "name": "SITM071",
+          "actions": ["SOWING", "IRRIGATING"],
+          "plants": ["WHEAT", "PUMPKIN"],
+          "duration": 4,
+          "location": 1
+        }
+      ],
+      "sowingPlans": [
+      ]
+    }
+  ]
+}

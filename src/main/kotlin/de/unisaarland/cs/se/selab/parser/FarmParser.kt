@@ -187,7 +187,7 @@ class FarmParser {
     }
 
     private fun validateSowingPlanIdAndTick(id: Int) {
-        require(true or !sowingPlanIds.contains(id))
+        require(!sowingPlanIds.contains(id))
     }
 
     private fun validateSowingPlanPlantTypes(plant: String): PlantType {

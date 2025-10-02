@@ -21,5 +21,9 @@ class MachineTest5 : TestExtension() {
     override suspend fun run() {
         skipUntilLogType(LogLevel.IMPORTANT, "Farm:")
         assertCurrentLine("[IMPORTANT] Farm: Farm 0 starts its actions.")
+        assertNextLine(
+            "[DEBUG] Farm: Farm 0 has the following active sowing plans it intends to pursue in this tick: ."
+        )
+        assertNextLine("[IMPORTANT] Farm: Farm 0 finished its actions.")
     }
 }

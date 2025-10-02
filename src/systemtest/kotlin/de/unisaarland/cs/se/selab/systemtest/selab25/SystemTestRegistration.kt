@@ -68,6 +68,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.incidentTests.WeirdBeeHappy
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineMutantsHunt.MachineTest2
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineMutantsHunt.MachineTest3
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineMutantsHunt.MachineTest3x2
+import de.unisaarland.cs.se.selab.systemtest.selab25.machineMutantsHunt.MachineTest4
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineMutantsHunt.UltimateMachineTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.MachineTravelTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.SisyphusMachineFarFromHomeTest
@@ -127,6 +128,7 @@ object SystemTestRegistration {
         testSuite.registerTest(AnotherIrrigationTrial2m2())
         testSuite.registerTest(AnotherIrrigationTrial3m1())
         testSuite.registerTest(AnotherIrrigationTrial3noone())
+        testSuite.registerTest(MachineTest4())
     }
 
     /**

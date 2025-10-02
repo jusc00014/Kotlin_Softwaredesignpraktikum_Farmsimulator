@@ -25,6 +25,15 @@
       "airflow": false,
       "capacity": 1000,
       "possiblePlants": ["WHEAT", "POTATO", "OAT", "PUMPKIN"]
+    },
+    {
+      "id": 3,
+      "coordinates": { "x": 0, "y": 2 },
+      "category": "PLANTATION",
+      "farm": 0,
+      "airflow": false,
+      "capacity": 2500,
+      "plant": "APPLE"
     }
   ]
 }

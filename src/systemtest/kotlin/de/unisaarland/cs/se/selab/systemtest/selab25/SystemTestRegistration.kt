@@ -72,6 +72,7 @@ import de.unisaarland.cs.se.selab.systemtest.selab25.machineMutantsHunt.MachineT
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineMutantsHunt.MachineTest4
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineMutantsHunt.MachineTest5
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineMutantsHunt.MachineTest6
+import de.unisaarland.cs.se.selab.systemtest.selab25.machineMutantsHunt.MachineTest7
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineMutantsHunt.UltimateMachineTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.MachineTravelTest
 import de.unisaarland.cs.se.selab.systemtest.selab25.machineTravelTest.SisyphusMachineFarFromHomeTest
@@ -139,6 +140,7 @@ object SystemTestRegistration {
         testSuite.registerTest(IllegalMeadowCityExpansionTest())
         testSuite.registerTest(IrrigationContinuationTest())
         testSuite.registerTest(OneDoesNotSimplyWalkIntoMordor())
+        testSuite.registerTest(MachineTest7())
     }
 
     /**

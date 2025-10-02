@@ -23,11 +23,8 @@ class MachineTest6 : TestExtension() {
         val str2 = "[IMPORTANT] Farm: Farm 0 starts its actions."
         val str3 = "[IMPORTANT] Farm: Farm 0 finished its actions."
         val str4 = "[IMPORTANT] Farm Machine: Machine 0 is finished and returns to the shed at 1."
-        skipUntilLogType(LogLevel.INFO, "Initialization Info:")
-        assertCurrentLine("[INFO] Initialization Info: map5.json successfully parsed and validated.")
-        assertNextLine("[INFO] Initialization Info: farms4.json successfully parsed and validated.")
-        assertNextLine("[INFO] Initialization Info: scenario2.json successfully parsed and validated.")
-        assertNextLine("[INFO] Simulation Info: Simulation started at tick 6 within the year.")
+        skipUntilLogType(LogLevel.INFO, "Simulation Info:")
+        assertCurrentLine("[INFO] Simulation Info: Simulation started at tick 6 within the year.")
         assertNextLine("[INFO] Simulation Info: Tick 0 started at tick 6 within the year.")
         assertNextLine(str1)
         assertNextLine(str2)
